@@ -14,7 +14,7 @@
 		0F2D6CEE2B04D628007F1748 /* CaveTickers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CEC2B04D628007F1748 /* CaveTickers.xcdatamodeld */; };
 		0F2D6CF02B04D62A007F1748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */; };
 		0F2D6CF32B04D62A007F1748 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */; };
-		0F2D6CFB2B04D6E3007F1748 /* .gitignore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F2D6CFA2B04D6E3007F1748 /* .gitignore.xib */; };
+		F674DDC66D8E76B1C92333B5 /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,9 @@
 		0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F2D6CF22B04D62A007F1748 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F2D6CF42B04D62A007F1748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F2D6CFA2B04D6E3007F1748 /* .gitignore.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = .gitignore.xib; sourceTree = "<group>"; };
+		5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
+		B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F674DDC66D8E76B1C92333B5 /* Pods_CaveTickers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,9 +47,10 @@
 		0F2D6CD72B04D628007F1748 = {
 			isa = PBXGroup;
 			children = (
-				0F2D6CFA2B04D6E3007F1748 /* .gitignore.xib */,
 				0F2D6CE22B04D628007F1748 /* CaveTickers */,
 				0F2D6CE12B04D628007F1748 /* Products */,
+				32FD67496E9A8DB3416B2E3C /* Pods */,
+				53FC77CC58AE285E6F963818 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +77,23 @@
 			path = CaveTickers;
 			sourceTree = "<group>";
 		};
+		32FD67496E9A8DB3416B2E3C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */,
+				D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		53FC77CC58AE285E6F963818 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F2D6CF72B04D62A007F1748 /* Build configuration list for PBXNativeTarget "CaveTickers" */;
 			buildPhases = (
+				ECFA6D6E9DF097AF6B2AADF8 /* [CP] Check Pods Manifest.lock */,
 				0F2D6CDC2B04D628007F1748 /* Sources */,
 				0F2D6CDD2B04D628007F1748 /* Frameworks */,
 				0F2D6CDE2B04D628007F1748 /* Resources */,
+				0F2D6CFC2B04DBC7007F1748 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -132,13 +155,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F2D6CF32B04D62A007F1748 /* LaunchScreen.storyboard in Resources */,
-				0F2D6CFB2B04D6E3007F1748 /* .gitignore.xib in Resources */,
 				0F2D6CF02B04D62A007F1748 /* Assets.xcassets in Resources */,
 				0F2D6CEB2B04D628007F1748 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F2D6CFC2B04DBC7007F1748 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		ECFA6D6E9DF097AF6B2AADF8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CaveTickers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0F2D6CDC2B04D628007F1748 /* Sources */ = {
@@ -211,7 +276,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -274,7 +339,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -295,11 +360,13 @@
 		};
 		0F2D6CF82B04D62A007F1748 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -307,6 +374,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -322,11 +390,13 @@
 		};
 		0F2D6CF92B04D62A007F1748 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -334,6 +404,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
