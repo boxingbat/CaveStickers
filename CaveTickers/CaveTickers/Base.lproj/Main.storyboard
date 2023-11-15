@@ -12,7 +12,7 @@
         <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CryptoViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,7 @@
         <!--Item 2-->
         <scene sceneID="JvV-WT-Bic">
             <objects>
-                <viewController id="oSU-4h-R3P" sceneMemberID="viewController">
+                <viewController id="oSU-4h-R3P" customClass="SearchViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ynG-7N-qFv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@
         <!--Item-->
         <scene sceneID="Z43-bW-xoZ">
             <objects>
-                <viewController id="PId-hO-BSs" sceneMemberID="viewController">
+                <viewController id="PId-hO-BSs" customClass="NewsViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qtq-hR-khq">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -63,7 +63,7 @@
         <!--Item-->
         <scene sceneID="t4Y-8x-AzJ">
             <objects>
-                <viewController id="Bha-rR-47C" sceneMemberID="viewController">
+                <viewController id="Bha-rR-47C" customClass="PortfolioViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wi8-zw-6Wu">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +80,7 @@
         <!--Item 1-->
         <scene sceneID="KCO-6z-bTb">
             <objects>
-                <viewController id="91I-tB-Ot2" sceneMemberID="viewController">
+                <viewController id="91I-tB-Ot2" customClass="HomeViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ai8-Jf-xCj">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
