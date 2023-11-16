@@ -10,10 +10,11 @@ import Foundation
 final class PersistenceManager {
     static let shared = PersistenceManager()
 
-    private let userDefault: UserDefaults = .standard
+    private let userDefaults: UserDefaults = .standard
 
     private struct Constants {
-
+        static let onboardedKey = "hasOnboarded"
+        static let watchListKey = "watchlist"
     }
 
     private init () {}
@@ -21,7 +22,11 @@ final class PersistenceManager {
     // MARK: - Public
 
     public var watchlist: [String] {
-        return[]
+        if !hasOnBoarded {
+            userDefaults.set(true, forKey: Constants.onboardedKey)
+            setupDefaults()
+        }
+        return userDefaults.stringArray(forKey: Constants.watchListKey) ?? []
     }
 
     public func addToWatchList() {
@@ -35,6 +40,22 @@ final class PersistenceManager {
     // MARK: - Pravite
 
     private var hasOnBoarded: Bool {
-        return false
+        return userDefaults.bool(forKey: Constants.onboardedKey)
+    }
+
+    private func setupDefaults () {
+        let map: [String: String] = [
+            "APPL": "Apple Inc",
+            "GOOG": "Alphabet",
+            "AMZN": "Amazon.com Inc",
+            "MSFT": "Microsoft Corporation",
+            "NVDA": "Nvdia Inc",
+            "TSLA": "Tesla Inc"]
+        let symbols = map.keys.map { $0 }
+        userDefaults.set(symbols, forKey: Constants.watchListKey)
+
+        for (symbol, name)in map {
+            userDefaults.set(name, forKey: symbol)
+        }
     }
 }

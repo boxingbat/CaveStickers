@@ -8,13 +8,24 @@
 import UIKit
 
 class WatchListViewController: UIViewController {
+    
 
     private var searchTimer: Timer?
+    ///Model
+    private var watchListMap:[String: [String]] = [:]
+    ///ViewModel
+    private var viewModels: [String: [String]] = [:]
+    private var tableView : UITableView = {
+        let tableView = UITableView()
+
+        return tableView
+    }()
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSearchController()
+        setupTableView()
         setupTitleView()
     }
 
@@ -38,6 +49,18 @@ class WatchListViewController: UIViewController {
         titleView.addSubview(label)
 
         navigationItem.titleView = titleView
+    }
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    private func setupWatchListData() {
+        let symbols = PersistenceManager.shared.watchlist
+        for symbol in symbols {
+            watchListMap[symbol] = ["some String"]
+        }
+        tableView.reloadData()
     }
 
     private func setUpSearchController() {
@@ -81,7 +104,22 @@ extension WatchListViewController: UISearchResultsUpdating {
 
 extension WatchListViewController: SearchTableViewDelegate {
     func searchViewControllerDidSelect(searchResult: SearchResult) {
-        // present detail
-        print("Did Select: \(searchResult.displaySymbol)")
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+        let vc = DetailViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        vc.title = searchResult.description
+        present(navVC, animated: true)
+    }
+}
+
+extension WatchListViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return watchListMap.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Open Detail
     }
 }
