@@ -15,6 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        APIManager.shared.search(query: "Apple", completion: { result in
+            switch result {
+            case .success(let response):
+                print(response.result)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        )
         return true
     }
 

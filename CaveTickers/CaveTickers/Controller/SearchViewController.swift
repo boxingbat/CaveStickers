@@ -7,24 +7,68 @@
 
 import UIKit
 
+protocol SearchTableViewDelegate: AnyObject {
+    func searchViewControllerDidSelect(searchResult: SearchResult)
+}
+
 class SearchViewController: UIViewController {
+
+    weak var delegate: SearchTableViewDelegate?
+
+    private var results: [SearchResult] = []
+
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
+        tableView.isHidden = true
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-
-        // Do any additional setup after loading the view.
+        setUpTableView()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
-    */
 
+    private func setUpTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    public func update(with result: [SearchResult]){
+        self.results = result
+        tableView.isHidden = result.isEmpty
+        tableView.reloadData()
+    }
+
+}
+
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return results.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath)
+
+        let data = results[indexPath.row]
+
+        cell.textLabel?.text = data.displaySymbol
+        cell.detailTextLabel?.text = data.description
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let data = results[indexPath.row]
+        delegate?.searchViewControllerDidSelect(searchResult: data)
+    }
 }
