@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE32B04D628007F1748 /* AppDelegate.swift */; };
 		0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */; };
-		0F2D6CE82B04D628007F1748 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE72B04D628007F1748 /* HomeViewController.swift */; };
+		0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */; };
 		0F2D6CEB2B04D628007F1748 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE92B04D628007F1748 /* Main.storyboard */; };
 		0F2D6CEE2B04D628007F1748 /* CaveTickers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CEC2B04D628007F1748 /* CaveTickers.xcdatamodeld */; };
 		0F2D6CF02B04D62A007F1748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */; };
@@ -18,6 +18,10 @@
 		0F2D6D002B04F17E007F1748 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CFF2B04F17E007F1748 /* NewsViewController.swift */; };
 		0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D012B04F1D6007F1748 /* PortfolioViewController.swift */; };
 		0F2D6D042B04F218007F1748 /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D032B04F218007F1748 /* CryptoViewController.swift */; };
+		0F2D6D0A2B05EC78007F1748 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D092B05EC78007F1748 /* DetailViewController.swift */; };
+		0F2D6D0C2B05ED09007F1748 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D0B2B05ED09007F1748 /* APIManager.swift */; };
+		0F2D6D0E2B05ED40007F1748 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D0D2B05ED40007F1748 /* PersistenceManager.swift */; };
+		0F2D6D102B05ED64007F1748 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D0F2B05ED64007F1748 /* EventManager.swift */; };
 		F674DDC66D8E76B1C92333B5 /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +29,7 @@
 		0F2D6CE02B04D628007F1748 /* CaveTickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveTickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2D6CE32B04D628007F1748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0F2D6CE72B04D628007F1748 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
 		0F2D6CEA2B04D628007F1748 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F2D6CED2B04D628007F1748 /* CaveTickers.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CaveTickers.xcdatamodel; sourceTree = "<group>"; };
 		0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -35,6 +39,10 @@
 		0F2D6CFF2B04F17E007F1748 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		0F2D6D012B04F1D6007F1748 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 		0F2D6D032B04F218007F1748 /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
+		0F2D6D092B05EC78007F1748 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0F2D6D0B2B05ED09007F1748 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		0F2D6D0D2B05ED40007F1748 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		0F2D6D0F2B05ED64007F1748 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
 		B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,20 +81,56 @@
 		0F2D6CE22B04D628007F1748 /* CaveTickers */ = {
 			isa = PBXGroup;
 			children = (
+				0F2D6D082B05EAC4007F1748 /* Models */,
+				0F2D6D072B05EAAC007F1748 /* Controller */,
+				0F2D6D062B05EA6C007F1748 /* Managers */,
+				0F2D6D052B05EA56007F1748 /* Views */,
 				0F2D6CE32B04D628007F1748 /* AppDelegate.swift */,
 				0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */,
-				0F2D6CE72B04D628007F1748 /* HomeViewController.swift */,
-				0F2D6CFD2B04F15C007F1748 /* SearchViewController.swift */,
-				0F2D6CFF2B04F17E007F1748 /* NewsViewController.swift */,
-				0F2D6D012B04F1D6007F1748 /* PortfolioViewController.swift */,
-				0F2D6D032B04F218007F1748 /* CryptoViewController.swift */,
-				0F2D6CE92B04D628007F1748 /* Main.storyboard */,
 				0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */,
-				0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */,
 				0F2D6CF42B04D62A007F1748 /* Info.plist */,
 				0F2D6CEC2B04D628007F1748 /* CaveTickers.xcdatamodeld */,
 			);
 			path = CaveTickers;
+			sourceTree = "<group>";
+		};
+		0F2D6D052B05EA56007F1748 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6CE92B04D628007F1748 /* Main.storyboard */,
+				0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0F2D6D062B05EA6C007F1748 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6D0B2B05ED09007F1748 /* APIManager.swift */,
+				0F2D6D0D2B05ED40007F1748 /* PersistenceManager.swift */,
+				0F2D6D0F2B05ED64007F1748 /* EventManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		0F2D6D072B05EAAC007F1748 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */,
+				0F2D6CFD2B04F15C007F1748 /* SearchViewController.swift */,
+				0F2D6CFF2B04F17E007F1748 /* NewsViewController.swift */,
+				0F2D6D012B04F1D6007F1748 /* PortfolioViewController.swift */,
+				0F2D6D032B04F218007F1748 /* CryptoViewController.swift */,
+				0F2D6D092B05EC78007F1748 /* DetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0F2D6D082B05EAC4007F1748 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		32FD67496E9A8DB3416B2E3C /* Pods */ = {
@@ -222,9 +266,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F2D6D0A2B05EC78007F1748 /* DetailViewController.swift in Sources */,
 				0F2D6CFE2B04F15C007F1748 /* SearchViewController.swift in Sources */,
+				0F2D6D0E2B05ED40007F1748 /* PersistenceManager.swift in Sources */,
+				0F2D6D0C2B05ED09007F1748 /* APIManager.swift in Sources */,
 				0F2D6CEE2B04D628007F1748 /* CaveTickers.xcdatamodeld in Sources */,
-				0F2D6CE82B04D628007F1748 /* HomeViewController.swift in Sources */,
+				0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */,
+				0F2D6D102B05ED64007F1748 /* EventManager.swift in Sources */,
 				0F2D6D002B04F17E007F1748 /* NewsViewController.swift in Sources */,
 				0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */,
 				0F2D6D042B04F218007F1748 /* CryptoViewController.swift in Sources */,
