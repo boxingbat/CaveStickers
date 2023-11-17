@@ -9,15 +9,16 @@ import UIKit
 
 class WatchListViewController: UIViewController {
     
+    static var maxChangeWidth: CGFloat = 0
 
     private var searchTimer: Timer?
     ///Model
-    private var watchListMap:[String: [String]] = [:]
+    private var watchListMap:[String: [CandleStick]] = [:]
     ///ViewModel
-    private var viewModels: [String: [String]] = [:]
+    private var viewModels: [WatchListTableViewCell.ViewModel] = []
     private var tableView : UITableView = {
         let tableView = UITableView()
-
+        tableView.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
         return tableView
     }()
 
@@ -27,6 +28,12 @@ class WatchListViewController: UIViewController {
         setUpSearchController()
         setupTableView()
         setupTitleView()
+        fetchWatchlistData()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
 
     //MARK: - Private
@@ -50,18 +57,89 @@ class WatchListViewController: UIViewController {
 
         navigationItem.titleView = titleView
     }
+
+    private func fetchWatchlistData() {
+        let symbols = PersistenceManager.shared.watchlist
+
+        let group = DispatchGroup()
+
+        for symbol in symbols {
+            group.enter()
+
+            APIManager.shared.marketData(for: symbol) { [weak self] result in
+                defer {
+                    group.leave()
+                }
+
+                switch result {
+                case .success(let data):
+                    let candleStickers = data.candleSticks
+                    self?.watchListMap[symbol] = candleStickers
+                case .failure(let error):
+                    print(error)
+                }
+
+            }
+        }
+        group.notify(queue: .main) {[weak self] in
+            self?.craeteViewModels()
+            self?.tableView.reloadData()
+        }
+    }
+
+    private func craeteViewModels(){
+        var viewModels = [WatchListTableViewCell.ViewModel]()
+        for (symbol, candleSticks) in watchListMap {
+            let changePersentage = getChangePercentage(symbol: symbol, data: candleSticks)
+            viewModels.append(
+                .init(symbol: symbol,
+                      price: getLatestClosingPrice(from: candleSticks),
+                      changeColor: changePersentage < 0 ? .systemRed : .systemGreen,
+                      companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
+                      changePercentage: String.percentage(from: changePersentage),
+                      chartViewModel: .init(data: candleSticks.reversed().map {$0.close}, ShowLegend: false, ShowAxis: false)
+                     )
+            )
+
+        }
+
+//        print("\n\n\(viewModels)\n\n")
+        self.viewModels = viewModels
+    }
+
+    private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
+        let latestDate = data[0].date
+        guard let latestClose = data.first?.close,
+              let priorClose = data.first(where: {
+                  !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
+              })?.close else {
+            return 0
+        }
+        print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
+
+        let differnece = 1 - priorClose/latestClose
+//        print("\(symbol): \(differnece)%")
+        return differnece
+    }
+
+    private func getLatestClosingPrice(from data: [CandleStick]) -> String {
+        guard let closingPrice = data.first?.close else {
+            return ""
+        }
+        return String.formatted(number: closingPrice)
+    }
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
     }
-    private func setupWatchListData() {
-        let symbols = PersistenceManager.shared.watchlist
-        for symbol in symbols {
-            watchListMap[symbol] = ["some String"]
-        }
-        tableView.reloadData()
-    }
+//    private func setupWatchListData() {
+//        let symbols = PersistenceManager.shared.watchlist
+//        for symbol in symbols {
+//            watchListMap[symbol] = ["some String"]
+//        }
+//        tableView.reloadData()
+//    }
 
     private func setUpSearchController() {
         let resultVC = SearchViewController()
@@ -117,9 +195,23 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource{
         return watchListMap.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else {
+            fatalError()
+        }
+        cell.delegate = self
+        cell.configure(with: viewModels[indexPath.row])
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  WatchListTableViewCell.preferredHight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Open Detail
+    }
+}
+
+extension WatchListViewController: WatchListTableViewCellDelegate {
+    func didUpdatedMaxWith() {
+            tableView.reloadData()
     }
 }

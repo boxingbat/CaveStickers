@@ -12,9 +12,8 @@ final class APIManager {
 
     private struct Constants {
         static let apiKey = "clau1chr01qi1291dli0clau1chr01qi1291dlig"
-        static let sandboxApiKey = ""
         static let baseURL = "https://finnhub.io/api/v1/"
-
+        static let day: TimeInterval = 3600 * 24
     }
 
     // MARK: - Public
@@ -27,12 +26,36 @@ final class APIManager {
                 completion: completion)
     }
 
+    public func marketData(
+        for symbol: String,
+        numberOfDays: TimeInterval = 7,
+        completion: @escaping (Result<MarketDataRespone, Error>) -> Void
+    ) {
+        let today = Date().addingTimeInterval(-(Constants.day))
+        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
+        request(
+            url: url(
+                for: .marketData,
+                queryParams: [
+                    "symbol": symbol,
+                    "resolution": "1",
+                    "from": "\(Int(prior.timeIntervalSince1970))",
+                    "to": "\(Int(today.timeIntervalSince1970))"
+                ]
+            ),
+            expecting: MarketDataRespone.self,
+            completion: completion
+        )
+    }
+
+
 
     // MARK: - Private
     private init () {}
 
     private enum Endpoint: String {
         case search
+        case marketData = "stock/candle"
     }
 
     private enum APIError: Error {
