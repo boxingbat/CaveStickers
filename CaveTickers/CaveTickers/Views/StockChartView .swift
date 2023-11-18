@@ -11,12 +11,13 @@ class StockChartView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+//        addSubview(chartView)
     }
 
     struct ViewModel {
         let data: [Double]
-        let ShowLegend: Bool
-        let ShowAxis: Bool
+        let showLegend: Bool
+        let showAxis: Bool
     }
 
     required init?(coder: NSCoder) {
