@@ -27,12 +27,14 @@ class AddPortfolioTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
         configureWithData()
+        selectionStyle = .none
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupCell()
         configureWithData()
+
     }
 
     private func setupCell() {
@@ -108,8 +110,12 @@ class AddPortfolioTableViewCell: UITableViewCell {
         annualReturnLabel.font = UIFont.systemFont(ofSize: 16)
         initialAmountLabel.font = UIFont.systemFont(ofSize: 12)
         initialAmountTextField.font = UIFont.systemFont(ofSize: 24)
+        initialAmountTextField.addDoneButton()
+        initialAmountTextField.keyboardType = .numberPad
         MonthlyInputLabel.font = UIFont.systemFont(ofSize: 12)
         MonthlyInputTextField.font = UIFont.systemFont(ofSize: 24)
+        MonthlyInputTextField.addDoneButton()
+        MonthlyInputTextField.keyboardType = .numberPad
         TimeLineLabel.font = UIFont.systemFont(ofSize: 12)
         TimeLineInputTextField.font = UIFont.systemFont(ofSize: 24)
     }
@@ -122,4 +128,6 @@ class AddPortfolioTableViewCell: UITableViewCell {
         var annualReturn: Double
     }
 }
+
+
 

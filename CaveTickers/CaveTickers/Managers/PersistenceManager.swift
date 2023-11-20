@@ -15,6 +15,7 @@ final class PersistenceManager {
     private struct Constants {
         static let onboardedKey = "hasOnboarded"
         static let watchListKey = "watchlist"
+        static let portolioKey = "Portfolio"
     }
 
     private init () {}
@@ -28,11 +29,9 @@ final class PersistenceManager {
         }
         return userDefaults.stringArray(forKey: Constants.watchListKey) ?? []
     }
-
     public func watchlistContains(symbol: String) -> Bool {
         return watchlist.contains(symbol)
     }
-
     public func addToWatchList(symbol: String, companyName: String) {
         var current = watchlist
         if !current.contains(symbol) {
@@ -40,10 +39,11 @@ final class PersistenceManager {
             userDefaults.set(current, forKey: Constants.watchListKey)
             userDefaults.set(companyName, forKey: symbol)
             NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
+            if let watchlist = UserDefaults.standard.array(forKey: "watchlist") {
+                print("watchlist = \(watchlist)")
+            }
         }
     }
-
-
     public func removeFromWatchList(symbol: String) {
         var newList = [String]()
 
@@ -53,7 +53,9 @@ final class PersistenceManager {
         }
         userDefaults.set(newList, forKey:  Constants.watchListKey)
         print("remove\(symbol)")
-
+        if let watchlist = UserDefaults.standard.array(forKey: "watchlist") {
+            print("watchlist = \(watchlist)")
+        }
     }
 
     // MARK: - Pravite

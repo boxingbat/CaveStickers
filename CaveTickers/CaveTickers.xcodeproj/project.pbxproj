@@ -36,6 +36,7 @@
 		0F6CD1E92B09F7EC0026DE51 /* AddToPortfolioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1E82B09F7EC0026DE51 /* AddToPortfolioController.swift */; };
 		0F6CD1EB2B0A02000026DE51 /* AddPortfolioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1EA2B0A02000026DE51 /* AddPortfolioTableViewCell.swift */; };
 		0F6CD1ED2B0B061C0026DE51 /* PortfolioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1EC2B0B061C0026DE51 /* PortfolioData.swift */; };
+		0F6CD1EF2B0B36CC0026DE51 /* DateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1EE2B0B36CC0026DE51 /* DateTableViewController.swift */; };
 		F674DDC66D8E76B1C92333B5 /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		0F6CD1E82B09F7EC0026DE51 /* AddToPortfolioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToPortfolioController.swift; sourceTree = "<group>"; };
 		0F6CD1EA2B0A02000026DE51 /* AddPortfolioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPortfolioTableViewCell.swift; sourceTree = "<group>"; };
 		0F6CD1EC2B0B061C0026DE51 /* PortfolioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioData.swift; sourceTree = "<group>"; };
+		0F6CD1EE2B0B36CC0026DE51 /* DateTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTableViewController.swift; sourceTree = "<group>"; };
 		5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
 		B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		0F2D6CE22B04D628007F1748 /* CaveTickers */ = {
 			isa = PBXGroup;
 			children = (
+				0F6CD1F02B0B45CF0026DE51 /* Extension */,
 				0F2D6D112B060388007F1748 /* Others */,
 				0F2D6D082B05EAC4007F1748 /* Models */,
 				0F2D6D072B05EAAC007F1748 /* Controller */,
@@ -158,6 +161,7 @@
 				0F2D6D032B04F218007F1748 /* CryptoViewController.swift */,
 				0F2D6D092B05EC78007F1748 /* DetailViewController.swift */,
 				0F6CD1E82B09F7EC0026DE51 /* AddToPortfolioController.swift */,
+				0F6CD1EE2B0B36CC0026DE51 /* DateTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -178,9 +182,16 @@
 			children = (
 				0F2D6CE32B04D628007F1748 /* AppDelegate.swift */,
 				0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */,
-				0F2D6D122B0603F0007F1748 /* Extension.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		0F6CD1F02B0B45CF0026DE51 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6D122B0603F0007F1748 /* Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		32FD67496E9A8DB3416B2E3C /* Pods */ = {
@@ -338,6 +349,7 @@
 				0F2D6CFE2B04F15C007F1748 /* SearchViewController.swift in Sources */,
 				0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */,
 				0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */,
+				0F6CD1EF2B0B36CC0026DE51 /* DateTableViewController.swift in Sources */,
 				0F6CD1E72B09EAEB0026DE51 /* PortfolioTableViewCell.swift in Sources */,
 				0F2D6D0E2B05ED40007F1748 /* PersistenceManager.swift in Sources */,
 				0F6CD1EB2B0A02000026DE51 /* AddPortfolioTableViewCell.swift in Sources */,
@@ -512,6 +524,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MJ3YMWRCV5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
@@ -542,6 +555,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MJ3YMWRCV5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;

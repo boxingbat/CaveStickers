@@ -12,11 +12,13 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     var tableView = UITableView()
     var dataEntries :[String] = ["test"]
     let addButton = UIButton(type: .system)
+    let saveButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupTableView()
+        setupSaveButton()
         setupAddButton()
 
     }
@@ -31,7 +33,7 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70)
         ])
 
         tableView.register(AddPortfolioTableViewCell.self, forCellReuseIdentifier: "CustomCell")
@@ -53,10 +55,29 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @objc private func addNewCell() {
-        dataEntries.append("") // 添加一个新的数据项
+        dataEntries.append("")
         let indexPath = IndexPath(row: dataEntries.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
+    private func setupSaveButton() {
+            saveButton.setTitle("Save", for: .normal)
+            saveButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(saveButton)
+
+            NSLayoutConstraint.activate([
+                saveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+                saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+                saveButton.heightAnchor.constraint(equalToConstant: 50)
+            ])
+
+            saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        }
+
+        @objc private func saveButtonTapped() {
+            // Handle the save action
+        }
+
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataEntries.count + 1
@@ -66,15 +87,29 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         if indexPath.row < dataEntries.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! AddPortfolioTableViewCell
 //            cell.configureWithData(data: dataEntries[indexPath.row])
+            cell.TimeLineInputTextField.delegate = self
+
             return cell
         } else {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "SearchCell")
             let textField = UITextField(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width, height: cell.contentView.frame.height))
-            textField.placeholder = "Search..."
+            textField.placeholder = "...Add More Stock"
             cell.contentView.addSubview(textField)
             return cell
         }
     }
 
     // MARK: - Navigation
+}
+
+extension AddToPortfolioController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let cell = textField.superview?.superview as? AddPortfolioTableViewCell,
+           textField == cell.TimeLineInputTextField {
+            let DateTableViewController = DateTableViewController()
+            navigationController?.pushViewController(DateTableViewController, animated: true)
+            return false
+        }
+        return true
+    }
 }

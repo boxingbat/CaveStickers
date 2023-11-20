@@ -20,23 +20,18 @@ extension UIView {
     var width : CGFloat {
         frame.size.width
     }
-
     var height : CGFloat {
         frame.size.height
     }
-
     var left : CGFloat {
         frame.origin.x
     }
-
     var right : CGFloat {
         left + width
     }
-
     var top : CGFloat {
         frame.origin.y
     }
-
     var bottom : CGFloat {
         top + height
     }
@@ -106,6 +101,17 @@ extension String {
         let formatter = NumberFormatter.numberFormatter
         return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
+    func addBrackets() -> String {
+        return "(\(self))"
+    }
+
+    func prefix(withText text: String) -> String {
+        return text + self
+    }
+
+    func toDouble() -> Double? {
+        return Double(self)
+    }
 }
 
 // MARK: - CandleStick Sorting
@@ -122,6 +128,26 @@ extension Array where Element == CandleStick {
 
         let diff = 1 - (priorClose/latestClose)
         return diff
+    }
+}
+
+// MARK: - UITextField
+
+extension UITextField {
+
+    func addDoneButton() {
+        let screenWidth = UIScreen.main.bounds.width
+        let doneToolBar: UIToolbar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
+        doneToolBar.barStyle = .default
+        let flexBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+        let items = [flexBarButtonItem, doneBarButtonItem]
+        doneToolBar.items = items
+        doneToolBar.sizeToFit()
+        inputAccessoryView = doneToolBar
+    }
+    @objc private func dismissKeyboard() {
+        resignFirstResponder()
     }
 }
 

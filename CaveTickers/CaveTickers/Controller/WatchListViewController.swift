@@ -228,9 +228,10 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource{
 
             //update viewModel
             viewModels.remove(at: indexPath.row)
-
-            //delete row
-            tableView.endUpdates()
+            self.viewModels.removeAll()
+            self.fetchWatchlistData()
+            tableView.reloadData()
+//            tableView.endUpdates()
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
