@@ -33,17 +33,16 @@ final class PersistenceManager {
         return watchlist.contains(symbol)
     }
 
-    public func addToWatchList(symbol: String, companayName: String) {
-
+    public func addToWatchList(symbol: String, companyName: String) {
         var current = watchlist
-        current.append(symbol)
-        userDefaults.set(current, forKey: symbol)
-        userDefaults.set(companayName, forKey: symbol)
-
-        NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
-        
-
+        if !current.contains(symbol) {
+            current.append(symbol)
+            userDefaults.set(current, forKey: Constants.watchListKey)
+            userDefaults.set(companyName, forKey: symbol)
+            NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
+        }
     }
+
 
     public func removeFromWatchList(symbol: String) {
         var newList = [String]()
@@ -53,6 +52,7 @@ final class PersistenceManager {
             newList.append(item)
         }
         userDefaults.set(newList, forKey:  Constants.watchListKey)
+        print("remove\(symbol)")
 
     }
 

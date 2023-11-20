@@ -51,11 +51,11 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         collectionView.delegate = self
         collectionView.dataSource = self
-        chartView.backgroundColor = .link
+        chartView.backgroundColor = .systemBackground
     }
 
     @objc private func didTapAddButton() {
-        delegate?.newsHeaderViewDidTapAddButton(self)
+        delegate?.didTapAddButton(self)
         }
 
     required init?(coder: NSCoder) {

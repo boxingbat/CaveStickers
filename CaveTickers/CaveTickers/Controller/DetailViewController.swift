@@ -125,6 +125,8 @@ class DetailViewController: UIViewController {
             )
         )
 
+        headerView.delegate = self 
+
         var viewModels = [MetricCollectionViewCell.ViewModel]()
         if let metrics = metrics {
             viewModels.append(.init(name: "52W High", value: "\(metrics.AnnualWeekHigh)"))
@@ -135,19 +137,35 @@ class DetailViewController: UIViewController {
         }
 
         // Configure
-//        let change = candleStickData.getPercentage()
+        let change = candleStickData.getPercentage()
         headerView.configure(
             chartViewModel: .init(
-                data: [],
+                data: candleStickData.reversed().map { $0.close },
                 showLegend: true,
-                showAxis: true
+                showAxis: true,
+                fillColor: change < 0 ? .systemRed : .systemGreen
             ),
             metricViewModels: viewModels
         )
-        headerView.backgroundColor = .link
+        headerView.backgroundColor = .systemBackground
+
 
         tableView.tableHeaderView = headerView
         tableView.reloadData()
+    }
+    private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
+        let latestDate = data[0].date
+        guard let latestClose = data.first?.close,
+              let priorClose = data.first(where: {
+                  !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
+              })?.close else {
+            return 0
+        }
+        print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
+
+        let differnece = 1 - priorClose/latestClose
+//        print("\(symbol): \(differnece)%")
+        return differnece
     }
 }
 
@@ -164,12 +182,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension DetailViewController: DetailHeaderViewDelegate {
-    func newsHeaderViewDidTapAddButton(_ headerView: StockDetailHeaderView) {
+    func didTapAddButton(_ headerView: StockDetailHeaderView) {
 
         TapManager.shared.vibrate(for: .success)
 
         headerView.addButton.isHidden = true
-        PersistenceManager.shared.addToWatchList(symbol: symbol, companayName: companyName)
+        PersistenceManager.shared.addToWatchList(symbol: symbol, companyName: companyName)
 
         let alert = UIAlertController(
             title: "Added to Watchlist",

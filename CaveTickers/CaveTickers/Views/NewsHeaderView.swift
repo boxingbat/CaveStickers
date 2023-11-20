@@ -10,7 +10,7 @@ import UIKit
 protocol DetailHeaderViewDelegate: AnyObject {
     /// Notify user tapped header button
     /// - Parameter headerView: Ref of header view
-    func newsHeaderViewDidTapAddButton(_ headerView: StockDetailHeaderView)
+    func didTapAddButton(_ headerView: StockDetailHeaderView)
 }
 
 /// TableView header for news

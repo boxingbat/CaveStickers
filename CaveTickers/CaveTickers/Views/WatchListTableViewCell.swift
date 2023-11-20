@@ -152,6 +152,7 @@ class WatchListTableViewCell: UITableViewCell {
         priceLabel.text = viewModel.price
         changeLabel.text = viewModel.changePercentage
         changeLabel.backgroundColor = viewModel.changeColor
+        miniChartView.configure(with: viewModel.chartViewModel)
 
     }
 }
