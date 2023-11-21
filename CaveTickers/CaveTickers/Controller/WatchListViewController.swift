@@ -111,7 +111,6 @@ class WatchListViewController: UIViewController {
 
         }
 
-//        print("\n\n\(viewModels)\n\n")
         self.viewModels = viewModels
     }
 
@@ -126,7 +125,6 @@ class WatchListViewController: UIViewController {
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
 
         let differnece = 1 - priorClose/latestClose
-//        print("\(symbol): \(differnece)%")
         return differnece
     }
 
@@ -141,13 +139,6 @@ class WatchListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-//    private func setupWatchListData() {
-//        let symbols = PersistenceManager.shared.watchlist
-//        for symbol in symbols {
-//            watchListMap[symbol] = ["some String"]
-//        }
-//        tableView.reloadData()
-//    }
 
     private func setUpSearchController() {
         let resultVC = SearchViewController()
@@ -223,15 +214,12 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            //update persistence
-            PersistenceManager.shared.removeFromWatchList(symbol: viewModels[indexPath.row].symbol)
-
-            //update viewModel
+            let symbol = viewModels[indexPath.row].symbol
+            PersistenceManager.shared.removeFromWatchList(symbol: symbol)
+            watchListMap.removeValue(forKey: symbol)
             viewModels.remove(at: indexPath.row)
-            self.viewModels.removeAll()
-            self.fetchWatchlistData()
-            tableView.reloadData()
-//            tableView.endUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

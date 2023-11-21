@@ -28,7 +28,7 @@ struct PortfolioManager {
 
         let isProfitable = currentValue > investmentAmount
 
-        let gain = currentValue - investmentAmount
+        let gain = ((currentValue - investmentAmount) * 100).rounded() / 100
 
         let yield = ((gain / investmentAmount) * 10000).rounded() / 100
 

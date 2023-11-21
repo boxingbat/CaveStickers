@@ -7,7 +7,9 @@
 
 import UIKit
 
-class PortfolioViewController: UIViewController {
+class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegate {
+
+    weak var delegate: AddToPortfolioControllerDelegate?
 
     let tableView = UITableView()
     private let portfolioManager = PortfolioManager()
@@ -21,9 +23,6 @@ class PortfolioViewController: UIViewController {
         loadPortfolio()
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        loadPortfolio()
-//    }
 
     private func setupLayout() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,25 +68,31 @@ class PortfolioViewController: UIViewController {
     private func loadPortfolio() {
         let savedStocks = PersistenceManager.shared.loadPortfolio()
         savedPortfolio = savedStocks
+        print(savedPortfolio)
         HistoryData.removeAll()
         calculatedResult.removeAll()
 
+        var tempResults = [String: DCAResult]()
         let group = DispatchGroup()
 
         for portfolio in savedPortfolio {
             group.enter()
-            getHistoricData(symbol: portfolio.symbol) {
+            getHistoricData(symbol: portfolio.symbol) { result in
+                if let result = result {
+                    tempResults[portfolio.symbol] = result
+                }
                 group.leave()
             }
         }
 
         group.notify(queue: .main) { [weak self] in
+            self?.calculatedResult = self?.savedPortfolio.compactMap { tempResults[$0.symbol] } ?? []
             self?.tableView.reloadData()
         }
     }
 
 
-    func getHistoricData(symbol: String, completion: @escaping () -> Void) {
+    func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
         APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 1) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -100,14 +105,12 @@ class PortfolioViewController: UIViewController {
                             monthlyDollarCostAveragingAmount: portfolioItem.MonthlyInpuy,
                             initialDateOfInvestmentIndex: portfolioItem.timeline
                         )
-                        if let result = result {
-                            self?.calculatedResult.append(result)
-                        }
+                        completion(result)
                     }
                 case .failure(let error):
                     print(error)
+                    completion(nil)
                 }
-                completion()
             }
         }
     }
@@ -117,7 +120,11 @@ class PortfolioViewController: UIViewController {
     // MARK: - Navigation
     @objc private func addButtonTapped() {
         let addPortfolioVC = AddToPortfolioController()
+        addPortfolioVC.delegate = self
         navigationController?.pushViewController(addPortfolioVC, animated: true)
+    }
+    func didSavePortfolio() {
+        loadPortfolio()
     }
 
 }
@@ -145,4 +152,16 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let portfolioToDelete = savedPortfolio[indexPath.row]
+            savedPortfolio.remove(at: indexPath.row)
+            calculatedResult.remove(at: indexPath.row)
+
+            PersistenceManager.shared.deletePortfolio(savingStock: portfolioToDelete)
+
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
+

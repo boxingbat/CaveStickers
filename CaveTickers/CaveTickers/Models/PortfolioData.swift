@@ -39,8 +39,8 @@ struct CalculationResult {
 }
 
 struct SavingPortfolio: Codable {
-    let symbol: String
-    let InitialInput: Double
-    let MonthlyInpuy: Double
-    let timeline: Int
+    var symbol: String
+    var InitialInput: Double
+    var MonthlyInpuy: Double
+    var timeline: Int
 }

@@ -10,12 +10,14 @@ import Combine
 
 class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    weak var delegate: AddToPortfolioControllerDelegate?
+
     var tableView = UITableView()
     var dataEntries :[String] = ["test"]
     let addButton = UIButton(type: .system)
     let saveButton = UIButton(type: .system)
 
-    let newSavingStock = SavingPortfolio(symbol: "MSFT", InitialInput: 2000, MonthlyInpuy: 300, timeline: 20)
+    var newSavingStock = SavingPortfolio(symbol: "", InitialInput: 0, MonthlyInpuy: 0, timeline: 0)
 
 
     var asset: Asset?
@@ -57,6 +59,12 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
 
                 let result = self.portfolioManager.calculate(timeSeriesMonthlyAdjusted: self.timeSeriesMonthlyAdjusted!, initialInvestmentAmount: Double(investmentAmount), monthlyDollarCostAveragingAmount: Double(monthlyAmount), initialDateOfInvestmentIndex: dateIndex)
                 print("result\(result)")
+
+                newSavingStock.symbol = symbol
+                newSavingStock.InitialInput = Double(investmentAmount)
+                newSavingStock.MonthlyInpuy = Double(monthlyAmount)
+                newSavingStock.timeline = dateIndex
+
                 computedresult = result
                 resultSymbol = symbol
                 tableView.reloadData()
@@ -112,14 +120,16 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
                 saveButton.heightAnchor.constraint(equalToConstant: 50)
             ])
 
-            saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        }
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+    }
 
-        @objc private func saveButtonTapped() {
-            PersistenceManager.shared.addPortfolio(savingStock: newSavingStock)
-            print("Save\(newSavingStock)")
-        }
-    
+    @objc private func saveButtonTapped() {
+        PersistenceManager.shared.addPortfolio(savingStock: newSavingStock)
+        print("Save\(String(describing: newSavingStock))")
+        delegate?.didSavePortfolio()
+        navigationController?.popViewController(animated: true)
+    }
+
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -232,6 +242,11 @@ extension AddToPortfolioController: AddPortfolioTableViewCellDelegate {
         }
     }
 }
+
+protocol AddToPortfolioControllerDelegate: AnyObject {
+    func didSavePortfolio()
+}
+
 
 
 

@@ -87,6 +87,11 @@ final class PersistenceManager {
             return []
         }
     }
+    public func deletePortfolio(savingStock: SavingPortfolio) {
+        var savingStocks = loadPortfolio()
+        savingStocks.removeAll { $0.symbol == savingStock.symbol }
+        save(savingStocks: savingStocks)
+    }
     // MARK: - Pravite
 
     private var hasOnBoarded: Bool {
