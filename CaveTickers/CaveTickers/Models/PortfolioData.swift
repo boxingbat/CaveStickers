@@ -38,9 +38,9 @@ struct CalculationResult {
         var isProfitable: Bool
 }
 
-struct SavingStock {
+struct SavingPortfolio: Codable {
     let symbol: String
-    let InitialInput: String
-    let MonthlyInpuy: String
-    let timeline: TimeInterval
+    let InitialInput: Double
+    let MonthlyInpuy: Double
+    let timeline: Int
 }

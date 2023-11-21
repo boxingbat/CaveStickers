@@ -15,6 +15,8 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     let addButton = UIButton(type: .system)
     let saveButton = UIButton(type: .system)
 
+    let newSavingStock = SavingPortfolio(symbol: "MSFT", InitialInput: 2000, MonthlyInpuy: 300, timeline: 20)
+
 
     var asset: Asset?
     var timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted?
@@ -114,7 +116,8 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         @objc private func saveButtonTapped() {
-            print("Save")
+            PersistenceManager.shared.addPortfolio(savingStock: newSavingStock)
+            print("Save\(newSavingStock)")
         }
     
 

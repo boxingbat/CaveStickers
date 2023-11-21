@@ -16,6 +16,7 @@ final class PersistenceManager {
         static let onboardedKey = "hasOnboarded"
         static let watchListKey = "watchlist"
         static let portolioKey = "Portfolio"
+        static let savingStockKey = "savingStock"
     }
 
     private init () {}
@@ -58,6 +59,34 @@ final class PersistenceManager {
         }
     }
 
+    public func addPortfolio(savingStock: SavingPortfolio) {
+        var savingStocks = loadPortfolio()
+        savingStocks.append(savingStock)
+        save(savingStocks: savingStocks)
+    }
+    private func save(savingStocks: [SavingPortfolio]) {
+            do {
+                let data = try JSONEncoder().encode(savingStocks)
+                userDefaults.set(data, forKey: Constants.savingStockKey)
+                print("set\(data)")
+            } catch {
+                print("Failed to encode SavingStock array: \(error)")
+            }
+        }
+    public func loadPortfolio() -> [SavingPortfolio] {
+        guard let data = userDefaults.data(forKey: Constants.savingStockKey) else {
+            return []
+        }
+
+        do {
+            let result = try JSONDecoder().decode([SavingPortfolio].self, from: data)
+            print(result)
+            return result
+        } catch {
+            print("Failed to decode SavingStock array: \(error)")
+            return []
+        }
+    }
     // MARK: - Pravite
 
     private var hasOnBoarded: Bool {
