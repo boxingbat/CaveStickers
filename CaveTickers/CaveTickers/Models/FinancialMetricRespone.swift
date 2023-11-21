@@ -11,6 +11,10 @@ import Foundation
 struct FinancialMetricsResponse: Codable {
     let metric: Metrics
 }
+struct Asset {
+    let searchResult: SearchResult
+    let timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted
+}
 
 /// Financial metrics
 struct Metrics: Codable {

@@ -28,3 +28,12 @@ struct Portfolio {
     let stoclSymbol: String
     let SingleStocl: [PortfolioDetail]
 }
+
+struct CalculationResult {
+    var currentValue: Double
+        var investmentAmount: Double
+        var gain: Double
+        var yield: Double
+        var annualReturn: Double
+        var isProfitable: Bool
+}

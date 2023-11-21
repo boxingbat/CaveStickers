@@ -20,15 +20,14 @@ class PortfolioViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
-        // 创建一个新的 UIView 作为表头视图，并设置背景色
+
         let headerView = UIView()
         headerView.backgroundColor = .link
-        headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width - 32, height: 250) // 设置宽度减去左右边距，高度为 250
+        headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width - 32, height: 250)
 
-        // 设置表头视图
+
         tableView.tableHeaderView = headerView
 
-        // 设置 tableView 的约束
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -38,10 +37,10 @@ class PortfolioViewController: UIViewController {
 
         let addButton = UIButton(type: .custom)
           addButton.translatesAutoresizingMaskIntoConstraints = false
-          addButton.backgroundColor = .blue // 可以自定义颜色
+          addButton.backgroundColor = .blue
           addButton.setTitle("+", for: .normal)
           addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-          addButton.layer.cornerRadius = 25 // 使按钮成圆形
+          addButton.layer.cornerRadius = 25
           view.addSubview(addButton)
 
           // 设置按钮的约束
@@ -52,7 +51,6 @@ class PortfolioViewController: UIViewController {
               addButton.heightAnchor.constraint(equalToConstant: 50)
           ])
 
-          // 配置按钮点击事件
           addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
 
         tableView.register(StockTableViewCell.self, forCellReuseIdentifier: "StockCell")
@@ -68,7 +66,6 @@ class PortfolioViewController: UIViewController {
 
 }
 
-// UITableViewDelegate, UITableViewDataSource 的扩展部分保持不变
 
 extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
 
@@ -81,14 +78,14 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40 // Row height
+        return 40 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StockCell", for: indexPath) as! StockTableViewCell
-        // Configure the cell...
-        cell.stockInfoLabel.text = "Stock \(indexPath.row)" // Example stock info
-        cell.changeRateLabel.text = "+/- Rate" // Example change rate
+        cell.stockInfoLabel.text = "GOOG"
+        cell.changeRateLabel.text = "+ 2.6%"
+        cell.changeRateLabel.textColor = .systemGreen
         return cell
     }
 }

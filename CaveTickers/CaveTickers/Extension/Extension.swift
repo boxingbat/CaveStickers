@@ -151,5 +151,29 @@ extension UITextField {
     }
 }
 
+// MARK: - Date
+extension Date {
+
+    var MMYYFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: self)
+    }
+
+}
+// MARK: - Int
+extension Int {
+
+    var floatValue: Float {
+        return Float(self)
+    }
+
+    var doubleValue: Double {
+        return Double(self)
+    }
+}
+
+
+
 
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -14,14 +15,52 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     let addButton = UIButton(type: .system)
     let saveButton = UIButton(type: .system)
 
+
+    var asset: Asset?
+    var timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted?
+    var dateIndex: Int?
+    var computedresult: DCAResult?
+    var resultSymbol: String?
+
+    private var subscribers = Set<AnyCancellable>()
+    private let portfolioManager = PortfolioManager()
+    private let calculatorPresenter = CalculatorPresenter()
+
+    @Published  var initialSymbol: String?
+    @Published  var initialDateOfInvestmentIndex: Int?
+    @Published  var initialInvestmentAmount: Int?
+    @Published  var monthlyDollarCostAveragingAmount: Int?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupTableView()
         setupSaveButton()
         setupAddButton()
+        setupCombineSubscriptions()
 
     }
+
+    private func setupCombineSubscriptions() {
+           Publishers.CombineLatest4($initialSymbol, $initialInvestmentAmount, $monthlyDollarCostAveragingAmount, $initialDateOfInvestmentIndex)
+            .sink { [weak self] symbol, investmentAmount, monthlyAmount, dateIndex in
+                print(symbol ?? "", investmentAmount ?? 0, monthlyAmount ?? 0, dateIndex ?? 10)
+
+                guard let self = self,
+                      let symbol = symbol,
+                      let investmentAmount = investmentAmount,
+                      let monthlyAmount = monthlyAmount,
+                      let dateIndex = dateIndex
+                else { return }
+
+                let result = self.portfolioManager.calculate(timeSeriesMonthlyAdjusted: self.timeSeriesMonthlyAdjusted!, initialInvestmentAmount: Double(investmentAmount), monthlyDollarCostAveragingAmount: Double(monthlyAmount), initialDateOfInvestmentIndex: dateIndex)
+                print("result\(result)")
+                computedresult = result
+                resultSymbol = symbol
+                tableView.reloadData()
+            }
+               .store(in: &subscribers)
+       }
 
     private func setupTableView() {
         tableView.delegate = self
@@ -77,6 +116,7 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         @objc private func saveButtonTapped() {
             // Handle the save action
         }
+    
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,8 +126,23 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < dataEntries.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! AddPortfolioTableViewCell
-//            cell.configureWithData(data: dataEntries[indexPath.row])
             cell.TimeLineInputTextField.delegate = self
+            cell.delegate = self
+            cell.titleLabel.text = resultSymbol
+            cell.titleLabel.text = resultSymbol
+
+                    if let computedResult = computedresult {
+                        let presentation = calculatorPresenter.getPresentation(result: computedResult)
+
+                        cell.titleLabel.text = resultSymbol
+                        cell.currentLabel.text = "\(computedResult.currentValue)"
+                        cell.investmentAmountLabel.text = "\(computedResult.investmentAmount)"
+                        cell.gainLabel.text = "\(computedResult.gain)"
+                        cell.annualReturnLabel.text = "\(computedResult.annualReturn)"
+
+                        cell.currentLabel.backgroundColor = presentation.currentValueLabelBackgroundColor
+                        cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
+                    }
 
             return cell
         } else {
@@ -98,18 +153,82 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         }
     }
+    
 
     // MARK: - Navigation
 }
 
 extension AddToPortfolioController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if let cell = textField.superview?.superview as? AddPortfolioTableViewCell,
-           textField == cell.TimeLineInputTextField {
-            let DateTableViewController = DateTableViewController()
-            navigationController?.pushViewController(DateTableViewController, animated: true)
-            return false
+        if let cell = textField.superview?.superview as? AddPortfolioTableViewCell {
+            if textField == cell.TimeLineInputTextField {
+                guard let symbol = cell.symbolTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !symbol.isEmpty else {
+                    presentAlertWithTitle(title: "Hey", message: "Input the symbol")
+                    return false
+                }
+
+                let DateTableViewController = DateTableViewController()
+                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 1) { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let response):
+                            let month = response.getMonthInfos()
+                            print(month)
+                            DateTableViewController.timeSeriesMonthlyAdjusted = response
+                            self?.timeSeriesMonthlyAdjusted = response
+                            DateTableViewController.didSelectDate = { [weak self] selectedIndex in
+                                let monthInfos = response.getMonthInfos()
+                                if selectedIndex < monthInfos.count {
+                                    let selectedDateInfo = monthInfos[selectedIndex].date
+                                    let dateFormatter = DateFormatter()
+                                    dateFormatter.dateFormat = "yyyy-MM"
+                                    let dateString = dateFormatter.string(from: selectedDateInfo)
+                                    self?.dateIndex = selectedIndex
+                                    cell.updateTimeLineText(with: String(selectedIndex))
+                                    cell.TimeLineInputTextField.text = String(selectedIndex)
+                                    print(cell.TimeLineInputTextField)
+                                }
+                            }
+                            self?.navigationController?.pushViewController(DateTableViewController, animated: true)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+                return false
+            }
         }
         return true
     }
+
+    private func presentAlertWithTitle(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+
+extension AddToPortfolioController: AddPortfolioTableViewCellDelegate {
+    func textFieldDidChange(text: String?, textFieldType: PortfolioTextFieldType, cell: AddPortfolioTableViewCell) {
+        switch textFieldType {
+        case .symbol:
+            initialSymbol = text
+            print("symbol update\(String(describing: text))")
+        case .initialAmount:
+            initialInvestmentAmount = Int(text ?? "")
+            print("Initial Amount\(String(describing: text))")
+        case .monthlyInput:
+            monthlyDollarCostAveragingAmount = Int(text ?? "")
+            print("Monthly input\(String(describing: text))")
+        case .timeLine:
+            initialDateOfInvestmentIndex = Int(text ?? "")
+            print("timeline\(String(describing: text))")
+
+        }
+    }
+}
+
+
+
+
+
