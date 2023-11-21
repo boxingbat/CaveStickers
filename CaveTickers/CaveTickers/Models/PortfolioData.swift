@@ -37,3 +37,10 @@ struct CalculationResult {
         var annualReturn: Double
         var isProfitable: Bool
 }
+
+struct SavingStock {
+    let symbol: String
+    let InitialInput: String
+    let MonthlyInpuy: String
+    let timeline: TimeInterval
+}

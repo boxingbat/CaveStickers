@@ -114,7 +114,7 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         @objc private func saveButtonTapped() {
-            // Handle the save action
+            print("Save")
         }
     
 
@@ -138,9 +138,11 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
                         cell.currentLabel.text = "\(computedResult.currentValue)"
                         cell.investmentAmountLabel.text = "\(computedResult.investmentAmount)"
                         cell.gainLabel.text = "\(computedResult.gain)"
-                        cell.annualReturnLabel.text = "\(computedResult.annualReturn)"
+                        cell.annualReturnLabel.text = "\(computedResult.annualReturn)%"
+                        cell.yieldLabel.text = "\(computedResult.yield)%"
 
                         cell.currentLabel.backgroundColor = presentation.currentValueLabelBackgroundColor
+                        cell.yieldLabel.backgroundColor = presentation.yieldLabelTextColor
                         cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
                     }
 

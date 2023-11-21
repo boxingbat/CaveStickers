@@ -30,7 +30,7 @@ struct PortfolioManager {
 
         let gain = currentValue - investmentAmount
 
-        let yield = gain / investmentAmount
+        let yield = ((gain / investmentAmount) * 10000).rounded() / 100
 
         let annualReturn = getAnnualReturn(currentValue: currentValue,
                                            investmentAmount: investmentAmount,
@@ -57,12 +57,13 @@ struct PortfolioManager {
     private func getAnnualReturn(currentValue: Double, investmentAmount: Double, initialDateOfInvestmentIndex: Int) -> Double {
         let rate = currentValue / investmentAmount
         let years = (initialDateOfInvestmentIndex.doubleValue + 1) / 12
-        let result = pow(rate, (1 / years)) - 1
+        let result = ((pow(rate, (1 / years)) - 1)*10000).rounded() / 100
         return result
     }
 
     private func getCurrentValue(numberOfShares: Double, latestSharePrice: Double) -> Double {
-        return numberOfShares * latestSharePrice
+        let value = numberOfShares * latestSharePrice
+        return (value * 100).rounded() / 100
     }
 
     private func getLatestSharePrice(timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted) -> Double {
