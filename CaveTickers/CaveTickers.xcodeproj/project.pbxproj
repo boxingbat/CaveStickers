@@ -25,6 +25,8 @@
 		0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D122B0603F0007F1748 /* Extension.swift */; };
 		0F2D6D152B060A79007F1748 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */; };
 		0F2D6D172B063063007F1748 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D162B063063007F1748 /* SearchResponse.swift */; };
+		0F4401A42B0DEE5000B703BC /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */; };
+		0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A52B0DF3B600B703BC /* WebSocketData.swift */; };
 		0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */; };
 		0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */; };
 		0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */; };
@@ -65,6 +67,8 @@
 		0F2D6D122B0603F0007F1748 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		0F2D6D162B063063007F1748 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		0F4401A52B0DF3B600B703BC /* WebSocketData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketData.swift; sourceTree = "<group>"; };
 		0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataRespone.swift; sourceTree = "<group>"; };
 		0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
 		0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockChartView .swift"; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				0F2D6D0F2B05ED64007F1748 /* TapManager.swift */,
 				0F6CD1F12B0B7D200026DE51 /* PortfolioManager.swift */,
 				0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */,
+				0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */,
 				0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */,
 				0F6CD1EC2B0B061C0026DE51 /* PortfolioData.swift */,
+				0F4401A52B0DF3B600B703BC /* WebSocketData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -377,12 +383,14 @@
 				0F2D6D102B05ED64007F1748 /* TapManager.swift in Sources */,
 				0F2D6D002B04F17E007F1748 /* NewsViewController.swift in Sources */,
 				0F6CD1F62B0B7FDA0026DE51 /* UIColorExtension.swift in Sources */,
+				0F4401A42B0DEE5000B703BC /* WebSocketManager.swift in Sources */,
 				0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */,
 				0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */,
 				0F2D6D042B04F218007F1748 /* CryptoViewController.swift in Sources */,
 				0F2D6D172B063063007F1748 /* SearchResponse.swift in Sources */,
 				0F5CF0542B08B20A009CC0B1 /* NewsHeaderView.swift in Sources */,
 				0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */,
+				0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */,
 				0F6CD1ED2B0B061C0026DE51 /* PortfolioData.swift in Sources */,
 				0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */,
 				0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */,

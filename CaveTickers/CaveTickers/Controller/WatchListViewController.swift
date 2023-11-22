@@ -229,6 +229,7 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
             companyName: viewModel.companyName,
             candleStickData: watchListMap[viewModel.symbol] ?? [])
         let navVC = UINavigationController(rootViewController: detailVC)
+        detailVC.title = viewModel.companyName
         present(navVC, animated: true)
     }
 }

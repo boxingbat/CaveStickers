@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     // MARK: - Properties
     private let symbol: String
 
@@ -17,10 +17,11 @@ class DetailViewController: UIViewController {
 
     private var chartView = UIView()
 
+    private var webSocketManager = WebSocketManager()
+
     private let tableView: UITableView = {
         let table = UITableView()
-//        table.register(NewsHeaderView.self,
-//                       forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
+
         return table
     }()
 
@@ -43,12 +44,20 @@ class DetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("error")
     }
+
+    deinit {
+        webSocketManager.close()
+    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         fetchFinancialData()
         setUpTableView()
+        webSocketManager.onReceive = { [weak self] message in
+            print("Received message: \(message)")
+        }
+        webSocketManager.connect(withSymbol: symbol)
 
     }
 
@@ -160,7 +169,6 @@ class DetailViewController: UIViewController {
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
 
         let differnece = 1 - priorClose / latestClose
-//        print("\(symbol): \(differnece)%")
         return differnece
     }
 }
