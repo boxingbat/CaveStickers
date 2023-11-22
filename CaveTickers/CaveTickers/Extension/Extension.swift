@@ -17,22 +17,22 @@ extension Notification.Name {
 // MARK: - Frame
 
 extension UIView {
-    var width : CGFloat {
+    var width: CGFloat {
         frame.size.width
     }
-    var height : CGFloat {
+    var height: CGFloat {
         frame.size.height
     }
-    var left : CGFloat {
+    var left: CGFloat {
         frame.origin.x
     }
-    var right : CGFloat {
+    var right: CGFloat {
         left + width
     }
-    var top : CGFloat {
+    var top: CGFloat {
         frame.origin.y
     }
-    var bottom : CGFloat {
+    var bottom: CGFloat {
         top + height
     }
 }
@@ -75,7 +75,7 @@ extension NumberFormatter {
     }()
 }
 
-//MARK: - String
+// MARK: - String
 
 extension String {
     /// Create string from time interval
@@ -126,7 +126,7 @@ extension Array where Element == CandleStick {
             return 0
         }
 
-        let diff = 1 - (priorClose/latestClose)
+        let diff = 1 - (priorClose / latestClose)
         return diff
     }
 }
@@ -134,10 +134,9 @@ extension Array where Element == CandleStick {
 // MARK: - UITextField
 
 extension UITextField {
-
     func addDoneButton() {
         let screenWidth = UIScreen.main.bounds.width
-        let doneToolBar: UIToolbar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
+        let doneToolBar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
         doneToolBar.barStyle = .default
         let flexBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
@@ -153,27 +152,18 @@ extension UITextField {
 
 // MARK: - Date
 extension Date {
-
     var MMYYFormat: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: self)
     }
-
 }
 // MARK: - Int
 extension Int {
-
     var floatValue: Float {
         return Float(self)
     }
-
     var doubleValue: Double {
         return Double(self)
     }
 }
-
-
-
-
-

@@ -9,15 +9,14 @@ import UIKit
 import Combine
 
 class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
     weak var delegate: AddToPortfolioControllerDelegate?
 
     var tableView = UITableView()
-    var dataEntries :[String] = ["test"]
+    var dataEntries: [String] = ["test"]
     let addButton = UIButton(type: .system)
     let saveButton = UIButton(type: .system)
 
-    var newSavingStock = SavingPortfolio(symbol: "", InitialInput: 0, MonthlyInpuy: 0, timeline: 0)
+    var newSavingStock = SavingPortfolio(symbol: "", initialInput: 0, monthlyInpuy: 0, timeline: 0)
 
 
     var asset: Asset?
@@ -42,11 +41,10 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         setupSaveButton()
         setupAddButton()
         setupCombineSubscriptions()
-
     }
 
     private func setupCombineSubscriptions() {
-           Publishers.CombineLatest4($initialSymbol, $initialInvestmentAmount, $monthlyDollarCostAveragingAmount, $initialDateOfInvestmentIndex)
+        Publishers.CombineLatest4($initialSymbol, $initialInvestmentAmount, $monthlyDollarCostAveragingAmount, $initialDateOfInvestmentIndex)
             .sink { [weak self] symbol, investmentAmount, monthlyAmount, dateIndex in
                 print(symbol ?? "", investmentAmount ?? 0, monthlyAmount ?? 0, dateIndex ?? 10)
 
@@ -61,16 +59,16 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
                 print("result\(result)")
 
                 newSavingStock.symbol = symbol
-                newSavingStock.InitialInput = Double(investmentAmount)
-                newSavingStock.MonthlyInpuy = Double(monthlyAmount)
+                newSavingStock.initialInput = Double(investmentAmount)
+                newSavingStock.monthlyInpuy = Double(monthlyAmount)
                 newSavingStock.timeline = dateIndex
 
                 computedresult = result
                 resultSymbol = symbol
                 tableView.reloadData()
             }
-               .store(in: &subscribers)
-       }
+            .store(in: &subscribers)
+    }
 
     private func setupTableView() {
         tableView.delegate = self
@@ -109,16 +107,16 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     private func setupSaveButton() {
-            saveButton.setTitle("Save", for: .normal)
-            saveButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(saveButton)
+        saveButton.setTitle("Save", for: .normal)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(saveButton)
 
-            NSLayoutConstraint.activate([
-                saveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-                saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-                saveButton.heightAnchor.constraint(equalToConstant: 50)
-            ])
+        NSLayoutConstraint.activate([
+            saveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            saveButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
 
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
@@ -129,35 +127,33 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         delegate?.didSavePortfolio()
         navigationController?.popViewController(animated: true)
     }
-
-
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataEntries.count + 1
     }
-
+    // swiftlint:disable all
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < dataEntries.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! AddPortfolioTableViewCell
-            cell.TimeLineInputTextField.delegate = self
+            // swiftlint:enable all
+            cell.timeLineInputTextField.delegate = self
             cell.delegate = self
             cell.titleLabel.text = resultSymbol
             cell.titleLabel.text = resultSymbol
 
-                    if let computedResult = computedresult {
-                        let presentation = calculatorPresenter.getPresentation(result: computedResult)
+            if let computedResult = computedresult {
+                let presentation = calculatorPresenter.getPresentation(result: computedResult)
 
-                        cell.titleLabel.text = resultSymbol
-                        cell.currentLabel.text = "\(computedResult.currentValue)"
-                        cell.investmentAmountLabel.text = "\(computedResult.investmentAmount)"
-                        cell.gainLabel.text = "\(computedResult.gain)"
-                        cell.annualReturnLabel.text = "\(computedResult.annualReturn)%"
-                        cell.yieldLabel.text = "\(computedResult.yield)%"
+                cell.titleLabel.text = resultSymbol
+                cell.currentLabel.text = "\(computedResult.currentValue)"
+                cell.investmentAmountLabel.text = "\(computedResult.investmentAmount)"
+                cell.gainLabel.text = "\(computedResult.gain)"
+                cell.annualReturnLabel.text = "\(computedResult.annualReturn)%"
+                cell.yieldLabel.text = "\(computedResult.yield)%"
 
-                        cell.currentLabel.backgroundColor = presentation.currentValueLabelBackgroundColor
-                        cell.yieldLabel.backgroundColor = presentation.yieldLabelTextColor
-                        cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
-                    }
+                cell.currentLabel.backgroundColor = presentation.currentValueLabelBackgroundColor
+                cell.yieldLabel.backgroundColor = presentation.yieldLabelTextColor
+                cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
+            }
 
             return cell
         } else {
@@ -168,7 +164,7 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         }
     }
-    
+
 
     // MARK: - Navigation
 }
@@ -176,35 +172,35 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
 extension AddToPortfolioController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let cell = textField.superview?.superview as? AddPortfolioTableViewCell {
-            if textField == cell.TimeLineInputTextField {
+            if textField == cell.timeLineInputTextField {
                 guard let symbol = cell.symbolTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !symbol.isEmpty else {
                     presentAlertWithTitle(title: "Hey", message: "Input the symbol")
                     return false
                 }
 
-                let DateTableViewController = DateTableViewController()
-                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 1) { [weak self] result in
+                let dateTableViewController = DateTableViewController()
+                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 2) { [weak self] result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let response):
                             let month = response.getMonthInfos()
                             print(month)
-                            DateTableViewController.timeSeriesMonthlyAdjusted = response
+                            dateTableViewController.timeSeriesMonthlyAdjusted = response
                             self?.timeSeriesMonthlyAdjusted = response
-                            DateTableViewController.didSelectDate = { [weak self] selectedIndex in
+                            dateTableViewController.didSelectDate = { [weak self] selectedIndex in
                                 let monthInfos = response.getMonthInfos()
                                 if selectedIndex < monthInfos.count {
                                     let selectedDateInfo = monthInfos[selectedIndex].date
                                     let dateFormatter = DateFormatter()
                                     dateFormatter.dateFormat = "yyyy-MM"
-                                    let dateString = dateFormatter.string(from: selectedDateInfo)
+                                    _ = dateFormatter.string(from: selectedDateInfo)
                                     self?.dateIndex = selectedIndex
                                     cell.updateTimeLineText(with: String(selectedIndex))
-                                    cell.TimeLineInputTextField.text = String(selectedIndex)
-                                    print(cell.TimeLineInputTextField)
+                                    cell.timeLineInputTextField.text = String(selectedIndex)
+                                    print(cell.timeLineInputTextField)
                                 }
                             }
-                            self?.navigationController?.pushViewController(DateTableViewController, animated: true)
+                            self?.navigationController?.pushViewController(dateTableViewController, animated: true)
                         case .failure(let error):
                             print(error)
                         }
@@ -238,7 +234,6 @@ extension AddToPortfolioController: AddPortfolioTableViewCellDelegate {
         case .timeLine:
             initialDateOfInvestmentIndex = Int(text ?? "")
             print("timeline\(String(describing: text))")
-
         }
     }
 }
@@ -246,9 +241,3 @@ extension AddToPortfolioController: AddPortfolioTableViewCellDelegate {
 protocol AddToPortfolioControllerDelegate: AnyObject {
     func didSavePortfolio()
 }
-
-
-
-
-
-

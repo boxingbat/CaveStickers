@@ -8,7 +8,6 @@
 import Foundation
 
 extension Double {
-
     var stringValue: String {
         return String(describing: self)
     }
@@ -40,7 +39,5 @@ extension Double {
             formatter.maximumFractionDigits = 0
         }
         return formatter.string(from: self as NSNumber) ?? twoDecimalPlaceString
-
     }
-
 }

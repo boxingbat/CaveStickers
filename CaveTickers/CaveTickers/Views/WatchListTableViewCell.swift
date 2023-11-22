@@ -18,15 +18,15 @@ class WatchListTableViewCell: UITableViewCell {
 
     weak var delegate: WatchListTableViewCellDelegate?
 
-    struct ViewModel{
+    struct ViewModel {
         let symbol: String
         let price: String
-        let changeColor: UIColor //red or green
+        let changeColor: UIColor // red or green
         let companyName: String
         let changePercentage: String
         let chartViewModel: StockChartView.ViewModel
     }
-    //MARK: - Component
+    // MARK: - Component
     /// Symbol Label
     private let symbolLabel: UILabel = {
         let label = UILabel()
@@ -68,7 +68,7 @@ class WatchListTableViewCell: UITableViewCell {
         return chart
     }()
 
-    //MARK: - init
+    // MARK: - init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -80,7 +80,7 @@ class WatchListTableViewCell: UITableViewCell {
         addSubview(changeLabel)
     }
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("error")
     }
 
     override func layoutSubviews() {
@@ -90,7 +90,7 @@ class WatchListTableViewCell: UITableViewCell {
         priceLabel.sizeToFit()
         changeLabel.sizeToFit()
 
-        let yStart: CGFloat = (contentView.height - symbolLabel.height - nameLabel.height)/2
+        let yStart: CGFloat = (contentView.height - symbolLabel.height - nameLabel.height) / 2
         symbolLabel.frame = CGRect(
             x: separatorInset.left,
             y: yStart,
@@ -117,7 +117,7 @@ class WatchListTableViewCell: UITableViewCell {
 
         priceLabel.frame = CGRect(
             x: contentView.width - 10 - currentWidth,
-            y: (contentView.height - priceLabel.height - changeLabel.height)/2,
+            y: (contentView.height - priceLabel.height - changeLabel.height) / 2,
             width: currentWidth,
             height: priceLabel.height
         )
@@ -128,15 +128,13 @@ class WatchListTableViewCell: UITableViewCell {
             width: currentWidth,
             height: changeLabel.height
         )
-
         miniChartView.frame = CGRect(
-            x: priceLabel.left - (contentView.width/3) - 5,
+            x: priceLabel.left - (contentView.width / 3) - 5,
             y: 6,
-            width: contentView.width/3,
-            height: contentView.height-12
+            width: contentView.width / 3,
+            height: contentView.height - 12
             )
     }
-
     override func prepareForReuse() {
         super.prepareForReuse()
         symbolLabel.text = nil
@@ -145,7 +143,6 @@ class WatchListTableViewCell: UITableViewCell {
         changeLabel.text = nil
         miniChartView.reset()
     }
-    
     public func configure(with viewModel: ViewModel) {
         symbolLabel.text = viewModel.symbol
         nameLabel.text = viewModel.companyName

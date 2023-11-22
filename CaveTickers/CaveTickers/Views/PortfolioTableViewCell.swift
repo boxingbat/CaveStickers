@@ -8,7 +8,6 @@
 import UIKit
 
 class StockTableViewCell: UITableViewCell {
-
     let stockInfoLabel = UILabel()
     let changeRateLabel = UILabel()
 

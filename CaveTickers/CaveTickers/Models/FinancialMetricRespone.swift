@@ -18,19 +18,19 @@ struct Asset {
 
 /// Financial metrics
 struct Metrics: Codable {
-    let TenDayAverageTradingVolume: Float
-    let AnnualWeekHigh: Double
-    let AnnualWeekLow: Double
-    let AnnualWeekLowDate: String
-    let AnnualWeekPriceReturnDaily: Float
+    let tenDayAverageTradingVolume: Float
+    let annualWeekHigh: Double
+    let annualWeekLow: Double
+    let annualWeekLowDate: String
+    let annualWeekPriceReturnDaily: Float
     let beta: Float
 
     enum CodingKeys: String, CodingKey {
-        case TenDayAverageTradingVolume = "10DayAverageTradingVolume"
-        case AnnualWeekHigh = "52WeekHigh"
-        case AnnualWeekLow = "52WeekLow"
-        case AnnualWeekLowDate = "52WeekLowDate"
-        case AnnualWeekPriceReturnDaily = "52WeekPriceReturnDaily"
+        case tenDayAverageTradingVolume = "10DayAverageTradingVolume"
+        case annualWeekHigh = "52WeekHigh"
+        case annualWeekLow = "52WeekLow"
+        case annualWeekLowDate = "52WeekLowDate"
+        case annualWeekPriceReturnDaily = "52WeekPriceReturnDaily"
         case beta = "beta"
     }
 }
@@ -83,11 +83,9 @@ struct OHLC: Codable {
     let open: String
     let close: String
     let adjustedClose: String
-
     enum CodingKeys: String, CodingKey {
         case open = "1. open"
         case close = "4. close"
         case adjustedClose = "5. adjusted close"
     }
 }
-

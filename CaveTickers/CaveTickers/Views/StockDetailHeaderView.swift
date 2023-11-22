@@ -34,8 +34,9 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MetricCollectionViewCell.self,
-                                forCellWithReuseIdentifier: MetricCollectionViewCell.identifier)
+        collectionView.register(
+            MetricCollectionViewCell.self,
+            forCellWithReuseIdentifier: MetricCollectionViewCell.identifier)
         collectionView.backgroundColor = .secondarySystemBackground
         return collectionView
     }()
@@ -59,14 +60,14 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
         }
 
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("Error")
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        chartView.frame = CGRect(x: 0, y: 0, width: width, height: height-100)
-        collectionView.frame = CGRect(x: 0, y: height-100, width: width, height: 100)
-        let buttonSize: CGSize = CGSize(width: 80, height: 40)
+        chartView.frame = CGRect(x: 0, y: 0, width: width, height: height - 100)
+        collectionView.frame = CGRect(x: 0, y: height - 100, width: width, height: 100)
+        let buttonSize = CGSize(width: 80, height: 40)
         addButton.frame = CGRect(
             x: chartView.frame.maxX - buttonSize.width - 10, // 右对齐
             y: chartView.frame.maxY - buttonSize.height - 10, // 下对齐
@@ -95,15 +96,13 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
             withReuseIdentifier: MetricCollectionViewCell.identifier,
             for: indexPath
         ) as? MetricCollectionViewCell else {
-            fatalError()
+            fatalError("Error")
         }
         cell.configure(with: viewModel)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: width/2, height: 100/3)
+        return CGSize(width: width / 2, height: 100 / 3)
     }
 }
-
-

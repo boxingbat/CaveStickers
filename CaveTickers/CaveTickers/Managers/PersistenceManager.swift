@@ -46,13 +46,13 @@ final class PersistenceManager {
         }
     }
     public func removeFromWatchList(symbol: String) {
-        var newList = [String]()
+        var newList: [String] = []
 
         userDefaults.set(nil, forKey: symbol)
         for item in watchlist where item != symbol {
             newList.append(item)
         }
-        userDefaults.set(newList, forKey:  Constants.watchListKey)
+        userDefaults.set(newList, forKey: Constants.watchListKey)
         print("remove\(symbol)")
         if let watchlist = UserDefaults.standard.array(forKey: "watchlist") {
             print("watchlist = \(watchlist)")
@@ -105,8 +105,9 @@ final class PersistenceManager {
             "AMZN": "Amazon.com Inc",
             "MSFT": "Microsoft Corporation",
             "NVDA": "Nvdia Inc",
-            "TSLA": "Tesla Inc"]
-        let symbols = map.keys.map { $0 }
+            "TSLA": "Tesla Inc"
+        ]
+        let symbols = Array(map.keys)
         userDefaults.set(symbols, forKey: Constants.watchListKey)
 
         for (symbol, name)in map {

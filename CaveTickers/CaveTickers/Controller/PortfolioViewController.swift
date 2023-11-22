@@ -8,13 +8,11 @@
 import UIKit
 
 class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegate {
-
     weak var delegate: AddToPortfolioControllerDelegate?
-
     let tableView = UITableView()
     private let portfolioManager = PortfolioManager()
     var savedPortfolio: [SavingPortfolio] = []
-    var HistoryData: [TimeSeriesMonthlyAdjusted] = []
+    var historyData: [TimeSeriesMonthlyAdjusted] = []
     var calculatedResult: [DCAResult] = []
 
     override func viewDidLoad() {
@@ -69,10 +67,10 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
         let savedStocks = PersistenceManager.shared.loadPortfolio()
         savedPortfolio = savedStocks
         print(savedPortfolio)
-        HistoryData.removeAll()
+        historyData.removeAll()
         calculatedResult.removeAll()
 
-        var tempResults = [String: DCAResult]()
+        var tempResults: [String: DCAResult] = [:]
         let group = DispatchGroup()
 
         for portfolio in savedPortfolio {
@@ -97,12 +95,12 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    self?.HistoryData.append(response)
+                    self?.historyData.append(response)
                     if let portfolioItem = self?.savedPortfolio.first(where: { $0.symbol == symbol }) {
                         let result = self?.portfolioManager.calculate(
                             timeSeriesMonthlyAdjusted: response,
-                            initialInvestmentAmount: portfolioItem.InitialInput,
-                            monthlyDollarCostAveragingAmount: portfolioItem.MonthlyInpuy,
+                            initialInvestmentAmount: portfolioItem.initialInput,
+                            monthlyDollarCostAveragingAmount: portfolioItem.monthlyInpuy,
                             initialDateOfInvestmentIndex: portfolioItem.timeline
                         )
                         completion(result)
@@ -126,13 +124,12 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
     func didSavePortfolio() {
         loadPortfolio()
     }
-
 }
 
 
 extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         return calculatedResult.count
     }
 
@@ -141,7 +138,9 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // swiftlint: disable all
         let cell = tableView.dequeueReusableCell(withIdentifier: "StockCell", for: indexPath) as! StockTableViewCell
+        // swiftlint: enable all
         if indexPath.row < calculatedResult.count {
             let result = calculatedResult[indexPath.row]
             let saved = savedPortfolio[indexPath.row]
@@ -164,4 +163,3 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-

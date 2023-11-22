@@ -8,15 +8,14 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
-    //MARK: - Properties
+    // MARK: - Properties
     private let symbol: String
 
     private let companyName: String
 
     private var candleStickData: [CandleStick]
 
-    private var chartView  = UIView()
+    private var chartView = UIView()
 
     private let tableView: UITableView = {
         let table = UITableView()
@@ -42,10 +41,9 @@ class DetailViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("error")
     }
-    //MARK: - Lifecycle
-
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -54,8 +52,7 @@ class DetailViewController: UIViewController {
 
     }
 
-    //MARK: - Private
-
+    // MARK: - Private
     private func setUpTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -125,15 +122,14 @@ class DetailViewController: UIViewController {
             )
         )
 
-        headerView.delegate = self 
-
-        var viewModels = [MetricCollectionViewCell.ViewModel]()
+        headerView.delegate = self
+        var viewModels: [MetricCollectionViewCell.ViewModel] = []
         if let metrics = metrics {
-            viewModels.append(.init(name: "52W High", value: "\(metrics.AnnualWeekHigh)"))
-            viewModels.append(.init(name: "52L High", value: "\(metrics.AnnualWeekLow)"))
-            viewModels.append(.init(name: "52W Return", value: "\(metrics.AnnualWeekPriceReturnDaily)"))
+            viewModels.append(.init(name: "52W High", value: "\(metrics.annualWeekHigh)"))
+            viewModels.append(.init(name: "52L High", value: "\(metrics.annualWeekLow)"))
+            viewModels.append(.init(name: "52W Return", value: "\(metrics.annualWeekPriceReturnDaily)"))
             viewModels.append(.init(name: "Beta", value: "\(metrics.beta)"))
-            viewModels.append(.init(name: "10D Vol.", value: "\(metrics.TenDayAverageTradingVolume)"))
+            viewModels.append(.init(name: "10D Vol.", value: "\(metrics.tenDayAverageTradingVolume)"))
         }
 
         // Configure
@@ -163,7 +159,7 @@ class DetailViewController: UIViewController {
         }
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
 
-        let differnece = 1 - priorClose/latestClose
+        let differnece = 1 - priorClose / latestClose
 //        print("\(symbol): \(differnece)%")
         return differnece
     }
@@ -178,14 +174,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
 }
-
-
-
 extension DetailViewController: DetailHeaderViewDelegate {
     func didTapAddButton(_ headerView: StockDetailHeaderView) {
-
         TapManager.shared.vibrate(for: .success)
-
         headerView.addButton.isHidden = true
         PersistenceManager.shared.addToWatchList(symbol: symbol, companyName: companyName)
 

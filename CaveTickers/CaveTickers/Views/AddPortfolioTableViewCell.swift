@@ -9,8 +9,7 @@ import UIKit
 import Combine
 
 class AddPortfolioTableViewCell: UITableViewCell {
-    
-    //title
+    // title
     var investedAmnountTitle: UILabel = {
         let label = UILabel()
         label.text = "Invested Amnount"
@@ -35,7 +34,7 @@ class AddPortfolioTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
-    //Data
+    // Data
     var titleLabel = UILabel()
     var currentLabel = UILabel()
     var investmentAmountLabel = UILabel()
@@ -45,19 +44,19 @@ class AddPortfolioTableViewCell: UITableViewCell {
     let symbolLabel = UILabel()
     let symbolTextField = UITextField()
 
-    //User Input
+    // User Input
     let initialAmountLabel = UILabel()
     let initialAmountTextField = UITextField()
-    let MonthlyInputLabel = UILabel()
-    let MonthlyInputTextField = UITextField()
-    let TimeLineLabel = UILabel()
-    let TimeLineInputTextField = UITextField()
+    let monthlyInputLabel = UILabel()
+    let monthlyInputTextField = UITextField()
+    let timeLineLabel = UILabel()
+    let timeLineInputTextField = UITextField()
     let userInput: [UserInput] = []
     let protfolioDetail: [PortfolioDetail] = []
 
     var timeLineText: String? {
-            didSet {
-                textFieldDidChange(TimeLineInputTextField)
+        didSet {
+            textFieldDidChange(timeLineInputTextField)
             }
         }
 
@@ -76,18 +75,17 @@ class AddPortfolioTableViewCell: UITableViewCell {
         super.init(coder: coder)
         setupCell()
         configureWithData()
-
     }
 
     func updateTimeLineText(with text: String) {
-            TimeLineInputTextField.text = text
-            textFieldDidChange(TimeLineInputTextField)
+        timeLineInputTextField.text = text
+        textFieldDidChange(timeLineInputTextField)
         }
     private func setupTextFields() {
-            symbolTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            initialAmountTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            MonthlyInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            TimeLineInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .allEvents)
+        symbolTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        initialAmountTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        monthlyInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        timeLineInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .allEvents)
         }
 
         @objc private func textFieldDidChange(_ textField: UITextField) {
@@ -97,9 +95,9 @@ class AddPortfolioTableViewCell: UITableViewCell {
                 textFieldType = .symbol
             case initialAmountTextField:
                 textFieldType = .initialAmount
-            case MonthlyInputTextField:
+            case monthlyInputTextField:
                 textFieldType = .monthlyInput
-            case TimeLineInputTextField:
+            case timeLineInputTextField:
                 textFieldType = .timeLine
             default:
                 return
@@ -108,7 +106,7 @@ class AddPortfolioTableViewCell: UITableViewCell {
         }
 
     private func setupCell() {
-        let components = [titleLabel, currentLabel, investmentAmountLabel, gainLabel, annualReturnLabel,symbolLabel,symbolTextField,initialAmountLabel,initialAmountTextField,MonthlyInputLabel,MonthlyInputTextField,TimeLineLabel,TimeLineInputTextField,gainTitle, investedAmnountTitle, annualReturnTitle, yieldLabel, yieldTitle]
+        let components = [titleLabel, currentLabel, investmentAmountLabel, gainLabel, annualReturnLabel, symbolLabel, symbolTextField, initialAmountLabel, initialAmountTextField, monthlyInputLabel, monthlyInputTextField, timeLineLabel, timeLineInputTextField, gainTitle, investedAmnountTitle, annualReturnTitle, yieldLabel, yieldTitle]
         for component in components {
             component.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(component)
@@ -160,22 +158,22 @@ class AddPortfolioTableViewCell: UITableViewCell {
             initialAmountTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             initialAmountTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            MonthlyInputLabel.topAnchor.constraint(equalTo: initialAmountTextField.bottomAnchor, constant: 8),
-            MonthlyInputLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            MonthlyInputLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            monthlyInputLabel.topAnchor.constraint(equalTo: initialAmountTextField.bottomAnchor, constant: 8),
+            monthlyInputLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            monthlyInputLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            MonthlyInputTextField.topAnchor.constraint(equalTo: MonthlyInputLabel.bottomAnchor, constant: 16),
-            MonthlyInputTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            MonthlyInputTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            monthlyInputTextField.topAnchor.constraint(equalTo: monthlyInputLabel.bottomAnchor, constant: 16),
+            monthlyInputTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            monthlyInputTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            TimeLineLabel.topAnchor.constraint(equalTo: MonthlyInputTextField.bottomAnchor, constant: 8),
-            TimeLineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            TimeLineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            timeLineLabel.topAnchor.constraint(equalTo: monthlyInputTextField.bottomAnchor, constant: 8),
+            timeLineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            timeLineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            TimeLineInputTextField.topAnchor.constraint(equalTo: TimeLineLabel.bottomAnchor, constant: 8),
-            TimeLineInputTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            TimeLineInputTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            TimeLineInputTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            timeLineInputTextField.topAnchor.constraint(equalTo: timeLineLabel.bottomAnchor, constant: 8),
+            timeLineInputTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            timeLineInputTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            timeLineInputTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 
@@ -189,8 +187,8 @@ class AddPortfolioTableViewCell: UITableViewCell {
         symbolLabel.text = "Stock Symbol"
 
         initialAmountLabel.text = "initail Amount(USD)"
-        MonthlyInputLabel.text = "MonthlyInput Amount(USD)"
-        TimeLineLabel.text = "TimeLine(Months)"
+        monthlyInputLabel.text = "MonthlyInput Amount(USD)"
+        timeLineLabel.text = "TimeLine(Months)"
     }
 
     func configureStyle() {
@@ -214,16 +212,16 @@ class AddPortfolioTableViewCell: UITableViewCell {
         initialAmountTextField.keyboardType = .numberPad
 
 
-        MonthlyInputLabel.font = UIFont.systemFont(ofSize: 12)
+        monthlyInputLabel.font = UIFont.systemFont(ofSize: 12)
 
-        MonthlyInputTextField.font = UIFont.systemFont(ofSize: 24)
-        MonthlyInputTextField.addDoneButton()
-        MonthlyInputTextField.keyboardType = .numberPad
+        monthlyInputTextField.font = UIFont.systemFont(ofSize: 24)
+        monthlyInputTextField.addDoneButton()
+        monthlyInputTextField.keyboardType = .numberPad
 
 
-        TimeLineLabel.font = UIFont.systemFont(ofSize: 12)
+        timeLineLabel.font = UIFont.systemFont(ofSize: 12)
 
-        TimeLineInputTextField.font = UIFont.systemFont(ofSize: 24)
+        timeLineInputTextField.font = UIFont.systemFont(ofSize: 24)
     }
 }
 
@@ -234,6 +232,3 @@ protocol AddPortfolioTableViewCellDelegate: AnyObject {
 enum PortfolioTextFieldType {
     case symbol, initialAmount, monthlyInput, timeLine
 }
-
-
-

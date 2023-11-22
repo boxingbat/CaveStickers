@@ -1,49 +1,110 @@
-disabled_rules: # 执行时排除掉的规则
-  - colon
-  - comma
-  - control_statement
-opt_in_rules: # 一些规则仅仅是可选的
-  - empty_count
-  - missing_docs
-  # 可以通过执行如下指令来查找所有可用的规则:
-  # swiftlint rules
-included: # 执行 linting 时包含的路径。如果出现这个 `--path` 会被忽略。
-  - Source
-excluded: # 执行 linting 时忽略的路径。 优先级比 `included` 更高。
-  - Carthage
-  - Pods
-  - Source/ExcludedFolder
-  - Source/ExcludedFile.swift
+excluded:
+  - ${PWD}/Carthage
+  - ${PWD}/Pods
+  - ${PWD}/DerivedData
 
-# 可配置的规则可以通过这个配置文件来自定义
-# 二进制规则可以设置他们的严格程度
-force_cast: warning # 隐式
-force_try:
-  severity: warning # 显式
-# 同时有警告和错误等级的规则，可以只设置它的警告等级
-# 隐式
-line_length: 110
-# 可以通过一个数组同时进行隐式设置
-type_body_length:
-  - 300 # warning
-  - 400 # error
-# 或者也可以同时进行显式设置
-file_length:
-  warning: 500
-  error: 1200
-# 命名规则可以设置最小长度和最大程度的警告/错误
-# 此外它们也可以设置排除在外的名字
-type_name:
-  min_length: 4 # 只是警告
-  max_length: # 警告和错误
-    warning: 40
-    error: 50
-  excluded: iPhone # 排除某个名字
-variable_name:
-  min_length: # 只有最小长度
-    error: 4 # 只有错误
-  excluded: # 排除某些名字
+disabled_rules:
+  - discarded_notification_center_observer
+  - notification_center_detachment
+  - orphaned_doc_comment
+  - todo
+  - unused_capture_list
+
+analyzer_rules:
+  - unused_import
+
+opt_in_rules:
+  - array_init
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - colon # promote to error
+#  - convenience_type
+  - discouraged_object_literal
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - enum_case_associated_values_count
+  - fatal_error_message
+  - first_where
+#  - force_unwrapping
+  - implicitly_unwrapped_optional
+#  - indentation_width
+  - last_where
+  - legacy_random
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+ # - multiline_parameters_brackets
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - prefer_self_type_over_type_of_self
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - strict_fileprivate
+  - toggle_bool
+#- trailing_closure
+#  - unneeded_parentheses_in_closure_argument
+#  - vertical_whitespace_closing_braces
+#  - vertical_whitespace_opening_braces
+  - yoda_condition
+
+
+custom_rules:
+  array_constructor:
+    name: "Array/Dictionary initializer"
+    regex: '[let,var] .+ = (\[.+\]\(\))'
+    capture_group: 1
+    message: "Use explicit type annotation when initializing empty arrays and dictionaries"
+    severity: warning
+
+
+attributes:
+  always_on_same_line:
+    - "@IBSegueAction"
+    - "@IBAction"
+    - "@NSManaged"
+    - "@objc"
+
+force_cast: warning
+force_try: warning
+function_body_length:
+    warning: 60
+
+legacy_hashing: error
+
+identifier_name:
+  excluded:
+    - i
     - id
-    - URL
-    - GlobalAPIKey
-reporter: "xcode" # 报告类型 (xcode, json, csv, checkstyle)
+    - x
+    - y
+      - z
+
+#indentation_width:
+#  indentation_width: 2
+
+line_length:
+    warning: 500
+    error: 1000
+    ignores_urls: true
+    ignores_function_declarations: true
+    ignores_comments: true
+
+multiline_arguments:
+  first_argument_location: next_line
+  only_enforce_after_first_closure_on_first_line: true
+
+private_over_fileprivate:
+  validate_extensions: true
+
+trailing_whitespace:
+  ignores_empty_lines: false
+  ignores_comments: true
+
+vertical_whitespace:
+  max_empty_lines: 3

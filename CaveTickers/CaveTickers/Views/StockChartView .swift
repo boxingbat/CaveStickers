@@ -40,7 +40,7 @@ final class StockChartView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("error")
     }
 
     override func layoutSubviews() {
@@ -56,7 +56,7 @@ final class StockChartView: UIView {
     /// Configure VIew
     /// - Parameter viewModel: View ViewModel
     func configure(with viewModel: ViewModel) {
-        var entries = [ChartDataEntry]()
+        var entries: [ChartDataEntry] = []
 
         for (index, value) in viewModel.data.enumerated() {
             entries.append(

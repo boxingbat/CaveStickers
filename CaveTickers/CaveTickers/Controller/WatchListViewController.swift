@@ -8,13 +8,12 @@
 import UIKit
 
 class WatchListViewController: UIViewController {
-    
     static var maxChangeWidth: CGFloat = 0
 
     private var searchTimer: Timer?
-    private var watchListMap:[String: [CandleStick]] = [:]
+    private var watchListMap: [String: [CandleStick]] = [:]
     private var viewModels: [WatchListTableViewCell.ViewModel] = []
-    private var tableView : UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
         return tableView
@@ -36,9 +35,7 @@ class WatchListViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-
-    //MARK: - Private
-
+    // MARK: - Private
     private func setUpObserver() {
         observer = NotificationCenter.default.addObserver(forName: .didAddToWatchList, object: nil, queue: .main, using: {[weak self]_ in
             self?.viewModels.removeAll()
@@ -47,7 +44,7 @@ class WatchListViewController: UIViewController {
     }
 
     private func setupTitleView() {
-        let titleView = UIView(frame:  CGRect(
+        let titleView = UIView(frame: CGRect(
             x: 10,
             y: 0,
             width: view.width,
@@ -57,7 +54,7 @@ class WatchListViewController: UIViewController {
         let label = UILabel(frame: CGRect(
             x: 10,
             y: 0,
-            width: titleView.width-20,
+            width: titleView.width - 20,
             height: titleView.height))
         label.text = "Stocks"
         label.font = .systemFont(ofSize: 32, weight: .medium)
@@ -95,18 +92,19 @@ class WatchListViewController: UIViewController {
         }
     }
 
-    private func craeteViewModels(){
-        var viewModels = [WatchListTableViewCell.ViewModel]()
+    private func craeteViewModels() {
+        var viewModels: [WatchListTableViewCell.ViewModel] = []
         for (symbol, candleSticks) in watchListMap {
             let changePersentage = getChangePercentage(symbol: symbol, data: candleSticks)
             viewModels.append(
-                .init(symbol: symbol,
-                      price: getLatestClosingPrice(from: candleSticks),
-                      changeColor: changePersentage < 0 ? .systemRed : .systemGreen,
-                      companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
-                      changePercentage: String.percentage(from: changePersentage),
-                      chartViewModel: .init(data: candleSticks.reversed().map {$0.close}, showLegend: false, showAxis: false, fillColor: changePersentage < 0 ? .systemRed : .systemGreen)
-                     )
+                .init(
+                    symbol: symbol,
+                    price: getLatestClosingPrice(from: candleSticks),
+                    changeColor: changePersentage < 0 ? .systemRed : .systemGreen,
+                    companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
+                    changePercentage: String.percentage(from: changePersentage),
+                    chartViewModel: .init(data: candleSticks.reversed().map { $0.close }, showLegend: false, showAxis: false, fillColor: changePersentage < 0 ? .systemRed : .systemGreen)
+                )
             )
 
         }
@@ -124,7 +122,7 @@ class WatchListViewController: UIViewController {
         }
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
 
-        let differnece = 1 - priorClose/latestClose
+        let differnece = 1 - priorClose / latestClose
         return differnece
     }
 
@@ -157,7 +155,7 @@ extension WatchListViewController: UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
-        //reset Timer
+        // reset Timer
         searchTimer?.invalidate()
 
         searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
@@ -182,21 +180,22 @@ extension WatchListViewController: UISearchResultsUpdating {
 extension WatchListViewController: SearchTableViewDelegate {
     func searchViewControllerDidSelect(searchResult: SearchResult) {
         navigationItem.searchController?.searchBar.resignFirstResponder()
-        let vc = DetailViewController(symbol: searchResult.symbol, companyName: searchResult.description,
-                                      candleStickData: [])
-        let navVC = UINavigationController(rootViewController: vc)
-        vc.title = searchResult.description
+        let detailVc = DetailViewController(
+            symbol: searchResult.symbol,
+            companyName: searchResult.description,
+            candleStickData: [])
+        let navVC = UINavigationController(rootViewController: detailVc)
+        detailVc.title = searchResult.description
         present(navVC, animated: true)
     }
 }
-
-extension WatchListViewController: UITableViewDelegate, UITableViewDataSource{
+extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return watchListMap.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else {
-            fatalError()
+            fatalError("error")
         }
         cell.delegate = self
         cell.configure(with: viewModels[indexPath.row])
@@ -223,20 +222,18 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource{
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         TapManager.shared.vibrateForSelection()
-
         let viewModel = viewModels[indexPath.row]
-        let vc = DetailViewController(symbol: viewModel.symbol, companyName: viewModel.companyName, 
-                                      candleStickData: watchListMap[viewModel.symbol] ?? [])
-        let navVC = UINavigationController(rootViewController: vc)
+        let detailVC = DetailViewController(
+            symbol: viewModel.symbol,
+            companyName: viewModel.companyName,
+            candleStickData: watchListMap[viewModel.symbol] ?? [])
+        let navVC = UINavigationController(rootViewController: detailVC)
         present(navVC, animated: true)
     }
-
 }
-
 extension WatchListViewController: WatchListTableViewCellDelegate {
     func didUpdatedMaxWith() {
-            tableView.reloadData()
+        tableView.reloadData()
     }
 }
