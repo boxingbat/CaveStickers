@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import XCAStocksAPI
 
 
 // MARK: - Notification
@@ -156,6 +157,22 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: self)
+    }
+
+    func dateComponents(timeZone: TimeZone, rangeType: ChartRange, calendar: Calendar = .current) -> DateComponents {
+        let current = calendar.dateComponents(in: timeZone, from: self)
+
+        var date = DateComponents(timeZone: timeZone, year: current.year, month: current.month)
+
+        if rangeType == .oneMonth || rangeType == .oneWeek || rangeType == .oneDay {
+            date.day = current.day
+        }
+
+        if rangeType == .oneDay {
+            date.hour = current.hour
+        }
+
+        return date
     }
 }
 // MARK: - Int

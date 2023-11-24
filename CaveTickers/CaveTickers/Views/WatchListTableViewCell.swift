@@ -24,7 +24,7 @@ class WatchListTableViewCell: UITableViewCell {
         let changeColor: UIColor // red or green
         let companyName: String
         let changePercentage: String
-        let chartViewModel: StockChartView.ViewModel
+//        let chartViewModel: StockChartView.ViewModel
     }
     // MARK: - Component
     /// Symbol Label
@@ -61,12 +61,12 @@ class WatchListTableViewCell: UITableViewCell {
     }()
 
     /// Chart
-    private let miniChartView: StockChartView = {
-        let chart = StockChartView()
-        chart.isUserInteractionEnabled = false
-        chart.clipsToBounds = true
-        return chart
-    }()
+//    private let miniChartView: StockChartView = {
+//        let chart = StockChartView()
+//        chart.isUserInteractionEnabled = false
+//        chart.clipsToBounds = true
+//        return chart
+//    }()
 
     // MARK: - init
 
@@ -75,7 +75,7 @@ class WatchListTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
         addSubview(symbolLabel)
         addSubview(nameLabel)
-        addSubview(miniChartView)
+//        addSubview(miniChartView)
         addSubview(priceLabel)
         addSubview(changeLabel)
     }
@@ -128,12 +128,12 @@ class WatchListTableViewCell: UITableViewCell {
             width: currentWidth,
             height: changeLabel.height
         )
-        miniChartView.frame = CGRect(
-            x: priceLabel.left - (contentView.width / 3) - 5,
-            y: 6,
-            width: contentView.width / 3,
-            height: contentView.height - 12
-            )
+//        miniChartView.frame = CGRect(
+//            x: priceLabel.left - (contentView.width / 3) - 5,
+//            y: 6,
+//            width: contentView.width / 3,
+//            height: contentView.height - 12
+//            )
     }
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -141,7 +141,7 @@ class WatchListTableViewCell: UITableViewCell {
         nameLabel.text = nil
         priceLabel.text = nil
         changeLabel.text = nil
-        miniChartView.reset()
+//        miniChartView.reset()
     }
     public func configure(with viewModel: ViewModel) {
         symbolLabel.text = viewModel.symbol
@@ -149,7 +149,7 @@ class WatchListTableViewCell: UITableViewCell {
         priceLabel.text = viewModel.price
         changeLabel.text = viewModel.changePercentage
         changeLabel.backgroundColor = viewModel.changeColor
-        miniChartView.configure(with: viewModel.chartViewModel)
+///*        */miniChartView.configure(with: viewModel.chartViewModel)
 
     }
 }

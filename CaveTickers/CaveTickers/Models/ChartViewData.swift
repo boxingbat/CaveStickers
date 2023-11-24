@@ -14,7 +14,7 @@ struct ChartViewData: Identifiable {
 //    let xAxisData: ChartAxisData
 //    let yAxisData: ChartAxisData
     let items: [ChartViewItem]
-//    let lineColor: Color
+    let lineColor: Color
 //    let previousCloseRuleMarkValue: Double?
 
 }

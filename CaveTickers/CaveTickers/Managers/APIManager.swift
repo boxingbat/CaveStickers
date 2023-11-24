@@ -9,14 +9,14 @@ import Foundation
 
 final class APIManager {
     static let shared = APIManager()
-
-    private struct Constants {
+    enum Constants {
         static let finApiKey = "clau1chr01qi1291dli0clau1chr01qi1291dlig"
         static let finBaseURL = "https://finnhub.io/api/v1/"
         static let alphaApiKey = ["0YAY61FY4TXJKQ34", "VR8XWYY9Y4R3QDFL", "PMGWPTBCGY4EZTWD", "UI3PDP3K22181YEN", "5RGL2QT6AWAUS9PU"]
         static let alphaBaseURL = "https://www.alphavantage.co/query?function="
         static let day: TimeInterval = 3600 * 24
     }
+
     // MARK: - Public
     public func search(query: String, completion: @escaping(Result<SearchResponse, Error>) -> Void) {
         guard let safeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
@@ -60,16 +60,18 @@ final class APIManager {
             completion: completion
         )
     }
-    public func monthlyAdjusted(for symbol: String,
-                                keyNumber: Int,
-                                completion: @escaping (Result<TimeSeriesMonthlyAdjusted, Error>) -> Void) {
+    public func monthlyAdjusted(
+        for symbol: String,
+        keyNumber: Int,
+        completion: @escaping (Result<TimeSeriesMonthlyAdjusted, Error>) -> Void
+    ) {
         let apikey = Constants.alphaApiKey[keyNumber]
         request(
             url: alphaURL(for: symbol, apiKey: apikey),
             expecting: TimeSeriesMonthlyAdjusted.self,
             completion: completion
         )
-}
+    }
     // MARK: - Private
     private init () {}
 

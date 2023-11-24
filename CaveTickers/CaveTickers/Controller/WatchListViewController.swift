@@ -102,8 +102,8 @@ class WatchListViewController: UIViewController {
                     price: getLatestClosingPrice(from: candleSticks),
                     changeColor: changePersentage < 0 ? .systemRed : .systemGreen,
                     companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
-                    changePercentage: String.percentage(from: changePersentage),
-                    chartViewModel: .init(data: candleSticks.reversed().map { $0.close }, showLegend: false, showAxis: false, fillColor: changePersentage < 0 ? .systemRed : .systemGreen)
+                    changePercentage: String.percentage(from: changePersentage)
+//                    chartViewModel: .init(data: candleSticks.reversed().map { $0.close }, showLegend: false, showAxis: false, fillColor: changePersentage < 0 ? .systemRed : .systemGreen)
                 )
             )
 
@@ -115,13 +115,12 @@ class WatchListViewController: UIViewController {
     private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
         let latestDate = data[0].date
         guard let latestClose = data.first?.close,
-              let priorClose = data.first(where: {
-                  !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
-              })?.close else {
+            let priorClose = data.first(where: {
+                !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
+            })?.close else {
             return 0
         }
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
-
         let differnece = 1 - priorClose / latestClose
         return differnece
     }
@@ -151,8 +150,8 @@ class WatchListViewController: UIViewController {
 extension WatchListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text,
-              let resultsVC = searchController.searchResultsController as? SearchViewController,
-              !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+        let resultsVC = searchController.searchResultsController as? SearchViewController,
+        !query.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         // reset Timer

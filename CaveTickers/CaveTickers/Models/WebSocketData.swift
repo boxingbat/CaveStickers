@@ -14,4 +14,9 @@ struct WebsocketStockInfo: Codable {
 struct PriceData: Codable {
     var symbolData: String // symbol
     var priceData: Double // price
+
+    enum CodingKeys: String, CodingKey {
+        case priceData = "p"
+        case symbolData = "s"
+    }
 }

@@ -15,16 +15,39 @@ struct ChartView: View {
 
     var body: some View {
         chart
+            .chartYScale(domain: data.items.map { $0.value
+            }.min()!...data.items.map { $0.value}.max()!)
+            .chartPlotStyle{chartPlotStyle($0)}
     }
 
     private var chart: some View {
         Chart {
-            ForEach(data.items) {
+            ForEach(data.items) { 
                 LineMark(
                     x: .value("Time", $0.timestamp),
-                    y: .value("Price", $0.value))
+                    y: .value("Price", $0.value)
+                ).foregroundStyle(data.lineColor)
             }
         }
+    }
+    private func chartPlotStyle(_ plotContent: ChartPlotContent) -> some View {
+        plotContent
+            .frame(height: 200)
+            .overlay {
+                Rectangle()
+                    .foregroundColor(.gray.opacity(0.5))
+                    .mask(ZStack {
+                        VStack{
+                            Spacer()
+                            Rectangle().frame(height: 1)
+                        }
+
+                        HStack {
+                            Spacer()
+                            Rectangle().frame(width: 0.3)
+                        }
+                    })
+            }
     }
 }
 
@@ -42,7 +65,7 @@ struct ChartView_Previews: PreviewProvider {
 
     }
 
-    static func chartViewModel(range: ChartRange, stub: XCAStocksAPI.Chart) -> ChartViewModel {
+    static func chartViewModel(range: ChartRange, stub: ChartData) -> ChartViewModel {
         var mockStocksAPI = MockStocksAPI()
         mockStocksAPI.stubbedFetchChartDataCallback = { _ in stub }
         let chartVM = ChartViewModel(ticker: .stub, apiService: mockStocksAPI)

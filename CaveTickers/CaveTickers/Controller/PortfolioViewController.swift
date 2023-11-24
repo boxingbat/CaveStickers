@@ -42,21 +42,21 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
         ])
 
         let addButton = UIButton(type: .custom)
-          addButton.translatesAutoresizingMaskIntoConstraints = false
-          addButton.backgroundColor = .blue
-          addButton.setTitle("+", for: .normal)
-          addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-          addButton.layer.cornerRadius = 25
-          view.addSubview(addButton)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.backgroundColor = .blue
+        addButton.setTitle("+", for: .normal)
+        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        addButton.layer.cornerRadius = 25
+        view.addSubview(addButton)
 
-          NSLayoutConstraint.activate([
-              addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-              addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-              addButton.widthAnchor.constraint(equalToConstant: 50),
-              addButton.heightAnchor.constraint(equalToConstant: 50)
-          ])
+        NSLayoutConstraint.activate([
+            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            addButton.widthAnchor.constraint(equalToConstant: 50),
+            addButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
 
-          addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
 
         tableView.register(StockTableViewCell.self, forCellReuseIdentifier: "StockCell")
         tableView.delegate = self
@@ -128,15 +128,15 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
 
 
 extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return calculatedResult.count
-    }
-
+        }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint: disable all
         let cell = tableView.dequeueReusableCell(withIdentifier: "StockCell", for: indexPath) as! StockTableViewCell

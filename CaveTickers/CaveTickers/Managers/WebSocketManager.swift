@@ -23,19 +23,20 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
         let string = "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}"
         let message = URLSessionWebSocketTask.Message.string(string)
         webSocket?.send(message, completionHandler: { error in
-                        if let error = error {
-                            print("send error : \(error)")
-                        }
-                    })
-                }
+            if let error = error {
+                print("send error : \(error)")
+            }
+        })
+    }
     func receive() {
         webSocket?.receive(completionHandler: { [weak self] result in
             switch result {
             case .success(let message):
                 switch message {
                 case .string(let message):
-                    // get the price here
-                    self?.onReceive?(message)
+                    if let data = message.data(using: .utf8) {
+                        self?.handleReceivedData(data)
+                        print(data)}
                 case .data(let data):
                     print("Received data: \(data)")
                 @unknown default:
@@ -47,6 +48,18 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
             self?.receive() // Continue receiving messages
         })
     }
+    private func handleReceivedData(_ data: Data) {
+        do {
+            let stockInfo = try JSONDecoder().decode(WebsocketStockInfo.self, from: data)
+            if let firstPriceData = stockInfo.data.first {
+                let displayString = "\(firstPriceData.symbolData): \(firstPriceData.priceData)"
+                print("\(displayString)")
+                onReceive?(String(firstPriceData.priceData))
+            }
+        } catch {
+            print("JSON decode error: \(error)")
+        }
+    }
 
     func ping() {
         webSocket?.sendPing { error in
@@ -55,7 +68,6 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
             }
         }
     }
-
     func close() {
         print("Closing WebSocket connection")
         if webSocket?.state == .running {

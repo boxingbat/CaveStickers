@@ -56,8 +56,8 @@ struct TimeSeriesMonthlyAdjusted: Codable {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             guard let date = dateFormatter.date(from: dateString),
-                  let adjustedOpen = getAdjustedOpen(ohlc: ohlc),
-                  let adjustedClose = ohlc.adjustedClose.toDouble() else { return [] }
+                let adjustedOpen = getAdjustedOpen(ohlc: ohlc),
+                let adjustedClose = ohlc.adjustedClose.toDouble() else { return [] }
             let monthInfo = MonthInfo(date: date, adjustedOpen: adjustedOpen, adjustedClose: adjustedClose)
             monthInfos.append(monthInfo)
         }
@@ -66,8 +66,8 @@ struct TimeSeriesMonthlyAdjusted: Codable {
 
     private func getAdjustedOpen(ohlc: OHLC) -> Double? {
         guard let open = ohlc.open.toDouble(),
-              let adjustedClose = ohlc.adjustedClose.toDouble(),
-              let close = ohlc.close.toDouble() else { return nil }
+            let adjustedClose = ohlc.adjustedClose.toDouble(),
+            let close = ohlc.close.toDouble() else { return nil }
         return open * adjustedClose / close
     }
 }

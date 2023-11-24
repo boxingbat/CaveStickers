@@ -47,12 +47,11 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
         Publishers.CombineLatest4($initialSymbol, $initialInvestmentAmount, $monthlyDollarCostAveragingAmount, $initialDateOfInvestmentIndex)
             .sink { [weak self] symbol, investmentAmount, monthlyAmount, dateIndex in
                 print(symbol ?? "", investmentAmount ?? 0, monthlyAmount ?? 0, dateIndex ?? 10)
-
                 guard let self = self,
-                      let symbol = symbol,
-                      let investmentAmount = investmentAmount,
-                      let monthlyAmount = monthlyAmount,
-                      let dateIndex = dateIndex
+                    let symbol = symbol,
+                    let investmentAmount = investmentAmount,
+                    let monthlyAmount = monthlyAmount,
+                    let dateIndex = dateIndex
                 else { return }
 
                 let result = self.portfolioManager.calculate(timeSeriesMonthlyAdjusted: self.timeSeriesMonthlyAdjusted!, initialInvestmentAmount: Double(investmentAmount), monthlyDollarCostAveragingAmount: Double(monthlyAmount), initialDateOfInvestmentIndex: dateIndex)

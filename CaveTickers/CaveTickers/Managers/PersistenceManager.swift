@@ -12,7 +12,7 @@ final class PersistenceManager {
 
     private let userDefaults: UserDefaults = .standard
 
-    private struct Constants {
+    private enum Constants {
         static let onboardedKey = "hasOnboarded"
         static let watchListKey = "watchlist"
         static let portolioKey = "Portfolio"
@@ -65,14 +65,14 @@ final class PersistenceManager {
         save(savingStocks: savingStocks)
     }
     private func save(savingStocks: [SavingPortfolio]) {
-            do {
-                let data = try JSONEncoder().encode(savingStocks)
-                userDefaults.set(data, forKey: Constants.savingStockKey)
-                print("set\(data)")
-            } catch {
-                print("Failed to encode SavingStock array: \(error)")
-            }
+        do {
+            let data = try JSONEncoder().encode(savingStocks)
+            userDefaults.set(data, forKey: Constants.savingStockKey)
+            print("set\(data)")
+        } catch {
+            print("Failed to encode SavingStock array: \(error)")
         }
+    }
     public func loadPortfolio() -> [SavingPortfolio] {
         guard let data = userDefaults.data(forKey: Constants.savingStockKey) else {
             return []

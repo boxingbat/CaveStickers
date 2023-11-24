@@ -51,6 +51,21 @@ class ChartViewModel: ObservableObject {
 
     func transformChartViewData(_ data: ChartData) -> ChartViewData {
         let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close) }
-            return ChartViewData(items: items)
+            return ChartViewData(
+                items: items,
+                lineColor: getLineColor(data: data)
+            )
+
         }
+
+    func getLineColor(data: ChartData) -> Color {
+        if let last = data.indicators.last?.close {
+            if selectedRange == .oneDay, let prevClose = data.meta.previousClose {
+                return last >= prevClose ? .green : .red
+            }else if let first = data.indicators.first?.close {
+                return last >= first ? .green : .red
+            }
+        }
+        return .blue
+    }
 }

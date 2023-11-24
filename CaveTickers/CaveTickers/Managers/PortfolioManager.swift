@@ -69,10 +69,12 @@ struct PortfolioManager {
     private func getLatestSharePrice(timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted) -> Double {
         return timeSeriesMonthlyAdjusted.getMonthInfos().first?.adjustedClose ?? 0
     }
-    private func getNumberOfShares(timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted,
-                                   initialInvestmentAmount: Double,
-                                   monthlyDollarCostAveragingAmount: Double,
-                                   initialDateOfInvestmentIndex: Int) -> Double {
+    private func getNumberOfShares(
+        timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted,
+        initialInvestmentAmount: Double,
+        monthlyDollarCostAveragingAmount: Double,
+        initialDateOfInvestmentIndex: Int
+    ) -> Double {
         var totalShares = Double()
         let initialInvestmentOpenPrice = timeSeriesMonthlyAdjusted.getMonthInfos()[initialDateOfInvestmentIndex].adjustedOpen
         let initialInvestmentShares = initialInvestmentAmount / initialInvestmentOpenPrice

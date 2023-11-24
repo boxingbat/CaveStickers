@@ -16,16 +16,15 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
     // Subviews
 
     /// ChartView
-    private let chartView = StockChartView()
+//    private let chartView = StockChartView()
 
     weak var delegate: DetailHeaderViewDelegate?
-
     public let addButton: UIButton = {
-            let button = UIButton()
-            button.setTitle("Add", for: .normal)
-            button.backgroundColor = .systemBlue
-            return button
-        }()
+        let button = UIButton()
+        button.setTitle("Add", for: .normal)
+        button.backgroundColor = .systemBlue
+        return button
+    }()
 
     /// CollectionView
     private let collectionView: UICollectionView = {
@@ -46,13 +45,13 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
     override init(frame: CGRect) {
         super.init(frame: frame)
         clipsToBounds = true
-        addSubview(chartView)
+//        addSubview(chartView)
         addSubview(collectionView)
         addSubview(addButton)
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         collectionView.delegate = self
         collectionView.dataSource = self
-        chartView.backgroundColor = .systemBackground
+//        chartView.backgroundColor = .systemBackground
     }
 
     @objc private func didTapAddButton() {
@@ -65,21 +64,21 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        chartView.frame = CGRect(x: 0, y: 0, width: width, height: height - 100)
+//        chartView.frame = CGRect(x: 0, y: 0, width: width, height: height - 100)
         collectionView.frame = CGRect(x: 0, y: height - 100, width: width, height: 100)
         let buttonSize = CGSize(width: 80, height: 40)
-        addButton.frame = CGRect(
-            x: chartView.frame.maxX - buttonSize.width - 10, // 右对齐
-            y: chartView.frame.maxY - buttonSize.height - 10, // 下对齐
-            width: buttonSize.width,
-            height: buttonSize.height
-        )
+//        addButton.frame = CGRect(
+//            x: chartView.frame.maxX - buttonSize.width - 10, // 右对齐
+//            y: chartView.frame.maxY - buttonSize.height - 10, // 下对齐
+//            width: buttonSize.width,
+//            height: buttonSize.height
+//        )
     }
     func configure(
-        chartViewModel: StockChartView.ViewModel,
+//        chartViewModel: StockChartView.ViewModel,
         metricViewModels: [MetricCollectionViewCell.ViewModel]
     ) {
-        chartView.configure(with: chartViewModel)
+//        chartView.configure(with: chartViewModel)
         self.metricViewModels = metricViewModels
         collectionView.reloadData()
     }
