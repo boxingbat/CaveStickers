@@ -12,21 +12,95 @@ import Charts
 
 struct ChartView: View {
     let data: ChartViewData
+    @ObservedObject var vm: ChartViewModel
 
     var body: some View {
         chart
-            .chartYScale(domain: data.items.map { $0.value
-            }.min()!...data.items.map { $0.value}.max()!)
-            .chartPlotStyle{chartPlotStyle($0)}
+            .chartXAxis { chartXAxis }
+            .chartXScale(domain: data.xAxisData.axisStart...data.xAxisData.axisEnd)
+//            .chartYAxis { chartYAxis }
+            .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
+            .chartPlotStyle { chartPlotStyle($0) }
+            .chartOverlay { proxy in
+                GeometryReader { gProxy in
+                    Rectangle().fill(.clear).contentShape(Rectangle())
+                        .gesture(DragGesture(minimumDistance: 0)
+                            .onChanged { onChangeDrag(value: $0, chartProxy: proxy, geometryProxy: gProxy) }
+                            .onEnded { _ in
+                                vm.selectedX = nil
+                            }
+                        )
+                }
+            }
     }
 
     private var chart: some View {
         Chart {
-            ForEach(data.items) { 
+            ForEach(Array(zip(data.items.indices, data.items)), id: \.0) { index, item in
                 LineMark(
-                    x: .value("Time", $0.timestamp),
-                    y: .value("Price", $0.value)
-                ).foregroundStyle(data.lineColor)
+                    x: .value("Time", index),
+                    y: .value("Price", item.value)
+                ).foregroundStyle(vm.foregroundMarkColor)
+
+                AreaMark(
+                    x: .value("Time", index),
+                    yStart: .value("Min", data.yAxisData.axisStart),
+                    yEnd: .value("Max", item.value)
+                )
+                .foregroundStyle(LinearGradient(
+                    gradient: Gradient(colors: [
+                        vm.foregroundMarkColor,
+                        .clear
+                    ]), startPoint: .top, endPoint: .bottom)
+                ).opacity(0.3)
+
+                if let previousClose = data.previousCloseRuleMarkValue {
+                    RuleMark(y: .value("Previous Close", previousClose))
+                        .lineStyle(.init(lineWidth: 0.1, dash: [2]))
+                        .foregroundStyle(.gray.opacity(0.3))
+
+                }
+
+                if let (selectedX, text) = vm.selectedXRuleMark {
+                    RuleMark(x: .value("Selected timestamp", selectedX))
+                        .lineStyle(.init(lineWidth: 1))
+                        .annotation {
+                            Text(text)
+                                .font(.system(size: 14))
+                                .foregroundColor(.blue)
+                        }
+                        .foregroundStyle(vm.foregroundMarkColor)
+                }
+
+            }
+        }
+    }
+    private var chartXAxis: some AxisContent {
+        AxisMarks(values: .stride(by: data.xAxisData.strideBy)) { value in
+            if let text = data.xAxisData.map[String(value.index)] {
+                AxisGridLine(stroke: .init(lineWidth: 0.3))
+                AxisTick(stroke: .init(lineWidth: 0.3))
+                AxisValueLabel(collisionResolution: .greedy()) {
+                    Text(text)
+                        .foregroundColor(Color(uiColor: .label))
+                        .font(.caption.bold())
+                }
+            }
+
+
+        }
+    }
+    private var chartYAxis: some AxisContent {
+        AxisMarks(preset: .extended, values: .stride(by: data.yAxisData.strideBy)) { value in
+            if let y = value.as(Double.self),
+               let text = data.yAxisData.map[y.roundedString] {
+                AxisGridLine(stroke: .init(lineWidth: 0.3))
+                AxisTick(stroke: .init(lineWidth: 0.3))
+                AxisValueLabel(anchor: .topLeading, collisionResolution: .greedy) {
+                    Text(text)
+                        .foregroundColor(Color(uiColor: .label))
+                        .font(.caption.bold())
+                }
             }
         }
     }
@@ -49,6 +123,15 @@ struct ChartView: View {
                     })
             }
     }
+    private func onChangeDrag(value: DragGesture.Value, chartProxy: ChartProxy, geometryProxy: GeometryProxy) {
+        let xCurrent = value.location.x - geometryProxy[chartProxy.plotAreaFrame].origin.x
+        if let index: Double = chartProxy.value(atX: xCurrent),
+           index >= 0,
+           Int(index) <= data.items.count - 1 {
+            self.vm.selectedX = Int(index)
+        }
+    }
+
 }
 
 struct ChartView_Previews: PreviewProvider {
@@ -58,10 +141,10 @@ struct ChartView_Previews: PreviewProvider {
 
     static var previews: some View {
         ForEach(allRanges) {
-            ChartContainer_ViewPreviews(veiwModel: chartViewModel(range: $0, stub: $0.stubs), title: $0.title)
+            ChartContainer_ViewPreviews(viewModel: chartViewModel(range: $0, stub: $0.stubs), title: $0.title)
         }
 
-        ChartContainer_ViewPreviews(veiwModel: chartViewModel(range: .oneDay, stub: oneDayOngoing), title: "1D Ongoing")
+        ChartContainer_ViewPreviews(viewModel: chartViewModel(range: .oneDay, stub: oneDayOngoing), title: "1D Ongoing")
 
     }
 
@@ -79,22 +162,22 @@ struct ChartView_Previews: PreviewProvider {
 #if DEBUG
 struct ChartContainer_ViewPreviews: View {
 
-    @StateObject var veiwModel: ChartViewModel
+    @StateObject var viewModel: ChartViewModel
     let title: String
 
     var body: some View {
         VStack {
             Text(title)
                 .padding(.bottom)
-            if let chartViewData = veiwModel.chart {
-                ChartView(data: chartViewData)
+            if let chartViewData = viewModel.chart {
+                ChartView(data: chartViewData, vm: viewModel)
             }
         }
         .padding()
         .frame(maxHeight: 272)
         .previewLayout(.sizeThatFits)
         .previewDisplayName(title)
-        .task { await veiwModel.fetchData() }
+        .task { await viewModel.fetchData() }
     }
 
 }

@@ -10,7 +10,7 @@ import XCAStocksAPI
 
 struct StockTickerView: View {
 
-
+    @StateObject var chartVM: ChartViewModel
     @StateObject var quoteVM: TickerQuoteViewModel
     @Environment(\
         .dismiss
@@ -30,7 +30,11 @@ struct StockTickerView: View {
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
-        .task { await quoteVM.fetchQuote()
+        .task(id: chartVM.selectedRange.rawValue) {
+            if quoteVM.quote == nil {
+                await quoteVM.fetchQuote()
+            }
+            await chartVM.fetchData()
         }
     }
 
@@ -43,22 +47,46 @@ struct StockTickerView: View {
 
             Divider()
 
-            DateRangePickerView(selectedRange: $selectedRange)
+            ZStack {
+                DateRangePickerView(selectedRange: $chartVM.selectedRange)
+                    .opacity(chartVM.selectedXOpacity)
 
-            Divider()
+                Text(chartVM.selectedXDateText)
+                    .font(.headline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal)
+            }
 
-            Text("Chart View")
+            Divider().opacity(chartVM.selectedXOpacity)
+
+            chartView
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, minHeight: 220)
 
             Divider().padding([.horizontal, .top])
 
             quoteDetailRowView
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, minHeight: 80)
+
+
         }
         .scrollIndicators(.hidden)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+
+    @ViewBuilder
+    private var chartView: some View {
+        switch chartVM.fetchphase {
+        case .fetching: LoadingStateView()
+        case .success(let data):
+            ChartView(data: data, vm: chartVM)
+        case .failure(let error):
+            ErrorStateView(error: "Chart: \(error.localizedDescription)")
+        default: EmptyView()
+        }
+    }
+
+
     @ViewBuilder private var quoteDetailRowView: some View {
         switch quoteVM.phase {
         case .fetching: LoadingStateView()
@@ -206,23 +234,26 @@ struct StockTickerView: View {
             }
             return TickerQuoteViewModel(ticker: .stub, stocksAPI: mockAPI)
         }()
-
+        
+        static var chartVM: ChartViewModel {
+            ChartViewModel(ticker: .stub, apiService:  MockStocksAPI())
+        }
 
         static var previews: some View {
             Group {
-                StockTickerView(quoteVM: tradingStubsQuoteVM)
+                StockTickerView(chartVM: chartVM, quoteVM: tradingStubsQuoteVM)
                     .previewDisplayName("Trading")
                     .frame(height: 700)
 
-                StockTickerView(quoteVM: closedStubsQuoteVM)
+                StockTickerView(chartVM: chartVM, quoteVM: closedStubsQuoteVM)
                     .previewDisplayName("Closed")
                     .frame(height: 700)
 
-                StockTickerView(quoteVM: loadingStubsQuoteVM)
+                StockTickerView(chartVM: chartVM, quoteVM: loadingStubsQuoteVM)
                     .previewDisplayName("Loading Quote")
                     .frame(height: 700)
 
-                StockTickerView(quoteVM: errorStubsQuoteVM)
+                StockTickerView(chartVM: chartVM, quoteVM: errorStubsQuoteVM)
                     .previewDisplayName("Error Quote")
                     .frame(height: 700)
 

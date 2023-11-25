@@ -12,7 +12,7 @@
 		0F173BA62B0F74BC002AF172 /* QuoteDetailRowColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */; };
 		0F173BA82B0F8283002AF172 /* ChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA72B0F8283002AF172 /* ChartViewData.swift */; };
 		0F173BAA2B0F82EA002AF172 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */; };
-		0F173BAC2B0F8D28002AF172 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAB2B0F8D28002AF172 /* ChartData.swift */; };
+		0F173BAC2B0F8D28002AF172 /* ChartRangeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */; };
 		0F173BAE2B10CA8F002AF172 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */; };
 		0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB02B10CC79002AF172 /* XCAStocksAPI */; };
 		0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB22B10CC79002AF172 /* XCAStocksExec */; };
@@ -72,7 +72,7 @@
 		0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailRowColumnView.swift; sourceTree = "<group>"; };
 		0F173BA72B0F8283002AF172 /* ChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewData.swift; sourceTree = "<group>"; };
 		0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
-		0F173BAB2B0F8D28002AF172 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartRangeExtension.swift; sourceTree = "<group>"; };
 		0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		0F2D6CE02B04D628007F1748 /* CaveTickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveTickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2D6CE32B04D628007F1748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +144,6 @@
 			children = (
 				0F2D6CE22B04D628007F1748 /* CaveTickers */,
 				0F2D6CE12B04D628007F1748 /* Products */,
-				32FD67496E9A8DB3416B2E3C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -233,7 +232,6 @@
 				0F4401A52B0DF3B600B703BC /* WebSocketData.swift */,
 				0F4401B82B0F214B00B703BC /* FetchPhase.swift */,
 				0F173BA72B0F8283002AF172 /* ChartViewData.swift */,
-				0F173BAB2B0F8D28002AF172 /* ChartData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -295,15 +293,9 @@
 				0F6CD1F52B0B7FDA0026DE51 /* UIColorExtension.swift */,
 				0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */,
 				0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */,
+				0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		32FD67496E9A8DB3416B2E3C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,7 +418,7 @@
 				0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */,
 				0F2D6CEE2B04D628007F1748 /* CaveTickers.xcdatamodeld in Sources */,
 				0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */,
-				0F173BAC2B0F8D28002AF172 /* ChartData.swift in Sources */,
+				0F173BAC2B0F8D28002AF172 /* ChartRangeExtension.swift in Sources */,
 				0F4401C22B0F2F1400B703BC /* ChartView.swift in Sources */,
 				0F4401C02B0F257200B703BC /* Utils.swift in Sources */,
 				0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */,
