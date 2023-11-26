@@ -103,7 +103,6 @@ class WatchListViewController: UIViewController {
                     changeColor: changePersentage < 0 ? .systemRed : .systemGreen,
                     companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
                     changePercentage: String.percentage(from: changePersentage)
-//                    chartViewModel: .init(data: candleSticks.reversed().map { $0.close }, showLegend: false, showAxis: false, fillColor: changePersentage < 0 ? .systemRed : .systemGreen)
                 )
             )
 
@@ -154,7 +153,6 @@ extension WatchListViewController: UISearchResultsUpdating {
         !query.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
-        // reset Timer
         searchTimer?.invalidate()
 
         searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
@@ -179,13 +177,14 @@ extension WatchListViewController: UISearchResultsUpdating {
 extension WatchListViewController: SearchTableViewDelegate {
     func searchViewControllerDidSelect(searchResult: SearchResult) {
         navigationItem.searchController?.searchBar.resignFirstResponder()
+
         let detailVc = DetailViewController(
             symbol: searchResult.symbol,
             companyName: searchResult.description,
-            candleStickData: [])
-        let navVC = UINavigationController(rootViewController: detailVc)
+            candleStickData: []
+        )
         detailVc.title = searchResult.description
-        present(navVC, animated: true)
+        navigationController?.pushViewController(detailVc, animated: true)
     }
 }
 extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {

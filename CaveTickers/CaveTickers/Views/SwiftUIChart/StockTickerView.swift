@@ -40,12 +40,12 @@ struct StockTickerView: View {
 
     private var scrollView: some View {
         ScrollView {
-            priceDiffRowView
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 8)
-                .padding(.horizontal)
-
-            Divider()
+//            priceDiffRowView
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .padding(.top, 8)
+//                .padding(.horizontal)
+//
+//            Divider()
 
             ZStack {
                 DateRangePickerView(selectedRange: $chartVM.selectedRange)
@@ -63,10 +63,10 @@ struct StockTickerView: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, minHeight: 220)
 
-            Divider().padding([.horizontal, .top])
-
-            quoteDetailRowView
-                .frame(maxWidth: .infinity, minHeight: 80)
+//            Divider().padding([.horizontal, .top])
+//
+//            quoteDetailRowView
+//                .frame(maxWidth: .infinity, minHeight: 80)
 
 
         }
@@ -175,26 +175,26 @@ struct StockTickerView: View {
                     .font(.subheadline.weight(.semibold))
                     .foregroundColor(Color(uiColor: .secondaryLabel))
             }
-            Spacer()
-            closeButton
+//            Spacer()
+//            closeButton
         }
     }
 
-    private var closeButton: some View {
-        Button {
-            dismiss()
-        } label: {
-            Circle()
-                .frame(width: 36, height: 36)
-                .foregroundColor(.gray.opacity(0.1))
-                .overlay {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 18).bold())
-                        .foregroundColor(Color(uiColor: .secondaryLabel))
-                }
-        }
-        .buttonStyle(.plain)
-    }
+//    private var closeButton: some View {
+//        Button {
+//            dismiss()
+//        } label: {
+//            Circle()
+//                .frame(width: 36, height: 36)
+//                .foregroundColor(.gray.opacity(0.1))
+//                .overlay {
+//                    Image(systemName: "xmark")
+//                        .font(.system(size: 18).bold())
+//                        .foregroundColor(Color(uiColor: .secondaryLabel))
+//                }
+//        }
+//        .buttonStyle(.plain)
+//    }
 }
     struct StockTickerView_Previews: PreviewProvider {
 

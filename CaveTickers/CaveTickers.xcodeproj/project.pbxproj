@@ -16,6 +16,7 @@
 		0F173BAE2B10CA8F002AF172 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */; };
 		0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB02B10CC79002AF172 /* XCAStocksAPI */; };
 		0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB22B10CC79002AF172 /* XCAStocksExec */; };
+		0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB62B1248D6002AF172 /* DismissButton.swift */; };
 		0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE32B04D628007F1748 /* AppDelegate.swift */; };
 		0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */; };
 		0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */; };
@@ -74,6 +75,7 @@
 		0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartRangeExtension.swift; sourceTree = "<group>"; };
 		0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		0F173BB62B1248D6002AF172 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		0F2D6CE02B04D628007F1748 /* CaveTickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveTickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2D6CE32B04D628007F1748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				0F4401A52B0DF3B600B703BC /* WebSocketData.swift */,
 				0F4401B82B0F214B00B703BC /* FetchPhase.swift */,
 				0F173BA72B0F8283002AF172 /* ChartViewData.swift */,
+				0F173BB62B1248D6002AF172 /* DismissButton.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F4401CB2B0F4A6A00B703BC /* Chart+Stubs.swift in Sources */,
+				0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */,
 				0F2D6D0A2B05EC78007F1748 /* DetailViewController.swift in Sources */,
 				0F2D6CFE2B04F15C007F1748 /* SearchViewController.swift in Sources */,
 				0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */,

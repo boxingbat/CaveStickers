@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import XCAStocksAPI
 
 class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     // MARK: - Properties
@@ -65,29 +66,14 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         webSocketManager.connect(withSymbol: symbol)
         setupPriceLabel()
         setupWebSocket()
-
-//        let stockTickerView = StockTickerView(quoteVM: self.quoteVM)
-//
-//                let hostingController = UIHostingController(rootView: stockTickerView)
-//
-//                addChild(hostingController)
-//                view.addSubview(hostingController.view)
-//                hostingController.didMove(toParent: self)
-//
-//                hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-//                NSLayoutConstraint.activate([
-//                    hostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//                    hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//                    hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//                    hostingController.view.heightAnchor.constraint(equalToConstant: 300) // 设置合适的高度
-//                ])
+        setupSwiftUIHeaderView()
     }
     // MARK: - Private
     private func setupPriceLabel() {
         view.addSubview(priceLabel)
         NSLayoutConstraint.activate([
-            priceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            priceLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 8),
+            priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             priceLabel.widthAnchor.constraint(equalToConstant: 150),
             priceLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -99,7 +85,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
                 self?.priceLabel.text = message
             }
         }
-        //            webSocketManager.connect(withSymbol: symbol)
     }
     private func setUpTableView() {
         view.addSubview(tableView)
@@ -152,6 +137,40 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
 //            self?.renderChart()
         }
     }
+    private func setupSwiftUIHeaderView() {
+        let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
+        let quoteVM = TickerQuoteViewModel(ticker: Ticker(symbol: symbol), stocksAPI: XCAStocksAPI())
+
+        let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM)
+
+        let hostingController = UIHostingController(rootView: stockTickerView)
+
+        addChild(hostingController)
+        view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
+
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingController.view.heightAnchor.constraint(equalToConstant: 400) // 设置合适的高度
+        ])
+        tableView.tableHeaderView = hostingController.view
+
+        updateTableViewConstraints()
+    }
+
+    private func updateTableViewConstraints() {
+        NSLayoutConstraint.deactivate(tableView.constraints)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300), // 这里的 300 应与上面 hostingController.view 的 heightAnchor 相同
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+    }
+
 //    private func renderChart() {
 //        // Chart VM | FinancialMetricViewModel(s)
 //        let headerView = StockDetailHeaderView(
