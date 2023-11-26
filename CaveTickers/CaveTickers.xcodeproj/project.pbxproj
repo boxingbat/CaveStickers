@@ -17,6 +17,8 @@
 		0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB02B10CC79002AF172 /* XCAStocksAPI */; };
 		0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB22B10CC79002AF172 /* XCAStocksExec */; };
 		0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB62B1248D6002AF172 /* DismissButton.swift */; };
+		0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */; };
+		0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */; };
 		0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE32B04D628007F1748 /* AppDelegate.swift */; };
 		0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */; };
 		0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */; };
@@ -76,6 +78,8 @@
 		0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartRangeExtension.swift; sourceTree = "<group>"; };
 		0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		0F173BB62B1248D6002AF172 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
+		0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPieChart.swift; sourceTree = "<group>"; };
+		0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		0F2D6CE02B04D628007F1748 /* CaveTickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveTickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2D6CE32B04D628007F1748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -256,6 +260,7 @@
 				0F4401C12B0F2F1400B703BC /* ChartView.swift */,
 				0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */,
 				0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */,
+				0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */,
 			);
 			path = SwiftUIChart;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			children = (
 				0F4401C32B0F317400B703BC /* TickerQuoteViewMoudle.swift */,
 				0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */,
+				0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 				0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */,
 				0F4401A92B0EF4B600B703BC /* StockTickerView.swift in Sources */,
 				0F6CD1ED2B0B061C0026DE51 /* PortfolioData.swift in Sources */,
+				0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */,
 				0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */,
 				0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */,
 				0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */,
@@ -455,6 +462,7 @@
 				0F173BA82B0F8283002AF172 /* ChartViewData.swift in Sources */,
 				0F4401C42B0F317400B703BC /* TickerQuoteViewMoudle.swift in Sources */,
 				0F6CD1E92B09F7EC0026DE51 /* AddToPortfolioController.swift in Sources */,
+				0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

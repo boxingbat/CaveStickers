@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegate {
     weak var delegate: AddToPortfolioControllerDelegate?
@@ -14,12 +15,42 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
     var savedPortfolio: [SavingPortfolio] = []
     var historyData: [TimeSeriesMonthlyAdjusted] = []
     var calculatedResult: [DCAResult] = []
+    var pieChartView: PortfolioPieChart?
+    var pieChartViewModel = PieChartViewModel()
+    var hostingController: UIHostingController<PortfolioPieChart>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         loadPortfolio()
+
+        pieChartView = PortfolioPieChart(viewModel: pieChartViewModel)
+        hostingController = UIHostingController(rootView: pieChartView!)
+
+        setupHeaderView()
     }
+
+    private func setupHeaderView() {
+        guard let hostingController = hostingController else { return }
+
+        let headerView = UIView()
+        headerView.backgroundColor = .link
+        headerView.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width - 32, height: 250)
+        tableView.tableHeaderView = headerView
+
+        addChild(hostingController)
+        headerView.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
+
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(equalTo: headerView.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+        ])
+    }
+
 
 
     private func setupLayout() {
@@ -75,7 +106,8 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
 
         for portfolio in savedPortfolio {
             group.enter()
-            getHistoricData(symbol: portfolio.symbol) { result in
+            getHistoricData(symbol: portfolio.symbol) { [weak self] result in
+                guard let strongSelf = self else { return }
                 if let result = result {
                     tempResults[portfolio.symbol] = result
                 }
@@ -84,10 +116,18 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
         }
 
         group.notify(queue: .main) { [weak self] in
-            self?.calculatedResult = self?.savedPortfolio.compactMap { tempResults[$0.symbol] } ?? []
-            self?.tableView.reloadData()
+            guard let strongSelf = self else { return }
+            strongSelf.calculatedResult = strongSelf.savedPortfolio.compactMap { tempResults[$0.symbol] } 
+            // 创建包含 symbol 和 DCAResult 的 PortfolioItem 数组
+            let portfolioItems = strongSelf.savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
+                guard index < strongSelf.calculatedResult.count else { return nil }
+                return PortfolioItem(symbol: savedItem.symbol, dcaResult: strongSelf.calculatedResult[index])
+            }
+            strongSelf.pieChartViewModel.updateChart(with: portfolioItems)
+            strongSelf.tableView.reloadData()
         }
     }
+
 
 
     func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
