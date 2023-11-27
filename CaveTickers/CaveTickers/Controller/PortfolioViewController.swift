@@ -117,8 +117,8 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
 
         group.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.calculatedResult = strongSelf.savedPortfolio.compactMap { tempResults[$0.symbol] } 
-            // 创建包含 symbol 和 DCAResult 的 PortfolioItem 数组
+    strongSelf.calculatedResult = strongSelf.savedPortfolio.compactMap { tempResults[$0.symbol] }
+        // 创建包含 symbol 和 DCAResult 的 PortfolioItem 数组
             let portfolioItems = strongSelf.savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
                 guard index < strongSelf.calculatedResult.count else { return nil }
                 return PortfolioItem(symbol: savedItem.symbol, dcaResult: strongSelf.calculatedResult[index])
@@ -193,8 +193,6 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             cell.yieldLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
             cell.annualReturnLabel.text = "\(result.annualReturn)"
             cell.annualReturnLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
-//            cell.changeRateLabel.text = "Return: \(result.yield)%"
-//            cell.changeRateLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
         }
         return cell
     }
@@ -207,6 +205,7 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             PersistenceManager.shared.deletePortfolio(savingStock: portfolioToDelete)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
+            setupHeaderView()
         }
     }
 }

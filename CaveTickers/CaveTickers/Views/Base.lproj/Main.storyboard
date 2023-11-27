@@ -43,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="946" y="713"/>
         </scene>
-        <!--Item-->
+        <!--Top News-->
         <scene sceneID="Z43-bW-xoZ">
             <objects>
                 <viewController id="PId-hO-BSs" customClass="NewsViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,13 +54,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="dbw-xc-TNk"/>
-                    <navigationItem key="navigationItem" id="u6S-r3-zln"/>
+                    <navigationItem key="navigationItem" title="Top News" id="u6S-r3-zln"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mt-XN-tpM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2723" y="713"/>
         </scene>
-        <!--Item-->
+        <!--Portfolio-->
         <scene sceneID="t4Y-8x-AzJ">
             <objects>
                 <viewController id="Bha-rR-47C" customClass="PortfolioViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,7 +71,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="dys-UT-Ald"/>
-                    <navigationItem key="navigationItem" id="Vzy-X7-DHu"/>
+                    <navigationItem key="navigationItem" title="Portfolio" id="Vzy-X7-DHu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KtK-Ks-xCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -165,7 +165,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     }
 
     private func fetchNews() {
-        APIManager.shared.companyNews(symbol: symbol){ [weak self] result in
+        APIManager.shared.companyNews(symbol: symbol) { [weak self] result in
             switch result {
             case .success(let news):
                 DispatchQueue.main.async {
@@ -205,9 +205,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         header.configure(with: .init(
-            title: "Related News",
+            title: symbol,
             shouldShowAddButton: true
-        ))
+        )
+        )
         return header
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

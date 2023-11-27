@@ -9,35 +9,33 @@ import SwiftUI
 
 struct PortfolioPieChart: View {
     @ObservedObject var viewModel: PieChartViewModel
-
     var body: some View {
-            GeometryReader { geometry in
-                ZStack {
-                    ForEach(0..<viewModel.pieChartSegments.count, id: \.self) { index in
-                        self.sliceView(geometry: geometry, index: index)
-                            .padding(2)
-                    }
-
-                    Circle()
-                        .fill(Color(UIColor.systemBackground))
-                        .frame(width: geometry.size.width * 0.6, height: geometry.size.height * 0.6)
-                    VStack {
-                        Text("Invested")
-                            .font(.headline)
-                        Text("$\(viewModel.totalInvestmentAmount, specifier: "%.2f")")
-                            .font(.caption)
-                        Text("Current")
-                            .font(.headline)
-                        Text("$\(viewModel.totalCurrentValue, specifier: "%.2f")")
-                            .font(.caption)
-                        Text("Growth")
-                            .font(.headline)
-                        Text("\(viewModel.growthRate, specifier: "%.2f")%")
-                            .font(.caption)
-                    }
+        GeometryReader { geometry in
+            ZStack {
+                ForEach(0..<viewModel.pieChartSegments.count, id: \.self) { index in
+                    self.sliceView(geometry: geometry, index: index)
+                        .padding(2)
+                }
+                Circle()
+                    .fill(Color(UIColor.systemBackground))
+                    .frame(width: geometry.size.width * 0.6, height: geometry.size.height * 0.6)
+                VStack {
+                    Text("Invested")
+                        .font(.headline)
+                    Text("$\(viewModel.totalInvestmentAmount, specifier: "%.2f")")
+                        .font(.caption)
+                    Text("Current")
+                        .font(.headline)
+                    Text("$\(viewModel.totalCurrentValue, specifier: "%.2f")")
+                        .font(.caption)
+                    Text("Growth")
+                        .font(.headline)
+                    Text("\(viewModel.growthRate, specifier: "%.2f")%")
+                        .font(.caption)
                 }
             }
         }
+    }
     private func sliceView(geometry: GeometryProxy, index: Int) -> some View {
         let segment = viewModel.pieChartSegments[index]
         let angle = 360 * segment.percentage / 100
@@ -54,25 +52,18 @@ struct PortfolioPieChart: View {
 
         let radius = min(geometry.size.width, geometry.size.height) / 2.5
         let midAngle = Angle(degrees: (startAngle.degrees + endAngle.degrees) / 2)
-
-
         let xOffset = cos(midAngle.radians) * radius
         let yOffset = sin(midAngle.radians) * radius
-
         let labelPosition = CGPoint(
             x: center.x + xOffset,
             y: center.y + yOffset
         )
-
         return Text(segment.symbol)
             .position(labelPosition)
             .font(.caption)
     }
-
-
-
     private func color(for segment: PieChartSegment) -> Color {
-        return Color(hue: Double.random(in: 0...1), saturation: 1, brightness: 1)
+        return Color(hue: Double.random(in: 0...1), saturation: 0.8, brightness: 0.5)
     }
 }
 
@@ -103,4 +94,3 @@ struct PieSlice: Shape {
         return path
     }
 }
-

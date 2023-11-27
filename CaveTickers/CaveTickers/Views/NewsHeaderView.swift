@@ -43,8 +43,9 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     let button: UIButton = {
         let button = UIButton()
         button.setTitle("+ Watchlist", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 8)
+        button.backgroundColor = .themeGreenShade
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
         return button
@@ -92,6 +93,7 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     /// - Parameter viewModel: View ViewModel
     public func configure(with viewModel: ViewModel) {
         label.text = viewModel.title
+        label.font = UIFont.systemFont(ofSize: 20)
         button.isHidden = !viewModel.shouldShowAddButton
     }
 }

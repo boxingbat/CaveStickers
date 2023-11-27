@@ -5,7 +5,6 @@
 //  Created by 1 on 2023/11/27.
 //
 
-//import SDWebImage
 import UIKit
 import Kingfisher
 
@@ -76,15 +75,15 @@ final class NewsTableViewCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("Init Error")
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let imageSize: CGFloat = contentView.height/1.4
+        let imageSize: CGFloat = contentView.height / 1.4
         storyImageView.frame = CGRect(
-            x: contentView.width-imageSize-10,
+            x: contentView.width - imageSize - 10,
             y: (contentView.height - imageSize) / 2,
             width: imageSize,
             height: imageSize
@@ -129,6 +128,7 @@ final class NewsTableViewCell: UITableViewCell {
         headlineLabel.text = viewModel.headline
         sourceLabel.text = viewModel.source
         dateLabel.text = viewModel.dateString
-        storyImageView.setImage(with: viewModel.imageUrl ?? "", placeholder: UIImage(named: ""))
+        storyImageView.setImage(with: viewModel.imageUrl ?? "APPIcon", placeholder: UIImage(named: "APPIcon")
+        )
     }
 }
