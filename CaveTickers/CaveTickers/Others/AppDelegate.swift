@@ -76,6 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func debug () {
+//        APIManager.shared.companyNews(symbol: "MSFT") { result in
+//        print(result) }
     }
 }
 

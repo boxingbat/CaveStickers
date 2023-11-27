@@ -72,11 +72,33 @@ final class APIManager {
             completion: completion
         )
     }
+    public func news(completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+        request(
+            url: finUrl(for: .topStories, queryParams: ["category": "general"]),
+            expecting: [NewsStory].self,
+            completion: completion
+        )
+    }
+    public func companyNews(symbol: String, completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+        let today = Date()
+        let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
+        request(
+            url: finUrl(for: .companyNews,
+                        queryParams: ["symbol": symbol,
+                                      "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
+                                      "to": DateFormatter.newsDateFormatter.string(from: today)
+                                     ]),
+            expecting: [NewsStory].self,
+            completion: completion
+        )
+    }
     // MARK: - Private
     private init () {}
 
     private enum Endpoint: String {
         case search
+        case topStories = "news"
+        case companyNews = "company-news"
         case marketData = "stock/candle"
         case financials = "stock/metric"
         case monthlyAddjusted = "TIME_SERIES_MONTHLY_ADJUSTED&"
