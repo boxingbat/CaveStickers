@@ -109,6 +109,7 @@ final class APIManager {
     }
     private func finUrl(for endpoint: Endpoint, queryParams: [String: String] = [:]) -> URL? {
         var urlString = Constants.finBaseURL + endpoint.rawValue
+        print(urlString)
         var queryItems: [URLQueryItem] = []
         for (name, value) in queryParams {
             queryItems.append(.init(name: name, value: value))

@@ -7,6 +7,7 @@
 
 //import SDWebImage
 import UIKit
+import Kingfisher
 
 /// News story tableView Cell
 final class NewsTableViewCell: UITableViewCell {
@@ -21,13 +22,13 @@ final class NewsTableViewCell: UITableViewCell {
         let source: String
         let headline: String
         let dateString: String
-        let imageUrl: URL?
+        let imageUrl: String?
 
         init(model: NewsStory) {
             self.source = model.source
             self.headline = model.headline
             self.dateString = .string(from: model.datetime)
-            self.imageUrl = URL(string: model.image)
+            self.imageUrl = model.image
         }
     }
 
@@ -128,8 +129,6 @@ final class NewsTableViewCell: UITableViewCell {
         headlineLabel.text = viewModel.headline
         sourceLabel.text = viewModel.source
         dateLabel.text = viewModel.dateString
-//        storyImageView.sd_setImage(with: viewModel.imageUrl, completed: nil)
-        // Manually set image
-        // storyImageView.setImage(with: viewModel.imageUrl)
+        storyImageView.setImage(with: viewModel.imageUrl ?? "", placeholder: UIImage(named: ""))
     }
 }

@@ -53,6 +53,9 @@
 		0F4401CF2B0F4EE100B703BC /* Quote Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */; };
 		0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BC2B1461BF00B41896 /* NewsModel.swift */; };
 		0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */; };
+		0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0F5442C12B14724C00B41896 /* Kingfisher */; };
+		0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C32B1472B300B41896 /* Third-Party Ext.swift */; };
+		0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C52B14765D00B41896 /* HapticsManager.swift */; };
 		0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */; };
 		0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */; };
 		0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */; };
@@ -120,6 +123,8 @@
 		0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quote Extension.swift"; sourceTree = "<group>"; };
 		0F5442BC2B1461BF00B41896 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		0F5442C32B1472B300B41896 /* Third-Party Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Third-Party Ext.swift"; sourceTree = "<group>"; };
+		0F5442C52B14765D00B41896 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataRespone.swift; sourceTree = "<group>"; };
 		0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
 		0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockChartView .swift"; sourceTree = "<group>"; };
@@ -145,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */,
 				0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */,
 				0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */,
 				81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */,
@@ -221,6 +227,7 @@
 				0F6CD1F12B0B7D200026DE51 /* PortfolioManager.swift */,
 				0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */,
 				0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */,
+				0F5442C52B14765D00B41896 /* HapticsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -316,6 +323,7 @@
 				0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */,
 				0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */,
 				0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */,
+				0F5442C32B1472B300B41896 /* Third-Party Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -358,6 +366,7 @@
 			packageProductDependencies = (
 				0F173BB02B10CC79002AF172 /* XCAStocksAPI */,
 				0F173BB22B10CC79002AF172 /* XCAStocksExec */,
+				0F5442C12B14724C00B41896 /* Kingfisher */,
 			);
 			productName = CaveTickers;
 			productReference = 0F2D6CE02B04D628007F1748 /* CaveTickers.app */;
@@ -389,6 +398,7 @@
 			mainGroup = 0F2D6CD72B04D628007F1748;
 			packageReferences = (
 				0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */,
+				0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0F2D6CE12B04D628007F1748 /* Products */;
 			projectDirPath = "";
@@ -468,6 +478,7 @@
 				0F2D6CFE2B04F15C007F1748 /* SearchViewController.swift in Sources */,
 				0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */,
 				0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */,
+				0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */,
 				0F6CD1EF2B0B36CC0026DE51 /* DateTableViewController.swift in Sources */,
 				0F6CD1E72B09EAEB0026DE51 /* PortfolioTableViewCell.swift in Sources */,
 				0F6CD1F22B0B7D200026DE51 /* PortfolioManager.swift in Sources */,
@@ -506,6 +517,7 @@
 				0F4401B92B0F214B00B703BC /* FetchPhase.swift in Sources */,
 				0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */,
 				0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */,
+				0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */,
 				0F4401A92B0EF4B600B703BC /* StockTickerView.swift in Sources */,
 				0F6CD1ED2B0B061C0026DE51 /* PortfolioData.swift in Sources */,
 				0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */,
@@ -756,6 +768,14 @@
 				kind = branch;
 			};
 		};
+		0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -768,6 +788,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */;
 			productName = XCAStocksExec;
+		};
+		0F5442C12B14724C00B41896 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 
