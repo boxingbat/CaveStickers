@@ -12,22 +12,23 @@ import Charts
 
 struct ChartView: View {
     let data: ChartViewData
-    @ObservedObject var vm: ChartViewModel
+    @ObservedObject var viewModel: ChartViewModel
 
     var body: some View {
         chart
             .chartXAxis { chartXAxis }
             .chartXScale(domain: data.xAxisData.axisStart...data.xAxisData.axisEnd)
-//            .chartYAxis { chartYAxis }
+        //            .chartYAxis { chartYAxis }
             .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
             .chartOverlay { proxy in
                 GeometryReader { gProxy in
-                    Rectangle().fill(.clear).contentShape(Rectangle())
+                    Rectangle().fill(.clear)
+                        .contentShape(Rectangle())
                         .gesture(DragGesture(minimumDistance: 0)
                             .onChanged { onChangeDrag(value: $0, chartProxy: proxy, geometryProxy: gProxy) }
                             .onEnded { _ in
-                                vm.selectedX = nil
+                                viewModel.selectedX = nil
                             }
                         )
                 }
@@ -40,7 +41,7 @@ struct ChartView: View {
                 LineMark(
                     x: .value("Time", index),
                     y: .value("Price", item.value)
-                ).foregroundStyle(vm.foregroundMarkColor)
+                ).foregroundStyle(viewModel.foregroundMarkColor)
 
                 AreaMark(
                     x: .value("Time", index),
@@ -49,10 +50,12 @@ struct ChartView: View {
                 )
                 .foregroundStyle(LinearGradient(
                     gradient: Gradient(colors: [
-                        vm.foregroundMarkColor,
+                        viewModel.foregroundMarkColor,
                         .clear
-                    ]), startPoint: .top, endPoint: .bottom)
-                ).opacity(0.3)
+                ]), startPoint: .top,
+                    endPoint: .bottom)
+                )
+                .opacity(0.3)
 
                 if let previousClose = data.previousCloseRuleMarkValue {
                     RuleMark(y: .value("Previous Close", previousClose))
@@ -61,7 +64,7 @@ struct ChartView: View {
 
                 }
 
-                if let (selectedX, text) = vm.selectedXRuleMark {
+                if let (selectedX, text) = viewModel.selectedXRuleMark {
                     RuleMark(x: .value("Selected timestamp", selectedX))
                         .lineStyle(.init(lineWidth: 1))
                         .annotation {
@@ -69,7 +72,7 @@ struct ChartView: View {
                                 .font(.system(size: 14))
                                 .foregroundColor(.blue)
                         }
-                        .foregroundStyle(vm.foregroundMarkColor)
+                        .foregroundStyle(viewModel.foregroundMarkColor)
                 }
 
             }
@@ -92,8 +95,8 @@ struct ChartView: View {
     }
     private var chartYAxis: some AxisContent {
         AxisMarks(preset: .extended, values: .stride(by: data.yAxisData.strideBy)) { value in
-            if let y = value.as(Double.self),
-               let text = data.yAxisData.map[y.roundedString] {
+            if let yValue = value.as(Double.self),
+            let text = data.yAxisData.map[yValue.roundedString] {
                 AxisGridLine(stroke: .init(lineWidth: 0.3))
                 AxisTick(stroke: .init(lineWidth: 0.3))
                 AxisValueLabel(anchor: .topLeading, collisionResolution: .greedy) {
@@ -111,7 +114,7 @@ struct ChartView: View {
                 Rectangle()
                     .foregroundColor(.gray.opacity(0.5))
                     .mask(ZStack {
-                        VStack{
+                        VStack {
                             Spacer()
                             Rectangle().frame(height: 1)
                         }
@@ -126,9 +129,9 @@ struct ChartView: View {
     private func onChangeDrag(value: DragGesture.Value, chartProxy: ChartProxy, geometryProxy: GeometryProxy) {
         let xCurrent = value.location.x - geometryProxy[chartProxy.plotAreaFrame].origin.x
         if let index: Double = chartProxy.value(atX: xCurrent),
-           index >= 0,
-           Int(index) <= data.items.count - 1 {
-            self.vm.selectedX = Int(index)
+        index >= 0,
+        Int(index) <= data.items.count - 1 {
+            self.viewModel.selectedX = Int(index)
         }
     }
 
@@ -170,7 +173,7 @@ struct ChartContainer_ViewPreviews: View {
             Text(title)
                 .padding(.bottom)
             if let chartViewData = viewModel.chart {
-                ChartView(data: chartViewData, vm: viewModel)
+                ChartView(data: chartViewData, viewModel: viewModel)
             }
         }
         .padding()

@@ -31,10 +31,10 @@ class ChartViewModel: ObservableObject {
 
     var selectedXRuleMark: (value: Int, text: String)? {
         guard let selectedX = selectedX as? Int,
-              let chart
+            let chart
         else { return nil }
         return (selectedX,
-                chart.items[selectedX].value.roundedString
+            chart.items[selectedX].value.roundedString
         )
     }
 
@@ -43,9 +43,9 @@ class ChartViewModel: ObservableObject {
     }
 
     private let selectedValueDateFormatter = {
-        let df = DateFormatter()
-        df.dateStyle = .medium
-        return df
+        let dateFormat = DateFormatter()
+        dateFormat.dateStyle = .medium
+        return dateFormat
     }()
 
     private let dateFormatter = DateFormatter()
@@ -89,16 +89,16 @@ class ChartViewModel: ObservableObject {
     }
 
     func transformChartViewData(_ data: ChartData) -> ChartViewData {
-//        let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close) }
+        //        let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close) }
         let (xAxisChartData, items) = xAxisChartDataAndItems(data)
         let yAxisChartData = yAxisChartData(data)
-            return ChartViewData(
-                xAxisData: xAxisChartData,
-                yAxisData: yAxisChartData,
-                items: items,
-                lineColor: getLineColor(data: data),
-                previousCloseRuleMarkValue: previuesCloseRuleMarkValue(data: data, yAxisData: yAxisChartData)
-            )
+        return ChartViewData(
+            xAxisData: xAxisChartData,
+            yAxisData: yAxisChartData,
+            items: items,
+            lineColor: getLineColor(data: data),
+            previousCloseRuleMarkValue: previuesCloseRuleMarkValue(data: data, yAxisData: yAxisChartData)
+        )
 
         }
 
@@ -123,10 +123,10 @@ class ChartViewModel: ObservableObject {
         var items = [ChartViewItem]()
 
         for (index, value) in data.indicators.enumerated() {
-            let dc = value.timestamp.dateComponents(timeZone: timezone, rangeType: selectedRange)
-            if xAxisDateComponents.contains(dc) {
+            let dateComponent = value.timestamp.dateComponents(timeZone: timezone, rangeType: selectedRange)
+            if xAxisDateComponents.contains(dateComponent) {
                 map[String(index)] = dateFormatter.string(from: value.timestamp)
-                xAxisDateComponents.remove(dc)
+                xAxisDateComponents.remove(dateComponent)
             }
 
             items.append(ChartViewItem(
@@ -136,16 +136,16 @@ class ChartViewModel: ObservableObject {
         axisEnd = items.count - 1
 
         if selectedRange == .oneDay,
-           var date = items.last?.timestamp,
-           date >= data.meta.regularTradingPeriodStartDate &&
-           date < data.meta.regularTradingPeriodEndDate {
+        var date = items.last?.timestamp,
+        date >= data.meta.regularTradingPeriodStartDate &&
+            date < data.meta.regularTradingPeriodEndDate {
             while date < data.meta.regularTradingPeriodEndDate {
                 axisEnd += 1
                 date = Calendar.current.date(byAdding: .minute, value: 2, to: date)!
-                let dc = date.dateComponents(timeZone: timezone, rangeType: selectedRange)
-                if xAxisDateComponents.contains(dc) {
+                let dateComponent = date.dateComponents(timeZone: timezone, rangeType: selectedRange)
+                if xAxisDateComponents.contains(dateComponent) {
                     map[String(axisEnd)] = dateFormatter.string(from: date)
-                    xAxisDateComponents.remove(dc)
+                    xAxisDateComponents.remove(dateComponent)
                 }
             }
         }
@@ -160,12 +160,12 @@ class ChartViewModel: ObservableObject {
     }
 
     func yAxisChartData(_ data: ChartData) -> ChartAxisData {
-        let closes = data.indicators.map {$0.close}
+        let closes = data.indicators.map { $0.close }
         var lowest = closes.min() ?? 0
         var highest = closes.max() ?? 0
 
         if let prevClose = data.meta.previousClose,
-           selectedRange == .oneDay{
+        selectedRange == .oneDay {
             if prevClose < lowest {
                 lowest = prevClose
             } else if prevClose > highest {
@@ -214,7 +214,7 @@ class ChartViewModel: ObservableObject {
 
     func previuesCloseRuleMarkValue(data: ChartData, yAxisData: ChartAxisData) -> Double? {
         guard let previousClose = data.meta.previousClose,
-              selectedRange == .oneDay else {
+            selectedRange == .oneDay else {
             return nil
         }
         return (yAxisData.axisStart <= previousClose && previousClose <= yAxisData.axisEnd) ? previousClose : nil

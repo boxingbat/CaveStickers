@@ -67,9 +67,11 @@
 		0F6CD1F42B0B7F980026DE51 /* CaculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */; };
 		0F6CD1F62B0B7FDA0026DE51 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F52B0B7FDA0026DE51 /* UIColorExtension.swift */; };
 		0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */; };
+		81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
 		0F173BA12B0F73E8002AF172 /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
 		0F173BA32B0F742C002AF172 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailRowColumnView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,8 @@
 		0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaculatorPresenter.swift; sourceTree = "<group>"; };
 		0F6CD1F52B0B7FDA0026DE51 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoubleExtension .swift"; sourceTree = "<group>"; };
+		63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
+		D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 			files = (
 				0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */,
 				0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */,
+				81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +155,8 @@
 			children = (
 				0F2D6CE22B04D628007F1748 /* CaveTickers */,
 				0F2D6CE12B04D628007F1748 /* Products */,
+				5FFB89E095E25DB62657836F /* Pods */,
+				CA55C4A22769B756FDFB9E4C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,13 +172,13 @@
 			isa = PBXGroup;
 			children = (
 				0F4401C52B0F488000B703BC /* Stubs */,
+				0F2D6D062B05EA6C007F1748 /* Managers */,
 				0F4401BA2B0F22FB00B703BC /* Service */,
 				0F4401B32B0F0FA000B703BC /* ViewModel */,
 				0F6CD1F02B0B45CF0026DE51 /* Extension */,
 				0F2D6D112B060388007F1748 /* Others */,
 				0F2D6D082B05EAC4007F1748 /* Models */,
 				0F2D6D072B05EAAC007F1748 /* Controller */,
-				0F2D6D062B05EA6C007F1748 /* Managers */,
 				0F2D6D052B05EA56007F1748 /* Views */,
 				0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */,
 				0F2D6CF42B04D62A007F1748 /* Info.plist */,
@@ -307,6 +314,23 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		5FFB89E095E25DB62657836F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */,
+				08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		CA55C4A22769B756FDFB9E4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -314,10 +338,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F2D6CF72B04D62A007F1748 /* Build configuration list for PBXNativeTarget "CaveTickers" */;
 			buildPhases = (
+				56E1E327CF9B27D8A81EEBA3 /* [CP] Check Pods Manifest.lock */,
 				0F2D6CDC2B04D628007F1748 /* Sources */,
 				0F2D6CDD2B04D628007F1748 /* Frameworks */,
-				0F2D6CDE2B04D628007F1748 /* Resources */,
 				0F2D6CFC2B04DBC7007F1748 /* ShellScript */,
+				0F2D6CDE2B04D628007F1748 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -398,7 +423,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			showEnvVarsInLog = 0;
+		};
+		56E1E327CF9B27D8A81EEBA3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CaveTickers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -609,6 +656,7 @@
 		};
 		0F2D6CF82B04D62A007F1748 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -639,6 +687,7 @@
 		};
 		0F2D6CF92B04D62A007F1748 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -79,7 +79,7 @@ struct StockTickerView: View {
         switch chartVM.fetchphase {
         case .fetching: LoadingStateView()
         case .success(let data):
-            ChartView(data: data, vm: chartVM)
+            ChartView(data: data, viewModel: chartVM)
         case .failure(let error):
             ErrorStateView(error: "Chart: \(error.localizedDescription)")
         default: EmptyView()
