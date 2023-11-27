@@ -175,7 +175,7 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         return calculatedResult.count
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return 100
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint: disable all
@@ -186,8 +186,15 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             let saved = savedPortfolio[indexPath.row]
 
             cell.stockInfoLabel.text = "\(saved.symbol)"
-            cell.changeRateLabel.text = "Return: \(result.yield)%"
-            cell.changeRateLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.investmentAmountLabel.text = "\(result.investmentAmount)"
+            cell.gainLabel.text = "\(result.gain)"
+            cell.gainLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.yieldLabel.text = "\(result.yield)"
+            cell.yieldLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.annualReturnLabel.text = "\(result.annualReturn)"
+            cell.annualReturnLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+//            cell.changeRateLabel.text = "Return: \(result.yield)%"
+//            cell.changeRateLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
         }
         return cell
     }
