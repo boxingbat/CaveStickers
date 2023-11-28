@@ -61,7 +61,7 @@ struct StockTickerView: View {
     @ViewBuilder private var chartView: some View {
         switch chartVM.fetchphase {
         case .fetching:
-            LoadingStateView()
+            LoadingStateView(isLoading: true)
         case .success(let data):
             ChartView(data: data, viewModel: chartVM)
         case .failure(let error):
@@ -72,7 +72,7 @@ struct StockTickerView: View {
     }
     @ViewBuilder private var quoteDetailRowView: some View {
         switch quoteVM.phase {
-        case .fetching: LoadingStateView()
+        case .fetching: LoadingStateView(isLoading: true)
         case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
             .padding(.horizontal)
         case .success(let quote):

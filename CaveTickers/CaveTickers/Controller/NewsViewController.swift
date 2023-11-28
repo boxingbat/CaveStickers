@@ -9,7 +9,7 @@ import Kingfisher
 import SafariServices
 import UIKit
 
-class NewsViewController: UIViewController {
+class NewsViewController: LoadingViewController {
 
     private var news: [NewsStory] = []
     var headerTitle: String?
@@ -25,6 +25,7 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setUpTableView()
+        showLoadingView()
         fetchNews()
     }
     override func viewDidLayoutSubviews() {
@@ -40,7 +41,14 @@ class NewsViewController: UIViewController {
     }
 
     private func fetchNews() {
+
+        let group = DispatchGroup()
+
+        group.enter()
         APIManager.shared.news() { [weak self] result in
+            defer {
+                group.leave()
+            }
             switch result {
             case .success(let news):
                 DispatchQueue.main.async {
@@ -50,6 +58,9 @@ class NewsViewController: UIViewController {
             case .failure(let error):
                 print(error)
             }
+        }
+        group.notify(queue: .main) {[weak self] in
+            self?.hideLoadingView()
         }
     }
     private func open(url: URL) {

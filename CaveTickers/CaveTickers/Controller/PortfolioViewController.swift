@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegate {
+class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDelegate {
     weak var delegate: AddToPortfolioControllerDelegate?
     let tableView = UITableView()
     private let portfolioManager = PortfolioManager()
@@ -22,6 +22,7 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        showLoadingView()
         loadPortfolio()
 
         pieChartView = PortfolioPieChart(viewModel: pieChartViewModel)
@@ -117,10 +118,11 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
             }
             strongSelf.pieChartViewModel.updateChart(with: portfolioItems)
             strongSelf.tableView.reloadData()
+            self?.hideLoadingView()
         }
     }
     func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
-        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 1) { [weak self] result in
+        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 2...4)) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -192,7 +194,7 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             PersistenceManager.shared.deletePortfolio(savingStock: portfolioToDelete)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
-            setupHeaderView()
+            loadPortfolio()
         }
     }
 }

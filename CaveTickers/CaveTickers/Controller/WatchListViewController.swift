@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SwiftUI
 
-class WatchListViewController: UIViewController {
+class WatchListViewController: LoadingViewController {
     static var maxChangeWidth: CGFloat = 0
     private var searchTimer: Timer?
     private var watchListMap: [String: [CandleStick]] = [:]
@@ -19,13 +20,16 @@ class WatchListViewController: UIViewController {
     }()
 
     private var observer: NSObjectProtocol?
+    private var loadingStateVC: UIHostingController<LoadingStateView>?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLoadingView()
         setUpSearchController()
         setupTableView()
         setupTitleView()
+        showLoadingView()
         fetchWatchlistData()
         setUpObserver()
     }
@@ -65,7 +69,6 @@ class WatchListViewController: UIViewController {
 
         navigationItem.titleView = titleView
     }
-
     private func fetchWatchlistData() {
         let symbols = PersistenceManager.shared.watchlist
 
@@ -92,6 +95,7 @@ class WatchListViewController: UIViewController {
         group.notify(queue: .main) {[weak self] in
             self?.craeteViewModels()
             self?.tableView.reloadData()
+            self?.hideLoadingView()
         }
     }
 

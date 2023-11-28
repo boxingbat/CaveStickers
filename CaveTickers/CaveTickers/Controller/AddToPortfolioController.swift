@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITableViewDataSource {
     weak var delegate: AddToPortfolioControllerDelegate?
 
     var tableView = UITableView()
@@ -184,8 +184,14 @@ extension AddToPortfolioController: UITextFieldDelegate {
                     presentAlertWithTitle(title: "Hey", message: "Input the symbol")
                     return false
                 }
+                self.showLoadingView()
                 let dateTableViewController = DateTableViewController()
-                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 2) { [weak self] result in
+                let group = DispatchGroup()
+                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 0...1)) { [weak self] result in
+                    group.enter()
+                    defer {
+                        group.leave()
+                    }
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let response):
@@ -211,6 +217,9 @@ extension AddToPortfolioController: UITextFieldDelegate {
                             print(error)
                         }
                     }
+                }
+                group.notify(queue: .main) {[weak self] in
+                    self?.hideLoadingView()
                 }
                 return false
             }

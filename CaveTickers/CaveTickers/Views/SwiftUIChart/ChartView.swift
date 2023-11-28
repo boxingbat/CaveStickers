@@ -32,7 +32,21 @@ struct ChartView: View {
                         )
                 }
             }
+            .overlay(
+                            GeometryReader { geometry in
+                                let yPosition = calculatePulsatingViewYPosition(geometry: geometry, data: data)
+                                PulsatingView(color: viewModel.foregroundMarkColor)
+                                    .position(x: geometry.size.width * 0.93, y: yPosition - 12)
+                            }
+                        )
     }
+    private func calculatePulsatingViewYPosition(geometry: GeometryProxy, data: ChartViewData) -> CGFloat {
+            let maxValue = data.yAxisData.axisEnd
+            let minValue = data.yAxisData.axisStart
+            let lastValue = data.items.last?.value ?? minValue
+            let relativePosition = (lastValue - minValue) / (maxValue - minValue)
+            return geometry.size.height * (1 - relativePosition)
+        }
 
     private var chart: some View {
         Chart {
