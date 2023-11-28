@@ -10,16 +10,14 @@ import UIKit
 protocol DetailHeaderViewDelegate: AnyObject {
     /// Notify user tapped header button
     /// - Parameter headerView: Ref of header view
-    func didTapAddButton(_ headerView: StockDetailHeaderView)
+    func didTapAddButton(_ headerView: NewsHeaderView)
+//    func updatePriceLabel(price: String)
 }
 
 /// TableView header for news
 final class NewsHeaderView: UITableViewHeaderFooterView {
     /// Header identifier
     static let identifier = "NewsHeaderView"
-
-
-
     /// Ideal height of header
     static let preferredHeight: CGFloat = 70
 
@@ -51,33 +49,68 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
         return button
     }()
 
+    var priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Closed"
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+
     // MARK: - Init
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .secondarySystemBackground
-        contentView.addSubview(label)
-        contentView.addSubview(button)
+        addSubviews()
+        setupConstraints()
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updatePriceLabel),
+            name: NSNotification.Name("UpdatePriceLabel"),
+            object: nil
+        )
     }
 
     required init?(coder: NSCoder) {
         fatalError("Error")
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        label.frame = CGRect(x: 14, y: 0, width: contentView.width - 28, height: contentView.height)
-
-        button.sizeToFit()
-        button.frame = CGRect(
-            x: contentView.width - button.width - 16,
-            y: (contentView.height - button.height) / 2,
-            width: button.width + 8,
-            height: button.height
-        )
+    @objc private func updatePriceLabel(notification: Notification) {
+        if let price = notification.userInfo?["price"] as? String {
+            self.priceLabel.text = price
+        }
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+        // MARK: - Setup
+
+        private func addSubviews() {
+            contentView.addSubview(label)
+            contentView.addSubview(button)
+            contentView.addSubview(priceLabel)
+        }
+
+        private func setupConstraints() {
+            label.translatesAutoresizingMaskIntoConstraints = false
+            button.translatesAutoresizingMaskIntoConstraints = false
+            priceLabel.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                // Label Constraints
+                label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
+                label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                // Button Constraints
+                button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                // Price Label Constraints
+                priceLabel.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 8),
+                priceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                priceLabel.trailingAnchor.constraint(lessThanOrEqualTo: button.leadingAnchor, constant: -8)
+            ])
+        }
     override func prepareForReuse() {
         super.prepareForReuse()
         label.text = nil
@@ -85,8 +118,7 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
 
     /// Handle button tap
     @objc private func didTapButton() {
-        // Call delegate
-//        delegate?.newsHeaderViewDidTapAddButton(self)
+        delegate?.didTapAddButton(self)
     }
 
     /// Configure view

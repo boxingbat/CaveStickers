@@ -38,8 +38,6 @@ class TickerPlistRepository: TickerListRepository {
         try data.write(to: url, options: [.atomic])
         self.saved = current
     }
-
-
     func load() throws -> [Ticker] {
         let data = try Data(contentsOf: url)
         let current = try PropertyListDecoder().decode([Ticker].self, from: data)

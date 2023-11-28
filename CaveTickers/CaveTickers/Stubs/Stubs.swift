@@ -38,34 +38,33 @@ extension Quote {
     }
 
     static var stubsDict: [String: Quote] {
-        var dict = [String: Quote]()
+        var dict: [String: Quote] = [:]
         stubs.forEach { dict[$0.symbol] = $0 }
         return dict
     }
 
     static func stub(isTrading: Bool) -> Quote {
-        Quote(symbol: "AAPL",
-              currency: "USD",
-              marketState: isTrading ? "REGULAR" : "CLOSED",
-              regularMarketPrice: 150.43,
-              regularMarketChange: -2.31,
-              postMarketPrice: 172.43,
-              postMarketChange: 5.34,
-              regularMarketOpen: 150,
-              regularMarketDayHigh: 160,
-              regularMarketDayLow: 140,
-              regularMarketVolume: 86_000_000.0,
-              trailingPE: 24.54,
-              marketCap: 2_300_000_000_000.0,
-              fiftyTwoWeekLow: 130.42,
-              fiftyTwoWeekHigh: 183.77,
-              averageDailyVolume3Month: 80_128_000.0,
-              epsTrailingTwelveMonths: 6.05
+        Quote(
+            symbol: "AAPL",
+            currency: "USD",
+            marketState: isTrading ? "REGULAR" : "CLOSED",
+            regularMarketPrice: 150.43,
+            regularMarketChange: -2.31,
+            postMarketPrice: 172.43,
+            postMarketChange: 5.34,
+            regularMarketOpen: 150,
+            regularMarketDayHigh: 160,
+            regularMarketDayLow: 140,
+            regularMarketVolume: 86_000_000.0,
+            trailingPE: 24.54,
+            marketCap: 2_300_000_000_000.0,
+            fiftyTwoWeekLow: 130.42,
+            fiftyTwoWeekHigh: 183.77,
+            averageDailyVolume3Month: 80_128_000.0,
+            epsTrailingTwelveMonths: 6.05
         )
     }
 
 }
 
 #endif
-
-

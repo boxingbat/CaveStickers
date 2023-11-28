@@ -46,7 +46,11 @@ extension Double {
     func formatUsingAbbrevation () -> String {
         let numFormatter = NumberFormatter()
 
-        typealias Abbrevation = ( threshold: Double, divisor: Double, suffix: String)
+        typealias Abbrevation = (
+            threshold: Double,
+            divisor: Double,
+            suffix: String
+        )
         let abbreviations: [Abbrevation] = [
             (0, 1, ""),
             (1000.0, 1000.0, "K"),

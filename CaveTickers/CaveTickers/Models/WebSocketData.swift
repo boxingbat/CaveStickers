@@ -20,3 +20,6 @@ struct PriceData: Codable {
         case symbolData = "s"
     }
 }
+class WebSocketData: ObservableObject {
+    @Published var stockInfo: WebsocketStockInfo?
+}

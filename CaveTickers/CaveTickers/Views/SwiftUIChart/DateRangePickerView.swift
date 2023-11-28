@@ -37,8 +37,6 @@ struct DateRangePickerView: View {
             .fill(range == selectedRange ? Color.gray.opacity(0.4) : Color.clear)
     }
 }
-
-
 struct DateRangePickerView_Previews: PreviewProvider {
 
     @State static var dateRange = ChartRange.oneDay

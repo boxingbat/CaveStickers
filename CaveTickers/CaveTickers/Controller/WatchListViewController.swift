@@ -9,7 +9,6 @@ import UIKit
 
 class WatchListViewController: UIViewController {
     static var maxChangeWidth: CGFloat = 0
-
     private var searchTimer: Timer?
     private var watchListMap: [String: [CandleStick]] = [:]
     private var viewModels: [WatchListTableViewCell.ViewModel] = []
@@ -37,10 +36,14 @@ class WatchListViewController: UIViewController {
     }
     // MARK: - Private
     private func setUpObserver() {
-        observer = NotificationCenter.default.addObserver(forName: .didAddToWatchList, object: nil, queue: .main, using: {[weak self]_ in
-            self?.viewModels.removeAll()
-            self?.fetchWatchlistData()
-        })
+        observer = NotificationCenter.default.addObserver(
+            forName: .didAddToWatchList,
+            object: nil,
+            queue: .main,
+            using: {[weak self]_ in
+                self?.viewModels.removeAll()
+                self?.fetchWatchlistData()
+            })
     }
 
     private func setupTitleView() {
@@ -56,8 +59,8 @@ class WatchListViewController: UIViewController {
             y: 0,
             width: titleView.width - 20,
             height: titleView.height))
-        label.text = "Stocks"
-        label.font = .systemFont(ofSize: 32, weight: .medium)
+        label.text = "WatchList"
+        label.font = .systemFont(ofSize: 24, weight: .medium)
         titleView.addSubview(label)
 
         navigationItem.titleView = titleView
@@ -191,8 +194,14 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return watchListMap.count
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: WatchListTableViewCell.identifier,
+            for: indexPath
+        ) as? WatchListTableViewCell else {
             fatalError("error")
         }
         cell.delegate = self
@@ -205,10 +214,17 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    func tableView(
+        _ tableView: UITableView,
+        editingStyleForRowAt indexPath: IndexPath
+    ) -> UITableViewCell.EditingStyle {
         return .delete
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             tableView.beginUpdates()
             let symbol = viewModels[indexPath.row].symbol

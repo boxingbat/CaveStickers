@@ -106,7 +106,26 @@ class AddPortfolioTableViewCell: UITableViewCell {
         }
 
     private func setupCell() {
-        let components = [titleLabel, currentLabel, investmentAmountLabel, gainLabel, annualReturnLabel, symbolLabel, symbolTextField, initialAmountLabel, initialAmountTextField, monthlyInputLabel, monthlyInputTextField, timeLineLabel, timeLineInputTextField, gainTitle, investedAmnountTitle, annualReturnTitle, yieldLabel, yieldTitle]
+        let components = [
+            titleLabel,
+            currentLabel,
+            investmentAmountLabel,
+            gainLabel,
+            annualReturnLabel,
+            symbolLabel,
+            symbolTextField,
+            initialAmountLabel,
+            initialAmountTextField,
+            monthlyInputLabel,
+            monthlyInputTextField,
+            timeLineLabel,
+            timeLineInputTextField,
+            gainTitle,
+            investedAmnountTitle,
+            annualReturnTitle,
+            yieldLabel,
+            yieldTitle
+        ]
         for component in components {
             component.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(component)
@@ -125,7 +144,6 @@ class AddPortfolioTableViewCell: UITableViewCell {
             investmentAmountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             investedAmnountTitle.centerYAnchor.constraint(equalTo: investmentAmountLabel.centerYAnchor),
             investedAmnountTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-
 
             gainLabel.topAnchor.constraint(equalTo: investmentAmountLabel.bottomAnchor, constant: 8),
             gainLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -211,13 +229,11 @@ class AddPortfolioTableViewCell: UITableViewCell {
         initialAmountTextField.addDoneButton()
         initialAmountTextField.keyboardType = .numberPad
 
-
         monthlyInputLabel.font = UIFont.systemFont(ofSize: 12)
 
         monthlyInputTextField.font = UIFont.systemFont(ofSize: 24)
         monthlyInputTextField.addDoneButton()
         monthlyInputTextField.keyboardType = .numberPad
-
 
         timeLineLabel.font = UIFont.systemFont(ofSize: 12)
 

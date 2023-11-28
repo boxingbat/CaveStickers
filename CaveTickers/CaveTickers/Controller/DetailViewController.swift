@@ -19,16 +19,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private var candleStickData: [CandleStick]
     private var chartView = UIView()
     private var webSocketManager = WebSocketManager()
-    private let priceLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.textAlignment = .center
-        label.layer.cornerRadius = 8
-        label.layer.masksToBounds = true
-        return label
-    }()
+    private var closedPrice: String?
     let tableView: UITableView = {
         let table = UITableView()
         table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
@@ -45,7 +36,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         self.symbol = symbol
         self.companyName = companyName
         self.candleStickData = candleStickData
-        //            self.quoteVM = quoteVM
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -58,29 +48,24 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        getLastPrice()
         fetchFinancialData()
         setUpTableView()
         webSocketManager.connect(withSymbol: symbol)
-        setupPriceLabel()
         setupWebSocket()
         setupSwiftUIHeaderView()
         fetchNews()
     }
     // MARK: - Private
-    private func setupPriceLabel() {
-        view.addSubview(priceLabel)
-        NSLayoutConstraint.activate([
-            priceLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 8),
-            priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            priceLabel.widthAnchor.constraint(equalToConstant: 150),
-            priceLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
     private func setupWebSocket() {
         webSocketManager.onReceive = { [weak self] message in
             print("Received message: \(message)")
             DispatchQueue.main.async {
-                self?.priceLabel.text = message
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("UpdatePriceLabel"),
+                    object: nil,
+                    userInfo: ["price": message]
+                )
             }
         }
     }
@@ -116,32 +101,25 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
                 }
             }
         }
-
     }
     private func setupSwiftUIHeaderView() {
         let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
         let quoteVM = TickerQuoteViewModel(ticker: Ticker(symbol: symbol), stocksAPI: XCAStocksAPI())
-
         let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM)
-
         let hostingController = UIHostingController(rootView: stockTickerView)
-
         addChild(hostingController)
         view.addSubview(hostingController.view)
         hostingController.didMove(toParent: self)
-
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingController.view.heightAnchor.constraint(equalToConstant: 400)
+            hostingController.view.heightAnchor.constraint(equalToConstant: 350)
         ])
         tableView.tableHeaderView = hostingController.view
-
         updateTableViewConstraints()
     }
-
     private func updateTableViewConstraints() {
         NSLayoutConstraint.deactivate(tableView.constraints)
         NSLayoutConstraint.activate([
@@ -154,16 +132,15 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
         let latestDate = data[0].date
         guard let latestClose = data.first?.close,
-            let priorClose = data.first(where: {
-                !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
-            })?.close else {
+              let priorClose = data.first(where: {
+                  !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
+              })?.close else {
             return 0
         }
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
         let differnece = 1 - priorClose / latestClose
         return differnece
     }
-
     private func fetchNews() {
         APIManager.shared.companyNews(symbol: symbol) { [weak self] result in
             switch result {
@@ -181,9 +158,24 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         let SFvc = SFSafariViewController(url: url)
         present(SFvc, animated: true)
     }
+    private func getLastPrice() {
+        let symbols = symbol
+        APIManager.shared.marketData(for: symbol) { [weak self] result in
+            switch result {
+            case .success(let data):
+                let closed = data.close
+                self?.closedPrice = String(format: "%.2f", closed[0])
+                print("\(closed[0])")
+                // Reload the tableView on the main thread after updating data
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
-
-
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return news.count
@@ -207,8 +199,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         header.configure(with: .init(
             title: symbol,
             shouldShowAddButton: true
-        )
-        )
+        ))
+        header.priceLabel.text = self.closedPrice
+        header.delegate = self
         return header
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -240,9 +233,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 extension DetailViewController: DetailHeaderViewDelegate {
-    func didTapAddButton(_ headerView: StockDetailHeaderView) {
+    func didTapAddButton(_ headerView: NewsHeaderView) {
         TapManager.shared.vibrate(for: .success)
-        headerView.addButton.isHidden = true
+        headerView.button.isHidden = true
         PersistenceManager.shared.addToWatchList(symbol: symbol, companyName: companyName)
         let alert = UIAlertController(
             title: "Added to Watchlist",

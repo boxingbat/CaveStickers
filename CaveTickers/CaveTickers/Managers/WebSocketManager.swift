@@ -75,7 +75,11 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
         }
         webSocket = nil
     }
-    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+    func urlSession(
+        _ session: URLSession,
+        webSocketTask: URLSessionWebSocketTask,
+        didOpenWithProtocol protocol: String?
+    ) {
         print("WebSocket connected")
         ping()
         receive()
@@ -83,7 +87,12 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
             send(symbol: symbol)
         }
     }
-    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+    func urlSession(
+        _ session: URLSession,
+        webSocketTask: URLSessionWebSocketTask,
+        didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
+        reason: Data?
+    ) {
         print("WebSocket disconnected")
     }
 }

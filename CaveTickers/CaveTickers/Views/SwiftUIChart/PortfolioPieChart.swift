@@ -44,10 +44,18 @@ struct PortfolioPieChart: View {
 
         return PieSlice(startAngle: .degrees(startAngleDegrees), endAngle: .degrees(endAngleDegrees))
             .fill(self.color(for: segment))
-            .overlay(sliceLabel(geometry: geometry, segment: segment, startAngle: .degrees(startAngleDegrees), endAngle: .degrees(endAngleDegrees)))
+        .overlay(sliceLabel(
+            geometry: geometry,
+            segment: segment,
+            startAngle: .degrees(startAngleDegrees),
+            endAngle: .degrees(endAngleDegrees)))
     }
-
-    private func sliceLabel(geometry: GeometryProxy, segment: PieChartSegment, startAngle: Angle, endAngle: Angle) -> some View {
+    private func sliceLabel(
+        geometry: GeometryProxy,
+        segment: PieChartSegment,
+        startAngle: Angle,
+        endAngle: Angle
+    ) -> some View {
         let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
 
         let radius = min(geometry.size.width, geometry.size.height) / 2.5

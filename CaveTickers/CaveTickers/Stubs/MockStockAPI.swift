@@ -4,8 +4,6 @@
 //
 //  Created by 1 on 2023/11/23.
 //
-
-
 import Foundation
 import XCAStocksAPI
 
@@ -22,7 +20,7 @@ struct MockStocksAPI: StocksAPI {
         try await stubbedFetchQuotesCallback()
     }
 
-    var stubbedFetchChartDataCallback: ((ChartRange) async throws  -> ChartData?)! = { $0.stubs }
+    var stubbedFetchChartDataCallback: ((ChartRange) async throws -> ChartData?)! = { $0.stubs }
     func fetchChartData(tickerSymbol: String, range: ChartRange) async throws -> ChartData? {
         try await stubbedFetchChartDataCallback(range)
     }

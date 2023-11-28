@@ -111,9 +111,17 @@ class ChartViewModel: ObservableObject {
         var xAxisDateComponents = Set<DateComponents>()
         if let startTimestamp = data.indicators.first?.timestamp {
             if selectedRange == .oneDay {
-                xAxisDateComponents = selectedRange.getDateComponents(startDate: startTimestamp, endDate: data.meta.regularTradingPeriodEndDate, timezone: timezone)
+                xAxisDateComponents = selectedRange.getDateComponents(
+                    startDate: startTimestamp,
+                    endDate: data.meta.regularTradingPeriodEndDate,
+                    timezone: timezone
+                )
             } else if let endTimestamp = data.indicators.last?.timestamp {
-                xAxisDateComponents = selectedRange.getDateComponents(startDate: startTimestamp, endDate: endTimestamp, timezone: timezone)
+                xAxisDateComponents = selectedRange.getDateComponents(
+                    startDate: startTimestamp,
+                    endDate: endTimestamp,
+                    timezone: timezone
+                )
             }
         }
 
@@ -199,11 +207,16 @@ class ChartViewModel: ObservableObject {
         map[highest.roundedString] = formatYAxisValueLabel(value: highest, shouldCeilIncrement: shouldCeilIncrement)
 
         var current = lowest
-        (0..<Int(numberOfLines) - 1).forEach { i in
+        (0..<Int(numberOfLines) - 1).forEach { _ in
             current += increment
-            map[(shouldCeilIncrement ? ceil(current) : current).roundedString] = formatYAxisValueLabel(value: current, shouldCeilIncrement: shouldCeilIncrement)
+            map[
+                (
+                    shouldCeilIncrement ? ceil(current) : current)
+                .roundedString] = formatYAxisValueLabel(
+                    value: current,
+                    shouldCeilIncrement: shouldCeilIncrement
+                )
         }
-
         return ChartAxisData(
             axisStart: lowest + 0.01,
             axisEnd: highest + 0.01,
@@ -227,8 +240,6 @@ class ChartViewModel: ObservableObject {
             return Utils.numberFormatter.string(from: NSNumber(value: value)) ?? value.roundedString
         }
     }
-
-
     func getLineColor(data: ChartData) -> Color {
         if let last = data.indicators.last?.close {
             if selectedRange == .oneDay, let prevClose = data.meta.previousClose {

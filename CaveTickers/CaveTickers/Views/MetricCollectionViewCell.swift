@@ -52,8 +52,6 @@ final class MetricCollectionViewCell: UICollectionViewCell {
         nameLabel.text = nil
         valueLabel.text = nil
     }
-
-
     func configure(with viewModel: ViewModel) {
         nameLabel.text = viewModel.name + ":"
         valueLabel.text = viewModel.value

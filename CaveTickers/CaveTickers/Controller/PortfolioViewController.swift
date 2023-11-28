@@ -50,19 +50,12 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
             hostingController.view.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
         ])
     }
-
-
-
     private func setupLayout() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-
-
         let headerView = UIView()
         headerView.backgroundColor = .link
         headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width - 32, height: 250)
-
-
         tableView.tableHeaderView = headerView
 
         NSLayoutConstraint.activate([
@@ -107,7 +100,7 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
         for portfolio in savedPortfolio {
             group.enter()
             getHistoricData(symbol: portfolio.symbol) { [weak self] result in
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 if let result = result {
                     tempResults[portfolio.symbol] = result
                 }
@@ -118,8 +111,7 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
         group.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
     strongSelf.calculatedResult = strongSelf.savedPortfolio.compactMap { tempResults[$0.symbol] }
-        // 创建包含 symbol 和 DCAResult 的 PortfolioItem 数组
-            let portfolioItems = strongSelf.savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
+        let portfolioItems = strongSelf.savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
                 guard index < strongSelf.calculatedResult.count else { return nil }
                 return PortfolioItem(symbol: savedItem.symbol, dcaResult: strongSelf.calculatedResult[index])
             }
@@ -127,9 +119,6 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
             strongSelf.tableView.reloadData()
         }
     }
-
-
-
     func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
         APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 1) { [weak self] result in
             DispatchQueue.main.async {
@@ -138,9 +127,9 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
                     self?.historyData.append(response)
                     if let portfolioItem = self?.savedPortfolio.first(where: { $0.symbol == symbol }) {
                         let result = self?.portfolioManager.calculate(
-                            timeSeriesMonthlyAdjusted: response,
-                            initialInvestmentAmount: portfolioItem.initialInput,
-                            monthlyDollarCostAveragingAmount: portfolioItem.monthlyInpuy,
+                            monthlyAdjusted: response,
+                            initialInvestment: portfolioItem.initialInput,
+                            monthlyCost: portfolioItem.monthlyInpuy,
                             initialDateOfInvestmentIndex: portfolioItem.timeline
                         )
                         completion(result)
@@ -152,9 +141,6 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
             }
         }
     }
-
-
-
     // MARK: - Navigation
     @objc private func addButtonTapped() {
         let addPortfolioVC = AddToPortfolioController()
@@ -165,8 +151,6 @@ class PortfolioViewController: UIViewController, AddToPortfolioControllerDelegat
         loadPortfolio()
     }
 }
-
-
 extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
@@ -196,7 +180,10 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             let portfolioToDelete = savedPortfolio[indexPath.row]
             savedPortfolio.remove(at: indexPath.row)

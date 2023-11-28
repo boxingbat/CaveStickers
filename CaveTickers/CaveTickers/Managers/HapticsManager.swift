@@ -33,4 +33,3 @@ final class HapticsManager {
         generator.notificationOccurred(type)
     }
 }
-

@@ -118,7 +118,7 @@ class StockTableViewCell: UITableViewCell {
             annualReturnTitle.topAnchor.constraint(equalTo: yieldTitle.bottomAnchor, constant: 4),
 
             annualReturnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            annualReturnLabel.centerYAnchor.constraint(equalTo: annualReturnTitle.centerYAnchor),
+            annualReturnLabel.centerYAnchor.constraint(equalTo: annualReturnTitle.centerYAnchor)
 
         ])
     }

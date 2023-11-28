@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct QuoteDetailRowColumnItem: Identifiable {
-
     let id = UUID()
     let rows: [RowItem]
 
@@ -19,8 +18,6 @@ struct QuoteDetailRowColumnItem: Identifiable {
         let value: String
     }
 }
-
-
 struct QuoteDetailRowColumnView: View {
 
     let item: QuoteDetailRowColumnItem
@@ -46,8 +43,6 @@ struct QuoteDetailRowColumnView_Previews: PreviewProvider {
             .init(title: "Open", value: "164.23"),
             .init(title: "Open", value: "164.23")
         ])
-
-
         )
         .previewLayout(.sizeThatFits)
     }

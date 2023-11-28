@@ -17,10 +17,8 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     let saveButton = UIButton(type: .system)
 
     var newSavingStock = SavingPortfolio(symbol: "", initialInput: 0, monthlyInpuy: 0, timeline: 0)
-
-
     var asset: Asset?
-    var timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted?
+    var monthlyAdjusted: TimeSeriesMonthlyAdjusted?
     var dateIndex: Int?
     var computedresult: DCAResult?
     var resultSymbol: String?
@@ -44,7 +42,10 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     private func setupCombineSubscriptions() {
-        Publishers.CombineLatest4($initialSymbol, $initialInvestmentAmount, $monthlyDollarCostAveragingAmount, $initialDateOfInvestmentIndex)
+        Publishers.CombineLatest4($initialSymbol,
+                                  $initialInvestmentAmount,
+                                  $monthlyDollarCostAveragingAmount,
+                                  $initialDateOfInvestmentIndex)
             .sink { [weak self] symbol, investmentAmount, monthlyAmount, dateIndex in
                 print(symbol ?? "", investmentAmount ?? 0, monthlyAmount ?? 0, dateIndex ?? 10)
                 guard let self = self,
@@ -54,7 +55,10 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
                     let dateIndex = dateIndex
                 else { return }
 
-                let result = self.portfolioManager.calculate(timeSeriesMonthlyAdjusted: self.timeSeriesMonthlyAdjusted!, initialInvestmentAmount: Double(investmentAmount), monthlyDollarCostAveragingAmount: Double(monthlyAmount), initialDateOfInvestmentIndex: dateIndex)
+                let result = self.portfolioManager.calculate(monthlyAdjusted: self.monthlyAdjusted!,
+                                                             initialInvestment: Double(investmentAmount),
+                                                             monthlyCost: Double(monthlyAmount),
+                                                             initialDateOfInvestmentIndex: dateIndex)
                 print("result\(result)")
 
                 newSavingStock.symbol = symbol
@@ -157,14 +161,17 @@ class AddToPortfolioController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         } else {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "SearchCell")
-            let textField = UITextField(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width, height: cell.contentView.frame.height))
+            let textField = UITextField(frame: CGRect(x: 0,
+                                                      y: 0,
+                                                      width: cell.contentView.frame.width,
+                                                      height: cell.contentView.frame.height
+                                                     )
+            )
             textField.placeholder = "...Add More Stock"
             cell.contentView.addSubview(textField)
             return cell
         }
     }
-
-
     // MARK: - Navigation
 }
 
@@ -172,11 +179,11 @@ extension AddToPortfolioController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let cell = textField.superview?.superview as? AddPortfolioTableViewCell {
             if textField == cell.timeLineInputTextField {
-                guard let symbol = cell.symbolTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !symbol.isEmpty else {
+                guard let symbol = cell.symbolTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                      !symbol.isEmpty else {
                     presentAlertWithTitle(title: "Hey", message: "Input the symbol")
                     return false
                 }
-
                 let dateTableViewController = DateTableViewController()
                 APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: 2) { [weak self] result in
                     DispatchQueue.main.async {
@@ -185,7 +192,7 @@ extension AddToPortfolioController: UITextFieldDelegate {
                             let month = response.getMonthInfos()
                             print(month)
                             dateTableViewController.timeSeriesMonthlyAdjusted = response
-                            self?.timeSeriesMonthlyAdjusted = response
+                            self?.monthlyAdjusted = response
                             dateTableViewController.didSelectDate = { [weak self] selectedIndex in
                                 let monthInfos = response.getMonthInfos()
                                 if selectedIndex < monthInfos.count {
@@ -210,7 +217,6 @@ extension AddToPortfolioController: UITextFieldDelegate {
         }
         return true
     }
-
     private func presentAlertWithTitle(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

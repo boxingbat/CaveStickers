@@ -8,20 +8,20 @@ import Foundation
 
 struct PortfolioManager {
     func calculate(
-        timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted,
-        initialInvestmentAmount: Double,
-        monthlyDollarCostAveragingAmount: Double,
+        monthlyAdjusted: TimeSeriesMonthlyAdjusted,
+        initialInvestment: Double,
+        monthlyCost: Double,
         initialDateOfInvestmentIndex: Int
     ) -> DCAResult {
         let investmentAmount = getInvestmentAmount(
-            initialInvestmentAmount: initialInvestmentAmount,
-            monthlyDollarCostAveragingAmount: monthlyDollarCostAveragingAmount,
+            initialInvestmentAmount: initialInvestment,
+            monthlyDollarCostAveragingAmount: monthlyCost,
             initialDateOfInvestmentIndex: initialDateOfInvestmentIndex)
-        let latestSharePrice = getLatestSharePrice(timeSeriesMonthlyAdjusted: timeSeriesMonthlyAdjusted)
+        let latestSharePrice = getLatestSharePrice(timeSeriesMonthlyAdjusted: monthlyAdjusted)
         let numberOfShares = getNumberOfShares(
-            timeSeriesMonthlyAdjusted: timeSeriesMonthlyAdjusted,
-            initialInvestmentAmount: initialInvestmentAmount,
-            monthlyDollarCostAveragingAmount: monthlyDollarCostAveragingAmount,
+            timeSeriesMonthlyAdjusted: monthlyAdjusted,
+            initialInvestmentAmount: initialInvestment,
+            monthlyDollarCostAveragingAmount: monthlyCost,
             initialDateOfInvestmentIndex: initialDateOfInvestmentIndex)
         let currentValue = getCurrentValue(
             numberOfShares: numberOfShares,
@@ -76,7 +76,9 @@ struct PortfolioManager {
         initialDateOfInvestmentIndex: Int
     ) -> Double {
         var totalShares = Double()
-        let initialInvestmentOpenPrice = timeSeriesMonthlyAdjusted.getMonthInfos()[initialDateOfInvestmentIndex].adjustedOpen
+        let initialInvestmentOpenPrice = timeSeriesMonthlyAdjusted
+            .getMonthInfos()[initialDateOfInvestmentIndex]
+            .adjustedOpen
         let initialInvestmentShares = initialInvestmentAmount / initialInvestmentOpenPrice
         totalShares += initialInvestmentShares
         timeSeriesMonthlyAdjusted.getMonthInfos().prefix(initialDateOfInvestmentIndex).forEach { monthInfo in

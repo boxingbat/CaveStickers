@@ -28,7 +28,7 @@ opt_in_rules:
   - enum_case_associated_values_count
   - fatal_error_message
   - first_where
-#  - force_unwrapping
+  - force_unwrapping
   - implicitly_unwrapped_optional
   - indentation_width
   - last_where
@@ -47,10 +47,10 @@ opt_in_rules:
   - redundant_type_annotation
   - strict_fileprivate
   - toggle_bool
-#- trailing_closure
-#  - unneeded_parentheses_in_closure_argument
-#  - vertical_whitespace_closing_braces
-#  - vertical_whitespace_opening_braces
+- trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
   - yoda_condition
 
 
@@ -73,7 +73,7 @@ attributes:
 force_cast: warning
 force_try: warning
 function_body_length:
-    warning: 60
+    warning: 100
 
 legacy_hashing: error
 
@@ -85,8 +85,8 @@ identifier_name:
     - y
       - z
 
-#indentation_width:
-#  indentation_width: 2
+indentation_width:
+indentation_width: 2
 
 line_length:
     warning: 500

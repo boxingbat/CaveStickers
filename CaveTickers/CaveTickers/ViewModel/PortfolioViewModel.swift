@@ -36,12 +36,8 @@ class PieChartViewModel: ObservableObject {
         }
     }
 }
-
-
 struct PieChartSegment {
     let symbol: String
     let value: Double
     let percentage: Double
 }
-
-

@@ -12,7 +12,13 @@ final class APIManager {
     enum Constants {
         static let finApiKey = "clau1chr01qi1291dli0clau1chr01qi1291dlig"
         static let finBaseURL = "https://finnhub.io/api/v1/"
-        static let alphaApiKey = ["0YAY61FY4TXJKQ34", "VR8XWYY9Y4R3QDFL", "PMGWPTBCGY4EZTWD", "UI3PDP3K22181YEN", "5RGL2QT6AWAUS9PU"]
+        static let alphaApiKey = [
+            "0YAY61FY4TXJKQ34",
+            "VR8XWYY9Y4R3QDFL",
+            "PMGWPTBCGY4EZTWD",
+            "UI3PDP3K22181YEN",
+            "5RGL2QT6AWAUS9PU"
+        ]
         static let alphaBaseURL = "https://www.alphavantage.co/query?function="
         static let day: TimeInterval = 3600 * 24
     }
@@ -122,7 +128,8 @@ final class APIManager {
         return URL(string: urlString)
     }
     private func alphaURL (for symbol: String, apiKey: String) -> URL? {
-        let urlString = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=\(symbol)&apikey=\(apiKey)"
+        let urlString =
+        "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=\(symbol)&apikey=\(apiKey)"
         print("\n\(urlString)\n")
         return URL(string: urlString)
     }

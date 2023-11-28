@@ -17,8 +17,6 @@ struct StockTickerView: View {
     )
     private var dismiss
     @State private var selectedRange = ChartRange.oneDay
-
-
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             headerView.padding(.horizontal)
@@ -40,12 +38,6 @@ struct StockTickerView: View {
 
     private var scrollView: some View {
         ScrollView {
-//            priceDiffRowView
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .padding(.top, 8)
-//                .padding(.horizontal)
-//
-//            Divider()
 
             ZStack {
                 DateRangePickerView(selectedRange: $chartVM.selectedRange)
@@ -56,37 +48,28 @@ struct StockTickerView: View {
                     .padding(.vertical, 4)
                     .padding(.horizontal)
             }
-
             Divider().opacity(chartVM.selectedXOpacity)
 
             chartView
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, minHeight: 220)
-
-//            Divider().padding([.horizontal, .top])
-//
-//            quoteDetailRowView
-//                .frame(maxWidth: .infinity, minHeight: 80)
-
-
         }
         .scrollIndicators(.hidden)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    @ViewBuilder
-    private var chartView: some View {
+    @ViewBuilder private var chartView: some View {
         switch chartVM.fetchphase {
-        case .fetching: LoadingStateView()
+        case .fetching:
+            LoadingStateView()
         case .success(let data):
             ChartView(data: data, viewModel: chartVM)
         case .failure(let error):
             ErrorStateView(error: "Chart: \(error.localizedDescription)")
-        default: EmptyView()
+        default:
+            EmptyView()
         }
     }
-
-
     @ViewBuilder private var quoteDetailRowView: some View {
         switch quoteVM.phase {
         case .fetching: LoadingStateView()
@@ -104,8 +87,6 @@ struct StockTickerView: View {
                 .lineLimit(1)
             }
             .scrollIndicators(.hidden)
-
-
         default: EmptyView()
         }
     }
@@ -165,8 +146,6 @@ struct StockTickerView: View {
         .font(.subheadline.weight(.semibold))
         .foregroundColor(Color(uiColor: .secondaryLabel))
     }
-
-
     private var headerView: some View {
         HStack(alignment: .lastTextBaseline) {
             Text(quoteVM.ticker.symbol).font(.title.bold())
@@ -175,26 +154,8 @@ struct StockTickerView: View {
                     .font(.subheadline.weight(.semibold))
                     .foregroundColor(Color(uiColor: .secondaryLabel))
             }
-//            Spacer()
-//            closeButton
         }
     }
-
-//    private var closeButton: some View {
-//        Button {
-//            dismiss()
-//        } label: {
-//            Circle()
-//                .frame(width: 36, height: 36)
-//                .foregroundColor(.gray.opacity(0.1))
-//                .overlay {
-//                    Image(systemName: "xmark")
-//                        .font(.system(size: 18).bold())
-//                        .foregroundColor(Color(uiColor: .secondaryLabel))
-//                }
-//        }
-//        .buttonStyle(.plain)
-//    }
 }
     struct StockTickerView_Previews: PreviewProvider {
 
@@ -214,8 +175,6 @@ struct StockTickerView: View {
             }
             return TickerQuoteViewModel(ticker: .stub, stocksAPI: mockAPI)
         }()
-
-
         static var loadingStubsQuoteVM: TickerQuoteViewModel = {
             var mockAPI = MockStocksAPI()
             mockAPI.stubbedFetchQuotesCallback = {
@@ -225,18 +184,15 @@ struct StockTickerView: View {
             }
             return TickerQuoteViewModel(ticker: .stub, stocksAPI: mockAPI)
         }()
-
-
         static var errorStubsQuoteVM: TickerQuoteViewModel = {
             var mockAPI = MockStocksAPI()
             mockAPI.stubbedFetchQuotesCallback = {
-                throw NSError(domain: "error", code: 0, userInfo: [NSLocalizedDescriptionKey: "An error has been occured"])
+            throw NSError(domain: "error", code: 0, userInfo: [NSLocalizedDescriptionKey: "An error has been occured"])
             }
             return TickerQuoteViewModel(ticker: .stub, stocksAPI: mockAPI)
-        }()
-        
+    }()
         static var chartVM: ChartViewModel {
-            ChartViewModel(ticker: .stub, apiService:  MockStocksAPI())
+            ChartViewModel(ticker: .stub, apiService: MockStocksAPI())
         }
 
         static var previews: some View {

@@ -8,10 +8,7 @@
 import Foundation
 import UIKit
 import XCAStocksAPI
-
-
 // MARK: - Notification
-
 extension Notification.Name {
     static let didAddToWatchList = Notification.Name("didAddToWatchList")
 }
@@ -140,7 +137,12 @@ extension UITextField {
         let doneToolBar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
         doneToolBar.barStyle = .default
         let flexBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+        let doneBarButtonItem = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
         let items = [flexBarButtonItem, doneBarButtonItem]
         doneToolBar.items = items
         doneToolBar.sizeToFit()
@@ -174,6 +176,19 @@ extension Date {
 
         return date
     }
+    func dateAt(hours: Int, minutes: Int) -> Date {
+
+          let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+          calendar.timeZone = TimeZone(identifier: "America/New_York")!
+
+          var dateComponents = calendar.components([NSCalendar.Unit.year,
+                                                    NSCalendar.Unit.month,
+                                                    NSCalendar.Unit.day], from: self)
+          dateComponents.hour = hours
+          dateComponents.minute = minutes
+          let newDate = calendar.date(from: dateComponents)!
+          return newDate
+      }
 }
 // MARK: - Int
 extension Int {

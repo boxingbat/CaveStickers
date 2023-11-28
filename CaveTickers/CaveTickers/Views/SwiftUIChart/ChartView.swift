@@ -9,7 +9,6 @@ import SwiftUI
 import XCAStocksAPI
 import Charts
 
-
 struct ChartView: View {
     let data: ChartViewData
     @ObservedObject var viewModel: ChartViewModel
@@ -89,8 +88,6 @@ struct ChartView: View {
                         .font(.caption.bold())
                 }
             }
-
-
         }
     }
     private var chartYAxis: some AxisContent {

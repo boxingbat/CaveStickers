@@ -60,14 +60,6 @@ class WatchListTableViewCell: UITableViewCell {
         return label
     }()
 
-    /// Chart
-//    private let miniChartView: StockChartView = {
-//        let chart = StockChartView()
-//        chart.isUserInteractionEnabled = false
-//        chart.clipsToBounds = true
-//        return chart
-//    }()
-
     // MARK: - init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -75,7 +67,6 @@ class WatchListTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
         addSubview(symbolLabel)
         addSubview(nameLabel)
-//        addSubview(miniChartView)
         addSubview(priceLabel)
         addSubview(changeLabel)
     }
@@ -128,12 +119,6 @@ class WatchListTableViewCell: UITableViewCell {
             width: currentWidth,
             height: changeLabel.height
         )
-//        miniChartView.frame = CGRect(
-//            x: priceLabel.left - (contentView.width / 3) - 5,
-//            y: 6,
-//            width: contentView.width / 3,
-//            height: contentView.height - 12
-//            )
     }
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -141,7 +126,6 @@ class WatchListTableViewCell: UITableViewCell {
         nameLabel.text = nil
         priceLabel.text = nil
         changeLabel.text = nil
-//        miniChartView.reset()
     }
     public func configure(with viewModel: ViewModel) {
         symbolLabel.text = viewModel.symbol
@@ -149,7 +133,5 @@ class WatchListTableViewCell: UITableViewCell {
         priceLabel.text = viewModel.price
         changeLabel.text = viewModel.changePercentage
         changeLabel.backgroundColor = viewModel.changeColor
-///*        */miniChartView.configure(with: viewModel.chartViewModel)
-
     }
 }

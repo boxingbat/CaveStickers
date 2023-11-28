@@ -58,7 +58,6 @@
 		0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C52B14765D00B41896 /* HapticsManager.swift */; };
 		0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */; };
 		0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */; };
-		0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */; };
 		0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */; };
 		0F5CF0502B08870A009CC0B1 /* StockDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */; };
 		0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */; };
@@ -127,7 +126,6 @@
 		0F5442C52B14765D00B41896 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataRespone.swift; sourceTree = "<group>"; };
 		0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
-		0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockChartView .swift"; sourceTree = "<group>"; };
 		0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialMetricRespone.swift; sourceTree = "<group>"; };
 		0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailHeaderView.swift; sourceTree = "<group>"; };
 		0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */,
 				0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */,
 				0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */,
-				0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */,
 				0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */,
 				0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */,
 				0F5CF0532B08B20A009CC0B1 /* NewsHeaderView.swift */,
@@ -492,7 +489,6 @@
 				0F2D6D0C2B05ED09007F1748 /* APIManager.swift in Sources */,
 				0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */,
 				0F2D6CEE2B04D628007F1748 /* CaveTickers.xcdatamodeld in Sources */,
-				0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */,
 				0F173BAC2B0F8D28002AF172 /* ChartRangeExtension.swift in Sources */,
 				0F4401C22B0F2F1400B703BC /* ChartView.swift in Sources */,
 				0F4401C02B0F257200B703BC /* Utils.swift in Sources */,

@@ -7,16 +7,11 @@
 
 import UIKit
 
-
-final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    // Metrics viewModels
+final class StockDetailHeaderView: UIView,
+                                   UICollectionViewDelegate,
+                                   UICollectionViewDataSource,
+                                   UICollectionViewDelegateFlowLayout {
     private var metricViewModels: [MetricCollectionViewCell.ViewModel] = []
-
-    // Subviews
-
-    /// ChartView
-//    private let chartView = StockChartView()
 
     weak var delegate: DetailHeaderViewDelegate?
     public let addButton: UIButton = {
@@ -48,15 +43,15 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
 //        addSubview(chartView)
         addSubview(collectionView)
         addSubview(addButton)
-        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+//        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         collectionView.delegate = self
         collectionView.dataSource = self
 //        chartView.backgroundColor = .systemBackground
     }
 
-    @objc private func didTapAddButton() {
-        delegate?.didTapAddButton(self)
-        }
+//    @objc private func didTapAddButton() {
+//        delegate?.didTapAddButton(self)
+//        }
 
     required init?(coder: NSCoder) {
         fatalError("Error")
@@ -64,15 +59,8 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
 
     override func layoutSubviews() {
         super.layoutSubviews()
-//        chartView.frame = CGRect(x: 0, y: 0, width: width, height: height - 100)
         collectionView.frame = CGRect(x: 0, y: height - 100, width: width, height: 100)
-        let buttonSize = CGSize(width: 80, height: 40)
-//        addButton.frame = CGRect(
-//            x: chartView.frame.maxX - buttonSize.width - 10, // 右对齐
-//            y: chartView.frame.maxY - buttonSize.height - 10, // 下对齐
-//            width: buttonSize.width,
-//            height: buttonSize.height
-//        )
+        _ = CGSize(width: 80, height: 40)
     }
     func configure(
 //        chartViewModel: StockChartView.ViewModel,
@@ -89,7 +77,10 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
         return metricViewModels.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let viewModel = metricViewModels[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: MetricCollectionViewCell.identifier,
@@ -101,7 +92,11 @@ final class StockDetailHeaderView: UIView, UICollectionViewDelegate, UICollectio
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return CGSize(width: width / 2, height: 100 / 3)
     }
 }

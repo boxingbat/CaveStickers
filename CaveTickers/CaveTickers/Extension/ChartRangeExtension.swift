@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import XCAStocksAPI
 
-
 extension ChartRange: Identifiable {
 
     public var id: Self { self }
