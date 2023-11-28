@@ -18,33 +18,33 @@ class WatchListTableViewCell: UITableViewCell {
 
     weak var delegate: WatchListTableViewCellDelegate?
 
-    struct ViewModel{
+    struct ViewModel {
         let symbol: String
         let price: String
-        let changeColor: UIColor //red or green
+        let changeColor: UIColor // red or green
         let companyName: String
         let changePercentage: String
-        let chartViewModel: StockChartView.ViewModel
     }
-    //MARK: - Component
+    // MARK: - Component
     /// Symbol Label
     private let symbolLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.sfProDisplayMedium(size: 20)
         return label
     }()
 
     /// Company Label
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.sfProDisplayBold(size: 12)
+        label.textColor = .secondaryLabel
         return label
     }()
 
     /// Price Label
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.sfProDisplayBold(size: 18)
         label.textAlignment = .right
         return label
     }()
@@ -54,33 +54,24 @@ class WatchListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .right
         label.textColor = .white
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 6
         return label
     }()
 
-    /// Chart
-    private let miniChartView: StockChartView = {
-        let chart = StockChartView()
-        chart.isUserInteractionEnabled = false
-        chart.clipsToBounds = true
-        return chart
-    }()
-
-    //MARK: - init
+    // MARK: - init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
         addSubview(symbolLabel)
         addSubview(nameLabel)
-        addSubview(miniChartView)
         addSubview(priceLabel)
         addSubview(changeLabel)
     }
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("error")
     }
 
     override func layoutSubviews() {
@@ -90,7 +81,7 @@ class WatchListTableViewCell: UITableViewCell {
         priceLabel.sizeToFit()
         changeLabel.sizeToFit()
 
-        let yStart: CGFloat = (contentView.height - symbolLabel.height - nameLabel.height)/2
+        let yStart: CGFloat = (contentView.height - symbolLabel.height - nameLabel.height) / 2
         symbolLabel.frame = CGRect(
             x: separatorInset.left,
             y: yStart,
@@ -117,7 +108,7 @@ class WatchListTableViewCell: UITableViewCell {
 
         priceLabel.frame = CGRect(
             x: contentView.width - 10 - currentWidth,
-            y: (contentView.height - priceLabel.height - changeLabel.height)/2,
+            y: (contentView.height - priceLabel.height - changeLabel.height) / 2,
             width: currentWidth,
             height: priceLabel.height
         )
@@ -128,31 +119,19 @@ class WatchListTableViewCell: UITableViewCell {
             width: currentWidth,
             height: changeLabel.height
         )
-
-        miniChartView.frame = CGRect(
-            x: priceLabel.left - (contentView.width/3) - 5,
-            y: 6,
-            width: contentView.width/3,
-            height: contentView.height-12
-            )
     }
-
     override func prepareForReuse() {
         super.prepareForReuse()
         symbolLabel.text = nil
         nameLabel.text = nil
         priceLabel.text = nil
         changeLabel.text = nil
-        miniChartView.reset()
     }
-    
     public func configure(with viewModel: ViewModel) {
         symbolLabel.text = viewModel.symbol
         nameLabel.text = viewModel.companyName
         priceLabel.text = viewModel.price
         changeLabel.text = viewModel.changePercentage
         changeLabel.backgroundColor = viewModel.changeColor
-        miniChartView.configure(with: viewModel.chartViewModel)
-
     }
 }

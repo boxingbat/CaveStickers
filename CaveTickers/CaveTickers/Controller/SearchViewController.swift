@@ -12,7 +12,6 @@ protocol SearchTableViewDelegate: AnyObject {
 }
 
 class SearchViewController: UIViewController {
-
     weak var delegate: SearchTableViewDelegate?
 
     private var results: [SearchResult] = []
@@ -26,10 +25,9 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .systemBackground
         setUpTableView()
     }
-    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -42,15 +40,14 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
     }
 
-    public func update(with result: [SearchResult]){
+    public func update(with result: [SearchResult]) {
         self.results = result
         tableView.isHidden = result.isEmpty
         tableView.reloadData()
     }
-
 }
 
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return results.count
     }

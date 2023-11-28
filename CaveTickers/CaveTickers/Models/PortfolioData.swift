@@ -9,16 +9,16 @@ import Foundation
 
 struct UserInput {
     let symbol: String
-    let InitialInput: String
-    let MonthlyInpuy: String
+    let initialInput: String
+    let monthlyInpuy: String
     let timeline: TimeInterval
 }
 
 struct PortfolioDetail {
     let symbol: String
-    let CurrentPrice: String
-    let InvestedAmount: String
-    let CurrentAmount: String
+    let currentPrice: String
+    let investedAmount: String
+    let currentAmount: String
     let gain: String
     let gainPersentage: String
     let annualRevenue: String
@@ -26,7 +26,7 @@ struct PortfolioDetail {
 
 struct Portfolio {
     let stoclSymbol: String
-    let SingleStocl: [PortfolioDetail]
+    let singleStocl: [PortfolioDetail]
 }
 
 struct CalculationResult {
@@ -40,7 +40,7 @@ struct CalculationResult {
 
 struct SavingPortfolio: Codable {
     var symbol: String
-    var InitialInput: Double
-    var MonthlyInpuy: Double
+    var initialInput: Double
+    var monthlyInpuy: Double
     var timeline: Int
 }

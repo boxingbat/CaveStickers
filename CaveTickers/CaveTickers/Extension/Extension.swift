@@ -7,32 +7,30 @@
 
 import Foundation
 import UIKit
-
-
+import XCAStocksAPI
 // MARK: - Notification
-
 extension Notification.Name {
     static let didAddToWatchList = Notification.Name("didAddToWatchList")
 }
 // MARK: - Frame
 
 extension UIView {
-    var width : CGFloat {
+    var width: CGFloat {
         frame.size.width
     }
-    var height : CGFloat {
+    var height: CGFloat {
         frame.size.height
     }
-    var left : CGFloat {
+    var left: CGFloat {
         frame.origin.x
     }
-    var right : CGFloat {
+    var right: CGFloat {
         left + width
     }
-    var top : CGFloat {
+    var top: CGFloat {
         frame.origin.y
     }
-    var bottom : CGFloat {
+    var bottom: CGFloat {
         top + height
     }
 }
@@ -75,7 +73,7 @@ extension NumberFormatter {
     }()
 }
 
-//MARK: - String
+// MARK: - String
 
 extension String {
     /// Create string from time interval
@@ -126,7 +124,7 @@ extension Array where Element == CandleStick {
             return 0
         }
 
-        let diff = 1 - (priorClose/latestClose)
+        let diff = 1 - (priorClose / latestClose)
         return diff
     }
 }
@@ -134,13 +132,17 @@ extension Array where Element == CandleStick {
 // MARK: - UITextField
 
 extension UITextField {
-
     func addDoneButton() {
         let screenWidth = UIScreen.main.bounds.width
-        let doneToolBar: UIToolbar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
+        let doneToolBar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
         doneToolBar.barStyle = .default
         let flexBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+        let doneBarButtonItem = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
         let items = [flexBarButtonItem, doneBarButtonItem]
         doneToolBar.items = items
         doneToolBar.sizeToFit()
@@ -153,27 +155,78 @@ extension UITextField {
 
 // MARK: - Date
 extension Date {
-
     var MMYYFormat: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: self)
     }
 
+    func dateComponents(timeZone: TimeZone, rangeType: ChartRange, calendar: Calendar = .current) -> DateComponents {
+        let current = calendar.dateComponents(in: timeZone, from: self)
+
+        var date = DateComponents(timeZone: timeZone, year: current.year, month: current.month)
+
+        if rangeType == .oneMonth || rangeType == .oneWeek || rangeType == .oneDay {
+            date.day = current.day
+        }
+
+        if rangeType == .oneDay {
+            date.hour = current.hour
+        }
+
+        return date
+    }
+    func dateAt(hours: Int, minutes: Int) -> Date {
+
+          let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+          calendar.timeZone = TimeZone(identifier: "America/New_York")!
+
+          var dateComponents = calendar.components([NSCalendar.Unit.year,
+                                                    NSCalendar.Unit.month,
+                                                    NSCalendar.Unit.day], from: self)
+          dateComponents.hour = hours
+          dateComponents.minute = minutes
+          let newDate = calendar.date(from: dateComponents)!
+          return newDate
+      }
 }
 // MARK: - Int
 extension Int {
-
     var floatValue: Float {
         return Float(self)
     }
-
     var doubleValue: Double {
         return Double(self)
     }
 }
 
+extension UIView {
+    /// Adds multiple subviews
+    /// - Parameter views: Collection of subviews
+    func addSubviews(_ views: UIView...) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
+}
+extension UIImageView {
+    /// Sets image from remote url
+    /// - Parameter url: URL to fetch from
+    func setImage(with url: URL?) {
+        guard let url = url else {
+            return
+        }
 
-
-
-
+        DispatchQueue.global(qos: .userInteractive).async {
+            let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.image = UIImage(data: data)
+                }
+            }
+            task.resume()
+        }
+    }
+}
