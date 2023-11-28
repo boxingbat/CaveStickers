@@ -13,11 +13,7 @@ class WatchListViewController: LoadingViewController {
     private var searchTimer: Timer?
     private var watchListMap: [String: [CandleStick]] = [:]
     private var viewModels: [WatchListTableViewCell.ViewModel] = []
-    private var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
-        return tableView
-    }()
+    private var tableView = UITableView()
 
     private var observer: NSObjectProtocol?
     private var loadingStateVC: UIHostingController<LoadingStateView>?
@@ -25,6 +21,9 @@ class WatchListViewController: LoadingViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.backgroundColor = .systemBackground
         showLoadingView()
         setUpSearchController()
         setupTableView()
@@ -64,7 +63,7 @@ class WatchListViewController: LoadingViewController {
             width: titleView.width - 20,
             height: titleView.height))
         label.text = "WatchList"
-        label.font = .systemFont(ofSize: 24, weight: .medium)
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
         titleView.addSubview(label)
 
         navigationItem.titleView = titleView
@@ -139,8 +138,17 @@ class WatchListViewController: LoadingViewController {
     }
     private func setupTableView() {
         view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+        ])
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
+        tableView.backgroundColor = .systemBackground
     }
 
     private func setUpSearchController() {
@@ -210,6 +218,7 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.delegate = self
         cell.configure(with: viewModels[indexPath.row])
+        cell.backgroundColor = .systemBackground
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -246,10 +255,11 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
             symbol: viewModel.symbol,
             companyName: viewModel.companyName,
             candleStickData: watchListMap[viewModel.symbol] ?? [])
-        let navVC = UINavigationController(rootViewController: detailVC)
+
         detailVC.title = viewModel.companyName
-        present(navVC, animated: true)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
+
 }
 extension WatchListViewController: WatchListTableViewCellDelegate {
     func didUpdatedMaxWith() {

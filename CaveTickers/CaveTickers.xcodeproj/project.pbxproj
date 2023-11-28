@@ -59,6 +59,7 @@
 		0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C82B157E7900B41896 /* MiniChartView.swift */; };
 		0F5442CB2B1586AE00B41896 /* LoadingViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */; };
 		0F5442CD2B15962F00B41896 /* PulsatingSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */; };
+		0F5442CF2B15D38100B41896 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CE2B15D38100B41896 /* FontExtension.swift */; };
 		0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */; };
 		0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */; };
 		0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */; };
@@ -130,6 +131,7 @@
 		0F5442C82B157E7900B41896 /* MiniChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniChartView.swift; sourceTree = "<group>"; };
 		0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingViewController .swift"; sourceTree = "<group>"; };
 		0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingSwiftUIView.swift; sourceTree = "<group>"; };
+		0F5442CE2B15D38100B41896 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataRespone.swift; sourceTree = "<group>"; };
 		0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
 		0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialMetricRespone.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */,
 				0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */,
 				0F5442C32B1472B300B41896 /* Third-Party Ext.swift */,
+				0F5442CE2B15D38100B41896 /* FontExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				0F4401BE2B0F23BC00B703BC /* TickerListRepository.swift in Sources */,
 				0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */,
 				0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */,
+				0F5442CF2B15D38100B41896 /* FontExtension.swift in Sources */,
 				0F2D6D042B04F218007F1748 /* CryptoViewController.swift in Sources */,
 				0F2D6D172B063063007F1748 /* SearchResponse.swift in Sources */,
 				0F4401B02B0EFBC800B703BC /* DateRangePickerView.swift in Sources */,

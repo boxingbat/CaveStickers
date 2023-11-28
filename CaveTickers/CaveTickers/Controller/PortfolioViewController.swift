@@ -30,12 +30,10 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
 
         setupHeaderView()
     }
-
     private func setupHeaderView() {
         guard let hostingController = hostingController else { return }
 
         let headerView = UIView()
-        headerView.backgroundColor = .link
         headerView.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width - 32, height: 250)
         tableView.tableHeaderView = headerView
 
@@ -45,10 +43,10 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
 
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: headerView.topAnchor),
+            hostingController.view.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
             hostingController.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
             hostingController.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+            hostingController.view.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -10)
         ])
     }
     private func setupLayout() {
@@ -56,7 +54,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         view.addSubview(tableView)
         let headerView = UIView()
         headerView.backgroundColor = .link
-        headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width - 32, height: 250)
+        headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width - 32, height: 300)
         tableView.tableHeaderView = headerView
 
         NSLayoutConstraint.activate([
@@ -68,7 +66,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
 
         let addButton = UIButton(type: .custom)
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.backgroundColor = .blue
+        addButton.backgroundColor = .deepPineGreen
         addButton.setTitle("+", for: .normal)
         addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         addButton.layer.cornerRadius = 25
@@ -122,7 +120,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         }
     }
     func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
-        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 2...4)) { [weak self] result in
+        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 0...10)) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):

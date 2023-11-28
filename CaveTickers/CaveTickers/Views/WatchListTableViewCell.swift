@@ -24,27 +24,27 @@ class WatchListTableViewCell: UITableViewCell {
         let changeColor: UIColor // red or green
         let companyName: String
         let changePercentage: String
-//        let chartViewModel: StockChartView.ViewModel
     }
     // MARK: - Component
     /// Symbol Label
     private let symbolLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.sfProDisplayMedium(size: 20)
         return label
     }()
 
     /// Company Label
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.sfProDisplayBold(size: 12)
+        label.textColor = .secondaryLabel
         return label
     }()
 
     /// Price Label
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.sfProDisplayBold(size: 18)
         label.textAlignment = .right
         return label
     }()
@@ -54,7 +54,7 @@ class WatchListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .right
         label.textColor = .white
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 6
         return label

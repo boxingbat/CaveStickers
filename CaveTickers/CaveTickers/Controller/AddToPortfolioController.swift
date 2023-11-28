@@ -153,7 +153,6 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
                 cell.annualReturnLabel.text = "\(computedResult.annualReturn)%"
                 cell.yieldLabel.text = "\(computedResult.yield)%"
 
-                cell.currentLabel.backgroundColor = presentation.currentValueLabelBackgroundColor
                 cell.yieldLabel.backgroundColor = presentation.yieldLabelTextColor
                 cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
             }
@@ -187,7 +186,7 @@ extension AddToPortfolioController: UITextFieldDelegate {
                 self.showLoadingView()
                 let dateTableViewController = DateTableViewController()
                 let group = DispatchGroup()
-                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 0...1)) { [weak self] result in
+                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 11...17)) { [weak self] result in
                     group.enter()
                     defer {
                         group.leave()

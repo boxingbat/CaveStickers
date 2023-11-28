@@ -11,7 +11,7 @@ protocol DetailHeaderViewDelegate: AnyObject {
     /// Notify user tapped header button
     /// - Parameter headerView: Ref of header view
     func didTapAddButton(_ headerView: NewsHeaderView)
-//    func updatePriceLabel(price: String)
+    func updateButtonStatus(_ headerView: NewsHeaderView)
 }
 
 /// TableView header for news
@@ -34,16 +34,16 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
 
     private let label: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 32)
+        label.font = UIFont.sfProDisplayHeavy(size: 40)
         return label
     }()
 
-    let button: UIButton = {
+    var button: UIButton = {
         let button = UIButton()
-        button.setTitle("+ Watchlist", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 8)
-        button.backgroundColor = .themeGreenShade
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Add", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.sfProDisplayHeavy(size: 12)
+        button.backgroundColor = .deepPineGreen
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
         return button
@@ -52,7 +52,7 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     var priceLabel: UILabel = {
         let label = UILabel()
         label.text = "Closed"
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.sfProDisplayBold(size: 16)
         return label
     }()
 

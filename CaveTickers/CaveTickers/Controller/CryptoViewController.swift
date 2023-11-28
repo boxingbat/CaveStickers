@@ -10,6 +10,6 @@ import UIKit
 class CryptoViewController: UIViewController, URLSessionWebSocketDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .coolMint
     }
 }

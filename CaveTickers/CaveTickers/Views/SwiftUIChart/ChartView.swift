@@ -36,7 +36,7 @@ struct ChartView: View {
                             GeometryReader { geometry in
                                 let yPosition = calculatePulsatingViewYPosition(geometry: geometry, data: data)
                                 PulsatingView(color: viewModel.foregroundMarkColor)
-                                    .position(x: geometry.size.width * 0.93, y: yPosition - 12)
+                                    .position(x: geometry.size.width * 0.93, y: yPosition - 10)
                             }
                         )
     }

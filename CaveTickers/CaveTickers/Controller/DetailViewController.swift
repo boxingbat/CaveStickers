@@ -51,9 +51,11 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         getLastPrice()
         fetchFinancialData()
         setUpTableView()
+        checkStockExist()
         webSocketManager.connect(withSymbol: symbol)
         setupWebSocket()
         setupSwiftUIHeaderView()
+        checkStockExist()
         fetchNews()
     }
     // MARK: - Private
@@ -71,6 +73,9 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     }
     private func setUpTableView() {
         view.addSubview(tableView)
+        DispatchQueue.main.async { [weak self] in
+                self?.checkStockExist()
+            }
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -86,7 +91,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     }
     private func fetchFinancialData() {
         let group = DispatchGroup()
-        // Fetch candle sticks if needed
         if candleStickData.isEmpty {
             group.enter()
             APIManager.shared.marketData(for: symbol) { [weak self] result in
@@ -106,6 +110,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
         let quoteVM = TickerQuoteViewModel(ticker: Ticker(symbol: symbol), stocksAPI: XCAStocksAPI())
         let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM)
+        let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
         let hostingController = UIHostingController(rootView: stockTickerView)
         addChild(hostingController)
         view.addSubview(hostingController.view)
@@ -119,6 +124,10 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         ])
         tableView.tableHeaderView = hostingController.view
         updateTableViewConstraints()
+
+        DispatchQueue.main.async { [weak self] in
+                self?.checkStockExist()
+            }
     }
     private func updateTableViewConstraints() {
         NSLayoutConstraint.deactivate(tableView.constraints)
@@ -166,7 +175,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
                 let closed = data.close
                 self?.closedPrice = String(format: "%.2f", closed[0])
                 print("\(closed[0])")
-                // Reload the tableView on the main thread after updating data
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
@@ -175,6 +183,13 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
             }
         }
     }
+    private func checkStockExist() {
+        let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
+        if let headerView = tableView.tableHeaderView as? NewsHeaderView {
+                headerView.button.isHidden = isStockInWatchlist
+            }
+        tableView.reloadData()
+        }
 }
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -211,8 +226,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
 
         HapticsManager.shared.vibrateForSelection()
-
-        // Open news story
         let story = news[indexPath.row]
         guard let url = URL(string: story.url) else {
             presentFailedToOpenAlert()
@@ -233,6 +246,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 extension DetailViewController: DetailHeaderViewDelegate {
+    func updateButtonStatus(_ headerView: NewsHeaderView) {
+        let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
+        headerView.button.isHidden = isStockInWatchlist
+    }
+    
     func didTapAddButton(_ headerView: NewsHeaderView) {
         TapManager.shared.vibrate(for: .success)
         headerView.button.isHidden = true

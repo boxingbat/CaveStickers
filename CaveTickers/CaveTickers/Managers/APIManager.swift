@@ -13,11 +13,24 @@ final class APIManager {
         static let finApiKey = "clau1chr01qi1291dli0clau1chr01qi1291dlig"
         static let finBaseURL = "https://finnhub.io/api/v1/"
         static let alphaApiKey = [
+            "7001TKKUSKJJGE8N",
+            "3G8CGORYYZHYIMHY",
+            "6YHW50O8LZ8WQPQY",
+            "9VYKMPTUTMX09GR6",
+            "1MELE62F3OSFWVOK",
             "0YAY61FY4TXJKQ34",
             "VR8XWYY9Y4R3QDFL",
             "PMGWPTBCGY4EZTWD",
             "UI3PDP3K22181YEN",
-            "5RGL2QT6AWAUS9PU"
+            "5RGL2QT6AWAUS9PU",
+            "1MELE62F3OSFWVOK",
+            "TLE08582L5VAV5RF",
+            "8T4LHOB8QQ1XTSB4",
+            "6PSG53DKT2VQ7D5X",
+            "P9OAC7ERIZ5XNG2C",
+            "9LOOZ0SACQNZQV3O",
+            "8IJRAOZ7KDM3HVD7",
+            "K5S2NMOP32VGYTVW"
         ]
         static let alphaBaseURL = "https://www.alphavantage.co/query?function="
         static let day: TimeInterval = 3600 * 24
