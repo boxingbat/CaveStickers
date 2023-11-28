@@ -9,23 +9,40 @@ import Foundation
 
 final class APIManager {
     static let shared = APIManager()
-
-    private struct Constants {
+    enum Constants {
         static let finApiKey = "clau1chr01qi1291dli0clau1chr01qi1291dlig"
         static let finBaseURL = "https://finnhub.io/api/v1/"
-        static let alphaApiKey = ["0YAY61FY4TXJKQ34","VR8XWYY9Y4R3QDFL","PMGWPTBCGY4EZTWD", "UI3PDP3K22181YEN", "5RGL2QT6AWAUS9PU"]
+        static let alphaApiKey = [
+            "7001TKKUSKJJGE8N",
+            "3G8CGORYYZHYIMHY",
+            "6YHW50O8LZ8WQPQY",
+            "9VYKMPTUTMX09GR6",
+            "1MELE62F3OSFWVOK",
+            "0YAY61FY4TXJKQ34",
+            "VR8XWYY9Y4R3QDFL",
+            "PMGWPTBCGY4EZTWD",
+            "UI3PDP3K22181YEN",
+            "5RGL2QT6AWAUS9PU",
+            "1MELE62F3OSFWVOK",
+            "TLE08582L5VAV5RF",
+            "8T4LHOB8QQ1XTSB4",
+            "6PSG53DKT2VQ7D5X",
+            "P9OAC7ERIZ5XNG2C",
+            "9LOOZ0SACQNZQV3O",
+            "8IJRAOZ7KDM3HVD7",
+            "K5S2NMOP32VGYTVW"
+        ]
         static let alphaBaseURL = "https://www.alphavantage.co/query?function="
         static let day: TimeInterval = 3600 * 24
     }
 
     // MARK: - Public
-
-    public func search( query: String, completion: @escaping(Result<SearchResponse, Error>) -> Void) {
-        guard let safeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed
-        )else {return}
-        request(url: finUrl(for: .search, queryParams: ["q":query]),
-                expecting: SearchResponse.self,
-                completion: completion)
+    public func search(query: String, completion: @escaping(Result<SearchResponse, Error>) -> Void) {
+        guard let safeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        request(
+            url: finUrl(for: .search, queryParams: ["q": safeQuery]),
+            expecting: SearchResponse.self,
+            completion: completion)
     }
 
     public func marketData(
@@ -49,7 +66,6 @@ final class APIManager {
             completion: completion
         )
     }
-
     public func financialMetrics(
         for symbol: String,
         completion: @escaping (Result<FinancialMetricsResponse, Error>) -> Void
@@ -63,72 +79,83 @@ final class APIManager {
             completion: completion
         )
     }
-
-    public func monthlyAdjusted(for symbol: String, keyNumber: Int,
-                                completion: @escaping (Result<TimeSeriesMonthlyAdjusted, Error>) -> Void) {
+    public func monthlyAdjusted(
+        for symbol: String,
+        keyNumber: Int,
+        completion: @escaping (Result<TimeSeriesMonthlyAdjusted, Error>) -> Void
+    ) {
         let apikey = Constants.alphaApiKey[keyNumber]
         request(
             url: alphaURL(for: symbol, apiKey: apikey),
             expecting: TimeSeriesMonthlyAdjusted.self,
             completion: completion
         )
-
+    }
+    public func news(completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+        request(
+            url: finUrl(for: .topStories, queryParams: ["category": "general"]),
+            expecting: [NewsStory].self,
+            completion: completion
+        )
+    }
+    public func companyNews(symbol: String, completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+        let today = Date()
+        let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
+        request(
+            url: finUrl(for: .companyNews,
+                    queryParams: [
+                            "symbol": symbol,
+                            "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
+                            "to": DateFormatter.newsDateFormatter.string(from: today)
+                        ]
+                    ),
+            expecting: [NewsStory].self,
+            completion: completion
+        )
     }
     // MARK: - Private
     private init () {}
 
     private enum Endpoint: String {
         case search
+        case topStories = "news"
+        case companyNews = "company-news"
         case marketData = "stock/candle"
         case financials = "stock/metric"
         case monthlyAddjusted = "TIME_SERIES_MONTHLY_ADJUSTED&"
     }
-
     private enum APIError: Error {
         case noDataRecived
         case invaildURL
     }
-
     private func finUrl(for endpoint: Endpoint, queryParams: [String: String] = [:]) -> URL? {
-
         var urlString = Constants.finBaseURL + endpoint.rawValue
-
-        var queryItems = [URLQueryItem]()
+        print(urlString)
+        var queryItems: [URLQueryItem] = []
         for (name, value) in queryParams {
             queryItems.append(.init(name: name, value: value))
         }
-
         queryItems.append(.init(name: "token", value: Constants.finApiKey))
-
-        urlString += "?" + queryItems.map{ "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
-
+        urlString += "?" + queryItems.map { "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
         print("\n\(urlString)\n")
-
-        return URL(string:  urlString)
+        return URL(string: urlString)
     }
-
     private func alphaURL (for symbol: String, apiKey: String) -> URL? {
-
-        var urlString = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=\(symbol)&apikey=\(apiKey)"
-
+        let urlString =
+        "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=\(symbol)&apikey=\(apiKey)"
         print("\n\(urlString)\n")
-
-        return URL(string:  urlString)
+        return URL(string: urlString)
     }
-
-
-
-    private func request<T: Codable>(url: URL?, expecting: T.Type, completion: @escaping(Result<T, Error>) -> Void){
+    private func request<T: Codable>(url: URL?, expecting: T.Type, completion: @escaping(Result<T, Error>) -> Void) {
         guard let url = url else {
             completion(.failure(APIError.invaildURL))
             return
         }
-
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data,  error == nil else {
+            guard let data = data, error == nil else {
                 if let error = error {
                     completion(.failure(error))
-                }else {
+                } else {
                     completion(.failure(APIError.noDataRecived))
                 }
                 return
@@ -136,8 +163,7 @@ final class APIManager {
             do {
                 let result = try JSONDecoder().decode(expecting, from: data)
                 completion(.success(result))
-            }
-            catch {
+            } catch {
                 completion(.failure(error))
             }
         }

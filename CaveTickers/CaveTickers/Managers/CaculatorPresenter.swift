@@ -7,23 +7,23 @@
 import UIKit
 
 struct CalculatorPresenter {
-
     func getPresentation(result: DCAResult) -> CalculatorPresentation {
-
         let isProfitable = result.isProfitable == true
         let gainSymbol = isProfitable ? "+" : ""
-
-        return .init(currentValueLabelBackgroundColor: isProfitable ? .themeGreenShade : .themeRedShade,
-                     currentValue: result.currentValue.currencyFormat,
-                     investmentAmount: result.investmentAmount.toCurrencyFormat(hasDecimalPlaces: false),
-                     gain: result.gain.toCurrencyFormat(hasDollarSymbol: true, hasDecimalPlaces: false).prefix(withText: gainSymbol),
-                     yield: result.yield.percentageFormat.prefix(withText: gainSymbol).addBrackets(),
-                     yieldLabelTextColor: isProfitable ? .systemGreen : .systemRed,
-                     annualReturn: result.annualReturn.percentageFormat,
-                     annualReturnLabelTextColor: isProfitable ? .systemGreen : .systemRed)
+        return .init(
+            currentValueLabelBackgroundColor: isProfitable ? .themeGreenShade : .themeRedShade,
+            currentValue: result.currentValue.currencyFormat,
+            investmentAmount: result.investmentAmount.toCurrencyFormat(hasDecimalPlaces: false),
+            gain: result.gain.toCurrencyFormat(
+                hasDollarSymbol: true,
+                hasDecimalPlaces: false
+            ).prefix(withText: gainSymbol),
+            yield: result.yield.percentageFormat.prefix(withText: gainSymbol).addBrackets(),
+            yieldLabelTextColor: isProfitable ? .systemGreen : .systemRed,
+            annualReturn: result.annualReturn.percentageFormat,
+            annualReturnLabelTextColor: isProfitable ? .systemGreen : .systemRed)
     }
 }
-
 struct CalculatorPresentation {
     let currentValueLabelBackgroundColor: UIColor
     let currentValue: String
@@ -34,4 +34,3 @@ struct CalculatorPresentation {
     let annualReturn: String
     let annualReturnLabelTextColor: UIColor
 }
-

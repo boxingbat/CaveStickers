@@ -12,7 +12,7 @@ final class PersistenceManager {
 
     private let userDefaults: UserDefaults = .standard
 
-    private struct Constants {
+    private enum Constants {
         static let onboardedKey = "hasOnboarded"
         static let watchListKey = "watchlist"
         static let portolioKey = "Portfolio"
@@ -46,13 +46,13 @@ final class PersistenceManager {
         }
     }
     public func removeFromWatchList(symbol: String) {
-        var newList = [String]()
+        var newList: [String] = []
 
         userDefaults.set(nil, forKey: symbol)
         for item in watchlist where item != symbol {
             newList.append(item)
         }
-        userDefaults.set(newList, forKey:  Constants.watchListKey)
+        userDefaults.set(newList, forKey: Constants.watchListKey)
         print("remove\(symbol)")
         if let watchlist = UserDefaults.standard.array(forKey: "watchlist") {
             print("watchlist = \(watchlist)")
@@ -65,14 +65,14 @@ final class PersistenceManager {
         save(savingStocks: savingStocks)
     }
     private func save(savingStocks: [SavingPortfolio]) {
-            do {
-                let data = try JSONEncoder().encode(savingStocks)
-                userDefaults.set(data, forKey: Constants.savingStockKey)
-                print("set\(data)")
-            } catch {
-                print("Failed to encode SavingStock array: \(error)")
-            }
+        do {
+            let data = try JSONEncoder().encode(savingStocks)
+            userDefaults.set(data, forKey: Constants.savingStockKey)
+            print("set\(data)")
+        } catch {
+            print("Failed to encode SavingStock array: \(error)")
         }
+    }
     public func loadPortfolio() -> [SavingPortfolio] {
         guard let data = userDefaults.data(forKey: Constants.savingStockKey) else {
             return []
@@ -105,8 +105,9 @@ final class PersistenceManager {
             "AMZN": "Amazon.com Inc",
             "MSFT": "Microsoft Corporation",
             "NVDA": "Nvdia Inc",
-            "TSLA": "Tesla Inc"]
-        let symbols = map.keys.map { $0 }
+            "TSLA": "Tesla Inc"
+        ]
+        let symbols = Array(map.keys)
         userDefaults.set(symbols, forKey: Constants.watchListKey)
 
         for (symbol, name)in map {

@@ -8,10 +8,8 @@
 import UIKit
 
 class DateTableViewController: UITableViewController {
-
     var timeSeriesMonthlyAdjusted: TimeSeriesMonthlyAdjusted?
     var selectedIndex: Int?
-
     private var monthInfos: [MonthInfo] = []
 
     var didSelectDate: ((Int) -> Void)?
@@ -33,7 +31,6 @@ class DateTableViewController: UITableViewController {
 }
 
 extension DateTableViewController {
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -43,7 +40,9 @@ extension DateTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // swiftlint:disable all
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! DateSelectionTableViewCell
+        // swiftlint:enable all
         let index = indexPath.item
         let monthInfo = monthInfos[index]
         let isSelected = index == selectedIndex
@@ -56,16 +55,12 @@ extension DateTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.popViewController(animated: true)
     }
-
 }
-
 class DateSelectionTableViewCell: UITableViewCell {
-
     let monthLabel = UILabel()
     let monthsAgoLabel = UILabel()
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
             contentView.addSubview(monthLabel)
             contentView.addSubview(monthsAgoLabel)
 
@@ -97,4 +92,3 @@ class DateSelectionTableViewCell: UITableViewCell {
         }
     }
 }
-

@@ -36,7 +36,7 @@ final class MetricCollectionViewCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("error")
     }
 
     override func layoutSubviews() {
@@ -52,12 +52,8 @@ final class MetricCollectionViewCell: UICollectionViewCell {
         nameLabel.text = nil
         valueLabel.text = nil
     }
-
-
     func configure(with viewModel: ViewModel) {
-        nameLabel.text = viewModel.name+":"
+        nameLabel.text = viewModel.name + ":"
         valueLabel.text = viewModel.value
-
     }
 }
-

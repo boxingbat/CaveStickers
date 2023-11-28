@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F173BA22B0F73E8002AF172 /* LoadingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA12B0F73E8002AF172 /* LoadingStateView.swift */; };
+		0F173BA42B0F742C002AF172 /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA32B0F742C002AF172 /* ErrorStateView.swift */; };
+		0F173BA62B0F74BC002AF172 /* QuoteDetailRowColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */; };
+		0F173BA82B0F8283002AF172 /* ChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA72B0F8283002AF172 /* ChartViewData.swift */; };
+		0F173BAA2B0F82EA002AF172 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */; };
+		0F173BAC2B0F8D28002AF172 /* ChartRangeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */; };
+		0F173BAE2B10CA8F002AF172 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */; };
+		0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB02B10CC79002AF172 /* XCAStocksAPI */; };
+		0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB22B10CC79002AF172 /* XCAStocksExec */; };
+		0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB62B1248D6002AF172 /* DismissButton.swift */; };
+		0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */; };
+		0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */; };
 		0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE32B04D628007F1748 /* AppDelegate.swift */; };
 		0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */; };
 		0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */; };
@@ -25,9 +37,31 @@
 		0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D122B0603F0007F1748 /* Extension.swift */; };
 		0F2D6D152B060A79007F1748 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */; };
 		0F2D6D172B063063007F1748 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D162B063063007F1748 /* SearchResponse.swift */; };
+		0F4401A42B0DEE5000B703BC /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */; };
+		0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A52B0DF3B600B703BC /* WebSocketData.swift */; };
+		0F4401A92B0EF4B600B703BC /* StockTickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A82B0EF4B600B703BC /* StockTickerView.swift */; };
+		0F4401B02B0EFBC800B703BC /* DateRangePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401AF2B0EFBC800B703BC /* DateRangePickerView.swift */; };
+		0F4401B92B0F214B00B703BC /* FetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401B82B0F214B00B703BC /* FetchPhase.swift */; };
+		0F4401BC2B0F231F00B703BC /* StocksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401BB2B0F231F00B703BC /* StocksAPI.swift */; };
+		0F4401BE2B0F23BC00B703BC /* TickerListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401BD2B0F23BC00B703BC /* TickerListRepository.swift */; };
+		0F4401C02B0F257200B703BC /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401BF2B0F257200B703BC /* Utils.swift */; };
+		0F4401C22B0F2F1400B703BC /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401C12B0F2F1400B703BC /* ChartView.swift */; };
+		0F4401C42B0F317400B703BC /* TickerQuoteViewMoudle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401C32B0F317400B703BC /* TickerQuoteViewMoudle.swift */; };
+		0F4401C72B0F48C800B703BC /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401C62B0F48C800B703BC /* Stubs.swift */; };
+		0F4401C92B0F4A1400B703BC /* MockStockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401C82B0F4A1400B703BC /* MockStockAPI.swift */; };
+		0F4401CB2B0F4A6A00B703BC /* Chart+Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401CA2B0F4A6A00B703BC /* Chart+Stubs.swift */; };
+		0F4401CF2B0F4EE100B703BC /* Quote Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */; };
+		0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BC2B1461BF00B41896 /* NewsModel.swift */; };
+		0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */; };
+		0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0F5442C12B14724C00B41896 /* Kingfisher */; };
+		0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C32B1472B300B41896 /* Third-Party Ext.swift */; };
+		0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C52B14765D00B41896 /* HapticsManager.swift */; };
+		0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C82B157E7900B41896 /* MiniChartView.swift */; };
+		0F5442CB2B1586AE00B41896 /* LoadingViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */; };
+		0F5442CD2B15962F00B41896 /* PulsatingSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */; };
+		0F5442CF2B15D38100B41896 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CE2B15D38100B41896 /* FontExtension.swift */; };
 		0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */; };
 		0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */; };
-		0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */; };
 		0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */; };
 		0F5CF0502B08870A009CC0B1 /* StockDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */; };
 		0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */; };
@@ -41,10 +75,21 @@
 		0F6CD1F42B0B7F980026DE51 /* CaculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */; };
 		0F6CD1F62B0B7FDA0026DE51 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F52B0B7FDA0026DE51 /* UIColorExtension.swift */; };
 		0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */; };
-		F674DDC66D8E76B1C92333B5 /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */; };
+		81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
+		0F173BA12B0F73E8002AF172 /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
+		0F173BA32B0F742C002AF172 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
+		0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailRowColumnView.swift; sourceTree = "<group>"; };
+		0F173BA72B0F8283002AF172 /* ChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewData.swift; sourceTree = "<group>"; };
+		0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
+		0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartRangeExtension.swift; sourceTree = "<group>"; };
+		0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		0F173BB62B1248D6002AF172 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
+		0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPieChart.swift; sourceTree = "<group>"; };
+		0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		0F2D6CE02B04D628007F1748 /* CaveTickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveTickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2D6CE32B04D628007F1748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,9 +110,30 @@
 		0F2D6D122B0603F0007F1748 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		0F2D6D162B063063007F1748 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		0F4401A52B0DF3B600B703BC /* WebSocketData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketData.swift; sourceTree = "<group>"; };
+		0F4401A82B0EF4B600B703BC /* StockTickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTickerView.swift; sourceTree = "<group>"; };
+		0F4401AF2B0EFBC800B703BC /* DateRangePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerView.swift; sourceTree = "<group>"; };
+		0F4401B82B0F214B00B703BC /* FetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhase.swift; sourceTree = "<group>"; };
+		0F4401BB2B0F231F00B703BC /* StocksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksAPI.swift; sourceTree = "<group>"; };
+		0F4401BD2B0F23BC00B703BC /* TickerListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerListRepository.swift; sourceTree = "<group>"; };
+		0F4401BF2B0F257200B703BC /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		0F4401C12B0F2F1400B703BC /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		0F4401C32B0F317400B703BC /* TickerQuoteViewMoudle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerQuoteViewMoudle.swift; sourceTree = "<group>"; };
+		0F4401C62B0F48C800B703BC /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
+		0F4401C82B0F4A1400B703BC /* MockStockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStockAPI.swift; sourceTree = "<group>"; };
+		0F4401CA2B0F4A6A00B703BC /* Chart+Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chart+Stubs.swift"; sourceTree = "<group>"; };
+		0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quote Extension.swift"; sourceTree = "<group>"; };
+		0F5442BC2B1461BF00B41896 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
+		0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		0F5442C32B1472B300B41896 /* Third-Party Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Third-Party Ext.swift"; sourceTree = "<group>"; };
+		0F5442C52B14765D00B41896 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		0F5442C82B157E7900B41896 /* MiniChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniChartView.swift; sourceTree = "<group>"; };
+		0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingViewController .swift"; sourceTree = "<group>"; };
+		0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingSwiftUIView.swift; sourceTree = "<group>"; };
+		0F5442CE2B15D38100B41896 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataRespone.swift; sourceTree = "<group>"; };
 		0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
-		0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockChartView .swift"; sourceTree = "<group>"; };
 		0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialMetricRespone.swift; sourceTree = "<group>"; };
 		0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailHeaderView.swift; sourceTree = "<group>"; };
 		0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -81,9 +147,8 @@
 		0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaculatorPresenter.swift; sourceTree = "<group>"; };
 		0F6CD1F52B0B7FDA0026DE51 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoubleExtension .swift"; sourceTree = "<group>"; };
-		5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
-		B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
+		63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
+		D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +156,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F674DDC66D8E76B1C92333B5 /* Pods_CaveTickers.framework in Frameworks */,
+				0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */,
+				0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */,
+				0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */,
+				81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +171,8 @@
 			children = (
 				0F2D6CE22B04D628007F1748 /* CaveTickers */,
 				0F2D6CE12B04D628007F1748 /* Products */,
-				32FD67496E9A8DB3416B2E3C /* Pods */,
-				53FC77CC58AE285E6F963818 /* Frameworks */,
+				5FFB89E095E25DB62657836F /* Pods */,
+				CA55C4A22769B756FDFB9E4C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,11 +187,14 @@
 		0F2D6CE22B04D628007F1748 /* CaveTickers */ = {
 			isa = PBXGroup;
 			children = (
+				0F4401C52B0F488000B703BC /* Stubs */,
+				0F2D6D062B05EA6C007F1748 /* Managers */,
+				0F4401BA2B0F22FB00B703BC /* Service */,
+				0F4401B32B0F0FA000B703BC /* ViewModel */,
 				0F6CD1F02B0B45CF0026DE51 /* Extension */,
 				0F2D6D112B060388007F1748 /* Others */,
 				0F2D6D082B05EAC4007F1748 /* Models */,
 				0F2D6D072B05EAAC007F1748 /* Controller */,
-				0F2D6D062B05EA6C007F1748 /* Managers */,
 				0F2D6D052B05EA56007F1748 /* Views */,
 				0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */,
 				0F2D6CF42B04D62A007F1748 /* Info.plist */,
@@ -135,16 +206,18 @@
 		0F2D6D052B05EA56007F1748 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0F4401A72B0EF48200B703BC /* SwiftUIChart */,
 				0F2D6CE92B04D628007F1748 /* Main.storyboard */,
 				0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */,
 				0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */,
 				0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */,
-				0F5CF04B2B0748DA009CC0B1 /* StockChartView .swift */,
 				0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */,
 				0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */,
 				0F5CF0532B08B20A009CC0B1 /* NewsHeaderView.swift */,
 				0F6CD1E62B09EAEA0026DE51 /* PortfolioTableViewCell.swift */,
 				0F6CD1EA2B0A02000026DE51 /* AddPortfolioTableViewCell.swift */,
+				0F173BA32B0F742C002AF172 /* ErrorStateView.swift */,
+				0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -157,6 +230,8 @@
 				0F2D6D0F2B05ED64007F1748 /* TapManager.swift */,
 				0F6CD1F12B0B7D200026DE51 /* PortfolioManager.swift */,
 				0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */,
+				0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */,
+				0F5442C52B14765D00B41896 /* HapticsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -172,6 +247,7 @@
 				0F2D6D092B05EC78007F1748 /* DetailViewController.swift */,
 				0F6CD1E82B09F7EC0026DE51 /* AddToPortfolioController.swift */,
 				0F6CD1EE2B0B36CC0026DE51 /* DateTableViewController.swift */,
+				0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -183,6 +259,11 @@
 				0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */,
 				0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */,
 				0F6CD1EC2B0B061C0026DE51 /* PortfolioData.swift */,
+				0F4401A52B0DF3B600B703BC /* WebSocketData.swift */,
+				0F4401B82B0F214B00B703BC /* FetchPhase.swift */,
+				0F173BA72B0F8283002AF172 /* ChartViewData.swift */,
+				0F173BB62B1248D6002AF172 /* DismissButton.swift */,
+				0F5442BC2B1461BF00B41896 /* NewsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,29 +277,79 @@
 			path = Others;
 			sourceTree = "<group>";
 		};
+		0F4401A72B0EF48200B703BC /* SwiftUIChart */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401A82B0EF4B600B703BC /* StockTickerView.swift */,
+				0F4401AF2B0EFBC800B703BC /* DateRangePickerView.swift */,
+				0F4401C12B0F2F1400B703BC /* ChartView.swift */,
+				0F5442C82B157E7900B41896 /* MiniChartView.swift */,
+				0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */,
+				0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */,
+				0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */,
+				0F173BA12B0F73E8002AF172 /* LoadingStateView.swift */,
+				0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */,
+			);
+			path = SwiftUIChart;
+			sourceTree = "<group>";
+		};
+		0F4401B32B0F0FA000B703BC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401C32B0F317400B703BC /* TickerQuoteViewMoudle.swift */,
+				0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */,
+				0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0F4401BA2B0F22FB00B703BC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401BB2B0F231F00B703BC /* StocksAPI.swift */,
+				0F4401BD2B0F23BC00B703BC /* TickerListRepository.swift */,
+				0F4401BF2B0F257200B703BC /* Utils.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		0F4401C52B0F488000B703BC /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401C62B0F48C800B703BC /* Stubs.swift */,
+				0F4401C82B0F4A1400B703BC /* MockStockAPI.swift */,
+				0F4401CA2B0F4A6A00B703BC /* Chart+Stubs.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 		0F6CD1F02B0B45CF0026DE51 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				0F2D6D122B0603F0007F1748 /* Extension.swift */,
 				0F6CD1F52B0B7FDA0026DE51 /* UIColorExtension.swift */,
 				0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */,
+				0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */,
+				0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */,
+				0F5442C32B1472B300B41896 /* Third-Party Ext.swift */,
+				0F5442CE2B15D38100B41896 /* FontExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		32FD67496E9A8DB3416B2E3C /* Pods */ = {
+		5FFB89E095E25DB62657836F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */,
-				D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */,
+				63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */,
+				08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		53FC77CC58AE285E6F963818 /* Frameworks */ = {
+		CA55C4A22769B756FDFB9E4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B3B7A178A94B10B12E0B7728 /* Pods_CaveTickers.framework */,
+				D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -230,18 +361,22 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F2D6CF72B04D62A007F1748 /* Build configuration list for PBXNativeTarget "CaveTickers" */;
 			buildPhases = (
-				ECFA6D6E9DF097AF6B2AADF8 /* [CP] Check Pods Manifest.lock */,
+				56E1E327CF9B27D8A81EEBA3 /* [CP] Check Pods Manifest.lock */,
 				0F2D6CDC2B04D628007F1748 /* Sources */,
 				0F2D6CDD2B04D628007F1748 /* Frameworks */,
-				0F2D6CDE2B04D628007F1748 /* Resources */,
 				0F2D6CFC2B04DBC7007F1748 /* ShellScript */,
-				4ED9F4F3607C450A619FB52B /* [CP] Embed Pods Frameworks */,
+				0F2D6CDE2B04D628007F1748 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CaveTickers;
+			packageProductDependencies = (
+				0F173BB02B10CC79002AF172 /* XCAStocksAPI */,
+				0F173BB22B10CC79002AF172 /* XCAStocksExec */,
+				0F5442C12B14724C00B41896 /* Kingfisher */,
+			);
 			productName = CaveTickers;
 			productReference = 0F2D6CE02B04D628007F1748 /* CaveTickers.app */;
 			productType = "com.apple.product-type.application";
@@ -270,6 +405,10 @@
 				Base,
 			);
 			mainGroup = 0F2D6CD72B04D628007F1748;
+			packageReferences = (
+				0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */,
+				0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 0F2D6CE12B04D628007F1748 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -296,7 +435,7 @@
 		0F2D6CFC2B04DBC7007F1748 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -307,28 +446,12 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		4ED9F4F3607C450A619FB52B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks.sh\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ECFA6D6E9DF097AF6B2AADF8 /* [CP] Check Pods Manifest.lock */ = {
+		56E1E327CF9B27D8A81EEBA3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -357,37 +480,68 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */,
+				0F4401CB2B0F4A6A00B703BC /* Chart+Stubs.swift in Sources */,
+				0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */,
 				0F2D6D0A2B05EC78007F1748 /* DetailViewController.swift in Sources */,
 				0F2D6CFE2B04F15C007F1748 /* SearchViewController.swift in Sources */,
 				0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */,
+				0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */,
 				0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */,
+				0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */,
 				0F6CD1EF2B0B36CC0026DE51 /* DateTableViewController.swift in Sources */,
 				0F6CD1E72B09EAEB0026DE51 /* PortfolioTableViewCell.swift in Sources */,
 				0F6CD1F22B0B7D200026DE51 /* PortfolioManager.swift in Sources */,
+				0F4401C72B0F48C800B703BC /* Stubs.swift in Sources */,
 				0F2D6D0E2B05ED40007F1748 /* PersistenceManager.swift in Sources */,
+				0F4401CF2B0F4EE100B703BC /* Quote Extension.swift in Sources */,
 				0F6CD1F42B0B7F980026DE51 /* CaculatorPresenter.swift in Sources */,
 				0F6CD1EB2B0A02000026DE51 /* AddPortfolioTableViewCell.swift in Sources */,
 				0F5CF0502B08870A009CC0B1 /* StockDetailHeaderView.swift in Sources */,
+				0F4401BC2B0F231F00B703BC /* StocksAPI.swift in Sources */,
 				0F2D6D0C2B05ED09007F1748 /* APIManager.swift in Sources */,
 				0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */,
 				0F2D6CEE2B04D628007F1748 /* CaveTickers.xcdatamodeld in Sources */,
-				0F5CF04C2B0748DA009CC0B1 /* StockChartView .swift in Sources */,
+				0F173BAC2B0F8D28002AF172 /* ChartRangeExtension.swift in Sources */,
+				0F4401C22B0F2F1400B703BC /* ChartView.swift in Sources */,
+				0F4401C02B0F257200B703BC /* Utils.swift in Sources */,
 				0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */,
 				0F2D6D102B05ED64007F1748 /* TapManager.swift in Sources */,
+				0F173BAA2B0F82EA002AF172 /* ChartViewModel.swift in Sources */,
 				0F2D6D002B04F17E007F1748 /* NewsViewController.swift in Sources */,
+				0F173BAE2B10CA8F002AF172 /* SwiftUIView.swift in Sources */,
 				0F6CD1F62B0B7FDA0026DE51 /* UIColorExtension.swift in Sources */,
+				0F5442CD2B15962F00B41896 /* PulsatingSwiftUIView.swift in Sources */,
+				0F173BA62B0F74BC002AF172 /* QuoteDetailRowColumnView.swift in Sources */,
+				0F173BA42B0F742C002AF172 /* ErrorStateView.swift in Sources */,
+				0F173BA22B0F73E8002AF172 /* LoadingStateView.swift in Sources */,
+				0F4401A42B0DEE5000B703BC /* WebSocketManager.swift in Sources */,
+				0F4401C92B0F4A1400B703BC /* MockStockAPI.swift in Sources */,
+				0F4401BE2B0F23BC00B703BC /* TickerListRepository.swift in Sources */,
 				0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */,
 				0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */,
+				0F5442CF2B15D38100B41896 /* FontExtension.swift in Sources */,
 				0F2D6D042B04F218007F1748 /* CryptoViewController.swift in Sources */,
 				0F2D6D172B063063007F1748 /* SearchResponse.swift in Sources */,
+				0F4401B02B0EFBC800B703BC /* DateRangePickerView.swift in Sources */,
 				0F5CF0542B08B20A009CC0B1 /* NewsHeaderView.swift in Sources */,
+				0F4401B92B0F214B00B703BC /* FetchPhase.swift in Sources */,
+				0F5442CB2B1586AE00B41896 /* LoadingViewController .swift in Sources */,
 				0F5CF0482B072709009CC0B1 /* MarketDataRespone.swift in Sources */,
+				0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */,
+				0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */,
+				0F4401A92B0EF4B600B703BC /* StockTickerView.swift in Sources */,
 				0F6CD1ED2B0B061C0026DE51 /* PortfolioData.swift in Sources */,
+				0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */,
 				0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */,
 				0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */,
 				0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */,
 				0F2D6D152B060A79007F1748 /* SearchTableViewCell.swift in Sources */,
+				0F173BA82B0F8283002AF172 /* ChartViewData.swift in Sources */,
+				0F4401C42B0F317400B703BC /* TickerQuoteViewMoudle.swift in Sources */,
 				0F6CD1E92B09F7EC0026DE51 /* AddToPortfolioController.swift in Sources */,
+				0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */,
+				0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +619,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -522,7 +676,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -534,7 +688,7 @@
 		};
 		0F2D6CF82B04D62A007F1748 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5420CD6A00EA085941A52376 /* Pods-CaveTickers.debug.xcconfig */;
+			baseConfigurationReference = 63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -565,7 +719,7 @@
 		};
 		0F2D6CF92B04D62A007F1748 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5286E3E49AD4C627204BA18 /* Pods-CaveTickers.release.xcconfig */;
+			baseConfigurationReference = 08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -616,6 +770,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alfianlosari/XCAStocksAPI.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0F173BB02B10CC79002AF172 /* XCAStocksAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */;
+			productName = XCAStocksAPI;
+		};
+		0F173BB22B10CC79002AF172 /* XCAStocksExec */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */;
+			productName = XCAStocksExec;
+		};
+		0F5442C12B14724C00B41896 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0F2D6CEC2B04D628007F1748 /* CaveTickers.xcdatamodeld */ = {

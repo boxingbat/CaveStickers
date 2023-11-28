@@ -25,7 +25,7 @@ struct MarketDataRespone: Codable {
     }
 
     var candleSticks: [CandleStick] {
-        var result = [CandleStick]()
+        var result: [CandleStick] = []
 
         for index in 0..<open.count {
             result.append(
