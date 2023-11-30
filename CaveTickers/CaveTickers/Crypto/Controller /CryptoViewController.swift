@@ -12,6 +12,12 @@ class CryptoViewController: LoadingViewController {
 @ObservedObject var viewModel = HomeViewModel()
     var hostingController: UIHostingController<AnyView>?
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(Color.theme.accent)]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(Color.theme.accent)]
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHostingController()

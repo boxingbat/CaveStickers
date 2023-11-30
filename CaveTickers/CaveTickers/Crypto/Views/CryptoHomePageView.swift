@@ -9,16 +9,22 @@ import SwiftUI
 
 struct CryptoHomePageView: View {
     @StateObject var viewModel: HomeViewModel
-    @State private var showPortfolio: Bool = false
+    @State private var showPortfolio: Bool = false // right animate
+    @State private var showPortfolioView: Bool = false // new sheet
 
     var body: some View {
         ZStack {
             Color.theme.background
                 .ignoresSafeArea()
+                .sheet(isPresented: $showPortfolioView, content: {
+                    PortfolioView()
+                        .environmentObject(viewModel)
+                })
 
             VStack {
                 homeHeader
-
+                SearchBarView(searchText: $viewModel.searchText)
+                HomeStatsView(showPortfolio: $showPortfolio)
                 columTitles
 
                 if !showPortfolio {
@@ -50,6 +56,12 @@ extension CryptoHomePageView {
         HStack {
             CircleButtonView(iconName: showPortfolio ? "plus" : "info")
                 .animation(.none)
+                .onTapGesture {
+                    if showPortfolio {
+                        showPortfolioView.toggle()
+                    }
+                }
+
                 .background(
                     CircleButtonAnimationView(animate: $showPortfolio)
                 )
