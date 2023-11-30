@@ -17,6 +17,7 @@ class HomeViewModel: ObservableObject {
 
     private let coinAPIManager = CoinAPIManager()
     private let coinMarketManager = CoinMarketManager()
+    private let portfolioDataManager = PortfolioDataManager()
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -43,10 +44,9 @@ class HomeViewModel: ObservableObject {
                 self?.allCoins = resturnedCoins
             }
             .store(in: &cancellables)
-
+// update market Data
         coinMarketManager.$marketData
             .map { (marketDataModel) -> [StatisticModel] in
-
                 var stats: [StatisticModel] = []
 
                 guard let data = marketDataModel else {
@@ -69,5 +69,27 @@ class HomeViewModel: ObservableObject {
                 self?.statistics = returnstate
             }
             .store(in: &cancellables)
+
+        // update Portfolio Data
+        $allCoins
+            .combineLatest(portfolioDataManager.$savedEntities)
+            .map { (coinModels, portfolioEntities) -> [CoinModel] in
+                coinModels
+                    .compactMap { (coin) -> CoinModel? in
+                        guard let entity = portfolioEntities.first(where: { $0.coinID == coin.id}) else {
+                            return nil
+                        }
+                        return coin .updateHoldings(amount: entity.amount)
+                    }
+            }
+            .sink { [weak self](returnCoins) in
+                self?.portfolioCoins = returnCoins
+            }
+            .store(in: &cancellables)
+
+    }
+
+    func updatePortfolio(coin: CoinModel, amount: Double) {
+        portfolioDataManager.updatedPortfolio(coin: coin, amount: amount)
     }
 }
