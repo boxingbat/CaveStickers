@@ -66,6 +66,28 @@ final class APIManager {
             completion: completion
         )
     }
+
+    public func lastDayData(
+        for symbol: String,
+        numberOfDays: TimeInterval = 7,
+        completion: @escaping (Result<MarketDataRespone, Error>) -> Void
+    ) {
+        let today = Date().addingTimeInterval(-(Constants.day))
+        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
+        request(
+            url: finUrl(
+                for: .marketData,
+                queryParams: [
+                    "symbol": symbol,
+                    "resolution": "1",
+                    "from": "\(Int(prior.timeIntervalSince1970))",
+                    "to": "\(Int(today.timeIntervalSince1970))"
+                ]
+            ),
+            expecting: MarketDataRespone.self,
+            completion: completion
+        )
+    }
     public func financialMetrics(
         for symbol: String,
         completion: @escaping (Result<FinancialMetricsResponse, Error>) -> Void
@@ -124,6 +146,7 @@ final class APIManager {
         case marketData = "stock/candle"
         case financials = "stock/metric"
         case monthlyAddjusted = "TIME_SERIES_MONTHLY_ADJUSTED&"
+        case lastday = "stock/quote"
     }
     private enum APIError: Error {
         case noDataRecived
