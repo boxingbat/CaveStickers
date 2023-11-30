@@ -11,7 +11,6 @@ import XCAStocksAPI
 
 @MainActor
 class TickerQuoteViewModel: ObservableObject {
-
     @Published var phase = FetchPhase<Quote>.initial
     var quote: Quote? { phase.value}
     var error: Error? { phase.error}
@@ -34,11 +33,9 @@ class TickerQuoteViewModel: ObservableObject {
             } else {
                 phase = .empty
             }
-
         } catch {
             print(error.localizedDescription)
             phase = .failure(error)
         }
     }
-
 }

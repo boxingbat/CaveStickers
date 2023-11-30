@@ -14,7 +14,6 @@ protocol TickerListRepository {
 }
 
 class TickerPlistRepository: TickerListRepository {
-
     private var saved: [Ticker]?
     private let filename: String
 
@@ -44,5 +43,4 @@ class TickerPlistRepository: TickerListRepository {
         self.saved = current
         return current
     }
-
 }

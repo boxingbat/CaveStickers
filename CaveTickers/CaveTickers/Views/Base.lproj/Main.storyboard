@@ -77,7 +77,7 @@
             </objects>
             <point key="canvasLocation" x="3523" y="713"/>
         </scene>
-        <!--Item 1-->
+        <!--Watch List -->
         <scene sceneID="KCO-6z-bTb">
             <objects>
                 <viewController id="91I-tB-Ot2" customClass="WatchListViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
@@ -88,7 +88,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="D6l-HL-zHC"/>
-                    <navigationItem key="navigationItem" id="ynP-ay-lJS"/>
+                    <navigationItem key="navigationItem" title="Watch List " id="ynP-ay-lJS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9h2-is-LhQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

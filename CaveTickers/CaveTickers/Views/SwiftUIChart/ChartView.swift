@@ -33,19 +33,18 @@ struct ChartView: View {
                 }
             }
             .overlay(
-                            GeometryReader { geometry in
-                                let yPosition = calculatePulsatingViewYPosition(geometry: geometry, data: data)
-                                PulsatingView(color: viewModel.foregroundMarkColor)
-                                    .position(x: geometry.size.width * 0.93, y: yPosition - 10)
-                            }
+                GeometryReader { geometry in
+                    let yPosition = calculatePulsatingViewYPosition(geometry: geometry, data: data)
+                    PulsatingView(color: viewModel.foregroundMarkColor)
+                        .position(x: geometry.size.width * 0.93, y: yPosition - 10) }
                         )
     }
     private func calculatePulsatingViewYPosition(geometry: GeometryProxy, data: ChartViewData) -> CGFloat {
-            let maxValue = data.yAxisData.axisEnd
-            let minValue = data.yAxisData.axisStart
-            let lastValue = data.items.last?.value ?? minValue
-            let relativePosition = (lastValue - minValue) / (maxValue - minValue)
-            return geometry.size.height * (1 - relativePosition)
+        let maxValue = data.yAxisData.axisEnd
+        let minValue = data.yAxisData.axisStart
+        let lastValue = data.items.last?.value ?? minValue
+        let relativePosition = (lastValue - minValue) / (maxValue - minValue)
+        return geometry.size.height * (1 - relativePosition)
         }
 
     private var chart: some View {
@@ -74,7 +73,6 @@ struct ChartView: View {
                     RuleMark(y: .value("Previous Close", previousClose))
                         .lineStyle(.init(lineWidth: 0.1, dash: [2]))
                         .foregroundStyle(.gray.opacity(0.3))
-
                 }
 
                 if let (selectedX, text) = viewModel.selectedXRuleMark {
@@ -87,7 +85,6 @@ struct ChartView: View {
                         }
                         .foregroundStyle(viewModel.foregroundMarkColor)
                 }
-
             }
         }
     }
@@ -145,11 +142,9 @@ struct ChartView: View {
             self.viewModel.selectedX = Int(index)
         }
     }
-
 }
 
 struct ChartView_Previews: PreviewProvider {
-
     static let allRanges = ChartRange.allCases
     static let oneDayOngoing = ChartData.stub1DOngoing
 
@@ -159,9 +154,7 @@ struct ChartView_Previews: PreviewProvider {
         }
 
         ChartContainer_ViewPreviews(viewModel: chartViewModel(range: .oneDay, stub: oneDayOngoing), title: "1D Ongoing")
-
     }
-
     static func chartViewModel(range: ChartRange, stub: ChartData) -> ChartViewModel {
         var mockStocksAPI = MockStocksAPI()
         mockStocksAPI.stubbedFetchChartDataCallback = { _ in stub }
@@ -169,7 +162,6 @@ struct ChartView_Previews: PreviewProvider {
         chartVM.selectedRange = range
         return chartVM
     }
-
 }
 
 // swiftlint:disable all

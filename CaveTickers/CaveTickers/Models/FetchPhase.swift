@@ -8,7 +8,6 @@
 import Foundation
 
 enum FetchPhase<V> {
-
     case initial
     case fetching
     case success(V)
@@ -28,5 +27,4 @@ enum FetchPhase<V> {
         }
         return nil
     }
-
 }

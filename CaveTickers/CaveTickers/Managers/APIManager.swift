@@ -102,13 +102,14 @@ final class APIManager {
         let today = Date()
         let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
         request(
-            url: finUrl(for: .companyNews,
-                    queryParams: [
-                            "symbol": symbol,
-                            "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
-                            "to": DateFormatter.newsDateFormatter.string(from: today)
-                        ]
-                    ),
+            url: finUrl(
+                for: .companyNews,
+                queryParams: [
+                    "symbol": symbol,
+                    "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
+                    "to": DateFormatter.newsDateFormatter.string(from: today)
+                ]
+            ),
             expecting: [NewsStory].self,
             completion: completion
         )

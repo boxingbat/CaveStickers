@@ -22,7 +22,7 @@ class WatchListViewController: LoadingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .systemBackground
         showLoadingView()
         setUpSearchController()
@@ -67,6 +67,7 @@ class WatchListViewController: LoadingViewController {
         titleView.addSubview(label)
 
         navigationItem.titleView = titleView
+        navigationItem.titleView?.backgroundColor = .systemBackground
     }
     private func fetchWatchlistData() {
         let symbols = PersistenceManager.shared.watchlist
@@ -88,7 +89,6 @@ class WatchListViewController: LoadingViewController {
                 case .failure(let error):
                     print(error)
                 }
-
             }
         }
         group.notify(queue: .main) {[weak self] in
@@ -111,7 +111,6 @@ class WatchListViewController: LoadingViewController {
                     changePercentage: String.percentage(from: changePersentage)
                 )
             )
-
         }
 
         self.viewModels = viewModels
@@ -138,13 +137,6 @@ class WatchListViewController: LoadingViewController {
     }
     private func setupTableView() {
         view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-        ])
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
@@ -158,7 +150,6 @@ class WatchListViewController: LoadingViewController {
         searchVC.searchResultsUpdater = self
         navigationItem.searchController = searchVC
     }
-
 }
 
 extension WatchListViewController: UISearchResultsUpdating {
@@ -170,7 +161,7 @@ extension WatchListViewController: UISearchResultsUpdating {
         }
         searchTimer?.invalidate()
 
-        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { _ in
             APIManager.shared.search(query: query) {result in
                 switch result {
                 case .success(let response):
@@ -185,7 +176,6 @@ extension WatchListViewController: UISearchResultsUpdating {
                 }
             }
         })
-
     }
 }
 
@@ -259,7 +249,6 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
         detailVC.title = viewModel.companyName
         navigationController?.pushViewController(detailVC, animated: true)
     }
-
 }
 extension WatchListViewController: WatchListTableViewCellDelegate {
     func didUpdatedMaxWith() {

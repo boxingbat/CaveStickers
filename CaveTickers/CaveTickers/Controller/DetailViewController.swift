@@ -60,7 +60,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     }
     // MARK: - Private
     private func setupWebSocket() {
-        webSocketManager.onReceive = { [weak self] message in
+        webSocketManager.onReceive = { message in
             print("Received message: \(message)")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -141,11 +141,11 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
         let latestDate = data[0].date
         guard let latestClose = data.first?.close,
-              let priorClose = data.first(where: {
-                  !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
-              })?.close else {
-            return 0
-        }
+            let priorClose = data.first(where: {
+                !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
+            })?.close else {
+        return 0
+    }
         print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
         let differnece = 1 - priorClose / latestClose
         return differnece
@@ -186,7 +186,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private func checkStockExist() {
         let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
         if let headerView = tableView.tableHeaderView as? NewsHeaderView {
-                headerView.button.isHidden = isStockInWatchlist
+            headerView.button.isHidden = isStockInWatchlist
             }
         tableView.reloadData()
         }
@@ -250,7 +250,6 @@ extension DetailViewController: DetailHeaderViewDelegate {
         let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
         headerView.button.isHidden = isStockInWatchlist
     }
-    
     func didTapAddButton(_ headerView: NewsHeaderView) {
         TapManager.shared.vibrate(for: .success)
         headerView.button.isHidden = true
