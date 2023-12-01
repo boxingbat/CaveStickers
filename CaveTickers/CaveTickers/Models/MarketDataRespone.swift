@@ -7,6 +7,28 @@
 
 import Foundation
 
+struct SingleDayResponse: Codable {
+    let open: Double
+    let current: Double
+    let high: Double
+    let low: Double
+    let change: Double
+    let changePercent: Double
+    let previousPrice: Double
+//    let timestamps: [TimeInterval]
+
+    enum CodingKeys: String, CodingKey {
+        case open = "o"
+        case current = "c"
+        case low = "l"
+        case high = "h"
+        case change = "d"
+        case changePercent = "dp"
+        case previousPrice = "pc"
+//        case timestamps = "t"
+    }
+}
+
 struct MarketDataRespone: Codable {
     let open: [Double]
     let close: [Double]

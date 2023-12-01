@@ -24,8 +24,12 @@ class CryptoViewController: LoadingViewController {
     }
 
     func setupHostingController() {
-        let swiftUIView = AnyView(CryptoHomePageView(viewModel: self.viewModel)
-            .environmentObject(viewModel))
+        let swiftUIView = AnyView(
+            NavigationView {
+                CryptoHomePageView(viewModel: self.viewModel)
+                    .environmentObject(viewModel)
+            }
+        )
         hostingController = UIHostingController(rootView: swiftUIView)
 
         guard let hostingController = hostingController else { return }

@@ -12,6 +12,9 @@ struct CryptoHomePageView: View {
     @State private var showPortfolio: Bool = false // right animate
     @State private var showPortfolioView: Bool = false // new sheet
 
+    @State private var selectedCoin: CoinModel? = nil
+    @State private var showDetailView: Bool = false
+
     var body: some View {
         ZStack {
             Color.theme.background
@@ -38,6 +41,13 @@ struct CryptoHomePageView: View {
                 Spacer(minLength: 0)
             }
         }
+        .background(
+            NavigationLink(
+                destination: DetailLoadingView(coin: $selectedCoin),
+                isActive: $showDetailView,
+                label: { EmptyView() }
+            )
+        )
     }
 }
 
@@ -85,8 +95,11 @@ extension CryptoHomePageView {
     private var allCoinList: some View {
         List {
             ForEach(viewModel.allCoins) { coin in
-                CoinRowView(coin: coin, showHoldingColum: false)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    CoinRowView(coin: coin, showHoldingColum: false)
+                        .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                        .onTapGesture {
+                            segue(coin: coin)
+                        }
             }
         }
         .listStyle(PlainListStyle())
@@ -96,10 +109,18 @@ extension CryptoHomePageView {
         List {
             ForEach(viewModel.portfolioCoins) { coin in
                 CoinRowView(coin: coin, showHoldingColum: true)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(PlainListStyle())
+    }
+
+    private func segue(coin: CoinModel) {
+        selectedCoin = coin
+        showDetailView.toggle()
     }
     private var columTitles: some View {
         HStack {

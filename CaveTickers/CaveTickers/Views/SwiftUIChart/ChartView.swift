@@ -12,9 +12,24 @@ import Charts
 struct ChartView: View {
     let data: ChartViewData
     @ObservedObject var viewModel: ChartViewModel
+    @State private var animateChart: Bool = false
+    @State private var showPulsatingView: Bool = false
 
     var body: some View {
         chart
+            .mask(
+                HStack {
+                    if animateChart {
+                        Rectangle()
+                            .transition(.move(edge: .leading))
+                    }
+                }
+            )
+            .onAppear {
+                withAnimation(.linear(duration: 1)) {
+                    animateChart = true
+                }
+            }
             .chartXAxis { chartXAxis }
             .chartXScale(domain: data.xAxisData.axisStart...data.xAxisData.axisEnd)
         //            .chartYAxis { chartYAxis }
@@ -34,18 +49,28 @@ struct ChartView: View {
             }
             .overlay(
                 GeometryReader { geometry in
-                    let yPosition = calculatePulsatingViewYPosition(geometry: geometry, data: data)
-                    PulsatingView(color: viewModel.foregroundMarkColor)
-                        .position(x: geometry.size.width * 0.93, y: yPosition - 10) }
-                        )
+                    if showPulsatingView {
+                        let yPosition = calculatePulsatingViewYPosition(geometry: geometry, data: data)
+                        PulsatingView(color: viewModel.foregroundMarkColor)
+                            .position(x: geometry.size.width * 0.93, y: yPosition - 10)
+                    }
+                }
+            )
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+                    showPulsatingView = true
+                }
+            }
+
     }
+
     private func calculatePulsatingViewYPosition(geometry: GeometryProxy, data: ChartViewData) -> CGFloat {
         let maxValue = data.yAxisData.axisEnd
         let minValue = data.yAxisData.axisStart
         let lastValue = data.items.last?.value ?? minValue
         let relativePosition = (lastValue - minValue) / (maxValue - minValue)
         return geometry.size.height * (1 - relativePosition)
-        }
+    }
 
     private var chart: some View {
         Chart {
@@ -64,7 +89,7 @@ struct ChartView: View {
                     gradient: Gradient(colors: [
                         viewModel.foregroundMarkColor,
                         .clear
-                ]), startPoint: .top,
+                    ]), startPoint: .top,
                     endPoint: .bottom)
                 )
                 .opacity(0.3)
@@ -104,7 +129,7 @@ struct ChartView: View {
     private var chartYAxis: some AxisContent {
         AxisMarks(preset: .extended, values: .stride(by: data.yAxisData.strideBy)) { value in
             if let yValue = value.as(Double.self),
-            let text = data.yAxisData.map[yValue.roundedString] {
+               let text = data.yAxisData.map[yValue.roundedString] {
                 AxisGridLine(stroke: .init(lineWidth: 0.3))
                 AxisTick(stroke: .init(lineWidth: 0.3))
                 AxisValueLabel(anchor: .topLeading, collisionResolution: .greedy) {
@@ -137,8 +162,8 @@ struct ChartView: View {
     private func onChangeDrag(value: DragGesture.Value, chartProxy: ChartProxy, geometryProxy: GeometryProxy) {
         let xCurrent = value.location.x - geometryProxy[chartProxy.plotAreaFrame].origin.x
         if let index: Double = chartProxy.value(atX: xCurrent),
-        index >= 0,
-        Int(index) <= data.items.count - 1 {
+           index >= 0,
+           Int(index) <= data.items.count - 1 {
             self.viewModel.selectedX = Int(index)
         }
     }

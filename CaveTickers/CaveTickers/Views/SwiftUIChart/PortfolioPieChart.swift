@@ -9,33 +9,39 @@ import SwiftUI
 
 struct PortfolioPieChart: View {
     @ObservedObject var viewModel: PieChartViewModel
+    @State private var isAnimating: Bool = false
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                ForEach(0..<viewModel.pieChartSegments.count, id: \.self) { index in
-                    self.sliceView(geometry: geometry, index: index)
-                        .padding(2)
-                }
-                Circle()
-                    .fill(Color(UIColor.systemBackground))
-                    .frame(width: geometry.size.width * 0.6, height: geometry.size.height * 0.6)
-                VStack {
-                    Text("Invested")
-                        .font(.headline)
-                    Text("$\(viewModel.totalInvestmentAmount, specifier: "%.2f")")
-                        .font(.caption)
-                    Text("Current")
-                        .font(.headline)
-                    Text("$\(viewModel.totalCurrentValue, specifier: "%.2f")")
-                        .font(.caption)
-                    Text("Growth")
-                        .font(.headline)
-                    Text("\(viewModel.growthRate, specifier: "%.2f")%")
-                        .font(.caption)
+            GeometryReader { geometry in
+                ZStack {
+                    ForEach(viewModel.pieChartSegments.indices) { index in
+                        sliceView(geometry: geometry, index: index)
+                            .padding(2)
+                            .opacity(isAnimating ? 1 : 0) // Start with 0 opacity
+                            .animation(.easeOut(duration: 0.8).delay(Double(index) * 0.05), value: isAnimating) // Staggered animation effect
+                    }
+                    Circle()
+                        .fill(Color(UIColor.systemBackground))
+                        .frame(width: geometry.size.width * 0.6, height: geometry.size.height * 0.6)
+                    VStack {
+                        Text("Invested")
+                            .font(.headline)
+                        Text("$\(viewModel.totalInvestmentAmount, specifier: "%.2f")")
+                            .font(.caption)
+                        Text("Current")
+                            .font(.headline)
+                        Text("$\(viewModel.totalCurrentValue, specifier: "%.2f")")
+                            .font(.caption)
+                        Text("Growth")
+                            .font(.headline)
+                        Text("\(viewModel.growthRate, specifier: "%.2f")%")
+                            .font(.caption)
+                    }
                 }
             }
+            .onAppear {
+                self.isAnimating = true // Trigger the animation when the view appears
+            }
         }
-    }
     private func sliceView(geometry: GeometryProxy, index: Int) -> some View {
         let segment = viewModel.pieChartSegments[index]
         let angle = 360 * segment.percentage / 100
@@ -71,7 +77,8 @@ struct PortfolioPieChart: View {
             .font(.caption)
     }
     private func color(for segment: PieChartSegment) -> Color {
-        return Color(hue: Double.random(in: 0...1), saturation: 0.8, brightness: 0.5)
+        return Color(hue: Double.random(in: 0...1), saturation: 0.8, brightness: 0.7
+        )
     }
 }
 

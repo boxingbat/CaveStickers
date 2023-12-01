@@ -14,6 +14,7 @@ class WatchListViewController: LoadingViewController {
     private var watchListMap: [String: [CandleStick]] = [:]
     private var viewModels: [WatchListTableViewCell.ViewModel] = []
     private var tableView = UITableView()
+    private var singleDayMap: [String: SingleDayResponse] = [:]
 
     private var observer: NSObjectProtocol?
     private var loadingStateVC: UIHostingController<LoadingStateView>?
@@ -21,8 +22,8 @@ class WatchListViewController: LoadingViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        UILabel.appearance().textColor = UIColor(named: "AccentColor")
         view.backgroundColor = .systemBackground
-//        navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .systemBackground
         showLoadingView()
         setUpSearchController()
@@ -74,18 +75,18 @@ class WatchListViewController: LoadingViewController {
 
         let group = DispatchGroup()
 
-        for symbol in symbols where watchListMap[symbol] == nil {
+        for symbol in symbols where singleDayMap[symbol] == nil {
             group.enter()
 
-            APIManager.shared.marketData(for: symbol) { [weak self] result in
+            APIManager.shared.singleDayData(for: symbol) { [weak self] result in
                 defer {
                     group.leave()
                 }
 
                 switch result {
                 case .success(let data):
-                    let candleStickers = data.candleSticks
-                    self?.watchListMap[symbol] = candleStickers
+                    let data = data
+                    self?.singleDayMap[symbol] = data
                 case .failure(let error):
                     print(error)
                 }
@@ -97,18 +98,16 @@ class WatchListViewController: LoadingViewController {
             self?.hideLoadingView()
         }
     }
-
     private func craeteViewModels() {
         var viewModels: [WatchListTableViewCell.ViewModel] = []
-        for (symbol, candleSticks) in watchListMap {
-            let changePersentage = getChangePercentage(symbol: symbol, data: candleSticks)
+        for (symbol, singleDayResponse) in singleDayMap {
             viewModels.append(
                 .init(
                     symbol: symbol,
-                    price: getLatestClosingPrice(from: candleSticks),
-                    changeColor: changePersentage < 0 ? .systemRed : .systemGreen,
-                    companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
-                    changePercentage: String.percentage(from: changePersentage)
+                    price: "\(singleDayResponse.current)",
+                    changeColor: singleDayResponse.changePercent < 0 ? .systemRed : .systemGreen,
+                    companyName: UserDefaults.standard.string(forKey: "symbol") ?? "Company",
+                    changePercentage: singleDayResponse.changePercent.asPercentString()
                 )
             )
         }
@@ -194,7 +193,7 @@ extension WatchListViewController: SearchTableViewDelegate {
 }
 extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return watchListMap.count
+        return viewModels.count
     }
     func tableView(
         _ tableView: UITableView,
