@@ -172,11 +172,11 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             cell.stockInfoLabel.text = "\(saved.symbol)"
             cell.investmentAmountLabel.text = "\(result.investmentAmount)"
             cell.gainLabel.text = "\(result.gain)"
-            cell.gainLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.gainLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
             cell.yieldLabel.text = "\(result.yield)%"
-            cell.yieldLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.yieldLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
             cell.annualReturnLabel.text = "\(result.annualReturn)%"
-            cell.annualReturnLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.annualReturnLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
         }
         return cell
     }
