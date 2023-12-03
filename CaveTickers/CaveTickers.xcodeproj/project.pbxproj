@@ -105,6 +105,10 @@
 		0F6CD1F42B0B7F980026DE51 /* CaculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */; };
 		0F6CD1F62B0B7FDA0026DE51 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F52B0B7FDA0026DE51 /* ColorExtension.swift */; };
 		0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */; };
+		0FC499832B1B13BF0014079E /* WalletViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499822B1B13BF0014079E /* WalletViewController .swift */; };
+		0FC499862B1B148E0014079E /* WalletHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499852B1B148E0014079E /* WalletHomeView.swift */; };
+		0FC499892B1B16D10014079E /* MetaMaskRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499882B1B16D10014079E /* MetaMaskRepo.swift */; };
+		0FC4998C2B1B28F30014079E /* metamask-ios-sdk in Frameworks */ = {isa = PBXBuildFile; productRef = 0FC4998B2B1B28F30014079E /* metamask-ios-sdk */; };
 		81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +211,9 @@
 		0F6CD1F32B0B7F980026DE51 /* CaculatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaculatorPresenter.swift; sourceTree = "<group>"; };
 		0F6CD1F52B0B7FDA0026DE51 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		0F6CD1F72B0B80050026DE51 /* DoubleExtension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoubleExtension .swift"; sourceTree = "<group>"; };
+		0FC499822B1B13BF0014079E /* WalletViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletViewController .swift"; sourceTree = "<group>"; };
+		0FC499852B1B148E0014079E /* WalletHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHomeView.swift; sourceTree = "<group>"; };
+		0FC499882B1B16D10014079E /* MetaMaskRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMaskRepo.swift; sourceTree = "<group>"; };
 		63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.debug.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.debug.xcconfig"; sourceTree = "<group>"; };
 		D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaveTickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -219,6 +226,7 @@
 				0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */,
 				0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */,
 				0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */,
+				0FC4998C2B1B28F30014079E /* metamask-ios-sdk in Frameworks */,
 				81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +380,7 @@
 				0F2D6D072B05EAAC007F1748 /* Controller */,
 				0F2D6D052B05EA56007F1748 /* Views */,
 				0F041E692B17094900436A81 /* Crypto */,
+				0FC499812B1B139D0014079E /* Wallet */,
 				0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */,
 				0F2D6CF42B04D62A007F1748 /* Info.plist */,
 				0F2D6CEC2B04D628007F1748 /* PortfolioContainer.xcdatamodeld */,
@@ -515,6 +524,32 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		0FC499812B1B139D0014079E /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				0FC499872B1B16AE0014079E /* ViewModel */,
+				0FC499842B1B14770014079E /* View */,
+				0FC499822B1B13BF0014079E /* WalletViewController .swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		0FC499842B1B14770014079E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0FC499852B1B148E0014079E /* WalletHomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0FC499872B1B16AE0014079E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0FC499882B1B16D10014079E /* MetaMaskRepo.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		5FFB89E095E25DB62657836F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -554,6 +589,7 @@
 				0F173BB02B10CC79002AF172 /* XCAStocksAPI */,
 				0F173BB22B10CC79002AF172 /* XCAStocksExec */,
 				0F5442C12B14724C00B41896 /* Kingfisher */,
+				0FC4998B2B1B28F30014079E /* metamask-ios-sdk */,
 			);
 			productName = CaveTickers;
 			productReference = 0F2D6CE02B04D628007F1748 /* CaveTickers.app */;
@@ -586,6 +622,7 @@
 			packageReferences = (
 				0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */,
 				0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0FC4998A2B1B28F30014079E /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
 			);
 			productRefGroup = 0F2D6CE12B04D628007F1748 /* Products */;
 			projectDirPath = "";
@@ -680,6 +717,7 @@
 				0F2D6D0E2B05ED40007F1748 /* PersistenceManager.swift in Sources */,
 				0F4401CF2B0F4EE100B703BC /* Quote Extension.swift in Sources */,
 				0F6CD1F42B0B7F980026DE51 /* CaculatorPresenter.swift in Sources */,
+				0FC499862B1B148E0014079E /* WalletHomeView.swift in Sources */,
 				0F6CD1EB2B0A02000026DE51 /* AddPortfolioTableViewCell.swift in Sources */,
 				0F5CF0502B08870A009CC0B1 /* StockDetailHeaderView.swift in Sources */,
 				0F4401BC2B0F231F00B703BC /* StocksAPI.swift in Sources */,
@@ -739,6 +777,7 @@
 				0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */,
 				0F0959852B19AFB60084524C /* CoinDetailManager.swift in Sources */,
 				0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */,
+				0FC499892B1B16D10014079E /* MetaMaskRepo.swift in Sources */,
 				0F041E6F2B171ED900436A81 /* CircleButtonAnimationView.swift in Sources */,
 				0F5CF04A2B0744DB009CC0B1 /* WatchListTableViewCell.swift in Sources */,
 				0F2D6D152B060A79007F1748 /* SearchTableViewCell.swift in Sources */,
@@ -750,6 +789,7 @@
 				0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */,
 				0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */,
 				0F09596F2B1875850084524C /* CoinMarketManager.swift in Sources */,
+				0FC499832B1B13BF0014079E /* WalletViewController .swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -996,6 +1036,14 @@
 				minimumVersion = 7.10.0;
 			};
 		};
+		0FC4998A2B1B28F30014079E /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MetaMask/metamask-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1013,6 +1061,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		0FC4998B2B1B28F30014079E /* metamask-ios-sdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FC4998A2B1B28F30014079E /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */;
+			productName = "metamask-ios-sdk";
 		};
 /* End XCSwiftPackageProductDependency section */
 
