@@ -23,6 +23,8 @@ class WatchListViewController: LoadingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UILabel.appearance().textColor = UIColor(named: "AccentColor")
+        UIButton.appearance().setTitleColor(UIColor(named: "AccentColor"), for: .normal)
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "AccentColor") ?? .black]
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.backgroundColor = .systemBackground
         showLoadingView()

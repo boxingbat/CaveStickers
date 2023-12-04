@@ -35,9 +35,6 @@ class PortfolioDataManager {
             add(coin: coin, amount: amount)
         }
     }
-
-
-
     // MARK: - Private
     private func getPortfolio () {
         let request = NSFetchRequest<PortfolioEntity>(entityName: entityName)
