@@ -15,6 +15,9 @@ struct CryptoChartView: View {
     private let stratingDate: Date
     private let endingDate: Date
     @State private var percentage: CGFloat = 0
+    @State private var touchLocation: CGPoint = .zero
+    @State private var showPopover: Bool = false
+
 
     init(coin: CoinModel) {
         data = coin.sparklineIn7D?.price ?? []
@@ -33,7 +36,7 @@ struct CryptoChartView: View {
             chartView
                 .frame(height: 200)
                 .background(chartBackground)
-                .overlay(chartYAxis.padding(.horizontal, 4), alignment: .leading)
+                .overlay(chartYAxis.padding(.horizontal, 4), alignment: .trailing)
             chartDataLabel
                 .padding(.horizontal, 4)
         }
@@ -54,6 +57,52 @@ struct CryptoChartView_Previews: PreviewProvider {
         CryptoChartView(coin: dev.coin)
     }
 }
+
+struct PopoverView: View {
+    @Binding var show: Bool
+    let touchPoint: CGPoint
+    let chartData: [Double]
+    let maxY: Double
+    let minY: Double
+    let frame: CGRect
+    let lineColor: Color
+
+    var body: some View {
+        let touchIndex = min(max(Int((touchPoint.x / frame.width) * CGFloat(chartData.count)), 0), chartData.count - 1)
+        let touchedData = chartData[touchIndex]
+        let displayValue = touchedData
+
+        return Group {
+            if show {
+                Text("\(displayValue)")
+                    .font(.caption)
+                    .padding(5)
+                    .background(lineColor.opacity(0.7))
+                    .cornerRadius(5)
+                    .foregroundColor(.white)
+                    .offset(x: calculateOffsetX(touchIndex: touchIndex, frame: frame), y: calculateOffsetY(frame: frame))
+                    .transition(.scale)
+            }
+        }
+    }
+    private func calculateOffsetX(touchIndex: Int, frame: CGRect) -> CGFloat {
+        let xPosition = frame.width / CGFloat(chartData.count) * CGFloat(touchIndex + 1)
+        if xPosition > frame.midX {
+            return touchPoint.x - 200
+        } else {
+            return touchPoint.x - 150
+        }
+    }
+
+    private func calculateOffsetY(frame: CGRect) -> CGFloat {
+        if touchPoint.y < frame.midY {
+            return touchPoint.y
+        } else {
+            return touchPoint.y - 180
+        }
+    }
+}
+
 
 extension CryptoChartView {
     private var chartView: some View {
@@ -82,8 +131,24 @@ extension CryptoChartView {
             )
             .shadow(color: lineColor, radius: 10, x: 0.0, y: 10)
             .shadow(color: lineColor.opacity(0.5), radius: 10, x: 0.0, y: 20)
-            .shadow(color: lineColor.opacity(0.2), radius: 10, x: 0.0, y: 30)
-            .shadow(color: lineColor.opacity(0.1), radius: 10, x: 0.0, y: 40)
+            .contentShape(Rectangle())
+            .gesture(DragGesture().onChanged({ value in
+                touchLocation = value.location
+                showPopover = true
+            }).onEnded({ value in
+                showPopover = false
+            }))
+            .overlay(
+                PopoverView(
+                    show: $showPopover,
+                    touchPoint: touchLocation,
+                    chartData: data,
+                    maxY: maxY,
+                    minY: minY,
+                    frame: geometry.frame(in: .local),
+                    lineColor: lineColor
+                )
+            )
         }
     }
     private var chartBackground: some View {
