@@ -82,6 +82,22 @@ final class APIManager {
             completion: completion
         )
     }
+
+    public func companyInfo(
+        for symbol: String,
+        completion: @escaping (Result<CompanyInfoResponse, Error>) -> Void
+    ) {
+        request(
+            url: finUrl(
+                for: .conpanyinfo,
+                queryParams: [
+                    "symbol": symbol
+                ]
+            ),
+            expecting: CompanyInfoResponse.self,
+            completion: completion
+        )
+    }
     public func financialMetrics(
         for symbol: String,
         completion: @escaping (Result<FinancialMetricsResponse, Error>) -> Void
@@ -141,6 +157,7 @@ final class APIManager {
         case financials = "stock/metric"
         case monthlyAddjusted = "TIME_SERIES_MONTHLY_ADJUSTED&"
         case lastday = "quote"
+        case conpanyinfo = "stock/profile2"
     }
     private enum APIError: Error {
         case noDataRecived

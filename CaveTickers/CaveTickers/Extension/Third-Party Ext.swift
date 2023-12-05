@@ -15,6 +15,13 @@ extension UIImageView {
             return
         }
 
-        self.kf.setImage(with: url, placeholder: placeholder, options: [.transition(.fade(0.2))])
+        self.kf.setImage(with: url, placeholder: placeholder, options: [.transition(.fade(0.2))]) { result in
+            switch result {
+            case .success(let value):
+                print("Image set successfully: \(value.source.url?.absoluteString ?? "")")
+            case .failure(let error):
+                print("Error setting image: \(error.localizedDescription)")
+            }
+        }
     }
 }

@@ -37,8 +37,8 @@ struct DetailView: View {
                 overViewTitle
                 Divider()
                 overViewGrid
-                additionTitle
-                Divider()
+//                additionTitle
+//                Divider()
                 additionGrid
             }
             .padding()
@@ -60,10 +60,9 @@ struct DetailView_Previews: PreviewProvider {
 }
 
 extension DetailView {
-
     private var navigationBarTraillingItems: some View {
         HStack {
-            Text(viewModel.coin.symbol)
+            Text(viewModel.coin.symbol.uppercased())
                 .font(.headline)
             .foregroundColor(Color.theme.accent)
             CoinImageView(coin: viewModel.coin)
@@ -71,7 +70,7 @@ extension DetailView {
         }
     }
     private var overViewTitle: some View {
-        Text("OverView")
+        Text("Market Overview")
             .font(.title)
             .bold()
             .foregroundColor(Color.theme.accent)

@@ -15,6 +15,7 @@ class WatchListViewController: LoadingViewController {
     private var viewModels: [WatchListTableViewCell.ViewModel] = []
     private var tableView = UITableView()
     private var singleDayMap: [String: SingleDayResponse] = [:]
+    private var companyInfo: [String: CompanyInfoResponse] = [:]
 
     private var observer: NSObjectProtocol?
     private var loadingStateVC: UIHostingController<LoadingStateView>?
@@ -79,6 +80,7 @@ class WatchListViewController: LoadingViewController {
 
         for symbol in symbols where singleDayMap[symbol] == nil {
             group.enter()
+            group.enter()
 
             APIManager.shared.singleDayData(for: symbol) { [weak self] result in
                 defer {
@@ -93,6 +95,19 @@ class WatchListViewController: LoadingViewController {
                     print(error)
                 }
             }
+            APIManager.shared.companyInfo(for: symbol) { [weak self] result in
+                defer {
+                    group.leave()
+                }
+
+                switch result {
+                case .success(let data):
+                    let data = data
+                    self?.companyInfo[symbol] = data
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
         group.notify(queue: .main) {[weak self] in
             self?.craeteViewModels()
@@ -103,15 +118,20 @@ class WatchListViewController: LoadingViewController {
     private func craeteViewModels() {
         var viewModels: [WatchListTableViewCell.ViewModel] = []
         for (symbol, singleDayResponse) in singleDayMap {
-            viewModels.append(
-                .init(
-                    symbol: symbol,
-                    price: "\(singleDayResponse.current)",
-                    changeColor: singleDayResponse.changePercent < 0 ? .systemRed : .systemGreen,
-                    companyName: UserDefaults.standard.string(forKey: "symbol") ?? "Company",
-                    changePercentage: singleDayResponse.changePercent.asPercentString()
+            if let companyInfoResponse = companyInfo[symbol] {
+                let changeColor: UIColor = singleDayResponse.changePercent < 0 ? UIColor(named: "RedColor") ?? .systemRed : .systemGreen
+                viewModels.append(
+                    .init(
+                        symbol: symbol,
+                        price: "\(singleDayResponse.current)",
+                        changeColor: changeColor,
+                        companyName: "\(companyInfoResponse.name ?? symbol)",
+                        changePercentage: singleDayResponse.changePercent.asPercentString(),
+                        marketCaptital: companyInfoResponse.marketCapitalization?.formatUsingAbbrevation() ?? "",
+                        shareOutstanding: companyInfoResponse.shareOutstanding?.formatUsingAbbrevation() ?? ""
+                    )
                 )
-            )
+            }
         }
 
         self.viewModels = viewModels
@@ -250,9 +270,64 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
         detailVC.title = viewModel.companyName
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = TableSectionHeaderView()
+        headerView.backgroundColor = .systemBackground
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44 // Or whatever height you prefer
+    }
 }
 extension WatchListViewController: WatchListTableViewCellDelegate {
     func didUpdatedMaxWith() {
         tableView.reloadData()
+    }
+}
+class TableSectionHeaderView: UIView {
+    private let stockLabel = UILabel()
+    private let marketCapLabel = UILabel()
+    private let priceLabel = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(stockLabel)
+        addSubview(marketCapLabel)
+        addSubview(priceLabel)
+
+        stockLabel.text = "Stock"
+        marketCapLabel.text = "MarketCap"
+        priceLabel.text = "Price"
+
+        stockLabel.textColor = .gray
+        marketCapLabel.textColor = .gray
+        priceLabel.textColor = .gray
+
+        stockLabel.font = .systemFont(ofSize: 12)
+        marketCapLabel.font = .systemFont(ofSize: 12)
+        priceLabel.font = .systemFont(ofSize: 12)
+
+        stockLabel.translatesAutoresizingMaskIntoConstraints = false
+        marketCapLabel.translatesAutoresizingMaskIntoConstraints = false
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            stockLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            stockLabel.topAnchor.constraint(equalTo: topAnchor),
+            stockLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            marketCapLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 30),
+            marketCapLabel.topAnchor.constraint(equalTo: topAnchor),
+            marketCapLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            priceLabel.topAnchor.constraint(equalTo: topAnchor),
+            priceLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

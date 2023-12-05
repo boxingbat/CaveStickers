@@ -7,5 +7,5 @@ target 'CaveTickers' do
 
   # Pods for CaveTickers
    pod'SwiftLint'
-
+   pod 'SVGKit'
 end

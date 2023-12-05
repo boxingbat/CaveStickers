@@ -66,6 +66,16 @@ struct MarketDataRespone: Codable {
     }
 }
 
+struct CompanyInfoResponse: Codable {
+    let marketCapitalization: Double?
+    let name: String?
+    let shareOutstanding: Double?
+    let ticker: String?
+    let weburl: String?
+    let logo: String?
+    let finnhubIndustry: String?
+}
+
 struct CandleStick {
     let date: Date
     let high: Double

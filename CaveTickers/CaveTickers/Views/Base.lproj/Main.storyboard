@@ -109,7 +109,7 @@
                         <segue destination="FXO-vc-III" kind="relationship" relationship="viewControllers" id="qbq-xD-uZ1"/>
                         <segue destination="0p0-Jp-AU8" kind="relationship" relationship="viewControllers" id="LVZ-Jv-pPa"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="KtL-aT-0yr"/>
-                        <segue destination="jxf-Co-JiH" kind="relationship" relationship="viewControllers" id="0K5-4Q-P3L"/>
+                        <segue destination="oSU-4h-R3P" kind="relationship" relationship="viewControllers" id="KMu-VD-9QU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gGE-HB-syA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -134,26 +134,8 @@
             <point key="canvasLocation" x="-459" y="-37"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="EEx-rp-mo3">
-            <objects>
-                <navigationController id="jxf-Co-JiH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="001-loupe" id="CJ8-5k-pNN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QnX-f3-EJf">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="oSU-4h-R3P" kind="relationship" relationship="rootViewController" id="hYc-RE-4b7"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ke0-fg-o43" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="946" y="-37"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="tKn-Ay-KCl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bxT-pL-6Ry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="0p0-Jp-AU8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="002-pie-chart" id="hyw-bs-1qv"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aGC-27-cAa">
@@ -170,6 +152,7 @@
                         <segue destination="Bha-rR-47C" kind="relationship" relationship="rootViewController" id="h3w-hX-rzk"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bxT-pL-6Ry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3523" y="-37"/>
         </scene>
@@ -198,7 +181,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="001-loupe" width="24" height="24"/>
         <image name="002-pie-chart" width="24" height="24"/>
         <image name="003-megaphone" width="24" height="24"/>
         <image name="004-money-graph-with-up-arrow" width="24" height="24"/>

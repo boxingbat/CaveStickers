@@ -15,9 +15,6 @@ struct WalletHomeView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
-            Text("MetaSwiftUI")
-                .font(.title)
-
             Text("Status: \(metaMaskRepo.connectionStatus)")
                 .fontWeight(.bold)
 
@@ -27,25 +24,29 @@ struct WalletHomeView: View {
             Text("Account: \(metaMaskRepo.ethAddress)")
                 .fontWeight(.bold)
 
-            Button {
-                metaMaskRepo.connectToDapp()
-            } label: {
-                Text("Connect to MetaMask")
-                    .frame(width: 300, height: 40)
-            }
-            .buttonStyle(.borderedProminent)
-
             Text("Balance: \(metaMaskRepo.balance)")
                 .fontWeight(.bold)
 
-            Button {
-                metaMaskRepo.getBalance()
-            } label: {
-                Text("Get account balance")
-                    .frame(width: 300, height: 40)
-            }
-            .buttonStyle(.borderedProminent)
+            HStack {
+                Button {
+                    metaMaskRepo.connectToDapp()
+                } label: {
+                    Text("Connect")
+                        .frame(width: 100, height: 40)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color.secondary)
 
+                Button {
+                    metaMaskRepo.getBalance()
+                } label: {
+                    Text("Update")
+                        .frame(width: 100, height: 40)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color.secondary)
+
+            }
             Spacer()
         }
         .onReceive(NotificationCenter.default.publisher(for: .Connection)) { notification in
