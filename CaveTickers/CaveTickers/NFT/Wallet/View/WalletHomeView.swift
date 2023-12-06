@@ -14,8 +14,8 @@ struct WalletHomeView: View {
     @State private var status = "Offline"
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
-            Text("Status: \(metaMaskRepo.connectionStatus)")
+        VStack(alignment: .leading, spacing: 16) {
+            Text("\(metaMaskRepo.connectionStatus)")
                 .fontWeight(.bold)
 
             Text("Chain ID: \(metaMaskRepo.chainID)")

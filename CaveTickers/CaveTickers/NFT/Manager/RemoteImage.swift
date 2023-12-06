@@ -10,7 +10,6 @@ import Foundation
 
 // MARK: - Custom image view class to load images from web
 struct RemoteImage: View {
-
     @ObservedObject var assetModel: AssetModel
 
     // MARK: - Main rendering function
@@ -83,4 +82,3 @@ class AssetModel: ObservableObject {
         return nil
     }
 }
-

@@ -30,6 +30,7 @@ struct DashboardContentView: View {
                 case .collection:
                     NFTCollectionsTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
                 }
+                NavigationLink(destination: WalletHomeView(), isActive: $showWalletHome) { EmptyView() }
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarTitle("").navigationBarHidden(true)
@@ -54,10 +55,22 @@ struct DashboardContentView: View {
         }
         return VStack {
             ZStack {
-//                Color.accentColor.ignoresSafeArea()
+                //                Color.accentColor.ignoresSafeArea()
                 VStack(spacing: 10) {
-                    Text(selectedTab.headerTitle)
-                        .font(.system(size: 30, weight: .black))
+
+                    HStack {
+                        Button(action: {
+                            showWalletHome = true
+                        }) {
+                            Image("metaMask")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30)
+                                .foregroundColor(.background)
+                        }
+                        Text(selectedTab.headerTitle)
+                            .font(.system(size: 30, weight: .black))
+                    }
                     Capsule().frame(height: 1, alignment: .center)
                         .padding([.leading, .trailing], 40).opacity(0.4)
                     Spacer()
@@ -95,10 +108,9 @@ struct DashboardContentView: View {
     private var NFTDetailsNavigationLink: some View {
         func destinationView() -> some View {
             ZStack {
-//                if showAssetDetails {
-//                    AssetDetailsContentView()
-//                }
-                Text("place")
+                if showAssetDetails {
+                    AssetDetailsContentView().environmentObject(manager)
+                }
             }
         }
         return NavigationLink(destination: destinationView(),

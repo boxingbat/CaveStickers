@@ -18,7 +18,7 @@ struct NFTHomeTabView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         manager.fetchNewReleasedItems()
                     }
-                }.foregroundColor(.white).colorScheme(.light)
+                }.foregroundColor(Color.theme.accent)
                 NFTItemsCarouselView() { item in
                     manager.selectedNFTItem = item
                     showAssetDetails = true
@@ -32,7 +32,7 @@ struct NFTHomeTabView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             manager.fetchLastSoldItems()
                         }
-                    }.foregroundColor(Color("DarkColor")).padding(.top, 10)
+                    }.foregroundColor(Color.theme.accent).padding(.top, 10)
                     NFTItemListView() { item in
                         manager.selectedNFTItem = item
                         showAssetDetails = true

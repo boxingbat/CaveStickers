@@ -19,7 +19,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private var candleStickData: [CandleStick]
     private var chartView = UIView()
     private var webSocketManager = WebSocketManager()
-    private var closedPrice: String?
+    var closedPrice: String?
     let tableView: UITableView = {
         let table = UITableView()
         table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)

@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="4247" y="-37"/>
         </scene>
-        <!--Item 2-->
+        <!--Wallet View Controller-->
         <scene sceneID="JvV-WT-Bic">
             <objects>
                 <viewController id="oSU-4h-R3P" customClass="WalletViewController" customModule="CaveTickers" customModuleProvider="target" sceneMemberID="viewController">
@@ -37,7 +37,7 @@
                         <viewLayoutGuide key="safeArea" id="ef8-Vl-aWR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="6ps-aT-m6s"/>
+                    <tabBarItem key="tabBarItem" title="" image="nft" id="6ps-aT-m6s"/>
                     <navigationItem key="navigationItem" id="a7f-Ac-Vxv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="huz-JL-m9m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -185,6 +185,7 @@
         <image name="003-megaphone" width="24" height="24"/>
         <image name="004-money-graph-with-up-arrow" width="24" height="24"/>
         <image name="005-cryptocurrency" width="24" height="24"/>
+        <image name="nft" width="24" height="24"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

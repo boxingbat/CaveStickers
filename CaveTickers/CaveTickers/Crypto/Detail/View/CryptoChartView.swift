@@ -16,7 +16,7 @@ struct CryptoChartView: View {
     private let endingDate: Date
     @State private var percentage: CGFloat = 0
     @State private var touchLocation: CGPoint = .zero
-    @State private var showPopover: Bool = false
+    @State private var showPopover = false
 
 
     init(coin: CoinModel) {
@@ -124,20 +124,22 @@ extension CryptoChartView {
             }
             .trim(from: 0, to: percentage)
             .stroke(lineColor,
-                    style: StrokeStyle(
-                        lineWidth: 2,
-                        lineCap: .round,
-                        lineJoin: .round)
+                style: StrokeStyle(
+                    lineWidth: 2,
+                    lineCap: .round,
+                    lineJoin: .round)
             )
             .shadow(color: lineColor, radius: 10, x: 0.0, y: 10)
             .shadow(color: lineColor.opacity(0.5), radius: 10, x: 0.0, y: 20)
             .contentShape(Rectangle())
-            .gesture(DragGesture().onChanged({ value in
+            .gesture(DragGesture().onChanged { value in
                 touchLocation = value.location
                 showPopover = true
-            }).onEnded({ value in
-                showPopover = false
-            }))
+            }
+                .onEnded { _ in
+                    showPopover = false
+                }
+            )
             .overlay(
                 PopoverView(
                     show: $showPopover,

@@ -51,6 +51,7 @@ struct AssetsRequestParameters {
     var requestURL: URL? {
         let collectionType = collection != nil ? "&collection=\(collection!.rawValue)" : ""
         let urlString = AppConfig.assetsAPI + "?order_by=\(filter.rawValue)" + collectionType + "&order_direction=\(order.rawValue)&offset=\(offset)&limit=\(limit)"
+        print(urlString)
         return URL(string: urlString)
     }
 }

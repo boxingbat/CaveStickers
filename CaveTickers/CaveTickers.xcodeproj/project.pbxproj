@@ -118,6 +118,7 @@
 		0F7012D82B1F2B760070B555 /* NFTFavoriteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */; };
 		0F7012DA2B1F30060070B555 /* NFTCollectionsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */; };
 		0F7012DD2B1F3D3B0070B555 /* DashboardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */; };
+		0F7012DF2B1F57F20070B555 /* AssetDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */; };
 		0FC499832B1B13BF0014079E /* WalletViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499822B1B13BF0014079E /* WalletViewController .swift */; };
 		0FC499862B1B148E0014079E /* WalletHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499852B1B148E0014079E /* WalletHomeView.swift */; };
 		0FC499892B1B16D10014079E /* MetaMaskRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499882B1B16D10014079E /* MetaMaskRepo.swift */; };
@@ -237,6 +238,7 @@
 		0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavoriteTabView.swift; sourceTree = "<group>"; };
 		0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionsTabView.swift; sourceTree = "<group>"; };
 		0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContentView.swift; sourceTree = "<group>"; };
+		0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsContentView.swift; sourceTree = "<group>"; };
 		0FC499822B1B13BF0014079E /* WalletViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletViewController .swift"; sourceTree = "<group>"; };
 		0FC499852B1B148E0014079E /* WalletHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHomeView.swift; sourceTree = "<group>"; };
 		0FC499882B1B16D10014079E /* MetaMaskRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMaskRepo.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */,
+				0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				0F041E742B172D5700436A81 /* CoinRowView.swift in Sources */,
 				0F5CF0522B088CB4009CC0B1 /* MetricCollectionViewCell.swift in Sources */,
 				0F7012C42B1F01E70070B555 /* NFTModel.swift in Sources */,
+				0F7012DF2B1F57F20070B555 /* AssetDetailsContentView.swift in Sources */,
 				0F7012C72B1F025F0070B555 /* NFTDetailModel.swift in Sources */,
 				0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */,
 				0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */,
