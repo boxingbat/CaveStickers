@@ -100,11 +100,13 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
 
             NSLayoutConstraint.activate([
                 // Label Constraints
+                label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
                 label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
-                label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
                 // Button Constraints
                 button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                button.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
+                button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
                 // Price Label Constraints
                 priceLabel.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 8),
                 priceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

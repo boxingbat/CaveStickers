@@ -22,11 +22,11 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
     func send(symbol: String) {
         let string = "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}"
         let message = URLSessionWebSocketTask.Message.string(string)
-        webSocket?.send(message, completionHandler: { error in
+        webSocket?.send(message) { error in
             if let error = error {
                 print("send error : \(error)")
             }
-        })
+        }
     }
     func receive() {
         webSocket?.receive(completionHandler: { [weak self] result in

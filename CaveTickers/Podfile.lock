@@ -1,16 +1,26 @@
 PODS:
+  - CocoaLumberjack (3.8.2):
+    - CocoaLumberjack/Core (= 3.8.2)
+  - CocoaLumberjack/Core (3.8.2)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
+  - SVGKit
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - CocoaLumberjack
+    - SVGKit
     - SwiftLint
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: f8d89a516e7710fdb2e9b8f1560b16ec6040eef0
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: bfb1d67ebfc157058e1220400fade8b0b4e6e82a
+PODFILE CHECKSUM: 4cfa6475678947e082ce74742f949fbe8e8545cc
 
 COCOAPODS: 1.11.3

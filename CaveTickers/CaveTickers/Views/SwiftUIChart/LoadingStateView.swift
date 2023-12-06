@@ -8,12 +8,11 @@ import SwiftUI
 import UIKit
 
 struct LoadingStateView: View {
-
     @State private var isAnimating = false
     var isLoading: Bool
 
     var body: some View {
-            VStack {
+        VStack {
                 Image("Logo_Circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)

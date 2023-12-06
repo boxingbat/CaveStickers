@@ -64,10 +64,10 @@ final class StockDetailHeaderView: UIView,
     }
     func configure(
 //        chartViewModel: StockChartView.ViewModel,
-        metricViewModels: [MetricCollectionViewCell.ViewModel]
+    metricViewModels: [MetricCollectionViewCell.ViewModel]
     ) {
 //        chartView.configure(with: chartViewModel)
-        self.metricViewModels = metricViewModels
+    self.metricViewModels = metricViewModels
         collectionView.reloadData()
     }
 

@@ -12,7 +12,6 @@ import Charts
 
 @MainActor
 class ChartViewModel: ObservableObject {
-
     @Published var fetchphase = FetchPhase<ChartViewData>.initial
     var chart: ChartViewData? { fetchphase.value }
 
@@ -99,9 +98,7 @@ class ChartViewModel: ObservableObject {
             lineColor: getLineColor(data: data),
             previousCloseRuleMarkValue: previuesCloseRuleMarkValue(data: data, yAxisData: yAxisChartData)
         )
-
-        }
-
+    }
     func xAxisChartDataAndItems(_ data: ChartData) -> (ChartAxisData, [ChartViewItem]) {
         let timezone = TimeZone(secondsFromGMT: data.meta.gmtOffset) ?? .gmt
         dateFormatter.timeZone = timezone

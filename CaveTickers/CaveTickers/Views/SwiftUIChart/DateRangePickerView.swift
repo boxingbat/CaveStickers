@@ -11,7 +11,6 @@ import XCAStocksAPI
 struct DateRangePickerView: View {
     let rangeType = ChartRange.allCases
     @Binding var selectedRange: ChartRange
-
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 16) {
@@ -31,14 +30,12 @@ struct DateRangePickerView: View {
         }
         .scrollIndicators(.hidden)
     }
-
     private func backgroundView(for range: ChartRange) -> some View {
         RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
             .fill(range == selectedRange ? Color.gray.opacity(0.4) : Color.clear)
     }
 }
 struct DateRangePickerView_Previews: PreviewProvider {
-
     @State static var dateRange = ChartRange.oneDay
 
     static var previews: some View {

@@ -10,7 +10,6 @@ import SafariServices
 import UIKit
 
 class NewsViewController: LoadingViewController {
-
     private var news: [NewsStory] = []
     var headerTitle: String?
 
@@ -37,13 +36,10 @@ class NewsViewController: LoadingViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-
-    }
+}
 
     private func fetchNews() {
-
         let group = DispatchGroup()
-
         group.enter()
         APIManager.shared.news() { [weak self] result in
             defer {
@@ -83,22 +79,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: .init(model: news[indexPath.row]))
         return cell
     }
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        guard let header = tableView.dequeueReusableHeaderFooterView(
-//            withIdentifier: NewsHeaderView.identifier
-//        ) as? NewsHeaderView else {
-//            return nil
-//        }
-//        header.configure(with: .init(
-//            title: headerTitle ?? "Top News",
-//            shouldShowAddButton: false
-//        ))
-//        return header
-//    }
 
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return NewsHeaderView.preferredHeight
-//    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return NewsTableViewCell.preferredHeight
     }

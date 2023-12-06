@@ -10,7 +10,6 @@ import XCAStocksAPI
 
 #if DEBUG
 extension Ticker {
-
     static var stubs: [Ticker] {
         [
             Ticker(symbol: "AAPL", shortname: "Apple Inc.", exchDisp: "NASDAQ"),
@@ -27,7 +26,6 @@ extension Ticker {
 }
 
 extension Quote {
-
     static var stubs: [Quote] {
         [
             Quote(symbol: "AAPL", regularMarketPrice: 150.43, regularMarketChange: -2.31),
@@ -64,7 +62,6 @@ extension Quote {
             epsTrailingTwelveMonths: 6.05
         )
     }
-
 }
 
 #endif

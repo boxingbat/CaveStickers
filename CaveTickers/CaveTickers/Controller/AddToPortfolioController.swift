@@ -42,35 +42,36 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
     }
 
     private func setupCombineSubscriptions() {
-        Publishers.CombineLatest4($initialSymbol,
-                                  $initialInvestmentAmount,
-                                  $monthlyDollarCostAveragingAmount,
-                                  $initialDateOfInvestmentIndex)
-            .sink { [weak self] symbol, investmentAmount, monthlyAmount, dateIndex in
-                print(symbol ?? "", investmentAmount ?? 0, monthlyAmount ?? 0, dateIndex ?? 10)
-                guard let self = self,
-                    let symbol = symbol,
-                    let investmentAmount = investmentAmount,
-                    let monthlyAmount = monthlyAmount,
-                    let dateIndex = dateIndex
-                else { return }
+        Publishers.CombineLatest4(
+            $initialSymbol,
+            $initialInvestmentAmount,
+            $monthlyDollarCostAveragingAmount,
+            $initialDateOfInvestmentIndex)
+        .sink { [weak self] symbol, investmentAmount, monthlyAmount, dateIndex in
+            print(symbol ?? "", investmentAmount ?? 0, monthlyAmount ?? 0, dateIndex ?? 10)
+            guard let self = self,
+                let symbol = symbol,
+                let investmentAmount = investmentAmount,
+                let monthlyAmount = monthlyAmount,
+                let dateIndex = dateIndex
+            else { return }
+            let result = self.portfolioManager.calculate(
+                monthlyAdjusted: self.monthlyAdjusted!,
+                initialInvestment: Double(investmentAmount),
+                monthlyCost: Double(monthlyAmount),
+                initialDateOfInvestmentIndex: dateIndex)
+            print("result\(result)")
 
-                let result = self.portfolioManager.calculate(monthlyAdjusted: self.monthlyAdjusted!,
-                                                             initialInvestment: Double(investmentAmount),
-                                                             monthlyCost: Double(monthlyAmount),
-                                                             initialDateOfInvestmentIndex: dateIndex)
-                print("result\(result)")
+            newSavingStock.symbol = symbol
+            newSavingStock.initialInput = Double(investmentAmount)
+            newSavingStock.monthlyInpuy = Double(monthlyAmount)
+            newSavingStock.timeline = dateIndex
 
-                newSavingStock.symbol = symbol
-                newSavingStock.initialInput = Double(investmentAmount)
-                newSavingStock.monthlyInpuy = Double(monthlyAmount)
-                newSavingStock.timeline = dateIndex
-
-                computedresult = result
-                resultSymbol = symbol
-                tableView.reloadData()
-            }
-            .store(in: &subscribers)
+            computedresult = result
+            resultSymbol = symbol
+            tableView.reloadData()
+        }
+        .store(in: &subscribers)
     }
 
     private func setupTableView() {
@@ -111,6 +112,8 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
     }
     private func setupSaveButton() {
         saveButton.setTitle("Save", for: .normal)
+        saveButton.titleLabel?.textColor = .jadeGreen
+        saveButton.titleLabel?.font = UIFont.sfProDisplayHeavy(size: 24)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveButton)
 
@@ -131,11 +134,11 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
         navigationController?.popViewController(animated: true)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataEntries.count + 1
+        return dataEntries.count
     }
     // swiftlint:disable all
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row < dataEntries.count {
+
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! AddPortfolioTableViewCell
             // swiftlint:enable all
             cell.timeLineInputTextField.delegate = self
@@ -158,18 +161,6 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
             }
 
             return cell
-        } else {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "SearchCell")
-            let textField = UITextField(frame: CGRect(x: 0,
-                                                      y: 0,
-                                                      width: cell.contentView.frame.width,
-                                                      height: cell.contentView.frame.height
-                                                     )
-            )
-            textField.placeholder = "...Add More Stock"
-            cell.contentView.addSubview(textField)
-            return cell
-        }
     }
     // MARK: - Navigation
 }
@@ -179,14 +170,17 @@ extension AddToPortfolioController: UITextFieldDelegate {
         if let cell = textField.superview?.superview as? AddPortfolioTableViewCell {
             if textField == cell.timeLineInputTextField {
                 guard let symbol = cell.symbolTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-                      !symbol.isEmpty else {
+                    !symbol.isEmpty else {
                     presentAlertWithTitle(title: "Hey", message: "Input the symbol")
                     return false
                 }
                 self.showLoadingView()
                 let dateTableViewController = DateTableViewController()
                 let group = DispatchGroup()
-                APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 11...17)) { [weak self] result in
+                APIManager.shared.monthlyAdjusted(
+                    for: symbol,
+                    keyNumber: Int.random(in: 11...17)
+                ) { [weak self] result in
                     group.enter()
                     defer {
                         group.leave()

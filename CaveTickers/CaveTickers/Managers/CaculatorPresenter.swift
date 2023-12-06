@@ -5,6 +5,7 @@
 //  Created by 1 on 2023/11/20.
 //
 import UIKit
+import SwiftUI
 
 struct CalculatorPresenter {
     func getPresentation(result: DCAResult) -> CalculatorPresentation {
@@ -19,9 +20,9 @@ struct CalculatorPresenter {
                 hasDecimalPlaces: false
             ).prefix(withText: gainSymbol),
             yield: result.yield.percentageFormat.prefix(withText: gainSymbol).addBrackets(),
-            yieldLabelTextColor: isProfitable ? .systemGreen : .systemRed,
+            yieldLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red),
             annualReturn: result.annualReturn.percentageFormat,
-            annualReturnLabelTextColor: isProfitable ? .systemGreen : .systemRed)
+            annualReturnLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red))
     }
 }
 struct CalculatorPresentation {

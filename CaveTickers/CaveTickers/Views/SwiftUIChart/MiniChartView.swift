@@ -12,7 +12,6 @@ import Charts
 struct MiniChartView: View {
     let data: ChartViewData
     @ObservedObject var viewModel: ChartViewModel
-    
     var body: some View {
         Chart(data.items, id: \.id) { item in
             LineMark(
@@ -21,7 +20,7 @@ struct MiniChartView: View {
             )
             .foregroundStyle(viewModel.foregroundMarkColor)
         }
-        .frame(height: 200) 
+.frame(height: 200) 
     }
 }
 struct MiniChartView_Previews: PreviewProvider {
