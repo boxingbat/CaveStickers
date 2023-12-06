@@ -83,62 +83,53 @@ class WatchListTableViewCell: UITableViewCell {
     // MARK: - init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
-            contentView.clipsToBounds = true
-            setupSubviews()
-            setupConstraints()
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.clipsToBounds = true
+        setupSubviews()
+        setupConstraints()
         }
 
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
     private func setupSubviews() {
-            // Add subviews
-            contentView.addSubview(symbolLabel)
-            contentView.addSubview(nameLabel)
-            contentView.addSubview(priceLabel)
-            contentView.addSubview(changeLabel)
-            contentView.addSubview(marketCap)
-            contentView.addSubview(sharesOutstanding)
+        contentView.addSubview(symbolLabel)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(priceLabel)
+        contentView.addSubview(changeLabel)
+        contentView.addSubview(marketCap)
+        contentView.addSubview(sharesOutstanding)
 
-            // Set translatesAutoresizingMaskIntoConstraints to false
-            symbolLabel.translatesAutoresizingMaskIntoConstraints = false
-            nameLabel.translatesAutoresizingMaskIntoConstraints = false
-            priceLabel.translatesAutoresizingMaskIntoConstraints = false
-            changeLabel.translatesAutoresizingMaskIntoConstraints = false
-            marketCap.translatesAutoresizingMaskIntoConstraints = false
-            sharesOutstanding.translatesAutoresizingMaskIntoConstraints = false
-        }
-
+        // Set translatesAutoresizingMaskIntoConstraints to false
+        symbolLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        changeLabel.translatesAutoresizingMaskIntoConstraints = false
+        marketCap.translatesAutoresizingMaskIntoConstraints = false
+        sharesOutstanding.translatesAutoresizingMaskIntoConstraints = false
+    }
     private func setupConstraints() {
-            // Define and activate constraints
-            NSLayoutConstraint.activate([
-                // Image View Constraints
-
-                symbolLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-                symbolLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-
-                // Name Label Constraints
-                nameLabel.leadingAnchor.constraint(equalTo: symbolLabel.leadingAnchor),
-                nameLabel.topAnchor.constraint(equalTo: symbolLabel.bottomAnchor, constant: 5),
-
-                // Price Label Constraints
-                priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-                priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-
-                // Change Label Constraints
-                changeLabel.trailingAnchor.constraint(equalTo: priceLabel.trailingAnchor),
-                changeLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 5),
-
-                // Market Cap Label Constraints
-                marketCap.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 60),
-                marketCap.centerYAnchor.constraint(equalTo: symbolLabel.centerYAnchor),
-
-                // Shares Outstanding Label Constraints
-                sharesOutstanding.trailingAnchor.constraint(equalTo: marketCap.trailingAnchor),
-                sharesOutstanding.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            // Image View Constraints
+            symbolLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            symbolLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            // Name Label Constraints
+            nameLabel.leadingAnchor.constraint(equalTo: symbolLabel.leadingAnchor),
+            nameLabel.topAnchor.constraint(equalTo: symbolLabel.bottomAnchor, constant: 5),
+            // Price Label Constraints
+            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            // Change Label Constraints
+            changeLabel.trailingAnchor.constraint(equalTo: priceLabel.trailingAnchor),
+            changeLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 5),
+            // Market Cap Label Constraints
+            marketCap.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 60),
+            marketCap.centerYAnchor.constraint(equalTo: symbolLabel.centerYAnchor),
+            // Shares Outstanding Label Constraints
+            sharesOutstanding.trailingAnchor.constraint(equalTo: marketCap.trailingAnchor),
+            sharesOutstanding.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor)
+        ])
+    }
     override func prepareForReuse() {
         super.prepareForReuse()
         symbolLabel.text = nil

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WalletHomeView: View {
-
     @StateObject var metaMaskRepo = MetaMaskRepo()
 
     @State private var status = "Offline"
@@ -45,7 +44,6 @@ struct WalletHomeView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color.secondary)
-
             }
             Spacer()
         }

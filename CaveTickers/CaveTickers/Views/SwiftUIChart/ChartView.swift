@@ -12,8 +12,8 @@ import Charts
 struct ChartView: View {
     let data: ChartViewData
     @ObservedObject var viewModel: ChartViewModel
-    @State private var animateChart: Bool = false
-    @State private var showPulsatingView: Bool = false
+    @State private var animateChart = false
+    @State private var showPulsatingView = false
 
     var body: some View {
         chart
@@ -61,7 +61,6 @@ struct ChartView: View {
                     showPulsatingView = true
                 }
             }
-
     }
 
     private func calculatePulsatingViewYPosition(geometry: GeometryProxy, data: ChartViewData) -> CGFloat {
@@ -129,7 +128,7 @@ struct ChartView: View {
     private var chartYAxis: some AxisContent {
         AxisMarks(preset: .extended, values: .stride(by: data.yAxisData.strideBy)) { value in
             if let yValue = value.as(Double.self),
-               let text = data.yAxisData.map[yValue.roundedString] {
+            let text = data.yAxisData.map[yValue.roundedString] {
                 AxisGridLine(stroke: .init(lineWidth: 0.3))
                 AxisTick(stroke: .init(lineWidth: 0.3))
                 AxisValueLabel(anchor: .topLeading, collisionResolution: .greedy) {
@@ -162,9 +161,9 @@ struct ChartView: View {
     private func onChangeDrag(value: DragGesture.Value, chartProxy: ChartProxy, geometryProxy: GeometryProxy) {
         let xCurrent = value.location.x - geometryProxy[chartProxy.plotAreaFrame].origin.x
         if let index: Double = chartProxy.value(atX: xCurrent),
-           index >= 0,
-           Int(index) <= data.items.count - 1 {
-            self.viewModel.selectedX = Int(index)
+        index >= 0,
+        Int(index) <= data.items.count - 1 {
+        self.viewModel.selectedX = Int(index)
         }
     }
 }
@@ -172,7 +171,6 @@ struct ChartView: View {
 struct ChartView_Previews: PreviewProvider {
     static let allRanges = ChartRange.allCases
     static let oneDayOngoing = ChartData.stub1DOngoing
-
     static var previews: some View {
         ForEach(allRanges) {
             ChartContainer_ViewPreviews(viewModel: chartViewModel(range: $0, stub: $0.stubs), title: $0.title)

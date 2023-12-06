@@ -25,7 +25,7 @@ class PortfolioDataManager {
     // MARK: - Public
 
     func updatedPortfolio (coin: CoinModel, amount: Double) {
-        if let entity = savedEntities.first(where: { $0.coinID == coin.id}) {
+        if let entity = savedEntities.first(where: { $0.coinID == coin.id }) {
             if amount > 0 {
                 update(entity: entity, amount: amount)
             } else {

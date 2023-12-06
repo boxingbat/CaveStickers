@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct DashboardContentView: View {
-
     @EnvironmentObject var manager: NFTDataManager
-    @State private var showAssetDetails: Bool = false
+    @State private var showAssetDetails = false
     @State private var selectedTab: CustomTabBarItem = .home
-    @State private var showWalletHome: Bool = false
+    @State private var showWalletHome = false
     static let headerHeight: CGFloat = UIScreen.main.bounds.height / 3.5
 
     // MARK: - Main rendering function
@@ -33,10 +32,11 @@ struct DashboardContentView: View {
                 NavigationLink(destination: WalletHomeView(), isActive: $showWalletHome) { EmptyView() }
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarTitle("").navigationBarHidden(true)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(StackNavigationViewStyle())
-            .onAppear() {
+            .onAppear {
                 manager.fetchLastSoldItems()
                 manager.fetchNewReleasedItems()
             }
@@ -57,7 +57,6 @@ struct DashboardContentView: View {
             ZStack {
                 //                Color.accentColor.ignoresSafeArea()
                 VStack(spacing: 10) {
-
                     HStack {
                         Button(action: {
                             showWalletHome = true
@@ -72,7 +71,11 @@ struct DashboardContentView: View {
                             .font(.system(size: 30, weight: .black))
                     }
                     Capsule().frame(height: 1, alignment: .center)
-                        .padding([.leading, .trailing], 40).opacity(0.4)
+                        .padding([
+                            .leading,
+                            .trailing
+                        ], 40)
+                        .opacity(0.4)
                     Spacer()
                 }.foregroundColor(.white).colorScheme(.light).padding(.top, 10)
             }.frame(height: height)
@@ -86,7 +89,8 @@ struct DashboardContentView: View {
             Spacer()
             ZStack {
                 RoundedCorner(radius: 40, corners: [.topLeft, .topRight])
-                    .foregroundColor(.accentColor).ignoresSafeArea()
+                    .foregroundColor(.accentColor)
+                    .ignoresSafeArea()
                     .shadow(color: Color.black.opacity(0.12), radius: 8)
                 HStack(spacing: 30) {
                     ForEach(CustomTabBarItem.allCases) { tab in

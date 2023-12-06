@@ -101,7 +101,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         for portfolio in savedPortfolio {
             group.enter()
             getHistoricData(symbol: portfolio.symbol) { [weak self] result in
-                guard let self = self else { return }
+                guard self != nil else { return }
                 if let result = result {
                     tempResults[portfolio.symbol] = result
                 }

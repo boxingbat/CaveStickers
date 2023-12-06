@@ -46,11 +46,10 @@ class WatchListViewController: LoadingViewController {
         observer = NotificationCenter.default.addObserver(
             forName: .didAddToWatchList,
             object: nil,
-            queue: .main,
-            using: {[weak self]_ in
-                self?.viewModels.removeAll()
-                self?.fetchWatchlistData()
-            })
+            queue: .main) { [weak self]_ in
+            self?.viewModels.removeAll()
+            self?.fetchWatchlistData()
+        }
     }
 
     private func setupTitleView() {
@@ -182,7 +181,7 @@ extension WatchListViewController: UISearchResultsUpdating {
         }
         searchTimer?.invalidate()
 
-        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { _ in
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
             APIManager.shared.search(query: query) {result in
                 switch result {
                 case .success(let response):
@@ -196,7 +195,7 @@ extension WatchListViewController: UISearchResultsUpdating {
                     print(error)
                 }
             }
-        })
+        }
     }
 }
 

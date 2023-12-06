@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CoinLogoView: View {
-
     let coin: CoinModel
 
     var body: some View {

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct NFTCollectionsTabView: View {
     @EnvironmentObject var manager: NFTDataManager
-    @State private var showCollectionItems: Bool = false
+    @State private var showCollectionItems = false
     @Binding var showAssetDetails: Bool
-    private let width: CGFloat = UIScreen.main.bounds.width/2-50
+    private let width: CGFloat = UIScreen.main.bounds.width / 2 - 50
     private let grid = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -21,14 +21,14 @@ struct NFTCollectionsTabView: View {
             if manager.collections.isEmpty {
                 emptyStateView
             }
-            ScrollView(.vertical, showsIndicators: false, content: {
-                LazyVGrid(columns: grid, spacing: 20, content: {
-                    ForEach(0..<manager.collections.count, id: \.self, content: { index in
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVGrid(columns: grid, spacing: 20) {
+                    ForEach(0..<manager.collections.count, id: \.self) { index in
                         collectionItem(atIndex: index)
-                    })
-                }).padding([.leading, .trailing], 20)
+                    }
+                }.padding([.leading, .trailing], 20)
                 Spacer(minLength: 90)
-            })
+            }
             //        }.padding(.top, DashboardContentView.headerHeight/3).onAppear() {
             //            manager.fetchCollections()
             //        }.sheet(isPresented: $showCollectionItems, content: {
@@ -40,7 +40,7 @@ struct NFTCollectionsTabView: View {
         }
     }
     private func collectionItem(atIndex index: Int) -> some View {
-        let collections = manager.collections.keys.sorted(by: { $0.rawValue < $1.rawValue })
+        let collections = manager.collections.keys.sorted { $0.rawValue < $1.rawValue }
         let collectionType = collections[index]
         let model = manager.collections[collectionType]!
         return
@@ -52,9 +52,11 @@ struct NFTCollectionsTabView: View {
                 VStack {
                     RemoteImage(assetModel: AssetModel(model: model, collectionImage: true))
                         .frame(width: width, height: width, alignment: .center)
-                        .cornerRadius(18).padding([.leading, .trailing, .top], 10)
+                        .cornerRadius(18)
+                        .padding([.leading, .trailing, .top], 10)
                     Text(collectionType.rawValue.capitalized)
-                        .font(.system(size: 18)).lineLimit(1)
+                        .font(.system(size: 18))
+                        .lineLimit(1)
                         .padding([.leading, .trailing, .bottom], 10)
                         .foregroundColor(Color("DarkColor"))
                 }
@@ -80,7 +82,7 @@ struct NFTCollectionsTabView_Previews: PreviewProvider {
     }
 
     struct CollectionsTabViewPreview: View {
-        @State var showDetails: Bool = false
+        @State var showDetails = false
 
         // MARK: - Main rendering function
         var body: some View {

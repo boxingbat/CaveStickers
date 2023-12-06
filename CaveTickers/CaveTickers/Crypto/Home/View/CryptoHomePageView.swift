@@ -9,20 +9,20 @@ import SwiftUI
 
 struct CryptoHomePageView: View {
     @StateObject var viewModel: HomeViewModel
-    @State private var showPortfolio: Bool = false // right animate
-    @State private var showPortfolioView: Bool = false // new sheet
+    @State private var showPortfolio = false // right animate
+    @State private var showPortfolioView = false // new sheet
 
-    @State private var selectedCoin: CoinModel? = nil
-    @State private var showDetailView: Bool = false
+    @State private var selectedCoin: CoinModel?
+    @State private var showDetailView = false
 
     var body: some View {
         ZStack {
             Color.theme.background
                 .ignoresSafeArea()
-                .sheet(isPresented: $showPortfolioView, content: {
+                .sheet(isPresented: $showPortfolioView) {
                     PortfolioView()
                         .environmentObject(viewModel)
-                })
+                }
 
             VStack {
                 homeHeader
@@ -95,11 +95,11 @@ extension CryptoHomePageView {
     private var allCoinList: some View {
         List {
             ForEach(viewModel.allCoins) { coin in
-                    CoinRowView(coin: coin, showHoldingColum: false)
-                        .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
-                        .onTapGesture {
-                            segue(coin: coin)
-                        }
+                CoinRowView(coin: coin, showHoldingColum: false)
+                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(PlainListStyle())

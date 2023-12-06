@@ -9,7 +9,6 @@ import SwiftUI
 
 /// Shows a list of favorite nft items
 struct FavoriteTabView: View {
-
     @EnvironmentObject var manager: NFTDataManager
     @Binding var showAssetDetails: Bool
 
@@ -19,13 +18,13 @@ struct FavoriteTabView: View {
             if manager.favoriteNFTItems.isEmpty {
                 emptyStateView
             }
-            ScrollView(.vertical, showsIndicators: false, content: {
+            ScrollView(.vertical, showsIndicators: false) {
                 NFTFavoritesListView() { item in
                     manager.selectedNFTItem = item
                     showAssetDetails = true
                 }.padding([.leading, .trailing])
                 Spacer(minLength: 90)
-            }).padding([.leading, .trailing], 5)
+            }.padding([.leading, .trailing], 5)
         }.padding(.top, DashboardContentView.headerHeight / 3)
     }
 
@@ -46,7 +45,7 @@ struct FavoriteTabView_Previews: PreviewProvider {
     }
 
     struct FavoriteTabViewPreviews: View {
-        @State private var showDetails: Bool = false
+        @State private var showDetails = false
 
         // MARK: - Main rendering function
         var body: some View {

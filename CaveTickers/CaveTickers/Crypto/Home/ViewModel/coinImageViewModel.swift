@@ -11,7 +11,7 @@ import Combine
 
 class CoinImageViewModel: ObservableObject {
     @Published var image: UIImage?
-    @Published var isloading: Bool = false
+    @Published var isloading = false
 
     private let coin: CoinModel
     private let coinImageManager: CoinImageManager
@@ -28,9 +28,9 @@ class CoinImageViewModel: ObservableObject {
 
     private func addSubscribers() {
         coinImageManager.$image
-            .sink { [weak self] (_) in
+            .sink { [weak self] _ in
                 self?.isloading = false
-            } receiveValue: { [weak self] (returnImage) in
+            } receiveValue: { [weak self] returnImage in
                 self?.image = returnImage
             }
             .store(in: &cancellables)

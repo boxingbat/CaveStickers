@@ -12,7 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var statistics: [StatisticModel] = []
     @Published var allCoins: [CoinModel] = []
     @Published var portfolioCoins: [CoinModel] = []
-    @Published var isLoading: Bool = false
+    @Published var isLoading = false
 
     @Published var searchText: String = ""
 
@@ -30,7 +30,7 @@ class HomeViewModel: ObservableObject {
         $searchText
             .combineLatest(coinAPIManager.$allCoins)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .map { (text, startingsoins) -> [CoinModel] in
+            .map { text, startingsoins -> [CoinModel] in
                 guard !text.isEmpty else {
                     return startingsoins
                 }
@@ -45,11 +45,10 @@ class HomeViewModel: ObservableObject {
                 self?.allCoins = resturnedCoins
             }
             .store(in: &cancellables)
-// update market Data
         coinMarketManager.$marketData
             .combineLatest($portfolioCoins)
             .map(mapGlobalMarketData)
-            .sink{ [weak self] (returnstate) in
+            .sink { [weak self] returnstate in
                 self?.statistics = returnstate
             }
             .store(in: &cancellables)
@@ -57,21 +56,20 @@ class HomeViewModel: ObservableObject {
         // update Portfolio Data
         $allCoins
             .combineLatest(portfolioDataManager.$savedEntities)
-            .map { (coinModels, portfolioEntities) -> [CoinModel] in
+            .map { coinModels, portfolioEntities -> [CoinModel] in
                 coinModels
-                    .compactMap { (coin) -> CoinModel? in
-                        guard let entity = portfolioEntities.first(where: { $0.coinID == coin.id}) else {
+                    .compactMap { coin -> CoinModel? in
+                        guard let entity = portfolioEntities.first(where: { $0.coinID == coin.id }) else {
                             return nil
                         }
                         return coin .updateHoldings(amount: entity.amount)
                     }
             }
-            .sink { [weak self](returnCoins) in
+            .sink { [weak self] returnCoins in
                 self?.portfolioCoins = returnCoins
                 self?.isLoading = false
             }
             .store(in: &cancellables)
-
     }
 
     func updatePortfolio(coin: CoinModel, amount: Double) {
@@ -96,7 +94,7 @@ class HomeViewModel: ObservableObject {
 
         let portfolioValue =
             portfoliiCoins
-            .map({ $0.currentHoldingsValue })
+            .map { $0.currentHoldingsValue }
             .reduce(0, +)
 
         let previousValue =

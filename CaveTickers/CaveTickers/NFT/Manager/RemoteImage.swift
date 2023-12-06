@@ -54,7 +54,8 @@ class AssetModel: ObservableObject {
                                 self.image = UIImage(named: "placeholder")!
                             }
                         }
-                    }.resume()
+                    }
+                    .resume()
                 } else {
                     DispatchQueue.main.async {
                         self.image = UIImage(named: "placeholder")!

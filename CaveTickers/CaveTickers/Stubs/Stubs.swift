@@ -22,7 +22,6 @@ extension Ticker {
     static var stub: Ticker {
         stubs[0]
     }
-
 }
 
 extension Quote {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ErrorStateView: View {
     let error: String
-    var retryCallback: ( () -> () )? = nil
+    var retryCallback: (() -> Void)?
 
     var body: some View {
         HStack {

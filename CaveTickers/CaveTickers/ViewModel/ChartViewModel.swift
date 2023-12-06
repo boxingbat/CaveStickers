@@ -122,10 +122,10 @@ class ChartViewModel: ObservableObject {
             }
         }
 
-        var map = [String: String]()
+        var map: [String: String] = [:]
         var axisEnd: Int
 
-        var items = [ChartViewItem]()
+        var items: [ChartViewItem] = []
 
         for (index, value) in data.indicators.enumerated() {
             let dateComponent = value.timestamp.dateComponents(timeZone: timezone, rangeType: selectedRange)
@@ -145,13 +145,14 @@ class ChartViewModel: ObservableObject {
         date >= data.meta.regularTradingPeriodStartDate &&
             date < data.meta.regularTradingPeriodEndDate {
             while date < data.meta.regularTradingPeriodEndDate {
-                axisEnd += 1
-                date = Calendar.current.date(byAdding: .minute, value: 2, to: date)!
+                guard let newDate = Calendar.current.date(byAdding: .minute, value: 2, to: date) else { break }
+                date = newDate
                 let dateComponent = date.dateComponents(timeZone: timezone, rangeType: selectedRange)
                 if xAxisDateComponents.contains(dateComponent) {
                     map[String(axisEnd)] = dateFormatter.string(from: date)
                     xAxisDateComponents.remove(dateComponent)
                 }
+                axisEnd += 1
             }
         }
 
@@ -184,23 +185,22 @@ class ChartViewModel: ObservableObject {
         // 3
         let numberOfLines: Double = 4
         let shouldCeilIncrement: Bool
-        let strideBy: Double
+        //        let strideBy: Double
 
         if diff < (numberOfLines * 2) {
             // 4A
             shouldCeilIncrement = false
-            strideBy = 0.01
+            //            strideBy = 0.01
         } else {
             // 4B
             shouldCeilIncrement = true
             lowest = floor(lowest)
             highest = ceil(highest)
-            strideBy = 1.0
+            //            strideBy = 1.0
         }
-
         // 5
         let increment = ((highest - lowest) / (numberOfLines))
-        var map = [String: String]()
+        var map: [String: String] = [:]
         map[highest.roundedString] = formatYAxisValueLabel(value: highest, shouldCeilIncrement: shouldCeilIncrement)
 
         var current = lowest

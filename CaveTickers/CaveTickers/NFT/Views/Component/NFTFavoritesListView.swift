@@ -16,7 +16,7 @@ struct NFTFavoritesListView: View {
     ]
     let didSelectItem: (_ item: NFTAssetModel) -> Void
     var body: some View {
-        LazyVGrid(columns: grid, spacing: 20, content: {
+        LazyVGrid(columns: grid, spacing: 20) {
             ForEach(0..<datamanager.favoriteNFTItems.count, id: \.self) { index in
                 Button(action: {
                     UIImpactFeedbackGenerator().impactOccurred()
@@ -43,7 +43,7 @@ struct NFTFavoritesListView: View {
                         .shadow(color: Color.black.opacity(0.12), radius: 8)
                 )
             }
-        })
+        }
     }
 }
 

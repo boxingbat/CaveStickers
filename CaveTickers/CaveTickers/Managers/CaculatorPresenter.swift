@@ -18,7 +18,8 @@ struct CalculatorPresenter {
             gain: result.gain.toCurrencyFormat(
                 hasDollarSymbol: true,
                 hasDecimalPlaces: false
-            ).prefix(withText: gainSymbol),
+            )
+            .prefix(withText: gainSymbol),
             yield: result.yield.percentageFormat.prefix(withText: gainSymbol).addBrackets(),
             yieldLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red),
             annualReturn: result.annualReturn.percentageFormat,

@@ -9,23 +9,22 @@ import SwiftUI
 
 /// Shows a full screen with a given asset details
 struct AssetDetailsContentView: View {
-
     @EnvironmentObject var manager: NFTDataManager
-    @Environment(\.presentationMode) var presentationMode
-    private let width: CGFloat = UIScreen.main.bounds.width-40
-
+    @Environment(\.presentationMode)
+    var presentationMode
+    private let width: CGFloat = UIScreen.main.bounds.width - 40
     // MARK: - Main rendering function
     var body: some View {
         ZStack {
             Color("BackgroundColor").ignoresSafeArea()
             VStack(spacing: 15) {
                 backButtonView
-                ScrollView(.vertical, showsIndicators: false, content: {
+                ScrollView(.vertical, showsIndicators: false) {
                     headerView
                     selectedItemImage
                     selectedItemDescription.padding(.top)
                     Spacer(minLength: 20)
-                })
+                }
                 if AppConfig.hideMoreDetailsButton == false {
                     shareButtonView
                 }
@@ -33,7 +32,8 @@ struct AssetDetailsContentView: View {
         }
         .environmentObject(manager)
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitle("").navigationBarHidden(true)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
 //        .onAppear() {
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 //                Interstitial.shared.showInterstitialAds()
@@ -72,7 +72,8 @@ struct AssetDetailsContentView: View {
             HStack {
                 Text("Created by")
                 Text(manager.selectedNFTItem.creator.user.username)
-                    .font(.system(size: 18)).bold()
+                    .font(.system(size: 18))
+                    .bold()
                     .foregroundColor(Color.theme.accent)
                 Spacer()
             }
@@ -84,8 +85,9 @@ struct AssetDetailsContentView: View {
         ZStack {
             if let item = manager.selectedNFTItem {
                 RemoteImage(assetModel: AssetModel(model: item, thumbnail: false))
-                    .frame(width: width, height: width/1.3, alignment: .center)
-                    .cornerRadius(18).contentShape(Rectangle())
+                    .frame(width: width, height: width / 1.3, alignment: .center)
+                    .cornerRadius(18)
+                    .contentShape(Rectangle())
             }
         }
     }
@@ -137,7 +139,9 @@ struct AssetDetailsContentView: View {
     private var shareButtonView: some View {
         Button(action: {
             UIImpactFeedbackGenerator().impactOccurred()
-            UIApplication.shared.open(URL(string: manager.selectedNFTItem?.permalink ?? "https://opensea.io")!, options: [:], completionHandler: nil)
+            if let url = URL(string: manager.selectedNFTItem?.permalink ?? "https://opensea.io") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)

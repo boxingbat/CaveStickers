@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PortfolioView: View {
     @EnvironmentObject private var viewModel: HomeViewModel
-    @State private var selectedCoin: CoinModel? = nil
+    @State private var selectedCoin: CoinModel?
     @State private var quantityText: String = ""
-    @State private var showCheckmark : Bool = false
+    @State private var showCheckmark = false
 
     var body: some View {
         NavigationView {
@@ -34,7 +34,7 @@ struct PortfolioView: View {
                 }
             })
             .onChange(of: viewModel.searchText, perform: { value in
-                if value == "" {
+                if value.isEmpty {
                     removeSelectedCoin()
                 }
             })
@@ -50,39 +50,37 @@ struct PortfolioView_Previews: PreviewProvider {
 }
 extension PortfolioView {
     private var coinLogoList: some View {
-            ScrollView(.horizontal, showsIndicators: true, content: {
-                LazyHStack(spacing: 10) {
-                    ForEach(viewModel.allCoins) { coin in
-                        CoinLogoView(coin: coin)
-                            .frame(width: 75)
-                            .padding(4)
-                            .onTapGesture {
-                                withAnimation(.easeIn){
-                                    updatedSelectedCoin(coin: coin)
-                                }
+        ScrollView(.horizontal, showsIndicators: true) {
+            LazyHStack(spacing: 10) {
+                ForEach(viewModel.allCoins) { coin in
+                    CoinLogoView(coin: coin)
+                        .frame(width: 75)
+                        .padding(4)
+                        .onTapGesture {
+                            withAnimation(.easeIn) {
+                                updatedSelectedCoin(coin: coin)
                             }
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(selectedCoin?.id == coin.id ? Color.theme.green : Color.clear,
-                                            lineWidth: 1)
-                            )
-                    }
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                            .stroke(selectedCoin?.id == coin.id ? Color.theme.green : Color.clear,
+                                lineWidth: 1)
+                        )
                 }
-                .frame(height: 120)
-                .padding(.leading)
-            })
+            }
+            .frame(height: 120)
+            .padding(.leading)
         }
-
+    }
     private func updatedSelectedCoin(coin: CoinModel) {
         selectedCoin = coin
 
-        if let portfolioCoin = viewModel.portfolioCoins.first(where: { $0.id == coin.id}),
-           let amount = portfolioCoin.currentHoldings {
+        if let portfolioCoin = viewModel.portfolioCoins.first(where: { $0.id == coin.id }),
+        let amount = portfolioCoin.currentHoldings {
             quantityText = "\(amount)"
         } else {
             quantityText = ""
         }
-
     }
 
     private func getCurrentValue() -> Double {
@@ -134,7 +132,7 @@ extension PortfolioView {
     }
 
     private func saveButtonTapped() {
-        guard 
+        guard
             let coin = selectedCoin,
             let amount = Double(quantityText)
         else { return }

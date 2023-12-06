@@ -53,10 +53,13 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
                 let symbol = symbol,
                 let investmentAmount = investmentAmount,
                 let monthlyAmount = monthlyAmount,
-                let dateIndex = dateIndex
-            else { return }
+                let dateIndex = dateIndex,
+                let monthlyAdjusted = self.monthlyAdjusted else {
+                print("Error: Monthly adjusted data is nil")
+                return
+            }
             let result = self.portfolioManager.calculate(
-                monthlyAdjusted: self.monthlyAdjusted!,
+                monthlyAdjusted: monthlyAdjusted,
                 initialInvestment: Double(investmentAmount),
                 monthlyCost: Double(monthlyAmount),
                 initialDateOfInvestmentIndex: dateIndex)

@@ -41,11 +41,11 @@ final class StockDetailHeaderView: UIView,
         super.init(frame: frame)
         clipsToBounds = true
 //        addSubview(chartView)
-        addSubview(collectionView)
-        addSubview(addButton)
+    addSubview(collectionView)
+    addSubview(addButton)
 //        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.dataSource = self
 //        chartView.backgroundColor = .systemBackground
     }
 

@@ -37,8 +37,6 @@ struct DetailView: View {
                 overViewTitle
                 Divider()
                 overViewGrid
-//                additionTitle
-//                Divider()
                 additionGrid
             }
             .padding()
@@ -81,12 +79,11 @@ extension DetailView {
             columns: columns,
             alignment: .leading,
             spacing: spacing,
-            pinnedViews: /*@START_MENU_TOKEN@*/[]/*@END_MENU_TOKEN@*/,
-            content: {
-                ForEach(viewModel.overviewStatistics) { stat in
-                    StatisticView(stat: stat)
-                }
-            })
+            pinnedViews: /*@START_MENU_TOKEN@*/[]/*@END_MENU_TOKEN@*/ ) {
+            ForEach(viewModel.overviewStatistics) { stat in
+                StatisticView(stat: stat)
+            }
+        }
     }
     private var additionTitle: some View {
         Text("Addition Detials")
@@ -100,11 +97,10 @@ extension DetailView {
             columns: columns,
             alignment: .leading,
             spacing: spacing,
-            pinnedViews: /*@START_MENU_TOKEN@*/[]/*@END_MENU_TOKEN@*/,
-            content: {
-                ForEach(viewModel.addtionalStatistics) { stat in
-                    StatisticView(stat: stat)
-                }
-            })
+            pinnedViews: /*@START_MENU_TOKEN@*/[]/*@END_MENU_TOKEN@*/ ) {
+            ForEach(viewModel.addtionalStatistics) { stat in
+                StatisticView(stat: stat)
+            }
+        }
     }
 }

@@ -35,14 +35,14 @@ class CoinImageManager {
     private func downloadCoinImage () {
         guard let url = URL(string: coin.image) else { return }
         imageSubscription = NetworkingManager.download(url: url)
-            .tryMap({ (data) -> UIImage? in
+            .tryMap { data -> UIImage? in
                 return UIImage(data: data)
-            })
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedImage) in
+            }
+            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] returnedImage in
                 guard let self = self, let downloadedImage = returnedImage else { return }
                 self.image = downloadedImage
                 self.imageSubscription?.cancel()
                 self.fileManager.saveImage(image: downloadedImage, imageName: self.imageName, folderName: self.folderName)
-            })
+            }
     }
 }

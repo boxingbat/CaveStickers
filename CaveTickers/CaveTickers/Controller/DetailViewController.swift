@@ -74,8 +74,8 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private func setUpTableView() {
         view.addSubview(tableView)
         DispatchQueue.main.async { [weak self] in
-                self?.checkStockExist()
-            }
+            self?.checkStockExist()
+        }
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -126,8 +126,8 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         updateTableViewConstraints()
 
         DispatchQueue.main.async { [weak self] in
-                self?.checkStockExist()
-            }
+            self?.checkStockExist()
+        }
     }
     private func updateTableViewConstraints() {
         NSLayoutConstraint.deactivate(tableView.constraints)
@@ -168,7 +168,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         present(SFvc, animated: true)
     }
     private func getLastPrice() {
-        let symbols = symbol
+        _ = symbol
         APIManager.shared.marketData(for: symbol) { [weak self] result in
             switch result {
             case .success(let data):
