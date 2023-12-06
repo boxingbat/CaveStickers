@@ -5,9 +5,9 @@
 //  Created by 1 on 2023/11/20.
 //
 import UIKit
+import SwiftUI
 
 extension UIColor {
-
     static let themeRedShade = UIColor(hex: "fae2e1")
     static let themeGreenShade = UIColor(hex: "b0f1dd")
 
@@ -53,4 +53,15 @@ extension UIColor {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: alpha)
     }
+}
+
+extension Color {
+    static let theme = ColorTheme()
+}
+struct ColorTheme {
+    let accent = Color("AccentColor")
+    let background = Color("backgroundColor")
+    let green = Color("GreenColor")
+    let red = Color("RedColor")
+    let secondaryText = Color("SecondaryTextColor")
 }

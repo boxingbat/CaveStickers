@@ -8,8 +8,6 @@
 import UIKit
 
 extension UIFont {
-
-
     static func sfProDisplayThin(size: CGFloat) -> UIFont {
         return UIFont.systemFont(ofSize: size, weight: .thin)
     }
@@ -83,4 +81,3 @@ private extension UIFont {
         return UIFont(descriptor: descriptor, size: 0) // size 0 means keep the size as it is in the descriptor
     }
 }
-

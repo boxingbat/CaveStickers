@@ -24,7 +24,8 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         setupLayout()
         showLoadingView()
         loadPortfolio()
-
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.tintColor = UIColor(named: "AccentColor")
         pieChartView = PortfolioPieChart(viewModel: pieChartViewModel)
         hostingController = UIHostingController(rootView: pieChartView!)
 
@@ -53,7 +54,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         let headerView = UIView()
-        headerView.backgroundColor = .link
+        headerView.backgroundColor = .systemBackground
         headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width - 32, height: 300)
         tableView.tableHeaderView = headerView
 
@@ -66,9 +67,10 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
 
         let addButton = UIButton(type: .custom)
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.backgroundColor = .deepPineGreen
+        addButton.backgroundColor = UIColor.springGreen
         addButton.setTitle("+", for: .normal)
         addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        addButton.titleLabel?.textColor = UIColor(named: "AccentColor")
         addButton.layer.cornerRadius = 25
         view.addSubview(addButton)
 
@@ -172,11 +174,11 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             cell.stockInfoLabel.text = "\(saved.symbol)"
             cell.investmentAmountLabel.text = "\(result.investmentAmount)"
             cell.gainLabel.text = "\(result.gain)"
-            cell.gainLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
-            cell.yieldLabel.text = "\(result.yield)"
-            cell.yieldLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
-            cell.annualReturnLabel.text = "\(result.annualReturn)"
-            cell.annualReturnLabel.textColor = result.isProfitable ? .systemGreen : .systemRed
+            cell.gainLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
+            cell.yieldLabel.text = "\(result.yield)%"
+            cell.yieldLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
+            cell.annualReturnLabel.text = "\(result.annualReturn)%"
+            cell.annualReturnLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
         }
         return cell
     }

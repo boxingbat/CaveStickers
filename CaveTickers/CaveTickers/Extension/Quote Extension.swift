@@ -9,7 +9,6 @@ import Foundation
 import XCAStocksAPI
 
 extension Quote {
-
     var isTrading: Bool {
         guard let marketState, marketState == "REGULAR" else {
             return false

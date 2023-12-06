@@ -9,7 +9,6 @@ import SwiftUI
 import XCAStocksAPI
 
 struct StockTickerView: View {
-
     @StateObject var chartVM: ChartViewModel
     @StateObject var quoteVM: TickerQuoteViewModel
     @Environment(\
@@ -38,7 +37,6 @@ struct StockTickerView: View {
 
     private var scrollView: some View {
         ScrollView {
-
             ZStack {
                 DateRangePickerView(selectedRange: $chartVM.selectedRange)
                     .opacity(chartVM.selectedXOpacity)
@@ -158,7 +156,6 @@ struct StockTickerView: View {
     }
 }
     struct StockTickerView_Previews: PreviewProvider {
-
         static var tradingStubsQuoteVM:
         TickerQuoteViewModel = {
             var mockAPI = MockStocksAPI()
@@ -179,7 +176,6 @@ struct StockTickerView: View {
             var mockAPI = MockStocksAPI()
             mockAPI.stubbedFetchQuotesCallback = {
                 await withCheckedContinuation { _ in
-
                 }
             }
             return TickerQuoteViewModel(ticker: .stub, stocksAPI: mockAPI)
@@ -212,6 +208,5 @@ struct StockTickerView: View {
                 StockTickerView(chartVM: chartVM, quoteVM: errorStubsQuoteVM)
                     .previewDisplayName("Error Quote")
                     .frame(height: 700)
-
             }.previewLayout(.sizeThatFits)
         }}

@@ -47,7 +47,7 @@ opt_in_rules:
   - redundant_type_annotation
   - strict_fileprivate
   - toggle_bool
-- trailing_closure
+  - trailing_closure
   - unneeded_parentheses_in_closure_argument
   - vertical_whitespace_closing_braces
   - vertical_whitespace_opening_braces

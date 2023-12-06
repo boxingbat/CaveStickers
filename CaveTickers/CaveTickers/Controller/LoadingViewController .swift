@@ -11,7 +11,6 @@ import SwiftUI
 // Base class that provides loading functionality
 class LoadingViewController: UIViewController {
     private var loadingStateVC: UIHostingController<LoadingStateView>?
-
     override func viewDidLoad() {
         view.backgroundColor = .charcoalGray
     }
@@ -26,7 +25,6 @@ class LoadingViewController: UIViewController {
         loadingStateVC.view.frame = view.bounds
         view.addSubview(loadingStateVC.view)
         loadingStateVC.didMove(toParent: self)
-
     }
 
     // Method to hide loading view
@@ -37,4 +35,3 @@ class LoadingViewController: UIViewController {
         loadingStateVC = nil
     }
 }
-

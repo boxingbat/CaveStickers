@@ -8,7 +8,6 @@
 import Foundation
 
 enum Utils {
-
     static let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency

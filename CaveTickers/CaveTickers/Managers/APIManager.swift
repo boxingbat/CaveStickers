@@ -66,6 +66,38 @@ final class APIManager {
             completion: completion
         )
     }
+
+    public func singleDayData(
+        for symbol: String,
+        completion: @escaping (Result<SingleDayResponse, Error>) -> Void
+    ) {
+        request(
+            url: finUrl(
+                for: .lastday,
+                queryParams: [
+                    "symbol": symbol
+                ]
+            ),
+            expecting: SingleDayResponse.self,
+            completion: completion
+        )
+    }
+
+    public func companyInfo(
+        for symbol: String,
+        completion: @escaping (Result<CompanyInfoResponse, Error>) -> Void
+    ) {
+        request(
+            url: finUrl(
+                for: .conpanyinfo,
+                queryParams: [
+                    "symbol": symbol
+                ]
+            ),
+            expecting: CompanyInfoResponse.self,
+            completion: completion
+        )
+    }
     public func financialMetrics(
         for symbol: String,
         completion: @escaping (Result<FinancialMetricsResponse, Error>) -> Void
@@ -102,13 +134,14 @@ final class APIManager {
         let today = Date()
         let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
         request(
-            url: finUrl(for: .companyNews,
-                    queryParams: [
-                            "symbol": symbol,
-                            "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
-                            "to": DateFormatter.newsDateFormatter.string(from: today)
-                        ]
-                    ),
+            url: finUrl(
+                for: .companyNews,
+                queryParams: [
+                    "symbol": symbol,
+                    "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
+                    "to": DateFormatter.newsDateFormatter.string(from: today)
+                ]
+            ),
             expecting: [NewsStory].self,
             completion: completion
         )
@@ -123,6 +156,8 @@ final class APIManager {
         case marketData = "stock/candle"
         case financials = "stock/metric"
         case monthlyAddjusted = "TIME_SERIES_MONTHLY_ADJUSTED&"
+        case lastday = "quote"
+        case conpanyinfo = "stock/profile2"
     }
     private enum APIError: Error {
         case noDataRecived

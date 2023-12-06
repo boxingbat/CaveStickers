@@ -12,14 +12,12 @@ struct QuoteDetailRowColumnItem: Identifiable {
     let rows: [RowItem]
 
     struct RowItem: Identifiable {
-
         let id = UUID()
         let title: String
         let value: String
     }
 }
 struct QuoteDetailRowColumnView: View {
-
     let item: QuoteDetailRowColumnItem
 
     var body: some View {

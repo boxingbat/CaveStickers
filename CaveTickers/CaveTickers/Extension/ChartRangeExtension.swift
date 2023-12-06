@@ -10,7 +10,6 @@ import SwiftUI
 import XCAStocksAPI
 
 extension ChartRange: Identifiable {
-
     public var id: Self { self }
 
     var title: String {
@@ -77,12 +76,10 @@ extension ChartRange: Identifiable {
         if self != .oneDay {
             set.insert(startDate.dateComponents(timeZone: timezone, rangeType: self))
         }
-
         while date <= endDate {
             date = Calendar.current.date(byAdding: component, value: value, to: date)!
             set.insert(date.dateComponents(timeZone: timezone, rangeType: self))
         }
         return set
     }
-
 }

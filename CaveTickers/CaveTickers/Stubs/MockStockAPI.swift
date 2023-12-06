@@ -9,7 +9,6 @@ import XCAStocksAPI
 
 #if DEBUG
 struct MockStocksAPI: StocksAPI {
-
     var stubbedSearchTickersCallback: ( () async throws -> [Ticker])!
     func searchTickers(query: String, isEquityTypeOnly: Bool) async throws -> [Ticker] {
         try await stubbedSearchTickersCallback()
@@ -24,6 +23,5 @@ struct MockStocksAPI: StocksAPI {
     func fetchChartData(tickerSymbol: String, range: ChartRange) async throws -> ChartData? {
         try await stubbedFetchChartDataCallback(range)
     }
-
 }
 #endif
