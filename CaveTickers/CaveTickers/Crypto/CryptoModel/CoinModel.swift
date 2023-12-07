@@ -69,6 +69,6 @@ struct CoinModel: Identifiable, Codable, Hashable {
     }
 }
 
-struct SparklineIn7D: Codable ,Hashable {
+struct SparklineIn7D: Codable, Hashable {
     let price: [Double]?
 }

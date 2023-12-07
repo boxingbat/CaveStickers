@@ -14,14 +14,25 @@ extension Notification.Name {
 }
 
 class MetaMaskRepo: ObservableObject {
+    @Published var statusColor: Color = .gray
     @Published var connectionStatus = "Offline" {
         didSet {
             NotificationCenter.default.post(name: .Connection, object: nil, userInfo: ["value": connectionStatus])
         }
     }
+    var nftDataManager: NFTDataManager?
     @Published var chainID = ""
-    @Published var ethAddress = ""
-    @Published var balance = ""
+    @Published var ethAddress = "" {
+        didSet {
+            fetchAssetsForOwner(ethAddress)
+        }
+    }
+    @Published var balance = "" {
+            didSet {
+                fetchAssetsForOwner(self.ethAddress)
+            }
+        }
+    @Published var ownerNFT: [NFTAssetModel] = []
 
     @Published private var ethereum = MetaMaskSDK.shared.ethereum
     private let dappName = "Dub Dapp"
@@ -39,6 +50,7 @@ class MetaMaskRepo: ObservableObject {
         ethereum.$connected
             .sink { [weak self] isConnected in
                 self?.connectionStatus = isConnected ? "Connected" : "Disconnected"
+                self?.statusColor = isConnected ? .theme.green : .gray
             }
             .store(in: &cancellables)
     }
@@ -80,6 +92,12 @@ class MetaMaskRepo: ObservableObject {
         })
         .store(in: &cancellables)
     }
+
+    func fetchAssetsForOwner(_ ownerAddress: String) {
+        guard !ownerAddress.isEmpty else { return }
+        nftDataManager?.fetchAssetsForOwner(ownerAddress: ownerAddress)
+    }
+
 
     func convertHexIntoDecimal(hex: String) -> String {
         let scanner = Scanner(string: hex)

@@ -7,10 +7,11 @@
 
 import Foundation
 
-class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
+class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject {
     private var webSocket: URLSessionWebSocketTask?
     var onReceive: ((String) -> Void)?
     private var symbol: String?
+    @Published var latestPrice: String = ""
 
     func connect(withSymbol symbol: String) {
         self.symbol = symbol
@@ -55,12 +56,14 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate {
                 let displayString = "\(firstPriceData.symbolData): \(firstPriceData.priceData)"
                 print("\(displayString)")
                 onReceive?(String(firstPriceData.priceData))
+                DispatchQueue.main.async {
+                    self.latestPrice = firstPriceData.priceData.asCurrencyWith2Decimals()
+                }
             }
         } catch {
             print("JSON decode error: \(error)")
         }
     }
-
     func ping() {
         webSocket?.sendPing { error in
             if let error = error {

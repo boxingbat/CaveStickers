@@ -43,13 +43,10 @@ struct NFTItemListView: View {
                 .frame(width: height, height: height, alignment: .center)
                 .cornerRadius(15)
                 .padding(10)
-            VStack(alignment: .leading) {
-                Text(datamanager.lastSoldNFTItems[index].name)
-                    .font(.system(size: 20))
-                    .foregroundColor(.secondary)
-                Text(datamanager.price(forAsset: datamanager.lastSoldNFTItems[index]))
-                    .foregroundColor(.gray)
-            }.lineLimit(1)
+            Text(datamanager.lastSoldNFTItems[index].name)
+                .font(.system(size: 20))
+                .foregroundColor(.secondary)
+                .lineLimit(1)
             Spacer()
             Image(systemName: "arrow.right").padding(.trailing).foregroundColor(Color("GrayColor"))
         }

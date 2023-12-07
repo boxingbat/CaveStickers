@@ -188,7 +188,7 @@ struct ChartView_Previews: PreviewProvider {
 }
 
 // swiftlint:disable all
-#if DEBUG
+//#if DEBUG
 struct ChartContainer_ViewPreviews: View {
 
     @StateObject var viewModel: ChartViewModel
@@ -211,5 +211,5 @@ struct ChartContainer_ViewPreviews: View {
 
 }
 
-#endif
+//#endif
 // swiftlint:enable all

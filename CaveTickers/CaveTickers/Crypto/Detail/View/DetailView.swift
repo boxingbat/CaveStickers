@@ -20,6 +20,7 @@ struct DetailLoadingView: View {
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
+    @ObservedObject var webSocketManager = WebSocketManager()
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -31,10 +32,17 @@ struct DetailView: View {
     }
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(alignment: .leading, spacing: 20) {
                 CryptoChartView(coin: viewModel.coin)
                     .padding(.vertical)
                 overViewTitle
+                HStack(spacing: spacing) {
+                    realTimeView
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    currencyView
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(maxWidth: .infinity)
                 Divider()
                 overViewGrid
                 additionGrid
@@ -47,7 +55,32 @@ struct DetailView: View {
                 navigationBarTraillingItems
             }
         }
+        .onAppear {
+            webSocketManager.connect(withSymbol: "BINANCE:\(viewModel.coin.name.uppercased())USDT")
+            webSocketManager.send(symbol: "BINANCE:\(viewModel.coin.symbol.uppercased())USDT")
+        }
+        .onDisappear {
+            webSocketManager.close()
+        }
     }
+    private var realTimeView: some View {
+        VStack(alignment: .leading) {
+               Text("Real Time")
+                   .font(.caption)
+                   .foregroundColor(Color.theme.secondaryText)
+               Text(webSocketManager.latestPrice)
+                   .font(.title2)
+                   .fontWeight(.bold)
+                   .foregroundColor(Color.theme.accent)
+           }
+       }
+    private var currencyView: some View {
+            Text("\(viewModel.coin.symbol.uppercased()) / USDT")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.theme.secondaryText)
+                    .padding(.top, 20)
+        }
 }
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {

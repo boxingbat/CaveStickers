@@ -9,53 +9,129 @@ import SwiftUI
 
 struct WalletHomeView: View {
     @StateObject var metaMaskRepo = MetaMaskRepo()
-
     @State private var status = "Offline"
+    @EnvironmentObject var manager: NFTDataManager
+    @Binding var showAssetDetails: Bool
+    @State private var ownerAddress: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("\(metaMaskRepo.connectionStatus)")
-                .fontWeight(.bold)
-
-            Text("Chain ID: \(metaMaskRepo.chainID)")
-                .fontWeight(.bold)
-
-            Text("Account: \(metaMaskRepo.ethAddress)")
-                .fontWeight(.bold)
-
-            Text("Balance: \(metaMaskRepo.balance)")
-                .fontWeight(.bold)
-
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Status")
+                        .foregroundColor(.theme.secondaryText)
+                        .font(.system(size: 10))
+                    Text("\(metaMaskRepo.connectionStatus)")
+                        .fontWeight(.medium)
+                    .foregroundColor(metaMaskRepo.statusColor)
+                    .font(.system(size: 16))
+                }
+                Spacer()
+                VStack(alignment: .center) {
+                    Text("Chain ID")
+                        .foregroundColor(.theme.secondaryText)
+                        .font(.system(size: 10))
+                        .padding(.horizontal, 50)
+                    Text("\(metaMaskRepo.chainID)")
+                        .fontWeight(.medium)
+                        .foregroundColor(.theme.accent)
+                }
+            }
+            .padding(.horizontal, 50)
             HStack {
                 Button {
-                    metaMaskRepo.connectToDapp()
-                } label: {
-                    Text("Connect")
-                        .frame(width: 100, height: 40)
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(Color.secondary)
+                        metaMaskRepo.connectToDapp()
+                    } label: {
+                        Image("fox")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .background(Color.clear)
+                    .buttonStyle(PlainButtonStyle())
+                    .shadow(color: .theme.accent.opacity(0.6), radius: 10, x: 0, y: 2)
+                    .shadow(color: .theme.accent.opacity(0.3), radius: 10, x: 0, y: 4)
 
+                VStack(alignment: .leading) {
+                    Text("Address")
+                        .foregroundColor(.theme.secondaryText)
+                        .font(.system(size: 10))
+                        .padding(.leading, 8)
+                    Text("\(metaMaskRepo.ethAddress)")
+                        .fontWeight(.medium)
+                        .foregroundColor(.theme.secondaryText)
+                        .font(.system(size: 12))
+                        .padding(.leading, 8)
+
+                }
+            }
+            .padding(.horizontal, 50)
+            HStack {
                 Button {
                     metaMaskRepo.getBalance()
-                } label: {
-                    Text("Update")
-                        .frame(width: 100, height: 40)
+                    manager.fetchHoldingItems()
+                    manager.generateMockHoldingNFTItems() // for demo only 
+                    } label: {
+                        Image("024-crypto")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .background(Color.clear)
+                    .buttonStyle(PlainButtonStyle())
+                    .shadow(color: .theme.accent.opacity(0.6), radius: 10, x: 0, y: 2)
+                    .shadow(color: .theme.accent.opacity(0.3), radius: 10, x: 0, y: 4)
+                VStack(alignment: .leading) {
+                    Text("Balance")
+                        .foregroundColor(.theme.secondaryText)
+                        .font(.system(size: 10))
+                        .padding(.leading, 8)
+                    Text("\(metaMaskRepo.balance)")
+                        .fontWeight(.medium)
+                        .foregroundColor(.theme.accent)
+                        .padding(.leading, 8)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(Color.secondary)
+            }
+            .padding(.horizontal, 50)
+            if !manager.holdingNFTItems.isEmpty {
+                NFTHoldingCarouseView() { item in
+                    manager.selectedNFTItem = item
+                    showAssetDetails = true
+                }
+                .padding(.top, 20)
             }
             Spacer()
         }
         .onReceive(NotificationCenter.default.publisher(for: .Connection)) { notification in
             status = notification.userInfo?["value"] as? String ?? "Offline"
         }
-        .padding()
+        .padding(.top, DashboardContentView.headerHeight / 3)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct WalletHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WalletHomeView()
+        WalletHomeViewPreviews()
+    }
+
+    struct WalletHomeViewPreviews: View {
+        @State private var showDetails = false
+
+        // MARK: - Main rendering function
+        var body: some View {
+            let manager = NFTDataManager()
+            manager.newReleasedNFTItems = [
+                demoAssetModel, demoAssetModel
+            ]
+
+            manager.lastSoldNFTItems = [
+                demoAssetModel, demoAssetModel
+            ]
+
+            return WalletHomeView(showAssetDetails: $showDetails)
+                .environmentObject(manager)
+        }
     }
 }

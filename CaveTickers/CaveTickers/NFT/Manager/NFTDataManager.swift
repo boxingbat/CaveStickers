@@ -12,6 +12,7 @@ class NFTDataManager: NSObject, ObservableObject {
     /// Dynamic properties that the UI will react to
     @Published var lastSoldNFTItems: [NFTAssetModel] = [NFTAssetModel]()
     @Published var newReleasedNFTItems: [NFTAssetModel] = [NFTAssetModel]()
+    @Published var holdingNFTItems: [NFTAssetModel] = [NFTAssetModel]()
     @Published var favoriteNFTItems: [NFTAssetModel] = [NFTAssetModel]()
     @Published var assetStats: [String: NFTAssetStatsModel] = [String: NFTAssetStatsModel]()
     @Published var collections: [NFTCollection: NFTAssetModel] = [NFTCollection: NFTAssetModel]()
@@ -88,6 +89,39 @@ class NFTDataManager: NSObject, ObservableObject {
             favoriteNFTItems = favoriteNFTs
         }
     }
+
+    func generateMockHoldingNFTItems() {
+
+        let demoAssetModels = [
+            NFTAssetModel(
+                id: 0,
+                tokenID: "123",
+                salesCount: 0,
+                imageURL: "https://millersmusic.co.uk/cdn/shop/articles/Blog_Image_40.png?v=1681389491",
+                imageThumbnailURL: "https://millersmusic.co.uk/cdn/shop/articles/Blog_Image_40.png?v=1681389491",
+                name: "Demo NFT 1",
+                nftAssetDescription: AssetDescription(itemDescription: "This is the first demo NFT description"),
+                assetContract: AssetContract(address: "0x123456789"),
+                permalink: "https://example.com/nft/123",
+                collection: AssetCollection(largeImageUrl: "https://millersmusic.co.uk/cdn/shop/articles/Blog_Image_40.png?v=1681389491"),
+                creator: Creator(user: User(username: "demo user 1"))
+            ),
+            NFTAssetModel(
+                id: 1,
+                tokenID: "456",
+                salesCount: 1,
+                imageURL: "https://memeprod.ap-south-1.linodeobjects.com/user-template/976f753dd3aeb849408933e322b85973.png",
+                imageThumbnailURL: "https://memeprod.ap-south-1.linodeobjects.com/user-template/976f753dd3aeb849408933e322b85973.png",
+                name: "Demo NFT 2",
+                nftAssetDescription: AssetDescription(itemDescription: "This is the second demo NFT description"),
+                assetContract: AssetContract(address: "0x987654321"),
+                permalink: "https://example.com/nft/456",
+                collection: AssetCollection(largeImageUrl: "https://memeprod.ap-south-1.linodeobjects.com/user-template/976f753dd3aeb849408933e322b85973.png"),
+                creator: Creator(user: User(username: "demo user 2"))
+            )
+        ]
+           holdingNFTItems = demoAssetModels
+       }
 }
 
 // MARK: - Fetch NFT assets
@@ -106,6 +140,17 @@ extension NFTDataManager {
 
     /// Fetch latest nft items
     func fetchNewReleasedItems() {
+        let requestParams = AssetsRequestParameters(filter: .new, collection: nil)
+        guard let requestURL = requestParams.requestURL else { return }
+        var urlRequest = URLRequest(url: requestURL)
+        urlRequest.setValue(AppConfig.apiKey, forHTTPHeaderField: "X-API-KEY")
+        URLSession.shared.dataTask(with: urlRequest) { data, _, _ in
+            self.parseData(data, lastSoldItems: false)
+        }
+        .resume()
+    }
+
+    func fetchHoldingItems() {
         let requestParams = AssetsRequestParameters(filter: .new, collection: nil)
         guard let requestURL = requestParams.requestURL else { return }
         var urlRequest = URLRequest(url: requestURL)
@@ -167,7 +212,25 @@ extension NFTDataManager {
         }
     .resume()
     }
+    func fetchAssetsForOwner(ownerAddress: String) {
+           let requestParams = OwnerAssetsRequestParameters(ownerAddress: ownerAddress)
+           guard let requestURL = requestParams.requestURL else { return }
+           var urlRequest = URLRequest(url: requestURL)
+           urlRequest.setValue(AppConfig.apiKey, forHTTPHeaderField: "X-API-KEY")
+           URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
+               guard let self = self, error == nil, let data = data else {
+                   print(error ?? "Unknown error")
+                   return
+               }
 
+               self.parseData(data, lastSoldItems: false) { models in
+                   DispatchQueue.main.async {
+                       self.holdingNFTItems = models
+                   }
+               }
+           }
+           .resume()
+       }
     /// Parse fetched data from the API
     /// - Parameters:
     ///   - data: data from API response

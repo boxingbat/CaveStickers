@@ -16,7 +16,7 @@ enum AppConfig {
     static let assetStatsAPI: String = "\(hostName)/asset"
     static let openSeaAPIDocs: String = "https://docs.opensea.io"
 
-    static let apiKey: String = "ece7871fb832449a9fc9e78d8584da03"
+    static let apiKey: String = "303f79c1e00542acb9de4413057e9be6"
 
     /// Show/Hide "More Details" button on NFT Details screen
     static let hideMoreDetailsButton = true
@@ -61,17 +61,32 @@ struct AssetStatsRequestParameters {
         return URL(string: urlString)
     }
 }
+struct OwnerAssetsRequestParameters {
+    let ownerAddress: String
+    var order: OrderType = .descending
+    var limit: Int = 20
+    var includeOrders = false
+
+    enum OrderType: String {
+        case ascending = "asc", descending = "desc"
+    }
+
+    var requestURL: URL? {
+        let urlString = AppConfig.assetsAPI + "?owner=\(ownerAddress)&order_direction=\(order.rawValue)&limit=\(limit)&include_orders=\(includeOrders)"
+        return URL(string: urlString)
+    }
+}
 
 // MARK: - Navigation Tab Bar
 enum CustomTabBarItem: String, CaseIterable, Identifiable {
-    case home = "house", favorite = "heart", collection = "square.grid.2x2"
+    case home = "chart.bar.doc.horizontal", favorite = "heart", collection = "books.vertical"
 
     var headerTitle: String {
         switch self {
         case .home:
             return "NFT Marketplace"
         case .favorite:
-            return "Favorite NFTs"
+            return "Favorite"
         case .collection:
             return "Collections"
         }

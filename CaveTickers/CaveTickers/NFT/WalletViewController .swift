@@ -23,10 +23,10 @@ class WalletViewController: LoadingViewController {
     }
 
     func setupHostingController() {
-        let manager = NFTDataManager() // 创建NFTDataManager的实例
+        let manager = NFTDataManager()
             let swiftUIView = AnyView(
                 NavigationView {
-                    DashboardContentView().environmentObject(manager) // 传递环境对象
+                    DashboardContentView().environmentObject(manager)
                 }
             )
         hostingController = UIHostingController(rootView: swiftUIView)

@@ -34,7 +34,7 @@ struct FavoriteTabView: View {
             Spacer(minLength: 20)
             Text("Hmm...").font(.system(size: 20)).bold()
             Text("No Favorite NFTs here")
-        }.foregroundColor(Color("DarkColor")).padding()
+        }.foregroundColor(Color.accentColor).padding()
     }
 }
 

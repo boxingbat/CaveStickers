@@ -87,7 +87,6 @@
 		0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0F5442C12B14724C00B41896 /* Kingfisher */; };
 		0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C32B1472B300B41896 /* Third-Party Ext.swift */; };
 		0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C52B14765D00B41896 /* HapticsManager.swift */; };
-		0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C82B157E7900B41896 /* MiniChartView.swift */; };
 		0F5442CB2B1586AE00B41896 /* LoadingViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */; };
 		0F5442CD2B15962F00B41896 /* PulsatingSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */; };
 		0F5442CF2B15D38100B41896 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CE2B15D38100B41896 /* FontExtension.swift */; };
@@ -116,9 +115,9 @@
 		0F7012D42B1F21F30070B555 /* NFTFavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D32B1F21F30070B555 /* NFTFavoritesListView.swift */; };
 		0F7012D62B1F26DB0070B555 /* NFTHomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D52B1F26DB0070B555 /* NFTHomeTabView.swift */; };
 		0F7012D82B1F2B760070B555 /* NFTFavoriteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */; };
-		0F7012DA2B1F30060070B555 /* NFTCollectionsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */; };
 		0F7012DD2B1F3D3B0070B555 /* DashboardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */; };
 		0F7012DF2B1F57F20070B555 /* AssetDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */; };
+		0FA0F27F2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */; };
 		0FC499832B1B13BF0014079E /* WalletViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499822B1B13BF0014079E /* WalletViewController .swift */; };
 		0FC499862B1B148E0014079E /* WalletHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499852B1B148E0014079E /* WalletHomeView.swift */; };
 		0FC499892B1B16D10014079E /* MetaMaskRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499882B1B16D10014079E /* MetaMaskRepo.swift */; };
@@ -207,7 +206,6 @@
 		0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		0F5442C32B1472B300B41896 /* Third-Party Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Third-Party Ext.swift"; sourceTree = "<group>"; };
 		0F5442C52B14765D00B41896 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
-		0F5442C82B157E7900B41896 /* MiniChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniChartView.swift; sourceTree = "<group>"; };
 		0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingViewController .swift"; sourceTree = "<group>"; };
 		0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingSwiftUIView.swift; sourceTree = "<group>"; };
 		0F5442CE2B15D38100B41896 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
@@ -236,9 +234,9 @@
 		0F7012D32B1F21F30070B555 /* NFTFavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavoritesListView.swift; sourceTree = "<group>"; };
 		0F7012D52B1F26DB0070B555 /* NFTHomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTHomeTabView.swift; sourceTree = "<group>"; };
 		0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavoriteTabView.swift; sourceTree = "<group>"; };
-		0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionsTabView.swift; sourceTree = "<group>"; };
 		0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContentView.swift; sourceTree = "<group>"; };
 		0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsContentView.swift; sourceTree = "<group>"; };
+		0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTHoldingCarouseView.swift; sourceTree = "<group>"; };
 		0FC499822B1B13BF0014079E /* WalletViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletViewController .swift"; sourceTree = "<group>"; };
 		0FC499852B1B148E0014079E /* WalletHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHomeView.swift; sourceTree = "<group>"; };
 		0FC499882B1B16D10014079E /* MetaMaskRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMaskRepo.swift; sourceTree = "<group>"; };
@@ -496,7 +494,6 @@
 				0F4401A82B0EF4B600B703BC /* StockTickerView.swift */,
 				0F4401AF2B0EFBC800B703BC /* DateRangePickerView.swift */,
 				0F4401C12B0F2F1400B703BC /* ChartView.swift */,
-				0F5442C82B157E7900B41896 /* MiniChartView.swift */,
 				0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */,
 				0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */,
 				0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */,
@@ -609,7 +606,7 @@
 				0F7012D32B1F21F30070B555 /* NFTFavoritesListView.swift */,
 				0F7012D52B1F26DB0070B555 /* NFTHomeTabView.swift */,
 				0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */,
-				0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */,
+				0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -677,7 +674,6 @@
 				0F2D6CDD2B04D628007F1748 /* Frameworks */,
 				0F2D6CFC2B04DBC7007F1748 /* ShellScript */,
 				0F2D6CDE2B04D628007F1748 /* Resources */,
-				877DE86F16FA0B36608970DF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -787,23 +783,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		877DE86F16FA0B36608970DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -815,6 +794,7 @@
 				0F7012CA2B1F06B00070B555 /* AppConfig.swift in Sources */,
 				0F041E802B17666100436A81 /* NetworkingManager .swift in Sources */,
 				0F7012C12B1F01AB0070B555 /* NFTDataManager.swift in Sources */,
+				0FA0F27F2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift in Sources */,
 				0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */,
 				0F4401CB2B0F4A6A00B703BC /* Chart+Stubs.swift in Sources */,
 				0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */,
@@ -827,7 +807,6 @@
 				0F7012C42B1F01E70070B555 /* NFTModel.swift in Sources */,
 				0F7012DF2B1F57F20070B555 /* AssetDetailsContentView.swift in Sources */,
 				0F7012C72B1F025F0070B555 /* NFTDetailModel.swift in Sources */,
-				0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */,
 				0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */,
 				0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */,
 				0F09595F2B1853F20084524C /* SearchBarView.swift in Sources */,
@@ -901,7 +880,6 @@
 				0F041E6B2B17098900436A81 /* CryptoHomePageView.swift in Sources */,
 				0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */,
 				0F041E762B172E5500436A81 /* PreviewsProvider.swift in Sources */,
-				0F7012DA2B1F30060070B555 /* NFTCollectionsTabView.swift in Sources */,
 				0F09597F2B199FE10084524C /* DetailView.swift in Sources */,
 				0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */,
 				0F0959852B19AFB60084524C /* CoinDetailManager.swift in Sources */,
@@ -1076,6 +1054,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CaveTickers;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1107,6 +1086,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CaveTickers;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

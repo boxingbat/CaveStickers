@@ -71,7 +71,7 @@ struct AssetDetailsContentView: View {
             }
             HStack {
                 Text("Created by")
-                Text(manager.selectedNFTItem.creator.user.username)
+                Text(manager.selectedNFTItem.creator?.user.username ?? "SKC37624")
                     .font(.system(size: 18))
                     .bold()
                     .foregroundColor(Color.theme.accent)
@@ -100,8 +100,6 @@ struct AssetDetailsContentView: View {
                 Text(manager.selectedNFTItem?.nftAssetDescription.itemDescription ?? "n/a")
                 Spacer()
             }
-
-            HStack {
                 VStack {
                     sectionHeader(title: "Sales Count")
                     HStack {
@@ -111,16 +109,16 @@ struct AssetDetailsContentView: View {
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
-                    sectionHeader(title: "Item Price", leftAligned: false)
+                    sectionHeader(title: "Item Price")
+                    Spacer()
                     HStack {
-                        Spacer()
                         if let item = manager.selectedNFTItem {
                             Text(manager.price(forAsset: item))
                         } else {
-                            Text("- -")
+                            Text("0.8652ETH")
                         }
+                        Spacer()
                     }
-                }
             }.padding(.top, 20)
         }.fixedSize(horizontal: false, vertical: true)
             .foregroundColor(Color.theme.accent)

@@ -17,7 +17,7 @@ struct NFTAssetModel: Codable {
     let assetContract: AssetContract
     let permalink: String
     let collection: AssetCollection
-    let creator: Creator
+    let creator: Creator?
 
     enum CodingKeys: String, CodingKey {
         case id, name, collection, permalink, creator

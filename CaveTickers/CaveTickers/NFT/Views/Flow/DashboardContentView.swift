@@ -12,6 +12,7 @@ struct DashboardContentView: View {
     @State private var showAssetDetails = false
     @State private var selectedTab: CustomTabBarItem = .home
     @State private var showWalletHome = false
+    @State private var showFavorite = false
     static let headerHeight: CGFloat = UIScreen.main.bounds.height / 3.5
 
     // MARK: - Main rendering function
@@ -27,9 +28,9 @@ struct DashboardContentView: View {
                 case .favorite:
                     FavoriteTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
                 case .collection:
-                    NFTCollectionsTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
+                    WalletHomeView(showAssetDetails: $showAssetDetails).environmentObject(manager)
                 }
-                NavigationLink(destination: WalletHomeView(), isActive: $showWalletHome) { EmptyView() }
+                navigationBarView
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarTitle("")
@@ -40,7 +41,6 @@ struct DashboardContentView: View {
                 manager.fetchLastSoldItems()
                 manager.fetchNewReleasedItems()
             }
-            navigationBarView
         }
     }
 
@@ -55,21 +55,9 @@ struct DashboardContentView: View {
         }
         return VStack {
             ZStack {
-                //                Color.accentColor.ignoresSafeArea()
                 VStack(spacing: 10) {
-                    HStack {
-                        Button(action: {
-                            showWalletHome = true
-                        }) {
-                            Image("metaMask")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30)
-                                .foregroundColor(.background)
-                        }
                         Text(selectedTab.headerTitle)
                             .font(.system(size: 30, weight: .black))
-                    }
                     Capsule().frame(height: 1, alignment: .center)
                         .padding([
                             .leading,
@@ -85,28 +73,33 @@ struct DashboardContentView: View {
 
     /// Navigation bottom bar
     private var navigationBarView: some View {
-        VStack {
-            Spacer()
-            ZStack {
-                RoundedCorner(radius: 40, corners: [.topLeft, .topRight])
-                    .foregroundColor(.accentColor)
-                    .ignoresSafeArea()
-                    .shadow(color: Color.black.opacity(0.12), radius: 8)
-                HStack(spacing: 30) {
-                    ForEach(CustomTabBarItem.allCases) { tab in
-                        Button(action: {
-                            selectedTab = tab
-                        }, label: {
-                            Image(systemName: "\(tab.rawValue)\(selectedTab == tab ? ".fill" : "")")
-                                .font(.system(size: 25, weight: selectedTab == tab ? .bold : .regular))
-                                .foregroundColor(Color("TileColor"))
-                                .opacity(selectedTab == tab ? 1 : 0.4)
-                        }).frame(width: 40, height: 40, alignment: .center)
-                    }.colorScheme(.light)
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                VStack(spacing: 10) {
+                        ForEach(CustomTabBarItem.allCases) { tab in
+                            Button(action: {
+                                selectedTab = tab
+                            }, label: {
+                                Image(systemName: "\(tab.rawValue)\(selectedTab == tab ? ".fill" : "")")
+                                    .font(.system(size: 25, weight: selectedTab == tab ? .bold : .regular))
+                                    .foregroundColor(Color.secondary)
+                                    .opacity(selectedTab == tab ? 1 : 0.4)
+                            }).frame(width: 40, height: 40, alignment: .center)
+                        }
+                    }
+                    .padding()
+                    .background(Color.clear)
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
                 }
-            }.frame(height: 40)
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
+
 
     /// Navigation link for NFT details view
     private var NFTDetailsNavigationLink: some View {

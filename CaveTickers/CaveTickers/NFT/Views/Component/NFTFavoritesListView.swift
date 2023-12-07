@@ -35,13 +35,10 @@ struct NFTFavoritesListView: View {
                             .font(.system(size: 18))
                             .lineLimit(1)
                             .padding([.leading, .trailing, .bottom], 10)
-                            .foregroundColor(Color("DarkColor"))
+                            .foregroundColor(Color.accentColor)
                     }
                 })
-                .background(
-                    Color.gray.cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.12), radius: 8)
-                )
+                .shadow(color: Color.theme.accent.opacity(1), radius: 8)
             }
         }
     }
