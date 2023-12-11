@@ -18,7 +18,7 @@ struct StockTickerView: View {
     private var dismiss
     @State private var selectedRange = ChartRange.oneDay
     public var symbol: String?
-    @State private var isFavorite: Bool = false
+    @State private var isFavorite = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             headerView.padding(.horizontal)
