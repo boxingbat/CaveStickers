@@ -65,15 +65,17 @@ struct DetailView: View {
     }
     private var realTimeView: some View {
         VStack(alignment: .leading) {
-               Text("Real Time")
-                   .font(.caption)
-                   .foregroundColor(Color.theme.secondaryText)
-               Text(webSocketManager.latestPrice)
-                   .font(.title2)
-                   .fontWeight(.bold)
-                   .foregroundColor(Color.theme.accent)
-           }
-       }
+            Text("Real Time")
+                .font(.caption)
+                .foregroundColor(Color.theme.secondaryText)
+
+            Text(webSocketManager.latestPrice)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(webSocketManager.flashColor == .clear ? Color.theme.accent : webSocketManager.flashColor)
+        }
+    }
+
     private var currencyView: some View {
             Text("\(viewModel.coin.symbol.uppercased()) / USDT")
                     .font(.title3)

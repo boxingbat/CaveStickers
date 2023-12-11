@@ -20,7 +20,7 @@ struct CalculatorPresenter {
                 hasDecimalPlaces: false
             )
             .prefix(withText: gainSymbol),
-            yield: result.yield.percentageFormat.prefix(withText: gainSymbol).addBrackets(),
+            yield: result.yield.percentageFormat,
             yieldLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red),
             annualReturn: result.annualReturn.percentageFormat,
             annualReturnLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red))

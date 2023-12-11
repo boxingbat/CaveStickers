@@ -11,11 +11,14 @@ import XCAStocksAPI
 struct StockTickerView: View {
     @StateObject var chartVM: ChartViewModel
     @StateObject var quoteVM: TickerQuoteViewModel
+    @ObservedObject var webSocketManager = WebSocketManager()
     @Environment(\
         .dismiss
     )
     private var dismiss
     @State private var selectedRange = ChartRange.oneDay
+    public var symbol: String?
+    @State private var isFavorite: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             headerView.padding(.horizontal)
@@ -54,6 +57,14 @@ struct StockTickerView: View {
         }
         .scrollIndicators(.hidden)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .onAppear {
+            isFavorite = PersistenceManager.shared.watchlistContains(symbol: symbol ?? "")
+            webSocketManager.connect(withSymbol: symbol ?? "AAPL")
+            webSocketManager.send(symbol: symbol ?? "AAPL")
+        }
+        .onDisappear {
+            webSocketManager.close()
+        }
     }
 
     @ViewBuilder private var chartView: some View {
@@ -72,7 +83,7 @@ struct StockTickerView: View {
         switch quoteVM.phase {
         case .fetching: LoadingStateView(isLoading: true)
         case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
-            .padding(.horizontal)
+                .padding(.horizontal)
         case .success(let quote):
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
@@ -93,17 +104,17 @@ struct StockTickerView: View {
             if let quote = quoteVM.quote {
                 HStack {
                     if quote.isTrading,
-                    let price = quote.regularPriceText,
-                    let diff = quote.regularDiffText {
+                       let price = quote.regularPriceText,
+                       let diff = quote.regularDiffText {
                         priceDiffStackView(price: price, diff: diff, caption: nil)
                     } else {
                         if let atCloseText = quote.regularPriceText,
-                        let atCloseDiffText = quote.regularDiffText {
+                           let atCloseDiffText = quote.regularDiffText {
                             priceDiffStackView(price: atCloseText, diff: atCloseDiffText, caption: "At Close")
                         }
 
                         if let afterHourText = quote.postPriceText,
-                        let afterHourDiffText = quote.postPriceDiffText {
+                           let afterHourDiffText = quote.postPriceDiffText {
                             priceDiffStackView(price: afterHourText, diff: afterHourDiffText, caption: "After Hours")
                         }
                     }
@@ -135,7 +146,6 @@ struct StockTickerView: View {
             if let exchange = quoteVM.ticker.exchDisp {
                 Text(exchange)
             }
-
             if let currency = quoteVM.quote?.currency {
                 Text("·")
                 Text(currency)
@@ -146,11 +156,23 @@ struct StockTickerView: View {
     }
     private var headerView: some View {
         HStack(alignment: .lastTextBaseline) {
-            Text(quoteVM.ticker.symbol).font(.title.bold())
-            if let shortName = quoteVM.ticker.shortname {
-                Text(shortName)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundColor(Color(uiColor: .secondaryLabel))
+            Text(quoteVM.ticker.symbol)
+                .font(.title.bold())
+                .foregroundColor(.theme.accent)
+            Text(webSocketManager.latestPrice)
+                .font(.title2.bold())
+                .foregroundColor(.theme.accent)
+            Spacer()
+            Button(action: {
+                isFavorite.toggle()
+                if isFavorite {
+                    PersistenceManager.shared.addToWatchList(symbol: symbol ?? "", companyName: "")
+                } else {
+                    PersistenceManager.shared.removeFromWatchList(symbol: symbol ?? "")
+                }
+            }) {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    .foregroundColor(isFavorite ? .red : .gray)
             }
         }
     }

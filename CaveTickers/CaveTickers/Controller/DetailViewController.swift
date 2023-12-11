@@ -18,11 +18,11 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private let companyName: String
     private var candleStickData: [CandleStick]
     private var chartView = UIView()
-    private var webSocketManager = WebSocketManager()
+//    private var webSocketManager = WebSocketManager()
     var closedPrice: String?
     let tableView: UITableView = {
         let table = UITableView()
-        table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
+//        table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
         table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identfier)
         return table
     }()
@@ -41,9 +41,9 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    deinit {
-        webSocketManager.close()
-    }
+//    deinit {
+//        webSocketManager.close()
+//    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,25 +52,25 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         fetchFinancialData()
         setUpTableView()
         checkStockExist()
-        webSocketManager.connect(withSymbol: symbol)
-        setupWebSocket()
+//        webSocketManager.connect(withSymbol: symbol)
+//        setupWebSocket()
         setupSwiftUIHeaderView()
         checkStockExist()
         fetchNews()
     }
     // MARK: - Private
-    private func setupWebSocket() {
-        webSocketManager.onReceive = { message in
-            print("Received message: \(message)")
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(
-                    name: NSNotification.Name("UpdatePriceLabel"),
-                    object: nil,
-                    userInfo: ["price": message]
-                )
-            }
-        }
-    }
+//    private func setupWebSocket() {
+//        webSocketManager.onReceive = { message in
+//            print("Received message: \(message)")
+//            DispatchQueue.main.async {
+//                NotificationCenter.default.post(
+//                    name: NSNotification.Name("UpdatePriceLabel"),
+//                    object: nil,
+//                    userInfo: ["price": message]
+//                )
+//            }
+//        }
+//    }
     private func setUpTableView() {
         view.addSubview(tableView)
         DispatchQueue.main.async { [weak self] in
@@ -109,7 +109,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     private func setupSwiftUIHeaderView() {
         let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
         let quoteVM = TickerQuoteViewModel(ticker: Ticker(symbol: symbol), stocksAPI: XCAStocksAPI())
-        let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM)
+        let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM, symbol: symbol)
         let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
         let hostingController = UIHostingController(rootView: stockTickerView)
         addChild(hostingController)

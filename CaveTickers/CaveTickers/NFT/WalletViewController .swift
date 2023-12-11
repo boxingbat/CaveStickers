@@ -19,6 +19,7 @@ class WalletViewController: LoadingViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: false)
         setupHostingController()
     }
 

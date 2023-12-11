@@ -17,10 +17,8 @@ struct DashboardContentView: View {
 
     // MARK: - Main rendering function
     var body: some View {
-        NavigationView {
             ZStack {
                 NFTDetailsNavigationLink
-//                Color("BackgroundColor").ignoresSafeArea()
                 headerView
                 switch selectedTab {
                 case .home:
@@ -31,9 +29,6 @@ struct DashboardContentView: View {
                     WalletHomeView(showAssetDetails: $showAssetDetails).environmentObject(manager)
                 }
                 navigationBarView
-            }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(StackNavigationViewStyle())

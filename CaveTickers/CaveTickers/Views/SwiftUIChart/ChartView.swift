@@ -14,6 +14,8 @@ struct ChartView: View {
     @ObservedObject var viewModel: ChartViewModel
     @State private var animateChart = false
     @State private var showPulsatingView = false
+    @ObservedObject var webSocketManager = WebSocketManager()
+    public var symbol: String?
 
     var body: some View {
         chart
@@ -60,7 +62,10 @@ struct ChartView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
                     showPulsatingView = true
                 }
-            }
+//                webSocketManager.connect(withSymbol: viewModel.)
+//                webSocketManager.send(symbol: "BINANCE:\(viewModel.coin.symbol.uppercased())USDT")
+        }
+
     }
 
     private func calculatePulsatingViewYPosition(geometry: GeometryProxy, data: ChartViewData) -> CGFloat {

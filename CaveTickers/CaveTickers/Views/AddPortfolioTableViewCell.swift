@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 
 class AddPortfolioTableViewCell: UITableViewCell {
@@ -13,25 +14,29 @@ class AddPortfolioTableViewCell: UITableViewCell {
     var investedAmnountTitle: UILabel = {
         let label = UILabel()
         label.text = "Invested Amnount"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = UIColor(Color.theme.secondaryText)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     var gainTitle: UILabel = {
         let label = UILabel()
         label.text = "Gain"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = UIColor(Color.theme.secondaryText)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     var yieldTitle: UILabel = {
         let label = UILabel()
         label.text = "Yield Percentange"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = UIColor(Color.theme.secondaryText)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     var annualReturnTitle: UILabel = {
         let label = UILabel()
         label.text = "Annual Return"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = UIColor(Color.theme.secondaryText)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     // Data
@@ -140,25 +145,26 @@ class AddPortfolioTableViewCell: UITableViewCell {
             currentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             currentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            investmentAmountLabel.topAnchor.constraint(equalTo: currentLabel.bottomAnchor, constant: 8),
-            investmentAmountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            investedAmnountTitle.centerYAnchor.constraint(equalTo: investmentAmountLabel.centerYAnchor),
-            investedAmnountTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            investedAmnountTitle.topAnchor.constraint(equalTo: currentLabel.bottomAnchor, constant: 8),
+            investedAmnountTitle.leadingAnchor.constraint(equalTo: currentLabel.leadingAnchor),
+            investmentAmountLabel.topAnchor.constraint(equalTo: investedAmnountTitle.bottomAnchor, constant: 4),
+            investmentAmountLabel.leadingAnchor.constraint(equalTo: initialAmountLabel.leadingAnchor),
 
-            gainLabel.topAnchor.constraint(equalTo: investmentAmountLabel.bottomAnchor, constant: 8),
-            gainLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            gainTitle.centerYAnchor.constraint(equalTo: gainLabel.centerYAnchor),
-            gainTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 
-            yieldLabel.topAnchor.constraint(equalTo: gainTitle.bottomAnchor, constant: 8),
-            yieldLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            yieldTitle.centerYAnchor.constraint(equalTo: yieldLabel.centerYAnchor),
-            yieldTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            gainTitle.topAnchor.constraint(equalTo: currentLabel.bottomAnchor, constant: 8),
+            gainTitle.leadingAnchor.constraint(equalTo: contentView.centerXAnchor),
+            gainLabel.topAnchor.constraint(equalTo: gainTitle.bottomAnchor, constant: 4),
+            gainLabel.leadingAnchor.constraint(equalTo: gainTitle.leadingAnchor),
 
-            annualReturnLabel.topAnchor.constraint(equalTo: yieldTitle.bottomAnchor, constant: 8),
-            annualReturnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            annualReturnTitle.centerYAnchor.constraint(equalTo: annualReturnLabel.centerYAnchor),
-            annualReturnTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            yieldTitle.topAnchor.constraint(equalTo: investmentAmountLabel.bottomAnchor, constant: 8),
+            yieldTitle.leadingAnchor.constraint(equalTo: investmentAmountLabel.leadingAnchor),
+            yieldLabel.topAnchor.constraint(equalTo: yieldTitle.bottomAnchor, constant: 4),
+            yieldLabel.leadingAnchor.constraint(equalTo: yieldTitle.leadingAnchor),
+
+            annualReturnTitle.topAnchor.constraint(equalTo: gainLabel.bottomAnchor, constant: 8),
+            annualReturnTitle.leadingAnchor.constraint(equalTo: contentView.centerXAnchor),
+            annualReturnLabel.topAnchor.constraint(equalTo: annualReturnTitle.bottomAnchor, constant: 4),
+            annualReturnLabel.leadingAnchor.constraint(equalTo: annualReturnTitle.leadingAnchor),
 
             symbolLabel.topAnchor.constraint(equalTo: annualReturnLabel.bottomAnchor, constant: 16),
             symbolLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -203,41 +209,44 @@ class AddPortfolioTableViewCell: UITableViewCell {
         yieldLabel.text = "0%"
         annualReturnLabel.text = "0%"
         symbolLabel.text = "Stock Symbol"
-
         initialAmountLabel.text = "initail Amount(USD)"
         monthlyInputLabel.text = "MonthlyInput Amount(USD)"
         timeLineLabel.text = "TimeLine(Months)"
     }
 
     func configureStyle() {
-        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        // Data
+        titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        titleLabel.textColor = UIColor(Color.theme.secondaryText)
         currentLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        investmentAmountLabel.font = UIFont.systemFont(ofSize: 12)
-        gainLabel.font = UIFont.systemFont(ofSize: 12)
-        yieldLabel.font = UIFont.systemFont(ofSize: 12)
-        annualReturnLabel.font = UIFont.systemFont(ofSize: 12)
+        investmentAmountLabel.font = UIFont.systemFont(ofSize: 24)
+        gainLabel.font = UIFont.systemFont(ofSize: 24)
+        yieldLabel.font = UIFont.systemFont(ofSize: 24)
+        annualReturnLabel.font = UIFont.systemFont(ofSize: 24)
 
+
+        // TextField
         symbolLabel.font = UIFont.systemFont(ofSize: 12)
-
+        symbolLabel.textColor = UIColor(Color.theme.secondaryText)
         symbolTextField.font = UIFont.systemFont(ofSize: 24)
         symbolTextField.addDoneButton()
         symbolTextField.keyboardType = .default
 
         initialAmountLabel.font = UIFont.systemFont(ofSize: 12)
-
-        initialAmountTextField.font = UIFont.systemFont(ofSize: 24)
+        initialAmountLabel.textColor = UIColor(Color.theme.secondaryText)
+        initialAmountTextField.font = UIFont.systemFont(ofSize: 20)
         initialAmountTextField.addDoneButton()
         initialAmountTextField.keyboardType = .numberPad
 
         monthlyInputLabel.font = UIFont.systemFont(ofSize: 12)
-
-        monthlyInputTextField.font = UIFont.systemFont(ofSize: 24)
+        monthlyInputLabel.textColor = UIColor(Color.theme.secondaryText)
+        monthlyInputTextField.font = UIFont.systemFont(ofSize: 20)
         monthlyInputTextField.addDoneButton()
         monthlyInputTextField.keyboardType = .numberPad
 
         timeLineLabel.font = UIFont.systemFont(ofSize: 12)
-
-        timeLineInputTextField.font = UIFont.systemFont(ofSize: 24)
+        timeLineLabel.textColor = UIColor(Color.theme.secondaryText)
+        timeLineInputTextField.font = UIFont.systemFont(ofSize: 20)
     }
 }
 

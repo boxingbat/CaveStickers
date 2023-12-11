@@ -35,7 +35,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         guard let hostingController = hostingController else { return }
 
         let headerView = UIView()
-        headerView.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width - 32, height: 250)
+        headerView.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width - 32, height: 400)
         tableView.tableHeaderView = headerView
 
         addChild(hostingController)
@@ -161,7 +161,7 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         return calculatedResult.count
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 180
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint: disable all
@@ -174,7 +174,6 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             cell.stockInfoLabel.text = "\(saved.symbol)"
             cell.investmentAmountLabel.text = "\(result.investmentAmount)"
             cell.gainLabel.text = "\(result.gain)"
-            cell.gainLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
             cell.yieldLabel.text = "\(result.yield)%"
             cell.yieldLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
             cell.annualReturnLabel.text = "\(result.annualReturn)%"

@@ -37,7 +37,6 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
         view.backgroundColor = .systemBackground
         setupTableView()
         setupSaveButton()
-        setupAddButton()
         setupCombineSubscriptions()
     }
 
@@ -93,21 +92,6 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
         tableView.register(AddPortfolioTableViewCell.self, forCellReuseIdentifier: "CustomCell")
     }
 
-    private func setupAddButton() {
-        addButton.setTitle("+", for: .normal)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(addButton)
-
-        NSLayoutConstraint.activate([
-            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            addButton.widthAnchor.constraint(equalToConstant: 60),
-            addButton.heightAnchor.constraint(equalToConstant: 60)
-        ])
-
-        addButton.addTarget(self, action: #selector(addNewCell), for: .touchUpInside)
-    }
-
     @objc private func addNewCell() {
         dataEntries.append("")
         let indexPath = IndexPath(row: dataEntries.count - 1, section: 0)
@@ -159,7 +143,7 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
                 cell.annualReturnLabel.text = "\(computedResult.annualReturn)%"
                 cell.yieldLabel.text = "\(computedResult.yield)%"
 
-                cell.yieldLabel.backgroundColor = presentation.yieldLabelTextColor
+                cell.yieldLabel.textColor = presentation.yieldLabelTextColor
                 cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
             }
 

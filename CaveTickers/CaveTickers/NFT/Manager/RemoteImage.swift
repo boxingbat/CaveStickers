@@ -9,19 +9,24 @@ import SwiftUI
 import Foundation
 
 // MARK: - Custom image view class to load images from web
+@MainActor
 struct RemoteImage: View {
     @ObservedObject var assetModel: AssetModel
 
     // MARK: - Main rendering function
     public var body: some View {
-        assetModel.fetchAsset()
-        let placeholder = UIImage(named: "placeholder")!
-        return Image(uiImage: assetModel.image ?? placeholder)
-            .resizable().aspectRatio(contentMode: .fill)
-    }
+            let placeholder = UIImage(named: "placeholder")!
+            return Image(uiImage: assetModel.image ?? placeholder)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .onAppear {
+                    assetModel.fetchAsset()
+                }
+        }
 }
 
 // MARK: - Custom image observable object
+@MainActor
 class AssetModel: ObservableObject {
     /// Dynamic properties that the UI will react to
     @Published var image: UIImage?

@@ -19,6 +19,7 @@ class WatchListViewController: LoadingViewController {
 
     private var observer: NSObjectProtocol?
     private var loadingStateVC: UIHostingController<LoadingStateView>?
+    private var fetchedData = false
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -34,12 +35,21 @@ class WatchListViewController: LoadingViewController {
         setupTitleView()
         showLoadingView()
         fetchWatchlistData()
+        fetchedData = true
         setUpObserver()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if fetchedData {
+            fetchWatchlistData()
+        }
     }
     // MARK: - Private
     private func setUpObserver() {
@@ -112,6 +122,7 @@ class WatchListViewController: LoadingViewController {
             self?.craeteViewModels()
             self?.tableView.reloadData()
             self?.hideLoadingView()
+            self?.fetchedData = false
         }
     }
     private func craeteViewModels() {

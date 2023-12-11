@@ -17,6 +17,7 @@ struct CryptoChartView: View {
     @State private var percentage: CGFloat = 0
     @State private var touchLocation: CGPoint = .zero
     @State private var showPopover = false
+    @State private var showPulsatingView = false
 
 
     init(coin: CoinModel) {
@@ -107,39 +108,43 @@ struct PopoverView: View {
 extension CryptoChartView {
     private var chartView: some View {
         GeometryReader { geometry in
-            Path { path in
-                for index in data.indices {
-                    let xPosition = geometry.size.width / CGFloat(data.count)
-                    * CGFloat(index + 1)
+            ZStack {
+                // 创建一个路径用于绘制线图
+                Path { path in
+                    for index in data.indices {
+                        let xPosition = geometry.size.width / CGFloat(data.count) * CGFloat(index + 1)
+                        let yAxis = maxY - minY
+                        let yPosition = (1 - CGFloat((data[index] - minY) / yAxis)) * geometry.size.height
 
-                    let yAxis = maxY - minY
-
-                    let yPosition = (1 - CGFloat((data[index] - minY)) / yAxis) * geometry.size.height
-
-                    if index == 0 {
-                        path.move(to: CGPoint(x: xPosition, y: yPosition))
+                        if index == 0 {
+                            path.move(to: CGPoint(x: xPosition, y: yPosition))
+                        } else {
+                            path.addLine(to: CGPoint(x: xPosition, y: yPosition))
+                        }
                     }
-                    path.addLine(to: CGPoint(x: xPosition, y: yPosition))
                 }
-            }
-            .trim(from: 0, to: percentage)
-            .stroke(lineColor,
-                style: StrokeStyle(
-                    lineWidth: 2,
-                    lineCap: .round,
-                    lineJoin: .round)
-            )
-            .shadow(color: lineColor, radius: 10, x: 0.0, y: 10)
-            .shadow(color: lineColor.opacity(0.5), radius: 10, x: 0.0, y: 20)
-            .contentShape(Rectangle())
-            .gesture(DragGesture().onChanged { value in
-                touchLocation = value.location
-                showPopover = true
-            }
+                .trim(from: 0, to: percentage)
+                .stroke(lineColor, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                .shadow(color: lineColor, radius: 10, x: 0.0, y: 10)
+                .shadow(color: lineColor.opacity(0.5), radius: 10, x: 0.0, y: 20)
+                .contentShape(Rectangle())
+                .gesture(DragGesture().onChanged { value in
+                    touchLocation = value.location
+                    showPopover = true
+                }
                 .onEnded { _ in
                     showPopover = false
-                }
-            )
+                })
+                if showPulsatingView, let lastData = data.last {
+                            let xPosition = geometry.size.width / CGFloat(data.count) * CGFloat(data.count - 1)
+                            let yAxis = maxY - minY
+                            let yPosition = (1 - CGFloat((lastData - minY) / yAxis)) * geometry.size.height
+
+                            PulsatingView(color: lineColor)
+                                .position(x: xPosition, y: yPosition)
+                                .zIndex(1) 
+                        }
+                    }
             .overlay(
                 PopoverView(
                     show: $showPopover,
@@ -151,8 +156,16 @@ extension CryptoChartView {
                     lineColor: lineColor
                 )
             )
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation(.easeOut(duration: 1.0)) {
+                                self.showPulsatingView = true
+                            }
+                        }
+                    }
         }
     }
+
     private var chartBackground: some View {
         VStack {
             Divider()

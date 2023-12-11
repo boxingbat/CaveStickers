@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject {
     private var webSocket: URLSessionWebSocketTask?
     var onReceive: ((String) -> Void)?
     private var symbol: String?
     @Published var latestPrice: String = ""
+    @Published var priceChangeColor: Color = .theme.accent
+    @Published var flashColor: Color = .clear
 
     func connect(withSymbol symbol: String) {
         self.symbol = symbol
@@ -30,7 +33,7 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
         }
     }
     func receive() {
-        webSocket?.receive(completionHandler: { [weak self] result in
+        webSocket?.receive { [weak self] result in
             switch result {
             case .success(let message):
                 switch message {
@@ -46,24 +49,42 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
             case .failure(let error):
                 print("Receive error: \(error)")
             }
-            self?.receive() // Continue receiving messages
-        })
+            self?.receive() 
+        }
     }
     private func handleReceivedData(_ data: Data) {
         do {
             let stockInfo = try JSONDecoder().decode(WebsocketStockInfo.self, from: data)
             if let firstPriceData = stockInfo.data.first {
-                let displayString = "\(firstPriceData.symbolData): \(firstPriceData.priceData)"
-                print("\(displayString)")
-                onReceive?(String(firstPriceData.priceData))
+                let newPrice = firstPriceData.priceData
+                let oldPrice = Double(self.latestPrice) ?? 0.0
+
                 DispatchQueue.main.async {
-                    self.latestPrice = firstPriceData.priceData.asCurrencyWith2Decimals()
+                    if newPrice > oldPrice {
+                        self.flashPriceChange(.theme.green)
+                    } else if newPrice < oldPrice {
+                        self.flashPriceChange(.theme.red)
+                    }
+
+                    self.latestPrice = String(newPrice)
                 }
             }
         } catch {
             print("JSON decode error: \(error)")
         }
     }
+
+    private func flashPriceChange(_ color: Color) {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.flashColor = color
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.flashColor = .clear
+            }
+        }
+    }
+
     func ping() {
         webSocket?.sendPing { error in
             if let error = error {

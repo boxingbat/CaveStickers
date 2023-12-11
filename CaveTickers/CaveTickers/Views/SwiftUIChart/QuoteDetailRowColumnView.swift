@@ -37,8 +37,6 @@ struct QuoteDetailRowColumnView: View {
 struct QuoteDetailRowColumnView_Previews: PreviewProvider {
     static var previews: some View {
         QuoteDetailRowColumnView(item: .init(rows: [
-            .init(title: "Open", value: "164.23"),
-            .init(title: "Open", value: "164.23"),
             .init(title: "Open", value: "164.23")
         ])
         )

@@ -139,6 +139,9 @@ extension Double {
     func asNumberString() -> String {
         return String(format: "%.2f", self)
     }
+    func toIntegerPartString() -> String {
+        return String(format: "%.0f", self)
+    }
 
     /// Converts a Double into string representation with percent symbol
     /// ```

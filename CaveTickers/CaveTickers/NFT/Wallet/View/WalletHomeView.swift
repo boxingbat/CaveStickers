@@ -63,7 +63,6 @@ struct WalletHomeView: View {
                         .foregroundColor(.theme.secondaryText)
                         .font(.system(size: 12))
                         .padding(.leading, 8)
-
                 }
             }
             .padding(.horizontal, 50)
