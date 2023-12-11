@@ -7,6 +7,10 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 // swiftlint:disable all
 @main
@@ -14,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         debug()
+        FirebaseApp.configure()
         return true
     }
 

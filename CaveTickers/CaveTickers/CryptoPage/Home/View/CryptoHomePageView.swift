@@ -69,6 +69,8 @@ extension CryptoHomePageView {
                 .onTapGesture {
                     if showPortfolio {
                         showPortfolioView.toggle()
+                    } else {
+                        fatalError("Crash was triggered")
                     }
                 }
 
