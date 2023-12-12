@@ -98,16 +98,13 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     private func setupSaveButton() {
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.titleLabel?.textColor = .jadeGreen
-        saveButton.titleLabel?.font = UIFont.sfProDisplayHeavy(size: 24)
+        saveButton.setImage(UIImage(systemName: "square.and.arrow.up.fill"), for: .normal)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveButton)
-
         NSLayoutConstraint.activate([
-            saveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            saveButton.widthAnchor.constraint(equalToConstant: 50),
             saveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
 

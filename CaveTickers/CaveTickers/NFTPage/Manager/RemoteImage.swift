@@ -15,7 +15,7 @@ struct RemoteImage: View {
 
     // MARK: - Main rendering function
     public var body: some View {
-        let placeholder = UIImage(named: "placeholder")!
+        let placeholder = UIImage(named: "placeholder") ?? UIImage()
             Image(uiImage: assetModel.image ?? placeholder)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -47,21 +47,21 @@ class AssetModel: ObservableObject {
                 image = documentsImage
             } else {
                 if let imageUrl = URL(string: imageLocation) {
-                    URLSession.shared.dataTask(with: imageUrl) { (data, _, _) in
+                    URLSession.shared.dataTask(with: imageUrl) { data, _, _ in
                         DispatchQueue.main.async {
                             if let imageData = data, let downloadedImage = UIImage(data: imageData) {
                                 self.saveImageInDocumentDirectory(image: downloadedImage, fileName: self.imageLocation)
                                 self.image = downloadedImage
                             } else {
                                 print("\nNFT Image Failed: \(self.imageLocation)\n")
-                                self.image = UIImage(named: "placeholder")!
+                                self.image = UIImage(named: "placeholder") ?? UIImage()
                             }
                         }
                     }
                     .resume()
                 } else {
                     DispatchQueue.main.async {
-                        self.image = UIImage(named: "placeholder")!
+                        self.image = UIImage(named: "placeholder") ?? UIImage()
                     }
                 }
             }

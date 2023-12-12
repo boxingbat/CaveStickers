@@ -64,22 +64,17 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
-        let addButton = UIButton(type: .custom)
+        let addButton = UIButton()
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.backgroundColor = UIColor.springGreen
-        addButton.setTitle("+", for: .normal)
-        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-        addButton.titleLabel?.textColor = UIColor(named: "AccentColor")
-        addButton.layer.cornerRadius = 25
+        addButton.setImage(UIImage(systemName: "plus.square.fill.on.square.fill"), for: .normal)
         view.addSubview(addButton)
 
         NSLayoutConstraint.activate([
             addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            addButton.widthAnchor.constraint(equalToConstant: 50),
-            addButton.heightAnchor.constraint(equalToConstant: 50)
+            addButton.widthAnchor.constraint(equalToConstant: 75),
+            addButton.heightAnchor.constraint(equalToConstant: 75)
         ])
-
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
 
         tableView.register(StockTableViewCell.self, forCellReuseIdentifier: "StockCell")

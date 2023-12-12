@@ -19,7 +19,10 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
     func connect(withSymbol symbol: String) {
         self.symbol = symbol
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
-        let url = URL(string: "wss://ws.finnhub.io?token=clau1chr01qi1291dli0clau1chr01qi1291dlig")!
+        guard let url = URL(string: "wss://ws.finnhub.io?token=clau1chr01qi1291dli0clau1chr01qi1291dlig") else {
+            print("Invalid URL")
+            return
+        }
         webSocket = session.webSocketTask(with: url)
         webSocket?.resume()
     }

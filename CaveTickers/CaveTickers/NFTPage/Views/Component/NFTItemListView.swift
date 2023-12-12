@@ -55,7 +55,9 @@ private var openSeaLogoView: some View {
         Spacer()
         Button(action: {
             UIImpactFeedbackGenerator().impactOccurred()
-            UIApplication.shared.open(URL(string: AppConfig.openSeaAPIDocs)!, options: [:], completionHandler: nil)
+            if let url = URL(string: AppConfig.openSeaAPIDocs) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }, label: {
             Image("opensea-logo")
                 .resizable()

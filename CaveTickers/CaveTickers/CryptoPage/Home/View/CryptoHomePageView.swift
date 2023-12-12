@@ -63,7 +63,7 @@ extension CryptoHomePageView {
     private var homeHeader: some View {
         HStack {
             CircleButtonView(iconName: showPortfolio ? "plus" : "slowmo")
-//                .animation(.none)
+            //                .animation(.none)
                 .onTapGesture {
                     if showPortfolio {
                         showPortfolioView.toggle()
@@ -71,7 +71,6 @@ extension CryptoHomePageView {
                         fatalError("Crash was triggered")
                     }
                 }
-
                 .background(
                     CircleButtonAnimationView(animate: $showPortfolio)
                 )
@@ -80,7 +79,7 @@ extension CryptoHomePageView {
                 .font(.headline)
                 .fontWeight(.heavy)
                 .foregroundColor(Color.theme.accent)
-//                .animation(.none)
+            //                .animation(.none)
             Spacer()
             CircleButtonView(iconName: "chevron.right")
                 .rotationEffect(Angle(degrees: showPortfolio ? 180 : 0))
