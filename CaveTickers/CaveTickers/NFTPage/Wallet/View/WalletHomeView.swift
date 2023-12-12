@@ -13,6 +13,7 @@ struct WalletHomeView: View {
     @EnvironmentObject var manager: NFTDataManager
     @Binding var showAssetDetails: Bool
     @State private var ownerAddress: String?
+    @State private var isFlashing = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -21,10 +22,16 @@ struct WalletHomeView: View {
                     Text("Status")
                         .foregroundColor(.theme.secondaryText)
                         .font(.system(size: 10))
-                    Text("\(metaMaskRepo.connectionStatus)")
-                        .fontWeight(.medium)
-                    .foregroundColor(metaMaskRepo.statusColor)
-                    .font(.system(size: 16))
+                    HStack {
+                        if metaMaskRepo.connectionStatus == "Connected" {
+                            FlashingView()
+                                .frame(width: 10, height: 10)
+                        }
+                        Text("\(metaMaskRepo.connectionStatus)")
+                            .fontWeight(.medium)
+                            .foregroundColor(metaMaskRepo.statusColor)
+                            .font(.system(size: 16))
+                    }
                 }
                 Spacer()
                 VStack(alignment: .center) {
@@ -132,5 +139,18 @@ struct WalletHomeView_Previews: PreviewProvider {
             return WalletHomeView(showAssetDetails: $showDetails)
                 .environmentObject(manager)
         }
+    }
+}
+struct FlashingView: View {
+    @State private var isAnimating = false
+
+    var body: some View {
+        Circle()
+            .fill(Color.themeGreen)
+            .opacity(isAnimating ? 1 : 0)
+            .animation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isAnimating)
+            .onAppear {
+                isAnimating = true
+            }
     }
 }

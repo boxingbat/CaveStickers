@@ -62,8 +62,8 @@ struct CryptoHomePageView_Previews: PreviewProvider {
 extension CryptoHomePageView {
     private var homeHeader: some View {
         HStack {
-            CircleButtonView(iconName: showPortfolio ? "plus" : "info")
-                .animation(.none)
+            CircleButtonView(iconName: showPortfolio ? "plus" : "slowmo")
+//                .animation(.none)
                 .onTapGesture {
                     if showPortfolio {
                         showPortfolioView.toggle()
@@ -76,11 +76,11 @@ extension CryptoHomePageView {
                     CircleButtonAnimationView(animate: $showPortfolio)
                 )
             Spacer()
-            Text(showPortfolio ? "Watchlist" : "LivePrice")
+            Text(showPortfolio ? "Watchlist" : "Latest Pirce")
                 .font(.headline)
                 .fontWeight(.heavy)
                 .foregroundColor(Color.theme.accent)
-                .animation(.none)
+//                .animation(.none)
             Spacer()
             CircleButtonView(iconName: "chevron.right")
                 .rotationEffect(Angle(degrees: showPortfolio ? 180 : 0))
@@ -100,6 +100,7 @@ extension CryptoHomePageView {
                     .onTapGesture {
                         segue(coin: coin)
                     }
+                    .transition(.slide)
             }
         }
         .listStyle(PlainListStyle())

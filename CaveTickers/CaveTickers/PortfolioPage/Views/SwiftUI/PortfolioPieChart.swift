@@ -9,9 +9,6 @@ import SwiftUI
 
 struct PortfolioPieChart: View {
     @ObservedObject var viewModel: PieChartViewModel
-    @State private var isBreathing = false
-
-
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -59,6 +56,7 @@ struct PortfolioPieChart: View {
                             .foregroundColor(viewModel.growthRate >= 0 ? Color.theme.accent : .red)
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
+                    .offset(x: -60)
                 }
                 }.frame(maxWidth: .infinity, alignment: .leading)
                     .frame(maxWidth: .infinity)
@@ -82,7 +80,8 @@ struct PortfolioPieChart: View {
 
         return PieSlice(startAngle: .degrees(startAngleDegrees), endAngle: .degrees(endAngleDegrees))
             .fill(self.color(for: segment))
-            .shadow(color: .theme.secondaryText.opacity(isBreathing ? 1 : 0.5), radius: isBreathing ? 3 : 2, x: 0, y: 2)
+            .shadow(color: .theme.secondaryText.opacity(0.5), radius: 2, x: 2, y: 2)
+            .shadow(color: .theme.secondaryText.opacity(0.3), radius: 3, x: 3, y: 3 )
             .overlay(
                 PieSlice(startAngle: .degrees(startAngleDegrees), endAngle: .degrees(endAngleDegrees))
                     .stroke(Color.black, lineWidth: 0.5)

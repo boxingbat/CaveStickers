@@ -19,7 +19,6 @@ struct CryptoChartView: View {
     @State private var showPopover = false
     @State private var showPulsatingView = false
 
-
     init(coin: CoinModel) {
         data = coin.sparklineIn7D?.price ?? []
         maxY = data.max() ?? 0
@@ -126,6 +125,7 @@ extension CryptoChartView {
                 .stroke(lineColor, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                 .shadow(color: lineColor, radius: 10, x: 0.0, y: 10)
                 .shadow(color: lineColor.opacity(0.5), radius: 10, x: 0.0, y: 20)
+                .shadow(color: lineColor.opacity(0.2), radius: 10, x: 0.0, y: 20)
                 .contentShape(Rectangle())
                 .gesture(DragGesture().onChanged { value in
                     touchLocation = value.location
