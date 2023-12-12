@@ -10,15 +10,15 @@ import Foundation
 
 class NFTDataManager: NSObject, ObservableObject {
     /// Dynamic properties that the UI will react to
-    @Published var lastSoldNFTItems: [NFTAssetModel] = [NFTAssetModel]()
-    @Published var newReleasedNFTItems: [NFTAssetModel] = [NFTAssetModel]()
-    @Published var holdingNFTItems: [NFTAssetModel] = [NFTAssetModel]()
-    @Published var favoriteNFTItems: [NFTAssetModel] = [NFTAssetModel]()
-    @Published var assetStats: [String: NFTAssetStatsModel] = [String: NFTAssetStatsModel]()
-    @Published var collections: [NFTCollection: NFTAssetModel] = [NFTCollection: NFTAssetModel]()
-    @Published var selectedCollectionItems: [NFTCollection: [NFTAssetModel]] = [NFTCollection: [NFTAssetModel]]()
+    @Published var lastSoldNFTItems: [NFTAssetModel] = []
+    @Published var newReleasedNFTItems: [NFTAssetModel] = []
+    @Published var holdingNFTItems: [NFTAssetModel] = []
+    @Published var favoriteNFTItems: [NFTAssetModel] = []
+    @Published var assetStats: [String: NFTAssetStatsModel] = [:]
+    @Published var collections: [NFTCollection: NFTAssetModel] = [:]
+    @Published var selectedCollectionItems: [NFTCollection: [NFTAssetModel]] = [:]
     @Published var selectedCollection: NFTCollection = .blockart
-    @Published var selectedNFTItem: NFTAssetModel!
+    @Published var selectedNFTItem: NFTAssetModel?
 
     /// Default init method
     override init() {
@@ -91,7 +91,6 @@ class NFTDataManager: NSObject, ObservableObject {
     }
 
     func generateMockHoldingNFTItems() {
-
         let demoAssetModels = [
             NFTAssetModel(
                 id: 0,
@@ -120,8 +119,8 @@ class NFTDataManager: NSObject, ObservableObject {
                 creator: Creator(user: User(username: "demo user 2"))
             )
         ]
-           holdingNFTItems = demoAssetModels
-       }
+        holdingNFTItems = demoAssetModels
+    }
 }
 
 // MARK: - Fetch NFT assets
@@ -213,24 +212,23 @@ extension NFTDataManager {
     .resume()
     }
     func fetchAssetsForOwner(ownerAddress: String) {
-           let requestParams = OwnerAssetsRequestParameters(ownerAddress: ownerAddress)
-           guard let requestURL = requestParams.requestURL else { return }
-           var urlRequest = URLRequest(url: requestURL)
-           urlRequest.setValue(AppConfig.apiKey, forHTTPHeaderField: "X-API-KEY")
-           URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
-               guard let self = self, error == nil, let data = data else {
-                   print(error ?? "Unknown error")
-                   return
-               }
-
-               self.parseData(data, lastSoldItems: false) { models in
-                   DispatchQueue.main.async {
-                       self.holdingNFTItems = models
-                   }
-               }
-           }
-           .resume()
-       }
+        let requestParams = OwnerAssetsRequestParameters(ownerAddress: ownerAddress)
+        guard let requestURL = requestParams.requestURL else { return }
+        var urlRequest = URLRequest(url: requestURL)
+        urlRequest.setValue(AppConfig.apiKey, forHTTPHeaderField: "X-API-KEY")
+        URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
+            guard let self = self, error == nil, let data = data else {
+                print(error ?? "Unknown error")
+                return
+            }
+            self.parseData(data, lastSoldItems: false) { models in
+                DispatchQueue.main.async {
+                    self.holdingNFTItems = models
+                }
+            }
+        }
+        .resume()
+    }
     /// Parse fetched data from the API
     /// - Parameters:
     ///   - data: data from API response

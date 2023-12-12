@@ -11,10 +11,11 @@ import SwiftUI
 // Base class that provides loading functionality
 class LoadingViewController: UIViewController {
     private var loadingStateVC: UIHostingController<LoadingStateView>?
-    override func viewDidLoad() {
-        view.backgroundColor = .charcoalGray
-    }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .charcoalGray
+        }
     // Method to show loading view
     func showLoadingView() {
         let loadingView = LoadingStateView(isLoading: true)

@@ -84,11 +84,11 @@ enum CustomTabBarItem: String, CaseIterable, Identifiable {
     var headerTitle: String {
         switch self {
         case .home:
-            return "NFT Marketplace"
+            return "Latest NFT"
         case .favorite:
             return "Favorite"
         case .collection:
-            return "Collections"
+            return "Gallery"
         }
     }
 

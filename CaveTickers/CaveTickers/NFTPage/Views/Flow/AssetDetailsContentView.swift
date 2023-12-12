@@ -34,11 +34,6 @@ struct AssetDetailsContentView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("")
         .navigationBarHidden(true)
-//        .onAppear() {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//                Interstitial.shared.showInterstitialAds()
-//            }
-//        }
     }
 
     /// Back button
@@ -71,7 +66,7 @@ struct AssetDetailsContentView: View {
             }
             HStack {
                 Text("Created by")
-                Text(manager.selectedNFTItem.creator?.user.username ?? "SKC37624")
+                Text(manager.selectedNFTItem?.creator?.user.username ?? "SKC37624")
                     .font(.system(size: 18))
                     .bold()
                     .foregroundColor(Color.theme.accent)
@@ -108,18 +103,18 @@ struct AssetDetailsContentView: View {
                     }
                 }
                 Spacer()
-                VStack(alignment: .trailing) {
-                    sectionHeader(title: "Item Price")
-                    Spacer()
-                    HStack {
-                        if let item = manager.selectedNFTItem {
-                            Text(manager.price(forAsset: item))
-                        } else {
-                            Text("0.8652ETH")
-                        }
-                        Spacer()
+            VStack(alignment: .trailing) {
+                sectionHeader(title: "Item Price")
+                Spacer()
+                HStack {
+                    if let item = manager.selectedNFTItem {
+                        Text(manager.price(forAsset: item))
+                    } else {
+                        Text("0.8652ETH")
                     }
-            }.padding(.top, 20)
+                    Spacer()
+                }
+            } .padding(.top, 20)
         }.fixedSize(horizontal: false, vertical: true)
             .foregroundColor(Color.theme.accent)
     }

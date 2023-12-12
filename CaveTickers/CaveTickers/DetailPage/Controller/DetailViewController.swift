@@ -22,7 +22,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     var closedPrice: String?
     let tableView: UITableView = {
         let table = UITableView()
-//        table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
         table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identfier)
         return table
     }()
@@ -41,9 +40,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    deinit {
-//        webSocketManager.close()
-//    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,25 +48,11 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         fetchFinancialData()
         setUpTableView()
         checkStockExist()
-//        webSocketManager.connect(withSymbol: symbol)
-//        setupWebSocket()
         setupSwiftUIHeaderView()
         checkStockExist()
         fetchNews()
     }
     // MARK: - Private
-//    private func setupWebSocket() {
-//        webSocketManager.onReceive = { message in
-//            print("Received message: \(message)")
-//            DispatchQueue.main.async {
-//                NotificationCenter.default.post(
-//                    name: NSNotification.Name("UpdatePriceLabel"),
-//                    object: nil,
-//                    userInfo: ["price": message]
-//                )
-//            }
-//        }
-//    }
     private func setUpTableView() {
         view.addSubview(tableView)
         DispatchQueue.main.async { [weak self] in
@@ -110,7 +92,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
         let quoteVM = TickerQuoteViewModel(ticker: Ticker(symbol: symbol), stocksAPI: XCAStocksAPI())
         let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM, symbol: symbol)
-        let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
         let hostingController = UIHostingController(rootView: stockTickerView)
         addChild(hostingController)
         view.addSubview(hostingController.view)

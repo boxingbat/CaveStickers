@@ -17,7 +17,7 @@ class PortfolioDataManager {
 
     init () {
         container = NSPersistentContainer(name: containerName)
-        container.loadPersistentStores { (_, error) in
+        container.loadPersistentStores { _, error in
             if let error = error { print("Error loading Core Data \(error)") }
             self.getPortfolio()
         }

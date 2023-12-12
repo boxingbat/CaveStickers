@@ -44,9 +44,7 @@ struct CryptoHomePageView: View {
         .background(
             NavigationLink(
                 destination: DetailLoadingView(coin: $selectedCoin),
-                isActive: $showDetailView,
-                label: { EmptyView() }
-            )
+                isActive: $showDetailView) { EmptyView() }
         )
     }
 }

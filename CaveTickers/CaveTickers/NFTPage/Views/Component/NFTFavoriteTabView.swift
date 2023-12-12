@@ -19,7 +19,7 @@ struct FavoriteTabView: View {
                 emptyStateView
             }
             ScrollView(.vertical, showsIndicators: false) {
-                NFTFavoritesListView() { item in
+                NFTFavoritesListView { item in
                     manager.selectedNFTItem = item
                     showAssetDetails = true
                 }.padding([.leading, .trailing])

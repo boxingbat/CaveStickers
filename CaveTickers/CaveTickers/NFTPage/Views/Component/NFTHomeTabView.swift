@@ -19,26 +19,26 @@ struct NFTHomeTabView: View {
                         manager.fetchNewReleasedItems()
                     }
                 }.foregroundColor(Color.theme.accent)
-                NFTItemsCarouselView() { item in
+                NFTItemsCarouselView { item in
                     manager.selectedNFTItem = item
                     showAssetDetails = true
                 }
             }
             VStack(spacing: 0) {
                 Divider()
-                ScrollView(.vertical, showsIndicators: false, content: {
+                ScrollView(.vertical, showsIndicators: false) {
                     sectionHeader(title: "Last Sold") {
                         manager.lastSoldNFTItems.removeAll()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             manager.fetchLastSoldItems()
                         }
                     }.foregroundColor(Color.theme.accent).padding(.top, 10)
-                    NFTItemListView() { item in
+                    NFTItemListView { item in
                         manager.selectedNFTItem = item
                         showAssetDetails = true
                     }.padding([.leading, .trailing])
                     Spacer(minLength: 70)
-                })
+                }
             }
         }.padding(.top, DashboardContentView.headerHeight / 3)
     }
@@ -63,7 +63,7 @@ struct NFTHomeTabView_Previews: PreviewProvider {
     }
 
     struct NFTHomeTabViewPreviews: View {
-        @State private var showDetails: Bool = false
+        @State private var showDetails = false
 
         // MARK: - Main rendering function
         var body: some View {

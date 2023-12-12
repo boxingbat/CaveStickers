@@ -48,12 +48,7 @@ struct NFTItemListView: View {
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             Spacer()
-            Image(systemName: "arrow.right").padding(.trailing).foregroundColor(Color("GrayColor"))
         }
-        .background(
-            Color("TileColor").cornerRadius(20)
-                .shadow(color: Color.black.opacity(0.12), radius: 8))
-        .padding(10)
     }
 private var openSeaLogoView: some View {
     HStack {
@@ -70,7 +65,7 @@ private var openSeaLogoView: some View {
         Spacer()
     }
     .padding(20)
-    .foregroundColor(Color("GrayColor"))
+    .foregroundColor(Color.gray)
     .opacity(0.1)
     }
 }

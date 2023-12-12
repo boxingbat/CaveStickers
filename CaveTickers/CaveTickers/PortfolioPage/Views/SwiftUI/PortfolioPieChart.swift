@@ -123,8 +123,8 @@ struct PortfolioPieChart: View {
         let endAngleDegrees = startAngleDegrees + angle
         let midAngle = (startAngleDegrees + endAngleDegrees) / 2 * (.pi / 180)
 
-        let labelX = center.x - 50 + cos(midAngle) * radius * 0.5
-        let labelY = center.y - 50 + sin(midAngle) * radius * 0.45
+        let labelX = center.x - 70 + cos(midAngle) * radius * 0.5
+        let labelY = center.y - 70 + sin(midAngle) * radius * 0.5
 
         return Text(segment.symbol)
             .position(x: labelX, y: labelY)

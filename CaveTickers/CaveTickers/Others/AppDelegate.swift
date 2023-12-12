@@ -8,9 +8,6 @@
 import UIKit
 import CoreData
 import Firebase
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseAuth
 
 // swiftlint:disable all
 @main

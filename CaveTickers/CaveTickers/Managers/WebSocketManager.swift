@@ -49,7 +49,7 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
             case .failure(let error):
                 print("Receive error: \(error)")
             }
-            self?.receive() 
+            self?.receive()
         }
     }
     private func handleReceivedData(_ data: Data) {
@@ -61,9 +61,9 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
 
                 DispatchQueue.main.async {
                     if newPrice > oldPrice {
-                        self.flashPriceChange(.theme.green)
+                        self.flashPriceChange(.themeGreen)
                     } else if newPrice < oldPrice {
-                        self.flashPriceChange(.theme.red)
+                        self.flashPriceChange(.themeRed)
                     }
 
                     self.latestPrice = String(newPrice)

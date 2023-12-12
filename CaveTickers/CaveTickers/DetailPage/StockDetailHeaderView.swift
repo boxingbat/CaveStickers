@@ -7,10 +7,11 @@
 
 import UIKit
 
-final class StockDetailHeaderView: UIView,
-                                   UICollectionViewDelegate,
-                                   UICollectionViewDataSource,
-                                   UICollectionViewDelegateFlowLayout {
+final class StockDetailHeaderView:
+    UIView,
+    UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    UICollectionViewDelegateFlowLayout {
     private var metricViewModels: [MetricCollectionViewCell.ViewModel] = []
 
     weak var delegate: DetailHeaderViewDelegate?
@@ -20,7 +21,6 @@ final class StockDetailHeaderView: UIView,
         button.backgroundColor = .systemBlue
         return button
     }()
-
     /// CollectionView
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

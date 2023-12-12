@@ -21,9 +21,9 @@ struct CalculatorPresenter {
             )
             .prefix(withText: gainSymbol),
             yield: result.yield.percentageFormat,
-            yieldLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red),
+            yieldLabelTextColor: isProfitable ? UIColor(Color.themeGreen) : UIColor(Color.themeRed),
             annualReturn: result.annualReturn.percentageFormat,
-            annualReturnLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red))
+            annualReturnLabelTextColor: isProfitable ? UIColor(Color.themeGreen) : UIColor(Color.themeRed))
     }
 }
 struct CalculatorPresentation {

@@ -62,10 +62,7 @@ struct ChartView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
                     showPulsatingView = true
                 }
-//                webSocketManager.connect(withSymbol: viewModel.)
-//                webSocketManager.send(symbol: "BINANCE:\(viewModel.coin.symbol.uppercased())USDT")
-        }
-
+            }
     }
 
     private func calculatePulsatingViewYPosition(geometry: GeometryProxy, data: ChartViewData) -> CGFloat {

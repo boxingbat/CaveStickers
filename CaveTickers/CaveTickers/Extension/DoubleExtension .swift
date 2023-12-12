@@ -43,24 +43,19 @@ extension Double {
     var roundedString: String {
         String(format: "%.2f", self)
     }
-    func formatUsingAbbrevation () -> String {
+    func formatUsingAbbrevation() -> String {
         let numFormatter = NumberFormatter()
 
-        typealias Abbrevation = (
-            threshold: Double,
-            divisor: Double,
-            suffix: String
-        )
-        let abbreviations: [Abbrevation] = [
-            (0, 1, ""),
-            (1000.0, 1000.0, "K"),
-            (100_000.0, 1_000_000.0, "M"),
-            (100_000_000.0, 1_000_000_000.0, "B"),
-            (100_000_000_000.0,
-            1_000_000_000_000.0, "T")
+        let abbreviations: [Abbreviation] = [
+            .init(threshold: 0, divisor: 1, suffix: ""),
+            .init(threshold: 1000.0, divisor: 1000.0, suffix: "K"),
+            .init(threshold: 100_000.0, divisor: 1_000_000.0, suffix: "M"),
+            .init(threshold: 100_000_000.0, divisor: 1_000_000_000.0, suffix: "B"),
+            .init(threshold: 100_000_000_000.0, divisor: 1_000_000_000_000.0, suffix: "T")
         ]
+
         let startValue = Double(abs(self))
-        let abbreviation: Abbrevation = {
+        let abbreviation: Abbreviation = {
             var prevAbbreviation = abbreviations[0]
             for tmpAbbreviation in abbreviations {
                 if startValue < tmpAbbreviation.threshold {
@@ -82,6 +77,7 @@ extension Double {
 
         return numFormatter.string(from: NSNumber(value: value)) ?? "\(self)"
     }
+
 
     /// Converts a Double into a Currency with 2 decimal places
     /// ```
@@ -190,4 +186,9 @@ extension Double {
             return "\(sign)\(self)"
         }
     }
+}
+struct Abbreviation {
+    let threshold: Double
+    let divisor: Double
+    let suffix: String
 }

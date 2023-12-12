@@ -17,7 +17,7 @@ struct NFTHoldingCarouseView: View {
             if manager.holdingNFTItems.isEmpty {
                 loadingStateView
             }
-            ScrollView(.horizontal, showsIndicators: false, content: {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
                     Spacer(minLength: 10)
                     ForEach(0..<manager.holdingNFTItems.count, id: \.self) { index in
@@ -25,7 +25,7 @@ struct NFTHoldingCarouseView: View {
                     }
                     Spacer(minLength: 10)
                 }
-            })
+            }
         }
     }
 
@@ -80,6 +80,6 @@ struct NFTHoldingCarouseView_Previews: PreviewProvider {
         manager.newReleasedNFTItems = [
             demoAssetModel, demoAssetModel
         ]
-        return NFTHoldingCarouseView() { _ in }.environmentObject(manager)
+        return NFTHoldingCarouseView { _ in }.environmentObject(manager)
     }
 }

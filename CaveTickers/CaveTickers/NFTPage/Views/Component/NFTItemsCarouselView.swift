@@ -17,7 +17,7 @@ struct NFTItemsCarouselView: View {
             if manager.newReleasedNFTItems.isEmpty {
                 loadingStateView
             }
-            ScrollView(.horizontal, showsIndicators: false, content: {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
                     Spacer(minLength: 10)
                     ForEach(0..<manager.newReleasedNFTItems.count, id: \.self) { index in
@@ -25,7 +25,7 @@ struct NFTItemsCarouselView: View {
                     }
                     Spacer(minLength: 10)
                 }
-            })
+            }
         }
     }
 
@@ -80,6 +80,6 @@ struct TrendingCarouselView_Previews: PreviewProvider {
         manager.newReleasedNFTItems = [
             demoAssetModel, demoAssetModel
         ]
-        return NFTItemsCarouselView() { _ in }.environmentObject(manager)
+        return NFTItemsCarouselView { _ in }.environmentObject(manager)
     }
 }

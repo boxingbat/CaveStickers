@@ -17,23 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo_Circle" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-Ej-VaG">
-                                <rect key="frame" x="69" y="186" width="254" height="260"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Cave Tickers " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9G-wZ-TK4">
-                                <rect key="frame" x="63" y="497" width="267" height="58"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cave Tickers " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9G-wZ-TK4">
+                                <rect key="frame" x="63" y="484" width="267" height="58"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="31"/>
                                 <color key="textColor" systemColor="systemMintColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_Circle" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-Ej-VaG">
+                                <rect key="frame" x="46.666666666666657" y="154" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="gVZ-Ta-Nii"/>
+                                    <constraint firstAttribute="height" constant="300" id="hgD-I5-gcy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="s9G-wZ-TK4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0gc-ag-QqP"/>
+                            <constraint firstItem="xk4-Ej-VaG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="AR7-mk-Lw4"/>
                             <constraint firstItem="s9G-wZ-TK4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="425" id="CPA-Eu-ULG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="s9G-wZ-TK4" secondAttribute="bottom" constant="276" id="H8t-he-9hI"/>
                             <constraint firstItem="s9G-wZ-TK4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="VWg-aG-S9O"/>
+                            <constraint firstItem="s9G-wZ-TK4" firstAttribute="top" secondItem="xk4-Ej-VaG" secondAttribute="bottom" constant="30" id="kfb-Lu-k4c"/>
                             <constraint firstItem="s9G-wZ-TK4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="63" id="pMB-CE-L5Z"/>
                         </constraints>
                     </view>

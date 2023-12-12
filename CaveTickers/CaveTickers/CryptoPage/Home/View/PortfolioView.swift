@@ -25,19 +25,19 @@ struct PortfolioView: View {
                 }
             }
             .navigationTitle("Edit")
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     XmarkButton()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     trailingNavBarButton
                 }
-            })
-            .onChange(of: viewModel.searchText, perform: { value in
+            }
+            .onChange(of: viewModel.searchText) { value in
                 if value.isEmpty {
                     removeSelectedCoin()
                 }
-            })
+            }
         }
     }
 }
@@ -63,7 +63,7 @@ extension PortfolioView {
                         }
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                            .stroke(selectedCoin?.id == coin.id ? Color.theme.green : Color.clear,
+                            .stroke(selectedCoin?.id == coin.id ? Color.themeGreen : Color.clear,
                                 lineWidth: 1)
                         )
                 }

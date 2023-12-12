@@ -219,7 +219,7 @@ extension WatchListViewController: SearchTableViewDelegate {
             companyName: searchResult.description,
             candleStickData: []
         )
-        let symbol = searchResult.symbol
+        _ = searchResult.symbol
         detailVc.title = searchResult.description
         navigationController?.pushViewController(detailVc, animated: true)
     }

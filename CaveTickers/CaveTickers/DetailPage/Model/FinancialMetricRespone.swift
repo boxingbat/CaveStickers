@@ -51,7 +51,7 @@ struct TimeSeriesMonthlyAdjusted: Codable {
 
     func getMonthInfos() -> [MonthInfo] {
         var monthInfos: [MonthInfo] = []
-        let sortedTimeSeries = timeSeries.sorted(by: { $0.key > $1.key })
+        let sortedTimeSeries = timeSeries.sorted { $0.key > $1.key }
         for (dateString, ohlc) in sortedTimeSeries {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"

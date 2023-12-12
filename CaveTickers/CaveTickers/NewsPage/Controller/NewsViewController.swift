@@ -41,7 +41,7 @@ class NewsViewController: LoadingViewController {
     private func fetchNews() {
         let group = DispatchGroup()
         group.enter()
-        APIManager.shared.news() { [weak self] result in
+        APIManager.shared.news { [weak self] result in
             defer {
                 group.leave()
             }

@@ -28,10 +28,10 @@ class MetaMaskRepo: ObservableObject {
         }
     }
     @Published var balance = "" {
-            didSet {
-                fetchAssetsForOwner(self.ethAddress)
-            }
+        didSet {
+            fetchAssetsForOwner(self.ethAddress)
         }
+    }
     @Published var ownerNFT: [NFTAssetModel] = []
 
     @Published private var ethereum = MetaMaskSDK.shared.ethereum
@@ -50,7 +50,7 @@ class MetaMaskRepo: ObservableObject {
         ethereum.$connected
             .sink { [weak self] isConnected in
                 self?.connectionStatus = isConnected ? "Connected" : "Disconnected"
-                self?.statusColor = isConnected ? .theme.green : .gray
+                self?.statusColor = isConnected ? .themeGreen : .gray
             }
             .store(in: &cancellables)
     }
@@ -78,7 +78,8 @@ class MetaMaskRepo: ObservableObject {
         let parameters: [String] = [ethAddress, "latest"]
 
         let getBalanceRequest = EthereumRequest(method: .ethGetBalance, params: parameters)
-        ethereum.request(getBalanceRequest)?.sink(receiveCompletion: { completion in
+        ethereum.request(getBalanceRequest)?
+            .sink(receiveCompletion: { completion in
             switch completion {
             case .failure(let error):
                 print("Failed to get balance, \(error.localizedDescription)")

@@ -71,7 +71,7 @@ struct Creator: Codable {
     let user: User
 
     enum CodingKeys: String, CodingKey {
-        case user = "user"
+        case user
     }
 
     init(from decoder: Decoder) throws {
@@ -89,7 +89,7 @@ struct User: Codable {
     let username: String
 
     enum CodingKeys: String, CodingKey {
-        case username = "username"
+        case username
     }
 
     init(from decoder: Decoder) throws {

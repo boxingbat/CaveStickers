@@ -27,8 +27,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = UIColor(named: "AccentColor")
         pieChartView = PortfolioPieChart(viewModel: pieChartViewModel)
-        hostingController = UIHostingController(rootView: pieChartView!)
-
+        hostingController = pieChartView.map { UIHostingController(rootView: $0) }
         setupHeaderView()
     }
     private func setupHeaderView() {
@@ -113,9 +112,9 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
             guard let strongSelf = self else { return }
     strongSelf.calculatedResult = strongSelf.savedPortfolio.compactMap { tempResults[$0.symbol] }
         let portfolioItems = strongSelf.savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
-                guard index < strongSelf.calculatedResult.count else { return nil }
-                return PortfolioItem(symbol: savedItem.symbol, dcaResult: strongSelf.calculatedResult[index])
-            }
+        guard index < strongSelf.calculatedResult.count else { return nil }
+            return PortfolioItem(symbol: savedItem.symbol, dcaResult: strongSelf.calculatedResult[index])
+        }
             strongSelf.pieChartViewModel.updateChart(with: portfolioItems)
             strongSelf.tableView.reloadData()
             self?.hideLoadingView()
@@ -175,15 +174,16 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
             cell.investmentAmountLabel.text = "\(result.investmentAmount)"
             cell.gainLabel.text = "\(result.gain)"
             cell.yieldLabel.text = "\(result.yield)%"
-            cell.yieldLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
+            cell.yieldLabel.textColor = result.isProfitable ? UIColor(Color.themeGreen) : UIColor(Color.themeRed)
             cell.annualReturnLabel.text = "\(result.annualReturn)%"
-            cell.annualReturnLabel.textColor = result.isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red)
+            cell.annualReturnLabel.textColor = result.isProfitable ? UIColor(Color.themeGreen) : UIColor(Color.themeRed)
         }
         return cell
     }
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
             let portfolioToDelete = savedPortfolio[indexPath.row]

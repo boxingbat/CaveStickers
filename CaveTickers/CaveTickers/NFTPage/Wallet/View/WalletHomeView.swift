@@ -40,14 +40,14 @@ struct WalletHomeView: View {
             .padding(.horizontal, 50)
             HStack {
                 Button {
-                        metaMaskRepo.connectToDapp()
-                    } label: {
-                        Image("fox")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
+                    metaMaskRepo.connectToDapp()
+                } label: {
+                    Image("fox")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
                     .background(Color.clear)
                     .buttonStyle(PlainButtonStyle())
                     .shadow(color: .theme.accent.opacity(0.6), radius: 10, x: 0, y: 2)
@@ -70,14 +70,14 @@ struct WalletHomeView: View {
                 Button {
                     metaMaskRepo.getBalance()
                     manager.fetchHoldingItems()
-                    manager.generateMockHoldingNFTItems() // for demo only 
-                    } label: {
-                        Image("024-crypto")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
+                    manager.generateMockHoldingNFTItems() // for demo only
+                } label: {
+                    Image("024-crypto")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
                     .background(Color.clear)
                     .buttonStyle(PlainButtonStyle())
                     .shadow(color: .theme.accent.opacity(0.6), radius: 10, x: 0, y: 2)
@@ -95,7 +95,7 @@ struct WalletHomeView: View {
             }
             .padding(.horizontal, 50)
             if !manager.holdingNFTItems.isEmpty {
-                NFTHoldingCarouseView() { item in
+                NFTHoldingCarouseView { item in
                     manager.selectedNFTItem = item
                     showAssetDetails = true
                 }

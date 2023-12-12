@@ -14,28 +14,28 @@ struct DashboardContentView: View {
     @State private var showWalletHome = false
     @State private var showFavorite = false
     static let headerHeight: CGFloat = UIScreen.main.bounds.height / 3.5
-
     // MARK: - Main rendering function
     var body: some View {
-            ZStack {
-                NFTDetailsNavigationLink
-                headerView
-                switch selectedTab {
-                case .home:
-                    NFTHomeTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
-                case .favorite:
-                    FavoriteTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
-                case .collection:
-                    WalletHomeView(showAssetDetails: $showAssetDetails).environmentObject(manager)
-                }
-                navigationBarView
-            .navigationBarHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .onAppear {
-                manager.fetchLastSoldItems()
-                manager.fetchNewReleasedItems()
+        ZStack {
+            NFTDetailsNavigationLink
+            headerView
+            switch selectedTab {
+            case .home:
+                NFTHomeTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
+            case .favorite:
+                FavoriteTabView(showAssetDetails: $showAssetDetails).environmentObject(manager)
+            case .collection:
+                WalletHomeView(showAssetDetails: $showAssetDetails).environmentObject(manager)
             }
+            navigationBarView
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            manager.fetchLastSoldItems()
+            manager.fetchNewReleasedItems()
         }
     }
 
@@ -51,8 +51,9 @@ struct DashboardContentView: View {
         return VStack {
             ZStack {
                 VStack(spacing: 10) {
-                        Text(selectedTab.headerTitle)
-                            .font(.system(size: 30, weight: .black))
+                    Text(selectedTab.headerTitle)
+                        .font(.system(size: 30, weight: .medium))
+//                        .foregroundColor(Color.theme.accent)
                     Capsule().frame(height: 1, alignment: .center)
                         .padding([
                             .leading,
@@ -60,7 +61,7 @@ struct DashboardContentView: View {
                         ], 40)
                         .opacity(0.4)
                     Spacer()
-                }.foregroundColor(.white).colorScheme(.light).padding(.top, 10)
+                }.foregroundColor(.gray).colorScheme(.light).padding(.top, 10)
             }.frame(height: height)
             Spacer()
         }
@@ -73,7 +74,7 @@ struct DashboardContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                VStack(spacing: 10) {
+                    VStack(spacing: 10) {
                         ForEach(CustomTabBarItem.allCases) { tab in
                             Button(action: {
                                 selectedTab = tab
@@ -106,7 +107,10 @@ struct DashboardContentView: View {
             }
         }
         return NavigationLink(destination: destinationView(),
-                              isActive: $showAssetDetails, label: { EmptyView() }).hidden()
+                              isActive: $showAssetDetails) {
+            EmptyView()
+        }
+        .hidden()
     }
 }
 

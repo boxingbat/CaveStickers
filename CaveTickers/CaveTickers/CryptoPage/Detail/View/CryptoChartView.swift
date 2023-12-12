@@ -26,7 +26,7 @@ struct CryptoChartView: View {
         minY = data.min() ?? 0
 
         let priceChange = (data.last ?? 0) - (data.first ?? 0)
-        lineColor = priceChange > 0 ? Color.theme.green : Color.theme.red
+        lineColor = priceChange > 0 ? Color.themeGreen : Color.themeRed
 
         endingDate = Date(coinGeckoString: coin.lastUpdated ?? "")
         stratingDate = endingDate.addingTimeInterval(-7 * 24 * 60 * 60)
@@ -109,7 +109,6 @@ extension CryptoChartView {
     private var chartView: some View {
         GeometryReader { geometry in
             ZStack {
-                // 创建一个路径用于绘制线图
                 Path { path in
                     for index in data.indices {
                         let xPosition = geometry.size.width / CGFloat(data.count) * CGFloat(index + 1)
@@ -132,19 +131,19 @@ extension CryptoChartView {
                     touchLocation = value.location
                     showPopover = true
                 }
-                .onEnded { _ in
-                    showPopover = false
-                })
+                    .onEnded { _ in
+                        showPopover = false
+                    })
                 if showPulsatingView, let lastData = data.last {
-                            let xPosition = geometry.size.width / CGFloat(data.count) * CGFloat(data.count - 1)
-                            let yAxis = maxY - minY
-                            let yPosition = (1 - CGFloat((lastData - minY) / yAxis)) * geometry.size.height
+                    let xPosition = geometry.size.width / CGFloat(data.count) * CGFloat(data.count - 1)
+                    let yAxis = maxY - minY
+                    let yPosition = (1 - CGFloat((lastData - minY) / yAxis)) * geometry.size.height
 
-                            PulsatingView(color: lineColor)
-                                .position(x: xPosition, y: yPosition)
-                                .zIndex(1) 
-                        }
-                    }
+                    PulsatingView(color: lineColor)
+                        .position(x: xPosition, y: yPosition)
+                        .zIndex(1)
+                }
+            }
             .overlay(
                 PopoverView(
                     show: $showPopover,
@@ -158,11 +157,11 @@ extension CryptoChartView {
             )
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            withAnimation(.easeOut(duration: 1.0)) {
-                                self.showPulsatingView = true
-                            }
-                        }
+                    withAnimation(.easeOut(duration: 1.0)) {
+                        self.showPulsatingView = true
                     }
+                }
+            }
         }
     }
 

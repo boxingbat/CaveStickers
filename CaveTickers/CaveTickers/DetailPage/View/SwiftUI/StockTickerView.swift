@@ -83,7 +83,7 @@ struct StockTickerView: View {
         switch quoteVM.phase {
         case .fetching: LoadingStateView(isLoading: true)
         case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
-                .padding(.horizontal)
+            .padding(.horizontal)
         case .success(let quote):
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
@@ -104,17 +104,17 @@ struct StockTickerView: View {
             if let quote = quoteVM.quote {
                 HStack {
                     if quote.isTrading,
-                       let price = quote.regularPriceText,
-                       let diff = quote.regularDiffText {
+                    let price = quote.regularPriceText,
+                    let diff = quote.regularDiffText {
                         priceDiffStackView(price: price, diff: diff, caption: nil)
                     } else {
                         if let atCloseText = quote.regularPriceText,
-                           let atCloseDiffText = quote.regularDiffText {
+                        let atCloseDiffText = quote.regularDiffText {
                             priceDiffStackView(price: atCloseText, diff: atCloseDiffText, caption: "At Close")
                         }
 
                         if let afterHourText = quote.postPriceText,
-                           let afterHourDiffText = quote.postPriceDiffText {
+                        let afterHourDiffText = quote.postPriceDiffText {
                             priceDiffStackView(price: afterHourText, diff: afterHourDiffText, caption: "After Hours")
                         }
                     }
@@ -161,7 +161,7 @@ struct StockTickerView: View {
                 .foregroundColor(.theme.accent)
             Text(webSocketManager.latestPrice)
                 .font(.title2.bold())
-                .foregroundColor(.theme.accent)
+                .foregroundColor(webSocketManager.flashColor == .clear ? Color.theme.accent : webSocketManager.flashColor)
             Spacer()
             Button(action: {
                 isFavorite.toggle()
@@ -170,10 +170,10 @@ struct StockTickerView: View {
                 } else {
                     PersistenceManager.shared.removeFromWatchList(symbol: symbol ?? "")
                 }
-            }) {
+            }, label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .foregroundColor(isFavorite ? .red : .gray)
-            }
+            })
         }
     }
 }

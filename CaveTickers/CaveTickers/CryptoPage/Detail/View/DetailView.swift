@@ -41,6 +41,7 @@ struct DetailView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     currencyView
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .offset(x: -13, y: 0)
                 }
                 .frame(maxWidth: .infinity)
                 Divider()
@@ -77,11 +78,11 @@ struct DetailView: View {
     }
 
     private var currencyView: some View {
-            Text("\(viewModel.coin.symbol.uppercased()) / USDT")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.theme.secondaryText)
-                    .padding(.top, 20)
+        Text("\(viewModel.coin.symbol.uppercased()) / USDT")
+            .font(.title3)
+            .fontWeight(.bold)
+            .foregroundColor(Color.theme.secondaryText)
+            .padding(.top, 20)
         }
 }
 struct DetailView_Previews: PreviewProvider {
