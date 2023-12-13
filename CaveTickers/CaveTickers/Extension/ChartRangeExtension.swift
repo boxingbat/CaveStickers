@@ -41,35 +41,7 @@ extension ChartRange: Identifiable {
     func getDateComponents(startDate: Date, endDate: Date, timezone: TimeZone) -> Set<DateComponents> {
         let component: Calendar.Component
         let value: Int
-        switch self {
-        case .oneDay:
-            component = .hour
-            value = 1
-        case .oneWeek:
-            component = .day
-            value = 1
-        case .oneMonth:
-            component = .weekOfYear
-            value = 1
-        case .threeMonth, .sixMonth:
-            component = .month
-            value = 1
-        case .ytd:
-            component = .month
-            value = 2
-        case .oneYear:
-            component = .month
-            value = 4
-        case .twoYear:
-            component = .month
-            value = 6
-        case .fiveYear, .tenYear:
-            component = .year
-            value = 2
-        case .max:
-            component = .year
-            value = 8
-        }
+        (component, value) = getComponentAndValue()
 
         var set  = Set<DateComponents>()
         var date = startDate
@@ -77,9 +49,32 @@ extension ChartRange: Identifiable {
             set.insert(startDate.dateComponents(timeZone: timezone, rangeType: self))
         }
         while date <= endDate {
-            date = Calendar.current.date(byAdding: component, value: value, to: date)!
-            set.insert(date.dateComponents(timeZone: timezone, rangeType: self))
+            guard let newDate = Calendar.current.date(byAdding: component, value: value, to: date) else { break }
+            date = newDate
+            set.insert(newDate.dateComponents(timeZone: timezone, rangeType: self))
         }
         return set
+    }
+    private func getComponentAndValue() -> (Calendar.Component, Int) {
+        switch self {
+        case .oneDay:
+            return (.hour, 1)
+        case .oneWeek:
+            return (.day, 1)
+        case .oneMonth:
+            return (.weekOfYear, 1)
+        case .threeMonth, .sixMonth:
+            return (.month, 1)
+        case .ytd:
+            return (.month, 2)
+        case .oneYear:
+            return (.month, 4)
+        case .twoYear:
+            return (.month, 6)
+        case .fiveYear, .tenYear:
+            return (.year, 2)
+        case .max:
+            return (.year, 8)
+        }
     }
 }

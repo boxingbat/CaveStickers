@@ -83,15 +83,18 @@ extension Quote {
                 QuoteDetailRowColumnItem.RowItem(title: "Open", value: openText),
                 QuoteDetailRowColumnItem.RowItem(title: "High", value: highText),
                 QuoteDetailRowColumnItem.RowItem(title: "Low", value: lowText)
-            ]), QuoteDetailRowColumnItem(rows: [
+            ]),
+            QuoteDetailRowColumnItem(rows: [
                 QuoteDetailRowColumnItem.RowItem(title: "Vol", value: volText),
                 QuoteDetailRowColumnItem.RowItem(title: "P/E", value: peText),
                 QuoteDetailRowColumnItem.RowItem(title: "Mkt Cap", value: mktCapText)
-            ]), QuoteDetailRowColumnItem(rows: [
+            ]),
+            QuoteDetailRowColumnItem(rows: [
                 QuoteDetailRowColumnItem.RowItem(title: "52W H", value: fiftyTwoWHText),
                 QuoteDetailRowColumnItem.RowItem(title: "52W L", value: fiftyTwoWLText),
                 QuoteDetailRowColumnItem.RowItem(title: "Avg Vol", value: avgVolText)
-            ]), QuoteDetailRowColumnItem(rows: [
+            ]),
+            QuoteDetailRowColumnItem(rows: [
                 QuoteDetailRowColumnItem.RowItem(title: "Yield", value: yieldText),
                 QuoteDetailRowColumnItem.RowItem(title: "Beta", value: betaText),
                 QuoteDetailRowColumnItem.RowItem(title: "EPS", value: epsText)
