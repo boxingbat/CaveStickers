@@ -130,6 +130,19 @@
 		81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0F71C1B42B2848A90079058D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
 		0F041E6A2B17098900436A81 /* CryptoHomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoHomePageView.swift; sourceTree = "<group>"; };
@@ -240,6 +253,8 @@
 		0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavoriteTabView.swift; sourceTree = "<group>"; };
 		0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContentView.swift; sourceTree = "<group>"; };
 		0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsContentView.swift; sourceTree = "<group>"; };
+		0F71C1A02B2848A70079058D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		0F71C1A22B2848A70079058D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTHoldingCarouseView.swift; sourceTree = "<group>"; };
 		0FA0F2BA2B26D82300E5EC1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FC499822B1B13BF0014079E /* WalletViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletViewController .swift"; sourceTree = "<group>"; };
@@ -836,6 +851,8 @@
 			isa = PBXGroup;
 			children = (
 				D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */,
+				0F71C1A02B2848A70079058D /* WidgetKit.framework */,
+				0F71C1A22B2848A70079058D /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -851,6 +868,7 @@
 				0F2D6CDC2B04D628007F1748 /* Sources */,
 				0F2D6CDD2B04D628007F1748 /* Frameworks */,
 				0F2D6CDE2B04D628007F1748 /* Resources */,
+				0F71C1B42B2848A90079058D /* Embed Foundation Extensions */,
 				0FA0F2B92B26D6F100E5EC1C /* ShellScript */,
 			);
 			buildRules = (
@@ -1233,6 +1251,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1271,6 +1290,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
