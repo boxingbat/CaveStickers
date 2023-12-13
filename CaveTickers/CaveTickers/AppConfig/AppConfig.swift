@@ -8,28 +8,21 @@
 import SwiftUI
 import Foundation
 
-/// Generic configurations for the app
-class AppConfig {
 
-    /// This is the AdMob Interstitial ad id
-    /// Test App ID: ca-app-pub-3940256099942544~1458002511
-//    static let adMobAdId: String = "ca-app-pub-3940256099942544/4411468910"
-//    static let adMobFrequency: Int = 3 /// every 3 nft objects seen
-
+enum AppConfig {
     // MARK: - OpenSea APIs
     static let hostName: String = "https://api.opensea.io/api/v1"
     static let assetsAPI: String = "\(hostName)/assets"
     static let assetStatsAPI: String = "\(hostName)/asset"
     static let openSeaAPIDocs: String = "https://docs.opensea.io"
 
-    static let apiKey: String = "ece7871fb832449a9fc9e78d8584da03"
+    static let apiKey: String = "303f79c1e00542acb9de4413057e9be6"
 
     /// Show/Hide "More Details" button on NFT Details screen
-    static let hideMoreDetailsButton: Bool = true
-
+    static let hideMoreDetailsButton = true
     // MARK: - Widget Configurations
-    static let showDebugLogs: Bool = false
-    static let widgetDeeplinkURI: String = "widget-deeplink://"
+    static let showDebugLogs = false
+    static let widgetDeeplinkURI = "widget-deeplink://"
 }
 
 // MARK: - API Request Builder
@@ -49,7 +42,10 @@ struct AssetsRequestParameters {
     }
 
     var requestURL: URL? {
-        let collectionType = collection != nil ? "&collection=\(collection!.rawValue)" : ""
+        var collectionType = ""
+        if let collectionValue = collection?.rawValue {
+            collectionType = "&collection=\(collectionValue)"
+        }
         let urlString = AppConfig.assetsAPI + "?order_by=\(filter.rawValue)" + collectionType + "&order_direction=\(order.rawValue)&offset=\(offset)&limit=\(limit)"
         print(urlString)
         return URL(string: urlString)
@@ -65,19 +61,34 @@ struct AssetStatsRequestParameters {
         return URL(string: urlString)
     }
 }
+struct OwnerAssetsRequestParameters {
+    let ownerAddress: String
+    var order: OrderType = .descending
+    var limit: Int = 20
+    var includeOrders = false
+
+    enum OrderType: String {
+        case ascending = "asc", descending = "desc"
+    }
+
+    var requestURL: URL? {
+        let urlString = AppConfig.assetsAPI + "?owner=\(ownerAddress)&order_direction=\(order.rawValue)&limit=\(limit)&include_orders=\(includeOrders)"
+        return URL(string: urlString)
+    }
+}
 
 // MARK: - Navigation Tab Bar
 enum CustomTabBarItem: String, CaseIterable, Identifiable {
-    case home = "house", favorite = "heart", collection = "square.grid.2x2"
+    case home = "chart.bar.doc.horizontal", favorite = "heart", collection = "books.vertical"
 
     var headerTitle: String {
         switch self {
         case .home:
-            return "NFT Marketplace"
+            return "Latest NFT"
         case .favorite:
-            return "Favorite NFTs"
+            return "Favorite"
         case .collection:
-            return "Collections"
+            return "Gallery"
         }
     }
 

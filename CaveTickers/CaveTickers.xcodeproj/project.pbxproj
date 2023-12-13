@@ -43,7 +43,6 @@
 		0F173BA82B0F8283002AF172 /* ChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA72B0F8283002AF172 /* ChartViewData.swift */; };
 		0F173BAA2B0F82EA002AF172 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */; };
 		0F173BAC2B0F8D28002AF172 /* ChartRangeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */; };
-		0F173BAE2B10CA8F002AF172 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */; };
 		0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB02B10CC79002AF172 /* XCAStocksAPI */; };
 		0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB22B10CC79002AF172 /* XCAStocksExec */; };
 		0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB62B1248D6002AF172 /* DismissButton.swift */; };
@@ -87,7 +86,6 @@
 		0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0F5442C12B14724C00B41896 /* Kingfisher */; };
 		0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C32B1472B300B41896 /* Third-Party Ext.swift */; };
 		0F5442C62B14765D00B41896 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C52B14765D00B41896 /* HapticsManager.swift */; };
-		0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442C82B157E7900B41896 /* MiniChartView.swift */; };
 		0F5442CB2B1586AE00B41896 /* LoadingViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */; };
 		0F5442CD2B15962F00B41896 /* PulsatingSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */; };
 		0F5442CF2B15D38100B41896 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442CE2B15D38100B41896 /* FontExtension.swift */; };
@@ -116,15 +114,34 @@
 		0F7012D42B1F21F30070B555 /* NFTFavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D32B1F21F30070B555 /* NFTFavoritesListView.swift */; };
 		0F7012D62B1F26DB0070B555 /* NFTHomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D52B1F26DB0070B555 /* NFTHomeTabView.swift */; };
 		0F7012D82B1F2B760070B555 /* NFTFavoriteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */; };
-		0F7012DA2B1F30060070B555 /* NFTCollectionsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */; };
 		0F7012DD2B1F3D3B0070B555 /* DashboardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */; };
 		0F7012DF2B1F57F20070B555 /* AssetDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */; };
+		0FA0F27F2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */; };
+		0FA0F2BB2B26D82300E5EC1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA0F2BA2B26D82300E5EC1C /* GoogleService-Info.plist */; };
+		0FA0F2D82B2714A900E5EC1C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0FA0F2D72B2714A900E5EC1C /* FirebaseAnalytics */; };
+		0FA0F2DA2B2714A900E5EC1C /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 0FA0F2D92B2714A900E5EC1C /* FirebaseAnalyticsOnDeviceConversion */; };
+		0FA0F2DC2B2714A900E5EC1C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0FA0F2DB2B2714A900E5EC1C /* FirebaseAnalyticsSwift */; };
+		0FA0F2DE2B2714A900E5EC1C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0FA0F2DD2B2714A900E5EC1C /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		0FA0F2E02B2714A900E5EC1C /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 0FA0F2DF2B2714A900E5EC1C /* FirebaseAppCheck */; };
 		0FC499832B1B13BF0014079E /* WalletViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499822B1B13BF0014079E /* WalletViewController .swift */; };
 		0FC499862B1B148E0014079E /* WalletHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499852B1B148E0014079E /* WalletHomeView.swift */; };
 		0FC499892B1B16D10014079E /* MetaMaskRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC499882B1B16D10014079E /* MetaMaskRepo.swift */; };
 		0FC4998C2B1B28F30014079E /* metamask-ios-sdk in Frameworks */ = {isa = PBXBuildFile; productRef = 0FC4998B2B1B28F30014079E /* metamask-ios-sdk */; };
 		81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0F71C1B42B2848A90079058D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaveTickers.release.xcconfig"; path = "Target Support Files/Pods-CaveTickers/Pods-CaveTickers.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,7 +181,6 @@
 		0F173BA72B0F8283002AF172 /* ChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewData.swift; sourceTree = "<group>"; };
 		0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartRangeExtension.swift; sourceTree = "<group>"; };
-		0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		0F173BB62B1248D6002AF172 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPieChart.swift; sourceTree = "<group>"; };
 		0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
@@ -207,7 +223,6 @@
 		0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		0F5442C32B1472B300B41896 /* Third-Party Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Third-Party Ext.swift"; sourceTree = "<group>"; };
 		0F5442C52B14765D00B41896 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
-		0F5442C82B157E7900B41896 /* MiniChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniChartView.swift; sourceTree = "<group>"; };
 		0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingViewController .swift"; sourceTree = "<group>"; };
 		0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingSwiftUIView.swift; sourceTree = "<group>"; };
 		0F5442CE2B15D38100B41896 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
@@ -236,9 +251,12 @@
 		0F7012D32B1F21F30070B555 /* NFTFavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavoritesListView.swift; sourceTree = "<group>"; };
 		0F7012D52B1F26DB0070B555 /* NFTHomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTHomeTabView.swift; sourceTree = "<group>"; };
 		0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavoriteTabView.swift; sourceTree = "<group>"; };
-		0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionsTabView.swift; sourceTree = "<group>"; };
 		0F7012DC2B1F3D3B0070B555 /* DashboardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContentView.swift; sourceTree = "<group>"; };
 		0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsContentView.swift; sourceTree = "<group>"; };
+		0F71C1A02B2848A70079058D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		0F71C1A22B2848A70079058D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTHoldingCarouseView.swift; sourceTree = "<group>"; };
+		0FA0F2BA2B26D82300E5EC1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FC499822B1B13BF0014079E /* WalletViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletViewController .swift"; sourceTree = "<group>"; };
 		0FC499852B1B148E0014079E /* WalletHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHomeView.swift; sourceTree = "<group>"; };
 		0FC499882B1B16D10014079E /* MetaMaskRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMaskRepo.swift; sourceTree = "<group>"; };
@@ -253,8 +271,13 @@
 			files = (
 				0F5442C22B14724C00B41896 /* Kingfisher in Frameworks */,
 				0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */,
+				0FA0F2D82B2714A900E5EC1C /* FirebaseAnalytics in Frameworks */,
+				0FA0F2DA2B2714A900E5EC1C /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				0FA0F2DC2B2714A900E5EC1C /* FirebaseAnalyticsSwift in Frameworks */,
 				0F173BB12B10CC79002AF172 /* XCAStocksAPI in Frameworks */,
 				0FC4998C2B1B28F30014079E /* metamask-ios-sdk in Frameworks */,
+				0FA0F2DE2B2714A900E5EC1C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				0FA0F2E02B2714A900E5EC1C /* FirebaseAppCheck in Frameworks */,
 				81743B0532488336F3ED90AC /* Pods_CaveTickers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,9 +285,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F041E692B17094900436A81 /* Crypto */ = {
+		0F041E692B17094900436A81 /* CryptoPage */ = {
 			isa = PBXGroup;
 			children = (
+				0FA0F2CB2B26E82800E5EC1C /* Model */,
 				0F09597B2B199E910084524C /* Detail */,
 				0F041E7C2B1758C100436A81 /* Manager  */,
 				0F041E7B2B173A5900436A81 /* Controller  */,
@@ -272,7 +296,7 @@
 				0F041E702B17252E00436A81 /* CryptoModel */,
 				0F0959762B199D570084524C /* Home */,
 			);
-			path = Crypto;
+			path = CryptoPage;
 			sourceTree = "<group>";
 		};
 		0F041E702B17252E00436A81 /* CryptoModel */ = {
@@ -398,47 +422,30 @@
 		0F2D6CE22B04D628007F1748 /* CaveTickers */ = {
 			isa = PBXGroup;
 			children = (
+				0F2D6D112B060388007F1748 /* Others */,
+				0F6CD1F02B0B45CF0026DE51 /* Extension */,
 				0F7012C82B1F06680070B555 /* AppConfig */,
 				0F4401C52B0F488000B703BC /* Stubs */,
 				0F2D6D062B05EA6C007F1748 /* Managers */,
-				0F4401BA2B0F22FB00B703BC /* Service */,
-				0F4401B32B0F0FA000B703BC /* ViewModel */,
-				0F6CD1F02B0B45CF0026DE51 /* Extension */,
-				0F2D6D112B060388007F1748 /* Others */,
-				0F2D6D082B05EAC4007F1748 /* Models */,
-				0F2D6D072B05EAAC007F1748 /* Controller */,
-				0F2D6D052B05EA56007F1748 /* Views */,
-				0F041E692B17094900436A81 /* Crypto */,
-				0F7012BE2B1EFFE90070B555 /* NFT */,
+				0FA0F2CE2B26E8FF00E5EC1C /* EnviromentComponent */,
+				0FA0F2BC2B26E35500E5EC1C /* WatchListPage */,
+				0FA0F2C12B26E56A00E5EC1C /* DetailPage */,
+				0FA0F2C22B26E5CA00E5EC1C /* NewsPage */,
+				0FA0F2C52B26E63000E5EC1C /* PortfolioPage */,
+				0F041E692B17094900436A81 /* CryptoPage */,
+				0F7012BE2B1EFFE90070B555 /* NFTPage */,
 				0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */,
+				0FA0F2BA2B26D82300E5EC1C /* GoogleService-Info.plist */,
 				0F2D6CF42B04D62A007F1748 /* Info.plist */,
 				0F2D6CEC2B04D628007F1748 /* PortfolioContainer.xcdatamodeld */,
 			);
 			path = CaveTickers;
 			sourceTree = "<group>";
 		};
-		0F2D6D052B05EA56007F1748 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0F4401A72B0EF48200B703BC /* SwiftUIChart */,
-				0F2D6CE92B04D628007F1748 /* Main.storyboard */,
-				0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */,
-				0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */,
-				0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */,
-				0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */,
-				0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */,
-				0F5CF0532B08B20A009CC0B1 /* NewsHeaderView.swift */,
-				0F6CD1E62B09EAEA0026DE51 /* PortfolioTableViewCell.swift */,
-				0F6CD1EA2B0A02000026DE51 /* AddPortfolioTableViewCell.swift */,
-				0F173BA32B0F742C002AF172 /* ErrorStateView.swift */,
-				0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		0F2D6D062B05EA6C007F1748 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0F4401BA2B0F22FB00B703BC /* Service */,
 				0F2D6D0B2B05ED09007F1748 /* APIManager.swift */,
 				0F2D6D0D2B05ED40007F1748 /* PersistenceManager.swift */,
 				0F2D6D0F2B05ED64007F1748 /* TapManager.swift */,
@@ -450,37 +457,6 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		0F2D6D072B05EAAC007F1748 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */,
-				0F2D6CFD2B04F15C007F1748 /* SearchViewController.swift */,
-				0F2D6CFF2B04F17E007F1748 /* NewsViewController.swift */,
-				0F2D6D012B04F1D6007F1748 /* PortfolioViewController.swift */,
-				0F2D6D092B05EC78007F1748 /* DetailViewController.swift */,
-				0F6CD1E82B09F7EC0026DE51 /* AddToPortfolioController.swift */,
-				0F6CD1EE2B0B36CC0026DE51 /* DateTableViewController.swift */,
-				0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		0F2D6D082B05EAC4007F1748 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				0F2D6D162B063063007F1748 /* SearchResponse.swift */,
-				0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */,
-				0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */,
-				0F6CD1EC2B0B061C0026DE51 /* PortfolioData.swift */,
-				0F4401A52B0DF3B600B703BC /* WebSocketData.swift */,
-				0F4401B82B0F214B00B703BC /* FetchPhase.swift */,
-				0F173BA72B0F8283002AF172 /* ChartViewData.swift */,
-				0F5442BC2B1461BF00B41896 /* NewsModel.swift */,
-				0F0959802B19AF030084524C /* CoinDetailModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		0F2D6D112B060388007F1748 /* Others */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,32 +464,6 @@
 				0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */,
 			);
 			path = Others;
-			sourceTree = "<group>";
-		};
-		0F4401A72B0EF48200B703BC /* SwiftUIChart */ = {
-			isa = PBXGroup;
-			children = (
-				0F4401A82B0EF4B600B703BC /* StockTickerView.swift */,
-				0F4401AF2B0EFBC800B703BC /* DateRangePickerView.swift */,
-				0F4401C12B0F2F1400B703BC /* ChartView.swift */,
-				0F5442C82B157E7900B41896 /* MiniChartView.swift */,
-				0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */,
-				0F173BAD2B10CA8F002AF172 /* SwiftUIView.swift */,
-				0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */,
-				0F173BA12B0F73E8002AF172 /* LoadingStateView.swift */,
-				0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */,
-			);
-			path = SwiftUIChart;
-			sourceTree = "<group>";
-		};
-		0F4401B32B0F0FA000B703BC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				0F4401C32B0F317400B703BC /* TickerQuoteViewMoudle.swift */,
-				0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */,
-				0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0F4401BA2B0F22FB00B703BC /* Service */ = {
@@ -554,7 +504,7 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		0F7012BE2B1EFFE90070B555 /* NFT */ = {
+		0F7012BE2B1EFFE90070B555 /* NFTPage */ = {
 			isa = PBXGroup;
 			children = (
 				0F7012CB2B1F0BC20070B555 /* Views */,
@@ -563,7 +513,7 @@
 				0FC499822B1B13BF0014079E /* WalletViewController .swift */,
 				0FC499812B1B139D0014079E /* Wallet */,
 			);
-			path = NFT;
+			path = NFTPage;
 			sourceTree = "<group>";
 		};
 		0F7012BF2B1F019B0070B555 /* Manager */ = {
@@ -609,7 +559,7 @@
 				0F7012D32B1F21F30070B555 /* NFTFavoritesListView.swift */,
 				0F7012D52B1F26DB0070B555 /* NFTHomeTabView.swift */,
 				0F7012D72B1F2B750070B555 /* NFTFavoriteTabView.swift */,
-				0F7012D92B1F30060070B555 /* NFTCollectionsTabView.swift */,
+				0FA0F27E2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -621,6 +571,246 @@
 				0F7012DE2B1F57F20070B555 /* AssetDetailsContentView.swift */,
 			);
 			path = Flow;
+			sourceTree = "<group>";
+		};
+		0FA0F2BC2B26E35500E5EC1C /* WatchListPage */ = {
+			isa = PBXGroup;
+			children = (
+				0FA0F2C02B26E49100E5EC1C /* Model */,
+				0FA0F2BF2B26E3CF00E5EC1C /* ViewModel */,
+				0FA0F2BE2B26E3BC00E5EC1C /* View */,
+				0FA0F2BD2B26E37600E5EC1C /* Controller  */,
+			);
+			path = WatchListPage;
+			sourceTree = "<group>";
+		};
+		0FA0F2BD2B26E37600E5EC1C /* Controller  */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */,
+				0F2D6CFD2B04F15C007F1748 /* SearchViewController.swift */,
+			);
+			path = "Controller ";
+			sourceTree = "<group>";
+		};
+		0FA0F2BE2B26E3BC00E5EC1C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */,
+				0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */,
+				0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0FA0F2BF2B26E3CF00E5EC1C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0FA0F2C02B26E49100E5EC1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6D162B063063007F1748 /* SearchResponse.swift */,
+				0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0FA0F2C12B26E56A00E5EC1C /* DetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				0FA0F2CF2B26EA0D00E5EC1C /* View */,
+				0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */,
+				0FA0F2CC2B26E84F00E5EC1C /* Controller */,
+				0FA0F2C42B26E60600E5EC1C /* ViewModel */,
+				0FA0F2C32B26E5FA00E5EC1C /* Model */,
+			);
+			path = DetailPage;
+			sourceTree = "<group>";
+		};
+		0FA0F2C22B26E5CA00E5EC1C /* NewsPage */ = {
+			isa = PBXGroup;
+			children = (
+				0FA0F2D42B26EC4900E5EC1C /* View */,
+				0FA0F2CD2B26E85C00E5EC1C /* Controller */,
+				0FA0F2CA2B26E7F000E5EC1C /* Model */,
+			);
+			path = NewsPage;
+			sourceTree = "<group>";
+		};
+		0FA0F2C32B26E5FA00E5EC1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F5CF04D2B088519009CC0B1 /* FinancialMetricRespone.swift */,
+				0F4401A52B0DF3B600B703BC /* WebSocketData.swift */,
+				0F4401B82B0F214B00B703BC /* FetchPhase.swift */,
+				0F173BA72B0F8283002AF172 /* ChartViewData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0FA0F2C42B26E60600E5EC1C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401C32B0F317400B703BC /* TickerQuoteViewMoudle.swift */,
+				0F173BA92B0F82EA002AF172 /* ChartViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0FA0F2C52B26E63000E5EC1C /* PortfolioPage */ = {
+			isa = PBXGroup;
+			children = (
+				0FA0F2C92B26E74400E5EC1C /* ViewController */,
+				0FA0F2C82B26E73D00E5EC1C /* Views */,
+				0FA0F2C72B26E73500E5EC1C /* Model */,
+				0FA0F2C62B26E72D00E5EC1C /* ViewModel */,
+			);
+			path = PortfolioPage;
+			sourceTree = "<group>";
+		};
+		0FA0F2C62B26E72D00E5EC1C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0FA0F2C72B26E73500E5EC1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F6CD1EC2B0B061C0026DE51 /* PortfolioData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0FA0F2C82B26E73D00E5EC1C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0FA0F2D52B26EC6E00E5EC1C /* Cell */,
+				0FA0F2D32B26EB7100E5EC1C /* SwiftUI */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0FA0F2C92B26E74400E5EC1C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F6CD1E82B09F7EC0026DE51 /* AddToPortfolioController.swift */,
+				0F2D6D012B04F1D6007F1748 /* PortfolioViewController.swift */,
+				0F6CD1EE2B0B36CC0026DE51 /* DateTableViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0FA0F2CA2B26E7F000E5EC1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F5442BC2B1461BF00B41896 /* NewsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0FA0F2CB2B26E82800E5EC1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F0959802B19AF030084524C /* CoinDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0FA0F2CC2B26E84F00E5EC1C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6D092B05EC78007F1748 /* DetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0FA0F2CD2B26E85C00E5EC1C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6CFF2B04F17E007F1748 /* NewsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0FA0F2CE2B26E8FF00E5EC1C /* EnviromentComponent */ = {
+			isa = PBXGroup;
+			children = (
+				0F2D6CE92B04D628007F1748 /* Main.storyboard */,
+				0F2D6CF12B04D62A007F1748 /* LaunchScreen.storyboard */,
+				0F173BA32B0F742C002AF172 /* ErrorStateView.swift */,
+				0F173BA12B0F73E8002AF172 /* LoadingStateView.swift */,
+				0F5442CA2B1586AE00B41896 /* LoadingViewController .swift */,
+				0F5442CC2B15962F00B41896 /* PulsatingSwiftUIView.swift */,
+			);
+			path = EnviromentComponent;
+			sourceTree = "<group>";
+		};
+		0FA0F2CF2B26EA0D00E5EC1C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0FA0F2D12B26EA2E00E5EC1C /* Cell */,
+				0FA0F2D02B26EA1700E5EC1C /* SwiftUI */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0FA0F2D02B26EA1700E5EC1C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401A82B0EF4B600B703BC /* StockTickerView.swift */,
+				0FA0F2D22B26EA3B00E5EC1C /* Component */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		0FA0F2D12B26EA2E00E5EC1C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		0FA0F2D22B26EA3B00E5EC1C /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				0F4401AF2B0EFBC800B703BC /* DateRangePickerView.swift */,
+				0F4401C12B0F2F1400B703BC /* ChartView.swift */,
+				0F173BA52B0F74BC002AF172 /* QuoteDetailRowColumnView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		0FA0F2D32B26EB7100E5EC1C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		0FA0F2D42B26EC4900E5EC1C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F5CF0532B08B20A009CC0B1 /* NewsHeaderView.swift */,
+				0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0FA0F2D52B26EC6E00E5EC1C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0F6CD1E62B09EAEA0026DE51 /* PortfolioTableViewCell.swift */,
+				0F6CD1EA2B0A02000026DE51 /* AddPortfolioTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		0FC499812B1B139D0014079E /* Wallet */ = {
@@ -661,6 +851,8 @@
 			isa = PBXGroup;
 			children = (
 				D287BCC1329DDF95CF16B22F /* Pods_CaveTickers.framework */,
+				0F71C1A02B2848A70079058D /* WidgetKit.framework */,
+				0F71C1A22B2848A70079058D /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -675,9 +867,9 @@
 				56E1E327CF9B27D8A81EEBA3 /* [CP] Check Pods Manifest.lock */,
 				0F2D6CDC2B04D628007F1748 /* Sources */,
 				0F2D6CDD2B04D628007F1748 /* Frameworks */,
-				0F2D6CFC2B04DBC7007F1748 /* ShellScript */,
 				0F2D6CDE2B04D628007F1748 /* Resources */,
-				877DE86F16FA0B36608970DF /* [CP] Embed Pods Frameworks */,
+				0F71C1B42B2848A90079058D /* Embed Foundation Extensions */,
+				0FA0F2B92B26D6F100E5EC1C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -689,6 +881,11 @@
 				0F173BB22B10CC79002AF172 /* XCAStocksExec */,
 				0F5442C12B14724C00B41896 /* Kingfisher */,
 				0FC4998B2B1B28F30014079E /* metamask-ios-sdk */,
+				0FA0F2D72B2714A900E5EC1C /* FirebaseAnalytics */,
+				0FA0F2D92B2714A900E5EC1C /* FirebaseAnalyticsOnDeviceConversion */,
+				0FA0F2DB2B2714A900E5EC1C /* FirebaseAnalyticsSwift */,
+				0FA0F2DD2B2714A900E5EC1C /* FirebaseAnalyticsWithoutAdIdSupport */,
+				0FA0F2DF2B2714A900E5EC1C /* FirebaseAppCheck */,
 			);
 			productName = CaveTickers;
 			productReference = 0F2D6CE02B04D628007F1748 /* CaveTickers.app */;
@@ -722,6 +919,7 @@
 				0F173BAF2B10CC79002AF172 /* XCRemoteSwiftPackageReference "XCAStocksAPI" */,
 				0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				0FC4998A2B1B28F30014079E /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
+				0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0F2D6CE12B04D628007F1748 /* Products */;
 			projectDirPath = "";
@@ -738,6 +936,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F2D6CF32B04D62A007F1748 /* LaunchScreen.storyboard in Resources */,
+				0FA0F2BB2B26D82300E5EC1C /* GoogleService-Info.plist in Resources */,
 				0F2D6CF02B04D62A007F1748 /* Assets.xcassets in Resources */,
 				0F2D6CEB2B04D628007F1748 /* Main.storyboard in Resources */,
 			);
@@ -746,15 +945,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0F2D6CFC2B04DBC7007F1748 /* ShellScript */ = {
+		0FA0F2B92B26D6F100E5EC1C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
 			);
 			outputFileListPaths = (
 			);
@@ -762,8 +965,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\n";
 		};
 		56E1E327CF9B27D8A81EEBA3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -787,23 +989,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		877DE86F16FA0B36608970DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CaveTickers/Pods-CaveTickers-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -815,6 +1000,7 @@
 				0F7012CA2B1F06B00070B555 /* AppConfig.swift in Sources */,
 				0F041E802B17666100436A81 /* NetworkingManager .swift in Sources */,
 				0F7012C12B1F01AB0070B555 /* NFTDataManager.swift in Sources */,
+				0FA0F27F2B219D9F00E5EC1C /* NFTHoldingCarouseView.swift in Sources */,
 				0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */,
 				0F4401CB2B0F4A6A00B703BC /* Chart+Stubs.swift in Sources */,
 				0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */,
@@ -827,7 +1013,6 @@
 				0F7012C42B1F01E70070B555 /* NFTModel.swift in Sources */,
 				0F7012DF2B1F57F20070B555 /* AssetDetailsContentView.swift in Sources */,
 				0F7012C72B1F025F0070B555 /* NFTDetailModel.swift in Sources */,
-				0F5442C92B157E7900B41896 /* MiniChartView.swift in Sources */,
 				0F5CF04E2B088519009CC0B1 /* FinancialMetricRespone.swift in Sources */,
 				0F5442C42B1472B300B41896 /* Third-Party Ext.swift in Sources */,
 				0F09595F2B1853F20084524C /* SearchBarView.swift in Sources */,
@@ -861,7 +1046,6 @@
 				0F173BAA2B0F82EA002AF172 /* ChartViewModel.swift in Sources */,
 				0F2D6D002B04F17E007F1748 /* NewsViewController.swift in Sources */,
 				0F0959612B185A5B0084524C /* UIApplication.swift in Sources */,
-				0F173BAE2B10CA8F002AF172 /* SwiftUIView.swift in Sources */,
 				0F0959672B18699A0084524C /* StatisticModel.swift in Sources */,
 				0F7012D22B1F1E450070B555 /* NFTItemsCarouselView.swift in Sources */,
 				0F6CD1F62B0B7FDA0026DE51 /* ColorExtension.swift in Sources */,
@@ -901,7 +1085,6 @@
 				0F041E6B2B17098900436A81 /* CryptoHomePageView.swift in Sources */,
 				0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */,
 				0F041E762B172E5500436A81 /* PreviewsProvider.swift in Sources */,
-				0F7012DA2B1F30060070B555 /* NFTCollectionsTabView.swift in Sources */,
 				0F09597F2B199FE10084524C /* DetailView.swift in Sources */,
 				0F2D6D022B04F1D6007F1748 /* PortfolioViewController.swift in Sources */,
 				0F0959852B19AFB60084524C /* CoinDetailManager.swift in Sources */,
@@ -1068,30 +1251,38 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63E6C36C811610B1B1B83F0E /* Pods-CaveTickers.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MJ3YMWRCV5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CaveTickers;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = MikeFang.CaveTickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1099,30 +1290,38 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 08C90A052726A17BE713EB8B /* Pods-CaveTickers.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MJ3YMWRCV5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaveTickers/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CaveTickers;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = MikeFang.CaveTickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1166,6 +1365,14 @@
 				minimumVersion = 7.10.0;
 			};
 		};
+		0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.0;
+			};
+		};
 		0FC4998A2B1B28F30014079E /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MetaMask/metamask-ios-sdk";
@@ -1191,6 +1398,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F5442C02B14724C00B41896 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		0FA0F2D72B2714A900E5EC1C /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0FA0F2D92B2714A900E5EC1C /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		0FA0F2DB2B2714A900E5EC1C /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		0FA0F2DD2B2714A900E5EC1C /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		0FA0F2DF2B2714A900E5EC1C /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FA0F2D62B2714A900E5EC1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
 		};
 		0FC4998B2B1B28F30014079E /* metamask-ios-sdk */ = {
 			isa = XCSwiftPackageProductDependency;

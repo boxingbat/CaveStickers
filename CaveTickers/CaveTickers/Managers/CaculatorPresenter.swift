@@ -18,11 +18,12 @@ struct CalculatorPresenter {
             gain: result.gain.toCurrencyFormat(
                 hasDollarSymbol: true,
                 hasDecimalPlaces: false
-            ).prefix(withText: gainSymbol),
-            yield: result.yield.percentageFormat.prefix(withText: gainSymbol).addBrackets(),
-            yieldLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red),
+            )
+            .prefix(withText: gainSymbol),
+            yield: result.yield.percentageFormat,
+            yieldLabelTextColor: isProfitable ? UIColor(Color.themeGreen) : UIColor(Color.themeRed),
             annualReturn: result.annualReturn.percentageFormat,
-            annualReturnLabelTextColor: isProfitable ? UIColor(Color.theme.green) : UIColor(Color.theme.red))
+            annualReturnLabelTextColor: isProfitable ? UIColor(Color.themeGreen) : UIColor(Color.themeRed))
     }
 }
 struct CalculatorPresentation {

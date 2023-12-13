@@ -8,7 +8,6 @@
 import Foundation
 import XCAStocksAPI
 
-#if DEBUG
 extension Ticker {
     static var stubs: [Ticker] {
         [
@@ -22,7 +21,6 @@ extension Ticker {
     static var stub: Ticker {
         stubs[0]
     }
-
 }
 
 extension Quote {
@@ -63,5 +61,3 @@ extension Quote {
         )
     }
 }
-
-#endif
