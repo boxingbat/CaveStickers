@@ -139,6 +139,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
     }
     // MARK: - Navigation
     @objc private func addButtonTapped() {
+        TapManager.shared.vibrateForSelection()
         let addPortfolioVC = AddToPortfolioController()
         addPortfolioVC.delegate = self
         navigationController?.pushViewController(addPortfolioVC, animated: true)

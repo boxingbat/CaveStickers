@@ -68,7 +68,7 @@ extension CryptoHomePageView {
                     if showPortfolio {
                         showPortfolioView.toggle()
                     } else {
-                        fatalError("Crash was triggered")
+//                        fatalError("Crash was triggered")
                     }
                 }
                 .background(

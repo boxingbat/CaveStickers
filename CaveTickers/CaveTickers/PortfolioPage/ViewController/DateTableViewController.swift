@@ -49,8 +49,8 @@ extension DateTableViewController {
         cell.configure(with: monthInfo, index: index, isSelected: isSelected)
         return cell
     }
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        TapManager.shared.vibrateForSelection()
         didSelectDate?(indexPath.item)
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.popViewController(animated: true)

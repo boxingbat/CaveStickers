@@ -10,19 +10,16 @@ import XCAStocksAPI
 
 struct StockTickerView: View {
     @StateObject var chartVM: ChartViewModel
-    @StateObject var quoteVM: TickerQuoteViewModel
     @ObservedObject var webSocketManager = WebSocketManager()
     @Environment(\
         .dismiss
     )
     private var dismiss
     @State private var selectedRange = ChartRange.oneDay
-    public var symbol: String?
     @State private var isFavorite = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             headerView.padding(.horizontal)
-
             Divider()
                 .padding(.vertical, 8)
                 .padding(.horizontal)
@@ -31,9 +28,6 @@ struct StockTickerView: View {
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
         .task(id: chartVM.selectedRange.rawValue) {
-            if quoteVM.quote == nil {
-                await quoteVM.fetchQuote()
-            }
             await chartVM.fetchData()
         }
     }
@@ -58,12 +52,11 @@ struct StockTickerView: View {
         .scrollIndicators(.hidden)
         .frame(maxWidth: .infinity, alignment: .leading)
         .onAppear {
-            isFavorite = PersistenceManager.shared.watchlistContains(symbol: symbol ?? "")
-            webSocketManager.connect(withSymbol: symbol ?? "AAPL")
-            webSocketManager.send(symbol: symbol ?? "AAPL")
+            isFavorite = PersistenceManager.shared.watchlistContains(symbol: chartVM.ticker.symbol)
+            chartVM.getCurrentPrice()
         }
         .onDisappear {
-            webSocketManager.close()
+            chartVM.disconnectWebSocket()
         }
     }
 
@@ -79,96 +72,21 @@ struct StockTickerView: View {
             EmptyView()
         }
     }
-    @ViewBuilder private var quoteDetailRowView: some View {
-        switch quoteVM.phase {
-        case .fetching: LoadingStateView(isLoading: true)
-        case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
-            .padding(.horizontal)
-        case .success(let quote):
-            ScrollView(.horizontal) {
-                HStack(spacing: 16) {
-                    ForEach(quote.columnItems) {
-                        QuoteDetailRowColumnView(item: $0)
-                    }
-                }
-                .padding(.horizontal)
-                .font(.caption.weight(.semibold))
-                .lineLimit(1)
-            }
-            .scrollIndicators(.hidden)
-        default: EmptyView()
-        }
-    }
-    private var priceDiffRowView: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            if let quote = quoteVM.quote {
-                HStack {
-                    if quote.isTrading,
-                    let price = quote.regularPriceText,
-                    let diff = quote.regularDiffText {
-                        priceDiffStackView(price: price, diff: diff, caption: nil)
-                    } else {
-                        if let atCloseText = quote.regularPriceText,
-                        let atCloseDiffText = quote.regularDiffText {
-                            priceDiffStackView(price: atCloseText, diff: atCloseDiffText, caption: "At Close")
-                        }
-
-                        if let afterHourText = quote.postPriceText,
-                        let afterHourDiffText = quote.postPriceDiffText {
-                            priceDiffStackView(price: afterHourText, diff: afterHourDiffText, caption: "After Hours")
-                        }
-                    }
-
-                    Spacer()
-                }
-            }
-            exchangeCurrencyView
-        }
-    }
-
-    private func priceDiffStackView(price: String, diff: String, caption: String?) -> some View {
-        VStack(alignment: .leading) {
-            HStack(alignment: .lastTextBaseline, spacing: 16) {
-                Text(price).font(.headline.bold())
-                Text(diff).font(.subheadline.weight(.semibold))
-                    .foregroundColor(diff.hasPrefix("-") ? .red : .green)
-            }
-
-            if let caption {
-                Text(caption)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundColor(Color(uiColor: .secondaryLabel))
-            }
-        }
-    }
-    private var exchangeCurrencyView: some View {
-        HStack(spacing: 4) {
-            if let exchange = quoteVM.ticker.exchDisp {
-                Text(exchange)
-            }
-            if let currency = quoteVM.quote?.currency {
-                Text("·")
-                Text(currency)
-            }
-        }
-        .font(.subheadline.weight(.semibold))
-        .foregroundColor(Color(uiColor: .secondaryLabel))
-    }
     private var headerView: some View {
         HStack(alignment: .lastTextBaseline) {
-            Text(quoteVM.ticker.symbol)
+            Text(chartVM.ticker.symbol)
                 .font(.title.bold())
                 .foregroundColor(.theme.accent)
-            Text(webSocketManager.latestPrice)
+            Text(chartVM.latestPrice)
                 .font(.title2.bold())
                 .foregroundColor(webSocketManager.flashColor == .clear ? Color.theme.accent : webSocketManager.flashColor)
             Spacer()
             Button(action: {
                 isFavorite.toggle()
                 if isFavorite {
-                    PersistenceManager.shared.addToWatchList(symbol: symbol ?? "", companyName: "")
+                    PersistenceManager.shared.addToWatchList(symbol: chartVM.ticker.symbol, companyName: "")
                 } else {
-                    PersistenceManager.shared.removeFromWatchList(symbol: symbol ?? "")
+                    PersistenceManager.shared.removeFromWatchList(symbol: chartVM.ticker.symbol )
                 }
             }, label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
@@ -215,19 +133,19 @@ struct StockTickerView: View {
 
         static var previews: some View {
             Group {
-                StockTickerView(chartVM: chartVM, quoteVM: tradingStubsQuoteVM)
+                StockTickerView(chartVM: chartVM)
                     .previewDisplayName("Trading")
                     .frame(height: 700)
 
-                StockTickerView(chartVM: chartVM, quoteVM: closedStubsQuoteVM)
+                StockTickerView(chartVM: chartVM)
                     .previewDisplayName("Closed")
                     .frame(height: 700)
 
-                StockTickerView(chartVM: chartVM, quoteVM: loadingStubsQuoteVM)
+                StockTickerView(chartVM: chartVM)
                     .previewDisplayName("Loading Quote")
                     .frame(height: 700)
 
-                StockTickerView(chartVM: chartVM, quoteVM: errorStubsQuoteVM)
+                StockTickerView(chartVM: chartVM)
                     .previewDisplayName("Error Quote")
                     .frame(height: 700)
             }.previewLayout(.sizeThatFits)

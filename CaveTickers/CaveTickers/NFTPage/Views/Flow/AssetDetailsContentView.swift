@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SafariServices
 
 /// Shows a full screen with a given asset details
 struct AssetDetailsContentView: View {
     @EnvironmentObject var manager: NFTDataManager
-    @Environment(\.presentationMode)
+    @Environment(\.presentationMode) 
     var presentationMode
+    @State private var scale: CGFloat = 1.0
+    @State private var dragAmount = CGSize.zero
     private let width: CGFloat = UIScreen.main.bounds.width - 40
     // MARK: - Main rendering function
     var body: some View {
@@ -25,9 +28,7 @@ struct AssetDetailsContentView: View {
                     selectedItemDescription.padding(.top)
                     Spacer(minLength: 20)
                 }
-                if AppConfig.hideMoreDetailsButton == false {
-                    shareButtonView
-                }
+                shareButtonView
             }.padding(20)
         }
         .environmentObject(manager)
@@ -76,6 +77,7 @@ struct AssetDetailsContentView: View {
     }
 
     /// Item image
+    /// Item image
     private var selectedItemImage: some View {
         ZStack {
             if let item = manager.selectedNFTItem {
@@ -83,32 +85,63 @@ struct AssetDetailsContentView: View {
                     .frame(width: width, height: width / 1.3, alignment: .center)
                     .cornerRadius(18)
                     .contentShape(Rectangle())
+                    .shadow(color: Color.accentColor.opacity(1), radius: 8)
+                    .scaleEffect(scale)
+                    .offset(dragAmount)
+                    .gesture(
+                        MagnificationGesture()
+                            .onChanged { value in
+                                self.scale = value.magnitude
+                            }
+                    )
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                self.dragAmount = value.translation
+                            }
+                            .onEnded { _ in
+                                withAnimation {
+                                    self.dragAmount = .zero
+                                }
+                            }
+                    )
+                    .onTapGesture(count: 2) {
+                        withAnimation {
+                            self.scale = 1.0
+                            self.dragAmount = .zero
+                        }
+                    }
+                    .padding(.horizontal) // Add horizontal padding
             }
         }
     }
+
 
     /// Item description
     private var selectedItemDescription: some View {
         VStack {
             sectionHeader(title: "Description")
+            Spacer()
             HStack {
                 Text(manager.selectedNFTItem?.nftAssetDescription.itemDescription ?? "n/a")
                 Spacer()
             }
                 VStack {
                     sectionHeader(title: "Sales Count")
+                        .foregroundColor(.theme.secondaryText)
                     HStack {
-                        Text("\(manager.selectedNFTItem?.salesCount ?? 0)")
+                        Text("Lastest Selling Count : \(manager.selectedNFTItem?.salesCount ?? 0)")
                         Spacer()
                     }
                 }
                 Spacer()
             VStack(alignment: .trailing) {
                 sectionHeader(title: "Item Price")
+                    .foregroundColor(.theme.secondaryText)
                 Spacer()
                 HStack {
                     if let item = manager.selectedNFTItem {
-                        Text(manager.price(forAsset: item))
+                        Text("Latest Selling Price : \(manager.price(forAsset: item))")
                     } else {
                         Text("0.8652ETH")
                     }
@@ -138,10 +171,15 @@ struct AssetDetailsContentView: View {
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color("PurpleColor"))
-                Text("More Details").font(.system(size: 20, weight: .medium))
+                    .foregroundColor(Color.white)
+                Text("More Details")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(.black)
             }
-        }).foregroundColor(Color.theme.accent).frame(height: 50).colorScheme(.light)
+        })
+        .frame(height: 50)
+        .colorScheme(.dark)
+        .shadow(color: Color.accentColor.opacity(1), radius: 8)
     }
 }
 

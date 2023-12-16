@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class PortfolioDataManager {
+class PortfolioDataManager: ObservableObject {
     private let container: NSPersistentContainer
     private let containerName: String = "PortfolioContainer"
     private let entityName: String = "PortfolioEntity"
@@ -35,6 +35,11 @@ class PortfolioDataManager {
             add(coin: coin, amount: amount)
         }
     }
+    func deleteCoin (coin: CoinModel) {
+        if let entity = savedEntities.first(where: { $0.coinID == coin.id }) {
+            delete(entity: entity)
+        }
+    }
     // MARK: - Private
     private func getPortfolio () {
         let request = NSFetchRequest<PortfolioEntity>(entityName: entityName)
@@ -44,6 +49,9 @@ class PortfolioDataManager {
             print("Error fetching Portfolio Entities. \(error)")
         }
     }
+    func isCoinInPortfolio(coinID: String) -> Bool {
+           return savedEntities.contains(where: { $0.coinID == coinID })
+       }
 
     private func add(coin: CoinModel, amount: Double) {
         let entity = PortfolioEntity(context: container.viewContext)

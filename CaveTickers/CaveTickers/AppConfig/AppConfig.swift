@@ -79,7 +79,7 @@ struct OwnerAssetsRequestParameters {
 
 // MARK: - Navigation Tab Bar
 enum CustomTabBarItem: String, CaseIterable, Identifiable {
-    case home = "chart.bar.doc.horizontal", favorite = "heart", collection = "books.vertical"
+    case home = "chart.bar.doc.horizontal", collection = "books.vertical", favorite = "heart"
 
     var headerTitle: String {
         switch self {

@@ -112,6 +112,7 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
     }
 
     @objc private func saveButtonTapped() {
+        TapManager.shared.vibrateForSelection()
         PersistenceManager.shared.addPortfolio(savingStock: newSavingStock)
         print("Save\(String(describing: newSavingStock))")
         delegate?.didSavePortfolio()
@@ -165,10 +166,6 @@ extension AddToPortfolioController: UITextFieldDelegate {
                     for: symbol,
                     keyNumber: Int.random(in: 11...17)
                 ) { [weak self] result in
-                    group.enter()
-                    defer {
-                        group.leave()
-                    }
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let response):
@@ -194,9 +191,6 @@ extension AddToPortfolioController: UITextFieldDelegate {
                             print(error)
                         }
                     }
-                }
-                group.notify(queue: .main) {[weak self] in
-                    self?.hideLoadingView()
                 }
                 return false
             }

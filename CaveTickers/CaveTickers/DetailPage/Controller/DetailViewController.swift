@@ -90,8 +90,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     }
     private func setupSwiftUIHeaderView() {
         let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
-        let quoteVM = TickerQuoteViewModel(ticker: Ticker(symbol: symbol), stocksAPI: XCAStocksAPI())
-        let stockTickerView = StockTickerView(chartVM: chartVM, quoteVM: quoteVM, symbol: symbol)
+        let stockTickerView = StockTickerView(chartVM: chartVM)
         let hostingController = UIHostingController(rootView: stockTickerView)
         addChild(hostingController)
         view.addSubview(hostingController.view)
@@ -206,7 +205,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        HapticsManager.shared.vibrateForSelection()
+        TapManager.shared.vibrateForSelection()
         let story = news[indexPath.row]
         guard let url = URL(string: story.url) else {
             presentFailedToOpenAlert()
@@ -215,7 +214,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         open(url: url)
     }
     private func presentFailedToOpenAlert() {
-        HapticsManager.shared.vibrate(for: .error)
+        TapManager.shared.vibrate(for: .error)
 
         let alert = UIAlertController(
             title: "Unable to Open",
