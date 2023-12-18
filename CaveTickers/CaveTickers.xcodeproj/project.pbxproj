@@ -47,7 +47,7 @@
 		0F173BB32B10CC79002AF172 /* XCAStocksExec in Frameworks */ = {isa = PBXBuildFile; productRef = 0F173BB22B10CC79002AF172 /* XCAStocksExec */; };
 		0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB62B1248D6002AF172 /* DismissButton.swift */; };
 		0F173BB92B130CD7002AF172 /* PortfolioPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */; };
-		0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */; };
+		0F173BBD2B130FE2002AF172 /* PieChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F173BBC2B130FE2002AF172 /* PieChartViewModel.swift */; };
 		0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE32B04D628007F1748 /* AppDelegate.swift */; };
 		0F2D6CE62B04D628007F1748 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */; };
 		0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6CE72B04D628007F1748 /* WatchListViewController.swift */; };
@@ -66,6 +66,7 @@
 		0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D122B0603F0007F1748 /* Extension.swift */; };
 		0F2D6D152B060A79007F1748 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */; };
 		0F2D6D172B063063007F1748 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D6D162B063063007F1748 /* SearchResponse.swift */; };
+		0F3E8E352B2D7F1100D9C146 /* WatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3E8E342B2D7F1100D9C146 /* WatchListViewModel.swift */; };
 		0F4401A42B0DEE5000B703BC /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */; };
 		0F4401A62B0DF3B600B703BC /* WebSocketData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A52B0DF3B600B703BC /* WebSocketData.swift */; };
 		0F4401A92B0EF4B600B703BC /* StockTickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401A82B0EF4B600B703BC /* StockTickerView.swift */; };
@@ -80,6 +81,11 @@
 		0F4401C92B0F4A1400B703BC /* MockStockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401C82B0F4A1400B703BC /* MockStockAPI.swift */; };
 		0F4401CB2B0F4A6A00B703BC /* Chart+Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401CA2B0F4A6A00B703BC /* Chart+Stubs.swift */; };
 		0F4401CF2B0F4EE100B703BC /* Quote Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */; };
+		0F4471B22B2EECD500123C41 /* TableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471B12B2EECD500123C41 /* TableSectionHeaderView.swift */; };
+		0F4471B52B2F05FA00123C41 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471B42B2F05FA00123C41 /* NewsViewModel.swift */; };
+		0F4471B72B2F06A500123C41 /* WatchListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471B62B2F06A500123C41 /* WatchListModel.swift */; };
+		0F4471B92B2F0A1F00123C41 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471B82B2F0A1F00123C41 /* Observable.swift */; };
+		0F4471BD2B2FF1A700123C41 /* TestingBackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471BC2B2FF1A700123C41 /* TestingBackViewModel.swift */; };
 		0F51A24C2B1DFC7200FBF70D /* UILabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51A24B2B1DFC7200FBF70D /* UILabelClass.swift */; };
 		0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BC2B1461BF00B41896 /* NewsModel.swift */; };
 		0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */; };
@@ -204,7 +210,7 @@
 		0F173BAB2B0F8D28002AF172 /* ChartRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartRangeExtension.swift; sourceTree = "<group>"; };
 		0F173BB62B1248D6002AF172 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		0F173BB82B130CD7002AF172 /* PortfolioPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPieChart.swift; sourceTree = "<group>"; };
-		0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
+		0F173BBC2B130FE2002AF172 /* PieChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewModel.swift; sourceTree = "<group>"; };
 		0F2D6CE02B04D628007F1748 /* CaveTickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveTickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2D6CE32B04D628007F1748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F2D6CE52B04D628007F1748 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 		0F2D6D122B0603F0007F1748 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		0F2D6D162B063063007F1748 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		0F3E8E342B2D7F1100D9C146 /* WatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewModel.swift; sourceTree = "<group>"; };
 		0F4401A32B0DEE5000B703BC /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		0F4401A52B0DF3B600B703BC /* WebSocketData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketData.swift; sourceTree = "<group>"; };
 		0F4401A82B0EF4B600B703BC /* StockTickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTickerView.swift; sourceTree = "<group>"; };
@@ -239,6 +246,11 @@
 		0F4401C82B0F4A1400B703BC /* MockStockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStockAPI.swift; sourceTree = "<group>"; };
 		0F4401CA2B0F4A6A00B703BC /* Chart+Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chart+Stubs.swift"; sourceTree = "<group>"; };
 		0F4401CE2B0F4EE100B703BC /* Quote Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quote Extension.swift"; sourceTree = "<group>"; };
+		0F4471B12B2EECD500123C41 /* TableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionHeaderView.swift; sourceTree = "<group>"; };
+		0F4471B42B2F05FA00123C41 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		0F4471B62B2F06A500123C41 /* WatchListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListModel.swift; sourceTree = "<group>"; };
+		0F4471B82B2F0A1F00123C41 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		0F4471BC2B2FF1A700123C41 /* TestingBackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingBackViewModel.swift; sourceTree = "<group>"; };
 		0F51A24B2B1DFC7200FBF70D /* UILabelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelClass.swift; sourceTree = "<group>"; };
 		0F5442BC2B1461BF00B41896 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -527,6 +539,14 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		0F4471B32B2F057000123C41 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0F4471B42B2F05FA00123C41 /* NewsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0F6CD1F02B0B45CF0026DE51 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +561,7 @@
 				0F0959602B185A5B0084524C /* UIApplication.swift */,
 				0F0959882B19DBE50084524C /* DateExtention.swift */,
 				0F51A24B2B1DFC7200FBF70D /* UILabelClass.swift */,
+				0F4471B82B2F0A1F00123C41 /* Observable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -640,6 +661,7 @@
 				0F5CF0492B0744DB009CC0B1 /* WatchListTableViewCell.swift */,
 				0F2D6D142B060A79007F1748 /* SearchTableViewCell.swift */,
 				0F5CF0512B088CB4009CC0B1 /* MetricCollectionViewCell.swift */,
+				0F4471B12B2EECD500123C41 /* TableSectionHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -647,6 +669,7 @@
 		0FA0F2BF2B26E3CF00E5EC1C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0F3E8E342B2D7F1100D9C146 /* WatchListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -656,6 +679,7 @@
 			children = (
 				0F2D6D162B063063007F1748 /* SearchResponse.swift */,
 				0F5CF0472B072709009CC0B1 /* MarketDataRespone.swift */,
+				0F4471B62B2F06A500123C41 /* WatchListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -675,6 +699,7 @@
 		0FA0F2C22B26E5CA00E5EC1C /* NewsPage */ = {
 			isa = PBXGroup;
 			children = (
+				0F4471B32B2F057000123C41 /* ViewModel */,
 				0FA0F2D42B26EC4900E5EC1C /* View */,
 				0FA0F2CD2B26E85C00E5EC1C /* Controller */,
 				0FA0F2CA2B26E7F000E5EC1C /* Model */,
@@ -716,7 +741,8 @@
 		0FA0F2C62B26E72D00E5EC1C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				0F173BBC2B130FE2002AF172 /* PortfolioViewModel.swift */,
+				0F173BBC2B130FE2002AF172 /* PieChartViewModel.swift */,
+				0F4471BC2B2FF1A700123C41 /* TestingBackViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1059,6 +1085,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F4471B52B2F05FA00123C41 /* NewsViewModel.swift in Sources */,
 				0F0959832B19AF840084524C /* DetailViewModel.swift in Sources */,
 				0F7012CA2B1F06B00070B555 /* AppConfig.swift in Sources */,
 				0F041E802B17666100436A81 /* NetworkingManager .swift in Sources */,
@@ -1069,6 +1096,7 @@
 				0F173BB72B1248D6002AF172 /* DismissButton.swift in Sources */,
 				0F2D6D0A2B05EC78007F1748 /* DetailViewController.swift in Sources */,
 				0F041E722B17256000436A81 /* CoinModel.swift in Sources */,
+				0F4471B72B2F06A500123C41 /* WatchListModel.swift in Sources */,
 				0F0959752B18A5030084524C /* PortfolioDataManager.swift in Sources */,
 				0F2D6CFE2B04F15C007F1748 /* SearchViewController.swift in Sources */,
 				0F041E742B172D5700436A81 /* CoinRowView.swift in Sources */,
@@ -1089,6 +1117,8 @@
 				0FC499862B1B148E0014079E /* WalletHomeView.swift in Sources */,
 				0F6CD1EB2B0A02000026DE51 /* AddPortfolioTableViewCell.swift in Sources */,
 				0F5CF0502B08870A009CC0B1 /* StockDetailHeaderView.swift in Sources */,
+				0F4471BD2B2FF1A700123C41 /* TestingBackViewModel.swift in Sources */,
+				0F3E8E352B2D7F1100D9C146 /* WatchListViewModel.swift in Sources */,
 				0F4401BC2B0F231F00B703BC /* StocksAPI.swift in Sources */,
 				0F2D6D0C2B05ED09007F1748 /* APIManager.swift in Sources */,
 				0F6CD1F82B0B80050026DE51 /* DoubleExtension .swift in Sources */,
@@ -1102,6 +1132,7 @@
 				0F4401C02B0F257200B703BC /* Utils.swift in Sources */,
 				0F2D6CE82B04D628007F1748 /* WatchListViewController.swift in Sources */,
 				0F041E842B1770C100436A81 /* CoinImageManager .swift in Sources */,
+				0F4471B22B2EECD500123C41 /* TableSectionHeaderView.swift in Sources */,
 				0F041E6D2B1712A000436A81 /* CircleButtonView.swift in Sources */,
 				0F7012DD2B1F3D3B0070B555 /* DashboardContentView.swift in Sources */,
 				0F0959892B19DBE50084524C /* DateExtention.swift in Sources */,
@@ -1122,6 +1153,7 @@
 				0F4401C92B0F4A1400B703BC /* MockStockAPI.swift in Sources */,
 				0F4401BE2B0F23BC00B703BC /* TickerListRepository.swift in Sources */,
 				0F2D6CE42B04D628007F1748 /* AppDelegate.swift in Sources */,
+				0F4471B92B2F0A1F00123C41 /* Observable.swift in Sources */,
 				0F2D6D132B0603F0007F1748 /* Extension.swift in Sources */,
 				0F0959712B1880400084524C /* XmarkButton.swift in Sources */,
 				0F0959692B186ADA0084524C /* StatisticView .swift in Sources */,
@@ -1160,7 +1192,7 @@
 				0F4401C42B0F317400B703BC /* TickerQuoteViewMoudle.swift in Sources */,
 				0F6CD1E92B09F7EC0026DE51 /* AddToPortfolioController.swift in Sources */,
 				0F0959732B18843C0084524C /* CoinLogoView.swift in Sources */,
-				0F173BBD2B130FE2002AF172 /* PortfolioViewModel.swift in Sources */,
+				0F173BBD2B130FE2002AF172 /* PieChartViewModel.swift in Sources */,
 				0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */,
 				0F7012D62B1F26DB0070B555 /* NFTHomeTabView.swift in Sources */,
 				0F09596F2B1875850084524C /* CoinMarketManager.swift in Sources */,

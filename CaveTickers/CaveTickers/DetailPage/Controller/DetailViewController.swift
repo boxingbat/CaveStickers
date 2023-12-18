@@ -10,31 +10,22 @@ import SwiftUI
 import XCAStocksAPI
 import SafariServices
 
-class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
+class DetailViewController: LoadingViewController, URLSessionWebSocketDelegate {
     // MARK: - Properties
-
-    private var news: [NewsStory] = []
+    private var news: [NewsModel] = []
+    private var viewModel = NewsViewModel()
     private let symbol: String
     private let companyName: String
-    private var candleStickData: [CandleStick]
     private var chartView = UIView()
-//    private var webSocketManager = WebSocketManager()
     var closedPrice: String?
-    let tableView: UITableView = {
-        let table = UITableView()
-        table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identfier)
-        return table
-    }()
-    private var metrics: Metrics?
+    let tableView = UITableView()
     // MARK: - Init
     init(
         symbol: String,
-        companyName: String,
-        candleStickData: [CandleStick] = []
+        companyName: String
     ) {
         self.symbol = symbol
         self.companyName = companyName
-        self.candleStickData = candleStickData
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -44,21 +35,27 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        getLastPrice()
-        fetchFinancialData()
         setUpTableView()
         checkStockExist()
         setupSwiftUIHeaderView()
+        setupViewModelBinding()
         checkStockExist()
-        fetchNews()
+        viewModel.fetchNews()
     }
     // MARK: - Private
+    private func setupViewModelBinding() {
+        viewModel.news.bind { [weak self] _ in
+            self?.tableView.reloadData()
+            self?.hideLoadingView()
+        }
+    }
     private func setUpTableView() {
         view.addSubview(tableView)
         DispatchQueue.main.async { [weak self] in
             self?.checkStockExist()
         }
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identfier)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -70,23 +67,6 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
         tableView.tableHeaderView = UIView(
             frame: CGRect(x: 0, y: 0, width: view.width, height: (view.width * 0.7) + 100)
         )
-    }
-    private func fetchFinancialData() {
-        let group = DispatchGroup()
-        if candleStickData.isEmpty {
-            group.enter()
-            APIManager.shared.marketData(for: symbol) { [weak self] result in
-                defer {
-                    group.leave()
-                }
-                switch result {
-                case .success(let response):
-                    self?.candleStickData = response.candleSticks
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
     }
     private func setupSwiftUIHeaderView() {
         let chartVM = ChartViewModel(ticker: Ticker(symbol: symbol), apiService: XCAStocksAPI())
@@ -118,50 +98,9 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
-    private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
-        let latestDate = data[0].date
-        guard let latestClose = data.first?.close,
-            let priorClose = data.first(where: {
-                !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
-            })?.close else {
-        return 0
-    }
-        print("\(symbol): Current: \(latestDate):\(latestClose) | Prior:\(priorClose)")
-        let differnece = 1 - priorClose / latestClose
-        return differnece
-    }
-    private func fetchNews() {
-        APIManager.shared.companyNews(symbol: symbol) { [weak self] result in
-            switch result {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self?.news = news
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
     private func open(url: URL) {
         let SFvc = SFSafariViewController(url: url)
         present(SFvc, animated: true)
-    }
-    private func getLastPrice() {
-        _ = symbol
-        APIManager.shared.marketData(for: symbol) { [weak self] result in
-            switch result {
-            case .success(let data):
-                let closed = data.close
-                self?.closedPrice = String(format: "%.2f", closed[0])
-                print("\(closed[0])")
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     private func checkStockExist() {
         let isStockInWatchlist = PersistenceManager.shared.watchlistContains(symbol: symbol)
@@ -173,7 +112,7 @@ class DetailViewController: UIViewController, URLSessionWebSocketDelegate {
 }
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return news.count
+        return viewModel.news.value.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
@@ -182,7 +121,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         )as? NewsTableViewCell else {
             fatalError("cell connected failed")
         }
-        cell.configure(with: .init(model: news[indexPath.row]))
+        cell.viewModel = viewModel.news.value[indexPath.row]
         return cell
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -206,7 +145,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
 
         TapManager.shared.vibrateForSelection()
-        let story = news[indexPath.row]
+        let story = viewModel.news.value[indexPath.row]
         guard let url = URL(string: story.url) else {
             presentFailedToOpenAlert()
             return

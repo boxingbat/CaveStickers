@@ -16,13 +16,12 @@ enum AppConfig {
     static let assetStatsAPI: String = "\(hostName)/asset"
     static let openSeaAPIDocs: String = "https://docs.opensea.io"
 
-    static let apiKey: String = "303f79c1e00542acb9de4413057e9be6"
+    static let apiKey: String = "6e59290dbb674e7a80aef6d3eb20335b"
 
     /// Show/Hide "More Details" button on NFT Details screen
     static let hideMoreDetailsButton = true
     // MARK: - Widget Configurations
     static let showDebugLogs = false
-    static let widgetDeeplinkURI = "widget-deeplink://"
 }
 
 // MARK: - API Request Builder

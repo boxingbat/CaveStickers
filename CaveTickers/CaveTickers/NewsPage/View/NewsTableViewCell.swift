@@ -13,21 +13,11 @@ final class NewsTableViewCell: UITableViewCell {
     /// Cell id
     static let identfier = "NewsTableViewCell"
 
-    /// Ideal height of ceell
+    /// Ideal height of cell
     static let preferredHeight: CGFloat = 140
-
-    /// Cell viewModel
-    struct ViewModel {
-        let source: String
-        let headline: String
-        let dateString: String
-        let imageUrl: String?
-
-        init(model: NewsStory) {
-            self.source = model.source
-            self.headline = model.headline
-            self.dateString = .string(from: model.datetime)
-            self.imageUrl = model.image
+    var viewModel: NewsModel? {
+        didSet {
+            bindViewModel()
         }
     }
 
@@ -78,7 +68,6 @@ final class NewsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("Init Error")
     }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -114,6 +103,15 @@ final class NewsTableViewCell: UITableViewCell {
             height: contentView.height - sourceLabel.bottom - dateLabel.height - 10
         )
     }
+    private func bindViewModel() {
+        guard let viewModel = viewModel else { return }
+        headlineLabel.text = viewModel.headline
+        sourceLabel.text = viewModel.source
+        let date = Date(timeIntervalSince1970: viewModel.datetime)
+        dateLabel.text = DateFormatter.prettyDateFormatter.string(from: date)
+        storyImageView.setImage(with: viewModel.image, placeholder: UIImage(named: "APPIcon")
+        )
+    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -121,15 +119,5 @@ final class NewsTableViewCell: UITableViewCell {
         headlineLabel.text = nil
         dateLabel.text = nil
         storyImageView.image = nil
-    }
-
-    /// Configure view
-    /// - Parameter viewModel: View ViewModel
-    public func configure(with viewModel: ViewModel) {
-        headlineLabel.text = viewModel.headline
-        sourceLabel.text = viewModel.source
-        dateLabel.text = viewModel.dateString
-        storyImageView.setImage(with: viewModel.imageUrl ?? "APPIcon", placeholder: UIImage(named: "APPIcon")
-        )
     }
 }
