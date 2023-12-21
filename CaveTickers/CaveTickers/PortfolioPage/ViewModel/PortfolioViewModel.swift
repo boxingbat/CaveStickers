@@ -2,42 +2,76 @@
 //  PortfolioViewModel.swift
 //  CaveTickers
 //
-//  Created by 1 on 2023/11/26.
+//  Created by 1 on 2023/12/18.
 //
 
 import Foundation
+import Combine
 
-struct PortfolioItem {
-    let symbol: String
-    let dcaResult: DCAResult
-}
+class PortfolioViewModel {
+    @Published var savedPortfolio: [SavedPortfolio] = []
+    @Published var calculatedResult: [DCAResult] = []
+    @Published var pieChartViewModel = PieChartViewModel()
 
-class PieChartViewModel: ObservableObject {
-    @Published var pieChartSegments: [PieChartSegment] = []
-    @Published var totalInvestmentAmount: Double = 0
-    @Published var totalCurrentValue: Double = 0
-    @Published var growthRate: Double = 0
+    private var portfolioManager = PortfolioManager()
+    private var subscribers = Set<AnyCancellable>()
+    let dataLoadedPublisher = PassthroughSubject<Void, Never>()
+    var isDataLoaded: Bool {
+        return !savedPortfolio.isEmpty && !calculatedResult.isEmpty
+    }
+    func loadPortfolio() {
+        let savedStocks = PersistenceManager.shared.loadPortfolio()
+        savedPortfolio = savedStocks
 
-    func updateChart(with portfolioItems: [PortfolioItem]) {
-        let totalInvested = portfolioItems.reduce(0) { $0 + $1.dcaResult.investmentAmount }
-        let totalCurrent = portfolioItems.reduce(0) { $0 + $1.dcaResult.currentValue }
-        let growth = totalCurrent - totalInvested
-        let rate = (growth / totalInvested) * 100
+        var tempResults: [String: DCAResult] = [:]
+        let group = DispatchGroup()
 
-        self.totalInvestmentAmount = totalInvested
-        self.totalCurrentValue = totalCurrent
-        self.growthRate = rate
+        for portfolio in savedPortfolio {
+            group.enter()
+            getHistoricData(symbol: portfolio.symbol) { result in
+                if let result = result {
+                    tempResults[portfolio.symbol] = result
+                }
+                group.leave()
+            }
+        }
 
-        let totalValue = portfolioItems.reduce(0) { $0 + $1.dcaResult.currentValue }
-
-        pieChartSegments = portfolioItems.map { item in
-            let percentage = (item.dcaResult.currentValue / totalValue) * 100
-            return PieChartSegment(symbol: item.symbol, value: item.dcaResult.currentValue, percentage: percentage)
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            self.calculatedResult = self.savedPortfolio.compactMap { tempResults[$0.symbol] }
+            self.updatePieChart()
+            self.dataLoadedPublisher.send(())
         }
     }
-}
-struct PieChartSegment {
-    let symbol: String
-    let value: Double
-    let percentage: Double
+
+    private func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
+        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 0...10)) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    if let portfolioItem = self.savedPortfolio.first(where: { $0.symbol == symbol }) {
+                        let result = self.portfolioManager.calculate(
+                            monthlyAdjusted: response,
+                            initialInvestment: portfolioItem.initialInput,
+                            monthlyCost: portfolioItem.monthlyInpuy,
+                            initialDateOfInvestmentIndex: portfolioItem.timeline
+                        )
+                        completion(result)
+                    } else {
+                        completion(nil)
+                    }
+                case .failure(let error):
+                    print(error)
+                    completion(nil)
+                }
+            }
+        }
+    }
+    func updatePieChart() {
+        let portfolioItems = savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
+            guard index < calculatedResult.count else { return nil }
+            return PortfolioItem(symbol: savedItem.symbol, dcaResult: calculatedResult[index])
+        }
+        pieChartViewModel.updateChart(with: portfolioItems)
+    }
 }

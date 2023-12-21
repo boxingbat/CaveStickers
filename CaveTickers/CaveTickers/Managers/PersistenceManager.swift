@@ -59,12 +59,12 @@ final class PersistenceManager {
         }
     }
 
-    public func addPortfolio(savingStock: SavingPortfolio) {
+    public func addPortfolio(savingStock: SavedPortfolio) {
         var savingStocks = loadPortfolio()
         savingStocks.append(savingStock)
         save(savingStocks: savingStocks)
     }
-    private func save(savingStocks: [SavingPortfolio]) {
+    private func save(savingStocks: [SavedPortfolio]) {
         do {
             let data = try JSONEncoder().encode(savingStocks)
             userDefaults.set(data, forKey: Constants.savingStockKey)
@@ -73,13 +73,13 @@ final class PersistenceManager {
             print("Failed to encode SavingStock array: \(error)")
         }
     }
-    public func loadPortfolio() -> [SavingPortfolio] {
+    public func loadPortfolio() -> [SavedPortfolio] {
         guard let data = userDefaults.data(forKey: Constants.savingStockKey) else {
             return []
         }
 
         do {
-            let result = try JSONDecoder().decode([SavingPortfolio].self, from: data)
+            let result = try JSONDecoder().decode([SavedPortfolio].self, from: data)
             print(result)
             return result
         } catch {
@@ -87,7 +87,7 @@ final class PersistenceManager {
             return []
         }
     }
-    public func deletePortfolio(savingStock: SavingPortfolio) {
+    public func deletePortfolio(savingStock: SavedPortfolio) {
         var savingStocks = loadPortfolio()
         savingStocks.removeAll { $0.symbol == savingStock.symbol }
         save(savingStocks: savingStocks)

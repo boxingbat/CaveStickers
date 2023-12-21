@@ -21,7 +21,7 @@ struct WalletHomeView: View {
                 VStack(alignment: .leading) {
                     Text("Status")
                         .foregroundColor(.theme.secondaryText)
-                        .font(.system(size: 10))
+                        .font(.system(size: 12))
                     HStack {
                         if metaMaskRepo.connectionStatus == "Connected" {
                             FlashingView()
@@ -35,9 +35,9 @@ struct WalletHomeView: View {
                 }
                 Spacer()
                 VStack(alignment: .center) {
-                    Text("Chain ID")
+                    Text("ChainID")
                         .foregroundColor(.theme.secondaryText)
-                        .font(.system(size: 10))
+                        .font(.system(size: 11))
                         .padding(.horizontal, 50)
                     Text("\(metaMaskRepo.chainID)")
                         .fontWeight(.medium)
@@ -63,7 +63,7 @@ struct WalletHomeView: View {
                 VStack(alignment: .leading) {
                     Text("Address")
                         .foregroundColor(.theme.secondaryText)
-                        .font(.system(size: 10))
+                        .font(.system(size: 16))
                         .padding(.leading, 8)
                     Text("\(metaMaskRepo.ethAddress)")
                         .fontWeight(.medium)
@@ -92,7 +92,7 @@ struct WalletHomeView: View {
                 VStack(alignment: .leading) {
                     Text("Balance")
                         .foregroundColor(.theme.secondaryText)
-                        .font(.system(size: 10))
+                        .font(.system(size: 16))
                         .padding(.leading, 8)
                     Text("\(metaMaskRepo.balance)")
                         .fontWeight(.medium)

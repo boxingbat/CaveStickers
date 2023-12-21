@@ -21,6 +21,7 @@ struct DetailLoadingView: View {
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
     @ObservedObject var webSocketManager = WebSocketManager()
+    @State private var isFavorite = false
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -57,6 +58,7 @@ struct DetailView: View {
             }
         }
         .onAppear {
+            isFavorite = viewModel.ifCoinInPortfolio(coinID: viewModel.coin.id)
             webSocketManager.connect(withSymbol: "BINANCE:\(viewModel.coin.name.uppercased())USDT")
             webSocketManager.send(symbol: "BINANCE:\(viewModel.coin.symbol.uppercased())USDT")
         }
@@ -84,6 +86,17 @@ struct DetailView: View {
             .foregroundColor(Color.theme.secondaryText)
             .padding(.top, 20)
         }
+
+    private func saveButtonTapped() {
+        let coin = viewModel.coin
+        let amount = 1
+        if !isFavorite {
+            viewModel.updatePortfolio(coin: coin, amount: Double(amount))
+        } else {
+            viewModel.deleteCoin(coin: coin)
+        }
+        isFavorite.toggle()
+    }
 }
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
@@ -104,11 +117,23 @@ extension DetailView {
         }
     }
     private var overViewTitle: some View {
-        Text("Market Overview")
-            .font(.title)
-            .bold()
-            .foregroundColor(Color.theme.accent)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        HStack {
+            Text("Market Overview")
+                .font(.title)
+                .bold()
+                .foregroundColor(Color.theme.accent)
+
+            Spacer()
+
+            Button(action: {
+                saveButtonTapped()
+            })
+            {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    .foregroundColor(isFavorite ? .red : .gray)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     private var overViewGrid: some View {
         LazyVGrid(

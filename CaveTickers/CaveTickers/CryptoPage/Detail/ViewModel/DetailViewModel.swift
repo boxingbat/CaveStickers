@@ -14,12 +14,27 @@ class DetailViewModel: ObservableObject {
 
     @Published var coin: CoinModel
     private let coinDetailManager: CoinDetailManager
+    @Published var portfolioDataManager: PortfolioDataManager
     private var cancellables = Set<AnyCancellable>()
 
     init(coin: CoinModel) {
         self.coin = coin
         self.coinDetailManager = CoinDetailManager(coin: coin)
+        self.portfolioDataManager = PortfolioDataManager()
         self.addSubscribers()
+    }
+
+    func ifCoinInPortfolio(coinID : String) -> Bool {
+        let coinExists = portfolioDataManager.isCoinInPortfolio(coinID: coinID)
+        return coinExists
+    }
+
+    func updatePortfolio(coin: CoinModel, amount: Double) {
+        portfolioDataManager.updatedPortfolio(coin: coin, amount: 1)
+    }
+
+    func deleteCoin(coin: CoinModel) {
+        portfolioDataManager.deleteCoin(coin: coin)
     }
     private func addSubscribers() {
         coinDetailManager.$coinDetails

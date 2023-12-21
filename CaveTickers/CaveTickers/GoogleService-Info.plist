@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBb7epzIlRbz8yFNd1XsO4OaDBX1GMI-EY</string>
+	<string>AIzaSyCGuBn81SZBmNJOBmdqVbHQxCK84SkMTVk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>276687961400</string>
+	<string>577878055222</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>CaveTickers</string>
+	<string>MikeFang.CaveTickers</string>
 	<key>PROJECT_ID</key>
-	<string>cavetickers</string>
+	<string>cavetickers-315cd</string>
 	<key>STORAGE_BUCKET</key>
-	<string>cavetickers.appspot.com</string>
+	<string>cavetickers-315cd.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:276687961400:ios:d333620d351c67c32a55cd</string>
+	<string>1:577878055222:ios:8f7544018ffab2b513fb97</string>
 </dict>
 </plist>

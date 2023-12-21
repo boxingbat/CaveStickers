@@ -52,14 +52,12 @@ struct NFTItemsCarouselView: View {
             }.frame(width: width)
         })
             .shadow(color: Color.accentColor.opacity(1), radius: 8)
-
         .padding()
     }
 
     private var loadingStateView: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
-                .foregroundColor(Color("TileColor"))
                 .shadow(color: Color.black.opacity(0.12), radius: 8)
             VStack {
                 Text("Please Wait...").font(.system(size: 20)).bold()
@@ -73,7 +71,6 @@ struct NFTItemsCarouselView: View {
         .padding(.top)
     }
 }
-
 struct TrendingCarouselView_Previews: PreviewProvider {
     static var previews: some View {
         let manager = NFTDataManager()

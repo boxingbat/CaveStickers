@@ -10,7 +10,8 @@ import SafariServices
 import UIKit
 
 class NewsViewController: LoadingViewController {
-    private var news: [NewsStory] = []
+    private var news: [NewsModel] = []
+    private var viewModel = NewsViewModel()
     var headerTitle: String?
 
     let tableView: UITableView = {
@@ -25,7 +26,8 @@ class NewsViewController: LoadingViewController {
         view.backgroundColor = .systemBackground
         setUpTableView()
         showLoadingView()
-        fetchNews()
+        setupViewModelBinding()
+        viewModel.fetchNews()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -36,26 +38,10 @@ class NewsViewController: LoadingViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-}
-
-    private func fetchNews() {
-        let group = DispatchGroup()
-        group.enter()
-        APIManager.shared.news { [weak self] result in
-            defer {
-                group.leave()
-            }
-            switch result {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self?.news = news
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-        group.notify(queue: .main) {[weak self] in
+    }
+    private func setupViewModelBinding() {
+        viewModel.news.bind { [weak self] _ in
+            self?.tableView.reloadData()
             self?.hideLoadingView()
         }
     }
@@ -67,7 +53,7 @@ class NewsViewController: LoadingViewController {
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return news.count
+        return viewModel.news.value.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
@@ -76,7 +62,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         )as? NewsTableViewCell else {
             fatalError("cell connected failed")
         }
-        cell.configure(with: .init(model: news[indexPath.row]))
+        cell.viewModel = viewModel.news.value[indexPath.row]
         return cell
     }
 
@@ -85,11 +71,10 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        HapticsManager.shared.vibrateForSelection()
+        TapManager.shared.vibrateForSelection()
 
         // Open news story
-        let story = news[indexPath.row]
+        let story = viewModel.news.value[indexPath.row]
         guard let url = URL(string: story.url) else {
             presentFailedToOpenAlert()
             return
@@ -99,7 +84,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
 
     /// Present an alert to show an error occurred when opening story
     private func presentFailedToOpenAlert() {
-        HapticsManager.shared.vibrate(for: .error)
+        TapManager.shared.vibrate(for: .error)
 
         let alert = UIAlertController(
             title: "Unable to Open",

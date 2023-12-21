@@ -14,19 +14,22 @@ protocol WatchListTableViewCellDelegate: AnyObject {
 
 class WatchListTableViewCell: UITableViewCell {
     static let identifier = "WatchListTableViewCell"
-
     static let preferredHight: CGFloat = 60
-
     weak var delegate: WatchListTableViewCellDelegate?
-
-    struct ViewModel {
-        let symbol: String
-        let price: String
-        let changeColor: UIColor
-        let companyName: String
-        let changePercentage: String
-        let marketCaptital: String
-        let shareOutstanding: String
+    var viewModel: WatchListModel? {
+        didSet {
+            bindViewModel()
+        }
+    }
+    private func bindViewModel() {
+        guard let viewModel = viewModel else { return }
+        symbolLabel.text = viewModel.symbol
+        nameLabel.text = viewModel.companyName
+        priceLabel.text = viewModel.price
+        changeLabel.text = viewModel.changePercentage
+        changeLabel.backgroundColor = viewModel.changeColor
+        marketCap.text = viewModel.marketCaptital
+        sharesOutstanding.text = viewModel.shareOutstanding
     }
     // MARK: - Component
     /// Symbol Label
@@ -136,14 +139,5 @@ class WatchListTableViewCell: UITableViewCell {
         nameLabel.text = nil
         priceLabel.text = nil
         changeLabel.text = nil
-    }
-    public func configure(with viewModel: ViewModel) {
-        symbolLabel.text = viewModel.symbol
-        nameLabel.text = viewModel.companyName
-        priceLabel.text = viewModel.price
-        changeLabel.text = viewModel.changePercentage
-        changeLabel.backgroundColor = viewModel.changeColor
-        marketCap.text = viewModel.marketCaptital
-        sharesOutstanding.text = viewModel.shareOutstanding
     }
 }
