@@ -16,7 +16,7 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
     let addButton = UIButton(type: .system)
     let saveButton = UIButton(type: .system)
 
-    var newSavingStock = SavingPortfolio(symbol: "", initialInput: 0, monthlyInpuy: 0, timeline: 0)
+    var newSavingStock = SavedPortfolio(symbol: "", initialInput: 0, monthlyInpuy: 0, timeline: 0)
     var asset: Asset?
     var monthlyAdjusted: TimeSeriesMonthlyAdjusted?
     var dateIndex: Int?
@@ -118,6 +118,59 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
         delegate?.didSavePortfolio()
         navigationController?.popViewController(animated: true)
     }
+
+    private func fetchMonthlyAdjustedData(for symbol: String) {
+        self.showLoadingView()
+        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 11...17)) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleAPIResult(result)
+            }
+        }
+    }
+
+    private func handleAPIResult(_ result: Result<TimeSeriesMonthlyAdjusted, Error>) {
+        switch result {
+        case .success(let response):
+            self.monthlyAdjusted = response
+            let dateTableViewController = DateTableViewController()
+            dateTableViewController.timeSeriesMonthlyAdjusted = response
+            dateTableViewController.didSelectDate = { [weak self] selectedIndex in
+                self?.dateIndex = selectedIndex
+                self?.calculateAndDisplayResult(forDateIndex: selectedIndex)
+            }
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(dateTableViewController, animated: true)
+            }
+
+        case .failure(let error):
+            print(error)
+        }
+        self.hideLoadingView()
+    }
+    private func calculateAndDisplayResult(forDateIndex dateIndex: Int) {
+        guard let symbol = initialSymbol,
+            let investmentAmount = initialInvestmentAmount,
+            let monthlyAmount = monthlyDollarCostAveragingAmount,
+            let monthlyAdjusted = monthlyAdjusted else {
+            print("Error: Required data is missing")
+            return
+        }
+
+        let result = portfolioManager.calculate(
+            monthlyAdjusted: monthlyAdjusted,
+            initialInvestment: Double(investmentAmount),
+            monthlyCost: Double(monthlyAmount),
+            initialDateOfInvestmentIndex: dateIndex
+        )
+        newSavingStock.symbol = symbol
+        newSavingStock.initialInput = Double(investmentAmount)
+        newSavingStock.monthlyInpuy = Double(monthlyAmount)
+        newSavingStock.timeline = dateIndex
+
+        computedresult = result
+        resultSymbol = symbol
+        tableView.reloadData()
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataEntries.count
     }
@@ -140,7 +193,7 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
                 cell.gainLabel.text = "\(computedResult.gain)"
                 cell.annualReturnLabel.text = "\(computedResult.annualReturn)%"
                 cell.yieldLabel.text = "\(computedResult.yield)%"
-
+                cell.timeLineLabel.text = "Touch to choose"
                 cell.yieldLabel.textColor = presentation.yieldLabelTextColor
                 cell.annualReturnLabel.textColor = presentation.annualReturnLabelTextColor
             }
@@ -149,7 +202,6 @@ class AddToPortfolioController: LoadingViewController, UITableViewDelegate, UITa
     }
     // MARK: - Navigation
 }
-
 extension AddToPortfolioController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let cell = textField.superview?.superview as? AddPortfolioTableViewCell {
@@ -159,39 +211,8 @@ extension AddToPortfolioController: UITextFieldDelegate {
                     presentAlertWithTitle(title: "Hey", message: "Input the symbol")
                     return false
                 }
-                self.showLoadingView()
-                let dateTableViewController = DateTableViewController()
-                let group = DispatchGroup()
-                APIManager.shared.monthlyAdjusted(
-                    for: symbol,
-                    keyNumber: Int.random(in: 11...17)
-                ) { [weak self] result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let response):
-                            let month = response.getMonthInfos()
-                            print(month)
-                            dateTableViewController.timeSeriesMonthlyAdjusted = response
-                            self?.monthlyAdjusted = response
-                            dateTableViewController.didSelectDate = { [weak self] selectedIndex in
-                                let monthInfos = response.getMonthInfos()
-                                if selectedIndex < monthInfos.count {
-                                    let selectedDateInfo = monthInfos[selectedIndex].date
-                                    let dateFormatter = DateFormatter()
-                                    dateFormatter.dateFormat = "yyyy-MM"
-                                    _ = dateFormatter.string(from: selectedDateInfo)
-                                    self?.dateIndex = selectedIndex
-                                    cell.updateTimeLineText(with: String(selectedIndex))
-                                    cell.timeLineInputTextField.text = String(selectedIndex)
-                                    print(cell.timeLineInputTextField)
-                                }
-                            }
-                            self?.navigationController?.pushViewController(dateTableViewController, animated: true)
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                }
+
+                fetchMonthlyAdjustedData(for: symbol)
                 return false
             }
         }
@@ -209,15 +230,19 @@ extension AddToPortfolioController: AddPortfolioTableViewCellDelegate {
         switch textFieldType {
         case .symbol:
             initialSymbol = text
+            newSavingStock.symbol = text ?? ""
             print("symbol update\(String(describing: text))")
         case .initialAmount:
             initialInvestmentAmount = Int(text ?? "")
-            print("Initial Amount\(String(describing: text))")
+            newSavingStock.initialInput = Double(initialInvestmentAmount ?? 0)
+            print("initialAmount update\(String(describing: text))")
         case .monthlyInput:
             monthlyDollarCostAveragingAmount = Int(text ?? "")
-            print("Monthly input\(String(describing: text))")
+            newSavingStock.monthlyInpuy = Double(monthlyDollarCostAveragingAmount ?? 0)
+            print("Monthly update\(String(describing: text))")
         case .timeLine:
             initialDateOfInvestmentIndex = Int(text ?? "")
+            newSavingStock.timeline = initialDateOfInvestmentIndex ?? 0
             print("timeline\(String(describing: text))")
         }
     }

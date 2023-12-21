@@ -38,7 +38,7 @@ struct CalculationResult {
         var isProfitable: Bool
 }
 
-struct SavingPortfolio: Codable {
+struct SavedPortfolio: Codable {
     var symbol: String
     var initialInput: Double
     var monthlyInpuy: Double

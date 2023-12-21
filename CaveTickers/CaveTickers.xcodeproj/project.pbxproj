@@ -86,6 +86,7 @@
 		0F4471B72B2F06A500123C41 /* WatchListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471B62B2F06A500123C41 /* WatchListModel.swift */; };
 		0F4471B92B2F0A1F00123C41 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471B82B2F0A1F00123C41 /* Observable.swift */; };
 		0F4471BD2B2FF1A700123C41 /* TestingBackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471BC2B2FF1A700123C41 /* TestingBackViewModel.swift */; };
+		0F4471BF2B30449800123C41 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4471BE2B30449800123C41 /* PortfolioViewModel.swift */; };
 		0F51A24C2B1DFC7200FBF70D /* UILabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51A24B2B1DFC7200FBF70D /* UILabelClass.swift */; };
 		0F5442BD2B1461BF00B41896 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BC2B1461BF00B41896 /* NewsModel.swift */; };
 		0F5442BF2B1468E400B41896 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */; };
@@ -251,6 +252,7 @@
 		0F4471B62B2F06A500123C41 /* WatchListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListModel.swift; sourceTree = "<group>"; };
 		0F4471B82B2F0A1F00123C41 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		0F4471BC2B2FF1A700123C41 /* TestingBackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingBackViewModel.swift; sourceTree = "<group>"; };
+		0F4471BE2B30449800123C41 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		0F51A24B2B1DFC7200FBF70D /* UILabelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelClass.swift; sourceTree = "<group>"; };
 		0F5442BC2B1461BF00B41896 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		0F5442BE2B1468E400B41896 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -743,6 +745,7 @@
 			children = (
 				0F173BBC2B130FE2002AF172 /* PieChartViewModel.swift */,
 				0F4471BC2B2FF1A700123C41 /* TestingBackViewModel.swift */,
+				0F4471BE2B30449800123C41 /* PortfolioViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1142,6 +1145,7 @@
 				0F0959612B185A5B0084524C /* UIApplication.swift in Sources */,
 				0F0959672B18699A0084524C /* StatisticModel.swift in Sources */,
 				0F7012D22B1F1E450070B555 /* NFTItemsCarouselView.swift in Sources */,
+				0F4471BF2B30449800123C41 /* PortfolioViewModel.swift in Sources */,
 				0F6CD1F62B0B7FDA0026DE51 /* ColorExtension.swift in Sources */,
 				0F5442CD2B15962F00B41896 /* PulsatingSwiftUIView.swift in Sources */,
 				0F7012D82B1F2B760070B555 /* NFTFavoriteTabView.swift in Sources */,

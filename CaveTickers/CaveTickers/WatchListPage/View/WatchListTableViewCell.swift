@@ -140,13 +140,4 @@ class WatchListTableViewCell: UITableViewCell {
         priceLabel.text = nil
         changeLabel.text = nil
     }
-//    public func configure(with viewModel: ViewModel) {
-//        symbolLabel.text = viewModel.symbol
-//        nameLabel.text = viewModel.companyName
-//        priceLabel.text = viewModel.price
-//        changeLabel.text = viewModel.changePercentage
-//        changeLabel.backgroundColor = viewModel.changeColor
-//        marketCap.text = viewModel.marketCaptital
-//        sharesOutstanding.text = viewModel.shareOutstanding
-//    }
 }

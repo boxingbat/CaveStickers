@@ -7,28 +7,59 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDelegate {
     weak var delegate: AddToPortfolioControllerDelegate?
     let tableView = UITableView()
-    private let portfolioManager = PortfolioManager()
-    var savedPortfolio: [SavingPortfolio] = []
-    var historyData: [TimeSeriesMonthlyAdjusted] = []
-    var calculatedResult: [DCAResult] = []
-    var pieChartView: PortfolioPieChart?
-    var pieChartViewModel = PieChartViewModel()
-    var hostingController: UIHostingController<PortfolioPieChart>?
+    private var viewModel = PortfolioViewModel()
+    private var pieChartView: PortfolioPieChart?
+    private var pieChartViewModel = PieChartViewModel()
+    private var subscribers = Set<AnyCancellable>()
+    private var hostingController: UIHostingController<PortfolioPieChart>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout()
-        showLoadingView()
-        loadPortfolio()
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = UIColor(named: "AccentColor")
+        setupLayout()
+        showLoadingView()
+        setupViewModelBindings()
+        viewModel.loadPortfolio()
         pieChartView = PortfolioPieChart(viewModel: pieChartViewModel)
         hostingController = pieChartView.map { UIHostingController(rootView: $0) }
         setupHeaderView()
+    }
+    private func setupViewModelBindings() {
+        viewModel.$calculatedResult
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &subscribers)
+
+        viewModel.$pieChartViewModel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] pieChartViewModel in
+                self?.updatePieChartView(with: pieChartViewModel)
+            }
+            .store(in: &subscribers)
+        viewModel.dataLoadedPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    self?.hideLoadingView()
+                }
+                .store(in: &subscribers)
+    }
+    private func updatePieChartView(with viewModel: PieChartViewModel) {
+        let newPieChartView = PortfolioPieChart(viewModel: viewModel)
+        if let hostingController = self.hostingController {
+            hostingController.rootView = newPieChartView
+        } else {
+            let newHostingController = UIHostingController(rootView: newPieChartView)
+            self.hostingController = newHostingController
+            setupHeaderView()
+        }
     }
     private func setupHeaderView() {
         guard let hostingController = hostingController else { return }
@@ -81,62 +112,6 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         tableView.delegate = self
         tableView.dataSource = self
     }
-
-    private func loadPortfolio() {
-        let savedStocks = PersistenceManager.shared.loadPortfolio()
-        savedPortfolio = savedStocks
-        print(savedPortfolio)
-        historyData.removeAll()
-        calculatedResult.removeAll()
-
-        var tempResults: [String: DCAResult] = [:]
-        let group = DispatchGroup()
-
-        for portfolio in savedPortfolio {
-            group.enter()
-            getHistoricData(symbol: portfolio.symbol) { [weak self] result in
-                guard self != nil else { return }
-                if let result = result {
-                    tempResults[portfolio.symbol] = result
-                }
-                group.leave()
-            }
-        }
-
-        group.notify(queue: .main) { [weak self] in
-            guard let strongSelf = self else { return }
-    strongSelf.calculatedResult = strongSelf.savedPortfolio.compactMap { tempResults[$0.symbol] }
-        let portfolioItems = strongSelf.savedPortfolio.enumerated().compactMap { index, savedItem -> PortfolioItem? in
-        guard index < strongSelf.calculatedResult.count else { return nil }
-            return PortfolioItem(symbol: savedItem.symbol, dcaResult: strongSelf.calculatedResult[index])
-        }
-            strongSelf.pieChartViewModel.updateChart(with: portfolioItems)
-            strongSelf.tableView.reloadData()
-            self?.hideLoadingView()
-        }
-    }
-    func getHistoricData(symbol: String, completion: @escaping (DCAResult?) -> Void) {
-        APIManager.shared.monthlyAdjusted(for: symbol, keyNumber: Int.random(in: 0...10)) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    self?.historyData.append(response)
-                    if let portfolioItem = self?.savedPortfolio.first(where: { $0.symbol == symbol }) {
-                        let result = self?.portfolioManager.calculate(
-                            monthlyAdjusted: response,
-                            initialInvestment: portfolioItem.initialInput,
-                            monthlyCost: portfolioItem.monthlyInpuy,
-                            initialDateOfInvestmentIndex: portfolioItem.timeline
-                        )
-                        completion(result)
-                    }
-                case .failure(let error):
-                    print(error)
-                    completion(nil)
-                }
-            }
-        }
-    }
     // MARK: - Navigation
     @objc private func addButtonTapped() {
         TapManager.shared.vibrateForSelection()
@@ -145,7 +120,7 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
         navigationController?.pushViewController(addPortfolioVC, animated: true)
     }
     func didSavePortfolio() {
-        loadPortfolio()
+        viewModel.loadPortfolio()
     }
 }
 extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
@@ -153,7 +128,7 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return calculatedResult.count
+        return viewModel.savedPortfolio.count
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
@@ -162,10 +137,9 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         // swiftlint: disable all
         let cell = tableView.dequeueReusableCell(withIdentifier: "StockCell", for: indexPath) as! StockTableViewCell
         // swiftlint: enable all
-        if indexPath.row < calculatedResult.count {
-            let result = calculatedResult[indexPath.row]
-            let saved = savedPortfolio[indexPath.row]
-
+        if indexPath.row < viewModel.calculatedResult.count {
+            let result = viewModel.calculatedResult[indexPath.row]
+            let saved = viewModel.savedPortfolio[indexPath.row]
             cell.stockInfoLabel.text = "\(saved.symbol)"
             cell.investmentAmountLabel.text = "\(result.investmentAmount)"
             cell.gainLabel.text = "\(result.gain)"
@@ -182,14 +156,14 @@ extension PortfolioViewController: UITableViewDelegate, UITableViewDataSource {
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            let portfolioToDelete = savedPortfolio[indexPath.row]
-            savedPortfolio.remove(at: indexPath.row)
-            calculatedResult.remove(at: indexPath.row)
+            let portfolioToDelete = viewModel.savedPortfolio[indexPath.row]
+            viewModel.savedPortfolio.remove(at: indexPath.row)
+            viewModel.calculatedResult.remove(at: indexPath.row)
 
             PersistenceManager.shared.deletePortfolio(savingStock: portfolioToDelete)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
-            loadPortfolio()
+            viewModel.loadPortfolio()
         }
     }
 }

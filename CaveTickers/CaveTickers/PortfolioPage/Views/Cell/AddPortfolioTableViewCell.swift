@@ -208,6 +208,7 @@ class AddPortfolioTableViewCell: UITableViewCell {
         gainLabel.text = "00"
         yieldLabel.text = "0%"
         annualReturnLabel.text = "0%"
+        timeLineLabel.text = "Touch to choose"
         symbolLabel.text = "Stock Symbol"
         initialAmountLabel.text = "initail Amount(USD)"
         monthlyInputLabel.text = "MonthlyInput Amount(USD)"

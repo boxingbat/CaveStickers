@@ -229,7 +229,6 @@ extension NFTDataManager {
         }
         .resume()
     }
-    /// Parse fetched data from the API
     /// - Parameters:
     ///   - data: data from API response
     ///   - lastSoldItems: indicates if this data should be assigned to the last sold items array or to the new released items

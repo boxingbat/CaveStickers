@@ -11,7 +11,7 @@ import Foundation
 
 enum AppConfig {
     // MARK: - OpenSea APIs
-    static let hostName: String = "https://api.opensea.io/api/v1"
+    static let hostName: String = "https://api.opensea.io/api/v2"
     static let assetsAPI: String = "\(hostName)/assets"
     static let assetStatsAPI: String = "\(hostName)/asset"
     static let openSeaAPIDocs: String = "https://docs.opensea.io"
@@ -20,8 +20,8 @@ enum AppConfig {
 
     /// Show/Hide "More Details" button on NFT Details screen
     static let hideMoreDetailsButton = true
-    // MARK: - Widget Configurations
-    static let showDebugLogs = false
+//    // MARK: - Widget Configurations
+//    static let showDebugLogs = false
 }
 
 // MARK: - API Request Builder
