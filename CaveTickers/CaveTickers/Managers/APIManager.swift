@@ -123,14 +123,14 @@ final class APIManager {
             completion: completion
         )
     }
-    public func news(completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+    public func news(completion: @escaping (Result<[NewsModel], Error>) -> Void) {
         request(
             url: finUrl(for: .topStories, queryParams: ["category": "general"]),
-            expecting: [NewsStory].self,
+            expecting: [NewsModel].self,
             completion: completion
         )
     }
-    public func companyNews(symbol: String, completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+    public func companyNews(symbol: String, completion: @escaping (Result<[NewsModel], Error>) -> Void) {
         let today = Date()
         let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
         request(
@@ -142,7 +142,7 @@ final class APIManager {
                     "to": DateFormatter.newsDateFormatter.string(from: today)
                 ]
             ),
-            expecting: [NewsStory].self,
+            expecting: [NewsModel].self,
             completion: completion
         )
     }

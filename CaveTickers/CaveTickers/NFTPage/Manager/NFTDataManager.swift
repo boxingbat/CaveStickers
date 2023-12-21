@@ -94,29 +94,29 @@ class NFTDataManager: NSObject, ObservableObject {
         let demoAssetModels = [
             NFTAssetModel(
                 id: 0,
-                tokenID: "123",
+                tokenID: "12283743",
                 salesCount: 0,
                 imageURL: "https://millersmusic.co.uk/cdn/shop/articles/Blog_Image_40.png?v=1681389491",
                 imageThumbnailURL: "https://millersmusic.co.uk/cdn/shop/articles/Blog_Image_40.png?v=1681389491",
-                name: "Demo NFT 1",
+                name: "Deem19283763",
                 nftAssetDescription: AssetDescription(itemDescription: "This is the first demo NFT description"),
                 assetContract: AssetContract(address: "0x123456789"),
                 permalink: "https://example.com/nft/123",
                 collection: AssetCollection(largeImageUrl: "https://millersmusic.co.uk/cdn/shop/articles/Blog_Image_40.png?v=1681389491"),
-                creator: Creator(user: User(username: "demo user 1"))
+                creator: Creator(user: User(username: "Deem32432"))
             ),
             NFTAssetModel(
                 id: 1,
-                tokenID: "456",
+                tokenID: "459376",
                 salesCount: 1,
                 imageURL: "https://memeprod.ap-south-1.linodeobjects.com/user-template/976f753dd3aeb849408933e322b85973.png",
                 imageThumbnailURL: "https://memeprod.ap-south-1.linodeobjects.com/user-template/976f753dd3aeb849408933e322b85973.png",
-                name: "Demo NFT 2",
+                name: "DEEM3928437",
                 nftAssetDescription: AssetDescription(itemDescription: "This is the second demo NFT description"),
                 assetContract: AssetContract(address: "0x987654321"),
                 permalink: "https://example.com/nft/456",
                 collection: AssetCollection(largeImageUrl: "https://memeprod.ap-south-1.linodeobjects.com/user-template/976f753dd3aeb849408933e322b85973.png"),
-                creator: Creator(user: User(username: "demo user 2"))
+                creator: Creator(user: User(username: "Deem32432"))
             )
         ]
         holdingNFTItems = demoAssetModels
@@ -229,7 +229,6 @@ extension NFTDataManager {
         }
         .resume()
     }
-    /// Parse fetched data from the API
     /// - Parameters:
     ///   - data: data from API response
     ///   - lastSoldItems: indicates if this data should be assigned to the last sold items array or to the new released items

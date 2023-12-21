@@ -13,13 +13,13 @@ import Charts
 @MainActor
 class ChartViewModel: ObservableObject {
     @Published var fetchphase = FetchPhase<ChartViewData>.initial
+    @Published var latestPrice: String = ""
+    private var webSocketManager: WebSocketManager?
     var chart: ChartViewData? { fetchphase.value }
-
     let ticker: Ticker
     let apiService: StocksAPI
-@AppStorage("selectedRange")
+    @AppStorage("selectedRange")
     private var _range = ChartRange.oneDay.rawValue
-
     @Published var selectedRange = ChartRange.oneDay {
         didSet {
             _range = selectedRange.rawValue
@@ -68,6 +68,8 @@ class ChartViewModel: ObservableObject {
         self.ticker = ticker
         self.apiService = apiService
         self.selectedRange = ChartRange(rawValue: _range) ?? .oneDay
+        self.webSocketManager = WebSocketManager()
+        getCurrentPrice()
     }
 
     func fetchData() async {
@@ -76,14 +78,18 @@ class ChartViewModel: ObservableObject {
             let rangeType = self.selectedRange
             let chartData = try await apiService.fetchChartData(tickerSymbol: ticker.symbol, range: rangeType)
 
-            guard rangeType == self.selectedRange else { return }
-            if let chartData {
-                fetchphase = .success(transformChartViewData(chartData))
-            } else {
-                fetchphase = .empty
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self, rangeType == self.selectedRange else { return }
+                if let chartData {
+                    self.fetchphase = .success(self.transformChartViewData(chartData))
+                } else {
+                    self.fetchphase = .empty
+                }
             }
         } catch {
-            fetchphase = .failure(error)
+            DispatchQueue.main.async { [weak self] in
+                self?.fetchphase = .failure(error)
+            }
         }
     }
 
@@ -179,26 +185,18 @@ class ChartViewModel: ObservableObject {
             }
         }
 
-        // 2
         let diff = highest - lowest
 
-        // 3
         let numberOfLines: Double = 4
         let shouldCeilIncrement: Bool
-        //        let strideBy: Double
 
         if diff < (numberOfLines * 2) {
-            // 4A
             shouldCeilIncrement = false
-            //            strideBy = 0.01
         } else {
-            // 4B
             shouldCeilIncrement = true
             lowest = floor(lowest)
             highest = ceil(highest)
-            //            strideBy = 1.0
         }
-        // 5
         let increment = ((highest - lowest) / (numberOfLines))
         var map: [String: String] = [:]
         map[highest.roundedString] = formatYAxisValueLabel(value: highest, shouldCeilIncrement: shouldCeilIncrement)
@@ -246,5 +244,30 @@ class ChartViewModel: ObservableObject {
             }
         }
         return .blue
+    }
+    func getCurrentPrice() {
+        let now = Date()
+        if now.isUSMarketOpen() {
+            webSocketManager?.connect(withSymbol: ticker.symbol)
+            webSocketManager?.onReceive = { [weak self] price in
+                DispatchQueue.main.async {
+                    self?.latestPrice = price
+                }
+            }
+        } else {
+            APIManager.shared.singleDayData(for: ticker.symbol) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        self?.latestPrice = "\(data.current)"
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    func disconnectWebSocket() {
+        webSocketManager?.close()
     }
 }

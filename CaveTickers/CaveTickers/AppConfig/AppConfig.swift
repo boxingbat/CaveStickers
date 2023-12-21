@@ -11,18 +11,17 @@ import Foundation
 
 enum AppConfig {
     // MARK: - OpenSea APIs
-    static let hostName: String = "https://api.opensea.io/api/v1"
+    static let hostName: String = "https://api.opensea.io/api/v2"
     static let assetsAPI: String = "\(hostName)/assets"
     static let assetStatsAPI: String = "\(hostName)/asset"
     static let openSeaAPIDocs: String = "https://docs.opensea.io"
 
-    static let apiKey: String = "303f79c1e00542acb9de4413057e9be6"
+    static let apiKey: String = "6e59290dbb674e7a80aef6d3eb20335b"
 
     /// Show/Hide "More Details" button on NFT Details screen
     static let hideMoreDetailsButton = true
-    // MARK: - Widget Configurations
-    static let showDebugLogs = false
-    static let widgetDeeplinkURI = "widget-deeplink://"
+//    // MARK: - Widget Configurations
+//    static let showDebugLogs = false
 }
 
 // MARK: - API Request Builder
@@ -79,7 +78,7 @@ struct OwnerAssetsRequestParameters {
 
 // MARK: - Navigation Tab Bar
 enum CustomTabBarItem: String, CaseIterable, Identifiable {
-    case home = "chart.bar.doc.horizontal", favorite = "heart", collection = "books.vertical"
+    case home = "chart.bar.doc.horizontal", collection = "books.vertical", favorite = "heart"
 
     var headerTitle: String {
         switch self {
