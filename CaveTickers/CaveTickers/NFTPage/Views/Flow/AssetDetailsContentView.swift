@@ -11,7 +11,7 @@ import SafariServices
 /// Shows a full screen with a given asset details
 struct AssetDetailsContentView: View {
     @EnvironmentObject var manager: NFTDataManager
-    @Environment(\.presentationMode) 
+    @Environment(\.presentationMode)
     var presentationMode
     @State private var scale: CGFloat = 1.0
     @State private var dragAmount = CGSize.zero

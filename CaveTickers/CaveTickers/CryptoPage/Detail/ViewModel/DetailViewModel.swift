@@ -7,24 +7,64 @@
 
 import Foundation
 import Combine
+import UIKit
+import SwiftUI
 
 class DetailViewModel: ObservableObject {
+    enum PriceChange {
+        case increased
+        case decreased
+        case noChange
+    }
+
+    @Published var latestPrice: String = ""
     @Published var overviewStatistics: [StatisticModel] = []
     @Published var addtionalStatistics: [StatisticModel] = []
+    @Published var flashColor: Color = .clear
+    @Published var priceChange: PriceChange = .noChange
+
 
     @Published var coin: CoinModel
     private let coinDetailManager: CoinDetailManager
     @Published var portfolioDataManager: PortfolioDataManager
     private var cancellables = Set<AnyCancellable>()
+    private var webSocketManager = WebSocketManager()
 
-    init(coin: CoinModel) {
-        self.coin = coin
-        self.coinDetailManager = CoinDetailManager(coin: coin)
-        self.portfolioDataManager = PortfolioDataManager()
-        self.addSubscribers()
-    }
+    // Combined initializer
+        init(coin: CoinModel) {
+            self.coin = coin
+            self.coinDetailManager = CoinDetailManager(coin: coin)
+            self.portfolioDataManager = PortfolioDataManager()
+            addSubscribers()
+            setupWebSocketSubscriptions()
+        }
+    private func setupWebSocketSubscriptions() {
+            webSocketManager.latestPriceSubject
+                .sink { [weak self] latestPrice in
+                    DispatchQueue.main.async {
+                        if let oldPrice = Double(self?.latestPrice ?? "0"), let newPrice = Double(latestPrice) {
+                            if newPrice > oldPrice {
+                                self?.priceChange = .increased
+                            } else if newPrice < oldPrice {
+                                self?.priceChange = .decreased
+                            } else {
+                                self?.priceChange = .noChange
+                            }
+                        }
+                        self?.latestPrice = latestPrice
+                    }
+                }
+                .store(in: &cancellables)
+        }
 
-    func ifCoinInPortfolio(coinID : String) -> Bool {
+//    init(coin: CoinModel) {
+//        self.coin = coin
+//        self.coinDetailManager = CoinDetailManager(coin: coin)
+//        self.portfolioDataManager = PortfolioDataManager()
+//        self.addSubscribers()
+//    }
+
+    func ifCoinInPortfolio(coinID: String) -> Bool {
         let coinExists = portfolioDataManager.isCoinInPortfolio(coinID: coinID)
         return coinExists
     }
@@ -45,6 +85,19 @@ class DetailViewModel: ObservableObject {
                 self?.addtionalStatistics = returnArrays.addtional
             }
             .store(in: &cancellables)
+    }
+    func connectWebSocket(withSymbol symbol: String) {
+        let formattedSymbol = "BINANCE:\(symbol.uppercased())USDT"
+        webSocketManager.connect(withSymbol: formattedSymbol)
+        webSocketManager.send(symbol: formattedSymbol)
+    }
+
+    func disconnectWebSocket() {
+        webSocketManager.close()
+    }
+
+    deinit {
+        webSocketManager.close()
     }
 
     private func mapDataToStatistics(coinDetailModel: CoinDetailModel?, coinModel: CoinModel) -> (overview: [StatisticModel], addtional: [StatisticModel]) {

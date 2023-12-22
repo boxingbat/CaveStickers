@@ -20,14 +20,13 @@ struct DetailLoadingView: View {
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
-    @ObservedObject var webSocketManager = WebSocketManager()
     @State private var isFavorite = false
+    @State private var flashColor: Color = .theme.accent
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     private let spacing: CGFloat = 30
-
     init(coin: CoinModel) {
         _viewModel = StateObject(wrappedValue: DetailViewModel(coin: coin))
     }
@@ -59,11 +58,23 @@ struct DetailView: View {
         }
         .onAppear {
             isFavorite = viewModel.ifCoinInPortfolio(coinID: viewModel.coin.id)
-            webSocketManager.connect(withSymbol: "BINANCE:\(viewModel.coin.name.uppercased())USDT")
-            webSocketManager.send(symbol: "BINANCE:\(viewModel.coin.symbol.uppercased())USDT")
+            viewModel.connectWebSocket(withSymbol: viewModel.coin.symbol)
         }
         .onDisappear {
-            webSocketManager.close()
+            viewModel.disconnectWebSocket()
+        }
+        .onReceive(viewModel.$priceChange) { change in
+            switch change {
+            case .increased:
+                flashColor = .themeGreen
+            case .decreased:
+                flashColor = .themeRed
+            case .noChange:
+                flashColor = .theme.accent
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                flashColor = .theme.accent
+            }
         }
     }
     private var realTimeView: some View {
@@ -72,13 +83,14 @@ struct DetailView: View {
                 .font(.caption)
                 .foregroundColor(Color.theme.secondaryText)
 
-            Text(webSocketManager.latestPrice)
+            Text(viewModel.latestPrice)
                 .font(.title2)
                 .fontWeight(.bold)
-                .foregroundColor(webSocketManager.flashColor == .clear ? Color.theme.accent : webSocketManager.flashColor)
+                .foregroundColor(flashColor)
+                .transition(.opacity)
+                .animation(.easeInOut, value: viewModel.latestPrice)
         }
     }
-
     private var currencyView: some View {
         Text("\(viewModel.coin.symbol.uppercased()) / USDT")
             .font(.title3)

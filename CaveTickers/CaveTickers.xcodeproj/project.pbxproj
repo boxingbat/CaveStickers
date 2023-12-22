@@ -478,7 +478,6 @@
 		0F2D6CE22B04D628007F1748 /* CaveTickers */ = {
 			isa = PBXGroup;
 			children = (
-				0FCCA8F12B2AAA2600A659F0 /* GoogleService-Info.plist */,
 				0F2D6D112B060388007F1748 /* Others */,
 				0F6CD1F02B0B45CF0026DE51 /* Extension */,
 				0F7012C82B1F06680070B555 /* AppConfig */,
@@ -494,6 +493,7 @@
 				0F2D6CEF2B04D62A007F1748 /* Assets.xcassets */,
 				0F2D6CF42B04D62A007F1748 /* Info.plist */,
 				0F2D6CEC2B04D628007F1748 /* PortfolioContainer.xcdatamodeld */,
+				0FCCA8F12B2AAA2600A659F0 /* GoogleService-Info.plist */,
 			);
 			path = CaveTickers;
 			sourceTree = "<group>";
@@ -690,7 +690,6 @@
 			isa = PBXGroup;
 			children = (
 				0FA0F2CF2B26EA0D00E5EC1C /* View */,
-				0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */,
 				0FA0F2CC2B26E84F00E5EC1C /* Controller */,
 				0FA0F2C42B26E60600E5EC1C /* ViewModel */,
 				0FA0F2C32B26E5FA00E5EC1C /* Model */,
@@ -825,6 +824,7 @@
 		0FA0F2CF2B26EA0D00E5EC1C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F5CF04F2B08870A009CC0B1 /* StockDetailHeaderView.swift */,
 				0FA0F2D12B26EA2E00E5EC1C /* Cell */,
 				0FA0F2D02B26EA1700E5EC1C /* SwiftUI */,
 			);

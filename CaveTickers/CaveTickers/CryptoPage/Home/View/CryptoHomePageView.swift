@@ -52,6 +52,7 @@ struct CryptoHomePageView: View {
 struct CryptoHomePageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
+            let webSocketManager = WebSocketManager()
             CryptoHomePageView(viewModel: HomeViewModel())
                 .navigationBarHidden(true)
         }
@@ -68,7 +69,7 @@ extension CryptoHomePageView {
                     if showPortfolio {
                         showPortfolioView.toggle()
                     } else {
-//                        fatalError("Crash was triggered")
+                        // fatalError("Crash was triggered")
                     }
                 }
                 .background(

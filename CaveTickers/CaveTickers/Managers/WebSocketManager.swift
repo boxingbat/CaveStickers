@@ -7,14 +7,27 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject {
+
+    // Websocket
     private var webSocket: URLSessionWebSocketTask?
     var onReceive: ((String) -> Void)?
     private var symbol: String?
+
+    // SwiftUI
     @Published var latestPrice: String = ""
     @Published var priceChangeColor: Color = .theme.accent
     @Published var flashColor: Color = .clear
+
+
+    // Combine Subject
+    private var cancellables = Set<AnyCancellable>()
+    let latestPriceSubject = CurrentValueSubject<String, Never>("")
+    let priceChangeColorSubject = CurrentValueSubject<Color, Never>(.theme.accent)
+    let flashColorSubject = CurrentValueSubject<Color, Never>(.clear)
+
 
     func connect(withSymbol symbol: String) {
         self.symbol = symbol
@@ -60,7 +73,7 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
             let stockInfo = try JSONDecoder().decode(WebsocketStockInfo.self, from: data)
             if let firstPriceData = stockInfo.data.first {
                 let newPrice = firstPriceData.priceData
-                let oldPrice = Double(self.latestPrice) ?? 0.0
+                let oldPrice = Double(self.latestPriceSubject.value) ?? 0.0
 
                 DispatchQueue.main.async {
                     if newPrice > oldPrice {
@@ -68,8 +81,8 @@ class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject 
                     } else if newPrice < oldPrice {
                         self.flashPriceChange(.themeRed)
                     }
-
-                    self.latestPrice = String(newPrice)
+                    self.latestPriceSubject.send(String(newPrice))
+                    self.priceChangeColorSubject.send(newPrice > oldPrice ? .themeGreen : .themeRed)
                 }
             }
         } catch {

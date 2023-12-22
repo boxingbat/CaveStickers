@@ -45,11 +45,11 @@ class PortfolioViewController: LoadingViewController, AddToPortfolioControllerDe
             }
             .store(in: &subscribers)
         viewModel.dataLoadedPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] _ in
-                    self?.hideLoadingView()
-                }
-                .store(in: &subscribers)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.hideLoadingView()
+            }
+            .store(in: &subscribers)
     }
     private func updatePieChartView(with viewModel: PieChartViewModel) {
         let newPieChartView = PortfolioPieChart(viewModel: viewModel)

@@ -11,6 +11,7 @@ import SwiftUI
 class CryptoViewController: LoadingViewController {
 @ObservedObject var viewModel = HomeViewModel()
     var hostingController: UIHostingController<AnyView>?
+    let webSocketManager = WebSocketManager()
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)

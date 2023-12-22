@@ -65,8 +65,8 @@ extension Date {
         return newDate
     }
     func isUSMarketOpen() -> Bool {
-           let marketOpen = self.dateAt(hours: 9, minutes: 30)
-           let marketClose = self.dateAt(hours: 16, minutes: 0)
-           return self >= marketOpen && self < marketClose
-       }
+        let marketOpen = self.dateAt(hours: 9, minutes: 30)
+        let marketClose = self.dateAt(hours: 16, minutes: 0)
+        return self >= marketOpen && self < marketClose
+    }
 }
