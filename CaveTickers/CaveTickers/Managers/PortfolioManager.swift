@@ -88,11 +88,3 @@ struct PortfolioManager {
         return totalShares
     }
 }
-struct DCAResult {
-    let currentValue: Double
-    let investmentAmount: Double
-    let gain: Double
-    let yield: Double
-    let annualReturn: Double
-    let isProfitable: Bool
-}

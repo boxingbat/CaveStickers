@@ -64,6 +64,7 @@ final class PersistenceManager {
         savingStocks.append(savingStock)
         save(savingStocks: savingStocks)
     }
+
     private func save(savingStocks: [SavedPortfolio]) {
         do {
             let data = try JSONEncoder().encode(savingStocks)

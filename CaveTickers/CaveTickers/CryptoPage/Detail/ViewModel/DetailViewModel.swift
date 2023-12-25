@@ -28,7 +28,7 @@ class DetailViewModel: ObservableObject {
     private let coinDetailManager: CoinDetailManager
     @Published var portfolioDataManager: PortfolioDataManager
     private var cancellables = Set<AnyCancellable>()
-    private var webSocketManager = WebSocketManager()
+    var webSocketManager = WebSocketManager()
 
     // Combined initializer
         init(coin: CoinModel) {
@@ -39,31 +39,23 @@ class DetailViewModel: ObservableObject {
             setupWebSocketSubscriptions()
         }
     private func setupWebSocketSubscriptions() {
-            webSocketManager.latestPriceSubject
-                .sink { [weak self] latestPrice in
-                    DispatchQueue.main.async {
-                        if let oldPrice = Double(self?.latestPrice ?? "0"), let newPrice = Double(latestPrice) {
-                            if newPrice > oldPrice {
-                                self?.priceChange = .increased
-                            } else if newPrice < oldPrice {
-                                self?.priceChange = .decreased
-                            } else {
-                                self?.priceChange = .noChange
-                            }
+        webSocketManager.latestPriceSubject
+            .sink { [weak self] latestPrice in
+                DispatchQueue.main.async {
+                    if let oldPrice = Double(self?.latestPrice ?? "0"), let newPrice = Double(latestPrice) {
+                        if newPrice > oldPrice {
+                            self?.priceChange = .increased
+                        } else if newPrice < oldPrice {
+                            self?.priceChange = .decreased
+                        } else {
+                            self?.priceChange = .noChange
                         }
-                        self?.latestPrice = latestPrice
                     }
+                    self?.latestPrice = latestPrice
                 }
-                .store(in: &cancellables)
-        }
-
-//    init(coin: CoinModel) {
-//        self.coin = coin
-//        self.coinDetailManager = CoinDetailManager(coin: coin)
-//        self.portfolioDataManager = PortfolioDataManager()
-//        self.addSubscribers()
-//    }
-
+            }
+            .store(in: &cancellables)
+    }
     func ifCoinInPortfolio(coinID: String) -> Bool {
         let coinExists = portfolioDataManager.isCoinInPortfolio(coinID: coinID)
         return coinExists
@@ -100,7 +92,7 @@ class DetailViewModel: ObservableObject {
         webSocketManager.close()
     }
 
-    private func mapDataToStatistics(coinDetailModel: CoinDetailModel?, coinModel: CoinModel) -> (overview: [StatisticModel], addtional: [StatisticModel]) {
+    func mapDataToStatistics(coinDetailModel: CoinDetailModel?, coinModel: CoinModel) -> (overview: [StatisticModel], addtional: [StatisticModel]) {
         let price = coinModel.currentPrice.asCurrencyWith2Decimals()
         let pricePercentChange = coinModel.priceChangePercentage24H
         let priceStat = StatisticModel(title: "Current Price", value: price, percentageChange: pricePercentChange)
@@ -120,7 +112,6 @@ class DetailViewModel: ObservableObject {
         ]
 
         // Additional
-
         let high = coinModel.high24H?.asCurrencyWith6Decimals() ?? "n/a"
         let highStat = StatisticModel(title: "24H High", value: high)
 

@@ -34,7 +34,6 @@ struct ChartView: View {
             }
             .chartXAxis { chartXAxis }
             .chartXScale(domain: data.xAxisData.axisStart...data.xAxisData.axisEnd)
-        //            .chartYAxis { chartYAxis }
             .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
             .chartOverlay { proxy in

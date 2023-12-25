@@ -139,11 +139,10 @@ extension DetailView {
 
             Button(action: {
                 saveButtonTapped()
-            })
-            {
+            }, label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .foregroundColor(isFavorite ? .red : .gray)
-            }
+            })
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

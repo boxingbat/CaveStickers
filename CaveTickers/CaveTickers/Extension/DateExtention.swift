@@ -48,25 +48,19 @@ extension Date {
 
         return date
     }
-    func dateAt(hours: Int, minutes: Int) -> Date {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        calendar.timeZone = TimeZone(identifier: "America/New_York")!
-        var dateComponents = calendar.components(
-            [
-                NSCalendar.Unit.year,
-                NSCalendar.Unit.month,
-                NSCalendar.Unit.day
-            ],
-            from: self
-        )
+    func dateAt(hours: Int, minutes: Int) -> Date? {
+        guard let calendar = NSCalendar(calendarIdentifier: .gregorian) else { return nil }
+        calendar.timeZone = TimeZone(identifier: "America/New_York") ?? TimeZone.current
+        var dateComponents = calendar.components([.year, .month, .day], from: self)
         dateComponents.hour = hours
         dateComponents.minute = minutes
-        let newDate = calendar.date(from: dateComponents)!
-        return newDate
+        return calendar.date(from: dateComponents)
     }
     func isUSMarketOpen() -> Bool {
-        let marketOpen = self.dateAt(hours: 9, minutes: 30)
-        let marketClose = self.dateAt(hours: 16, minutes: 0)
+        guard let marketOpen = self.dateAt(hours: 9, minutes: 30),
+            let marketClose = self.dateAt(hours: 16, minutes: 0) else {
+            return false
+        }
         return self >= marketOpen && self < marketClose
     }
 }

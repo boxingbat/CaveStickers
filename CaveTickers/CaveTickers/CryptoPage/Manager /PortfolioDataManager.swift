@@ -50,7 +50,7 @@ class PortfolioDataManager: ObservableObject {
         }
     }
     func isCoinInPortfolio(coinID: String) -> Bool {
-        return savedEntities.contains(where: { $0.coinID == coinID })
+        return savedEntities.contains { $0.coinID == coinID }
     }
 
     private func add(coin: CoinModel, amount: Double) {

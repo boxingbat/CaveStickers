@@ -27,7 +27,7 @@ class ChartViewModel: ObservableObject {
     }
 
     @Published var selectedX: (any Plottable)?
-
+// MARK: - Setting the situation when user touch the graph
     var selectedXRuleMark: (value: Int, text: String)? {
         guard let selectedX = selectedX as? Int,
             let chart
@@ -71,7 +71,7 @@ class ChartViewModel: ObservableObject {
         self.webSocketManager = WebSocketManager()
         getCurrentPrice()
     }
-
+// MARK: - Fetch Data for the Chart
     func fetchData() async {
         do {
             fetchphase = .fetching
@@ -94,7 +94,6 @@ class ChartViewModel: ObservableObject {
     }
 
     func transformChartViewData(_ data: ChartData) -> ChartViewData {
-        //        let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close) }
         let (xAxisChartData, items) = xAxisChartDataAndItems(data)
         let yAxisChartData = yAxisChartData(data)
         return ChartViewData(
@@ -187,15 +186,15 @@ class ChartViewModel: ObservableObject {
 
         let diff = highest - lowest
 
-        let numberOfLines: Double = 4
+        let numberOfLines: Double = 4 // block lines of the chart
         let shouldCeilIncrement: Bool
 
         if diff < (numberOfLines * 2) {
             shouldCeilIncrement = false
         } else {
             shouldCeilIncrement = true
-            lowest = floor(lowest)
-            highest = ceil(highest)
+            lowest = floor(lowest) // take lower Int
+            highest = ceil(highest)// take upper Int
         }
         let increment = ((highest - lowest) / (numberOfLines))
         var map: [String: String] = [:]
@@ -235,6 +234,7 @@ class ChartViewModel: ObservableObject {
             return Utils.numberFormatter.string(from: NSNumber(value: value)) ?? value.roundedString
         }
     }
+// MARK: - Real Time Price Update via Websocket
     func getLineColor(data: ChartData) -> Color {
         if let last = data.indicators.last?.close {
             if selectedRange == .oneDay, let prevClose = data.meta.previousClose {

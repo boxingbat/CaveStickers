@@ -53,8 +53,10 @@ struct DashboardContentView: View {
                 VStack(spacing: 10) {
                     Text(selectedTab.headerTitle)
                         .font(.system(size: 30, weight: .medium))
-//                        .foregroundColor(Color.theme.accent)
-                    Capsule().frame(height: 1, alignment: .center)
+                    Capsule().frame(
+                        height: 1,
+                        alignment: .center
+                    )
                         .padding([
                             .leading,
                             .trailing
@@ -106,9 +108,11 @@ struct DashboardContentView: View {
                 }
             }
         }
-        return NavigationLink(destination: destinationView(),
-                              isActive: $showAssetDetails) {
+        return NavigationStack {
             EmptyView()
+                .navigationDestination(isPresented: $showAssetDetails) {
+                    destinationView()
+                }
         }
         .hidden()
     }

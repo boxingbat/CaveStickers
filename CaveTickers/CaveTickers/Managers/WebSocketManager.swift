@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 class WebSocketManager: NSObject, URLSessionWebSocketDelegate, ObservableObject {
-
     // Websocket
     private var webSocket: URLSessionWebSocketTask?
     var onReceive: ((String) -> Void)?

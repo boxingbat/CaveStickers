@@ -15,44 +15,44 @@ struct CryptoHomePageView: View {
     @State private var selectedCoin: CoinModel?
     @State private var showDetailView = false
 
+
     var body: some View {
-        ZStack {
-            Color.theme.background
-                .ignoresSafeArea()
-                .sheet(isPresented: $showPortfolioView) {
-                    PortfolioView()
-                        .environmentObject(viewModel)
-                }
+        NavigationStack {
+            ZStack {
+                Color.theme.background
+                    .ignoresSafeArea()
+                    .sheet(isPresented: $showPortfolioView) {
+                        PortfolioView()
+                            .environmentObject(viewModel)
+                    }
 
-            VStack {
-                homeHeader
-                SearchBarView(searchText: $viewModel.searchText)
-                HomeStatsView(showPortfolio: $showPortfolio)
-                columTitles
+                VStack {
+                    homeHeader
+                    SearchBarView(searchText: $viewModel.searchText)
+                    HomeStatsView(showPortfolio: $showPortfolio)
+                    columTitles
 
-                if !showPortfolio {
-                    allCoinList
-                        .transition(.move(edge: .leading))
+                    if !showPortfolio {
+                        allCoinList
+                            .transition(.move(edge: .leading))
+                    }
+                    if showPortfolio {
+                        portfolioCoinList
+                            .transition(.move(edge: .trailing))
+                    }
+                    Spacer(minLength: 0)
                 }
-                if showPortfolio {
-                    portfolioCoinList
-                        .transition(.move(edge: .trailing))
-                }
-                Spacer(minLength: 0)
+            }
+            .navigationDestination(isPresented: $showDetailView) {
+                DetailLoadingView(coin: $selectedCoin)
             }
         }
-        .background(
-            NavigationLink(
-                destination: DetailLoadingView(coin: $selectedCoin),
-                isActive: $showDetailView) { EmptyView() }
-        )
     }
 }
 
 struct CryptoHomePageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            let webSocketManager = WebSocketManager()
             CryptoHomePageView(viewModel: HomeViewModel())
                 .navigationBarHidden(true)
         }
