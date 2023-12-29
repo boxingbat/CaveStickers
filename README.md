@@ -1,9 +1,42 @@
 # CaveTickers
 
-## A Stock and Cryptocurrency Tracking iOS APP
+- A Stock and Cryptocurrency Tracking iOS APP
 
-- **MVVM Pattern with Combine framework.**
-  - Integrated SwiftUI views and UIKit by using HostingViewController, enhancing development flexibility.
+## Technology
+
+### UI FrameWork
+
+- Swift UI ＋UIKit
+
+### Architectural Patterns
+
+- Model-View-ViewModel
+
+### Persistent Storage
+
+- UserDefaults
+- Core Data
+
+### Libraries
+
+- Crashlytics
+- MetaMask iOS SDK
+- SwiftLint
+- Kingfisher
+
+### Networking
+
+- WebSocket
+- HTTP
+- URLRequest, URLSession
+- JSON
+- RESTful APIs
+
+### Reactive Programming
+
+- Combine
+
+## Core Feature
 
 - **Watchlist to stock detail view**
 
@@ -28,11 +61,11 @@
 
 ![crypto](./RMAsset/crypto.gif)
 
-- **Stored users investment portfolio in Core Data**
-- Calculated the return based on current market prices.
+- **Crypto watching list**
+- crypto watching list .
 
-![portfolio](./RMAsset/portfolio.gif)
+![cryptoPortfolio](./RMAsset/cryptoPortfolio.gif)
 
 - **Supported MetaMask and blockchain connections**, enabling users to access their cryptocurrency wallet balance and NFT collections.
   
-![cryptoPortfolio](./RMAsset/cryptoPortfolio.gif)
+![metamask](./RMAsset/metamask.gif)
